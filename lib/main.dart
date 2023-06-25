@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lights/vux/test/test_animation.dart';
+import 'package:lights/vux/test/test_rive_animation.dart';
 
 void main() {
   runApp(const MyApp());
@@ -116,7 +117,12 @@ class _MyHomePageState extends State<MyHomePage> {
       //     ],
       //   ),
       // ),
-      body: TestAnimation(),
+      body: const Column(
+        children: [
+          TestAnimation(),
+          TestRiveWidget()
+        ],
+      ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
