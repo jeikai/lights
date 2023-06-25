@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:snippet_coder_utils/ProgressHUD.dart';
@@ -137,6 +138,45 @@ class _LoginPageState extends State<LoginPage> {
                     icon: Icon(
                       hidePassword ? Icons.visibility_off : Icons.visibility,
                     ))),
+          ),
+          Align(
+            alignment: Alignment.bottomRight,
+            child: Padding(
+              padding: const EdgeInsets.only(right: 25, top: 10),
+              // Dùng để định dạng khác nhau trong cùng 1 văn bản
+              child: RichText(
+                text: TextSpan(
+                  //Định dạng chung cho cả 2 text
+                  style: const TextStyle(
+                    fontSize: 14.0,
+                  ),
+                  children: <TextSpan>[
+                    TextSpan(
+                      text: 'Quên',
+                      style: TextStyle(
+                        color: Colors.pink,
+                      ),
+                      // Xác định khi người dùng ấn vào
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          print("Hello1");
+                        },
+                    ),
+                    TextSpan(
+                      text: 'mật khẩu ?',
+                      style: TextStyle(
+                        color: Colors.white,
+                        decoration: TextDecoration.underline,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () {
+                          print("Hello2");
+                        },
+                    ),
+                  ],
+                ),
+              ),
+            ),
           ),
         ],
       ),
