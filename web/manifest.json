@@ -1,11 +1,11 @@
 {
-    "name": "lights",
-    "short_name": "lights",
+    "name": "flutterapp",
+    "short_name": "flutterapp",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#hexcode",
     "theme_color": "#hexcode",
-    "description": "A new Flutter project.",
+    "description": "A new Flutter application.",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

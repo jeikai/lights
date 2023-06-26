@@ -1,26 +1,30 @@
 import 'package:flutter/material.dart';
-import 'pages/login_page.dart';
-import 'pages/register_page.dart';
+import 'package:flutterapp/lightsapp/generatedstartscreenwidget/GeneratedStartscreenWidget.dart';
+import 'package:flutterapp/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
+import 'package:flutterapp/lightsapp/generatedstoryscreen1widget/GeneratedStoryscreen1Widget.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(lightsApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class lightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+
       debugShowCheckedModeBanner: false,
       title: 'lights',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primarySwatch: Colors.blue,
       ),
+      initialRoute: '/GeneratedStartscreenWidget',
       routes: {
-        '/': (context) => const LoginPage(),
-        '/register': (context) => const RegisterPage(),
+        '/GeneratedStartscreenWidget': (context) =>
+            GeneratedStartscreenWidget(),
+        '/GeneratedHelloscreenWidget': (context) =>
+            GeneratedHelloscreenWidget(),
+        '/GeneratedStoryscreen1Widget': (context) =>
+            GeneratedStoryscreen1Widget(),
       },
     );
   }
