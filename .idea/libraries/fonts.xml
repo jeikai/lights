@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="fonts">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/fonts/MaterialIcons-Regular.otf.jar!/" />
+      <root url="jar://$PROJECT_DIR$/build/app/intermediates/compressed_assets/debug/out/assets/flutter_assets/fonts/PaytoneOne-regular.ttf.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

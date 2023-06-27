@@ -11,8 +11,11 @@ class Generated34Widget extends StatelessWidget {
       child: Container(
         width: 372.0,
         height: 662.0,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(186.0),
+        ),
         child: ClipRRect(
-          borderRadius: BorderRadius.zero,
+          borderRadius: BorderRadius.circular(186.0),
           child: Image.asset(
             "assets/images/1c3a57132ee489ef5bd6d03a103976696dd0dce2.png",
             color: null,

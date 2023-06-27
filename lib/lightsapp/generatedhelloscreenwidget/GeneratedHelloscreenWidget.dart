@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/lightsapp/generatedhelloscreenwidget/generated/Generated83Widget.dart';
+import 'package:flutterapp/lightsapp/generatedhelloscreenwidget/generated/Generated86Widget.dart';
 import 'package:flutterapp/lightsapp/generatedhelloscreenwidget/generated/GeneratedXinchoMnhlLightsWidget.dart';
 
 /* Frame Hello screen
@@ -19,7 +19,7 @@ class GeneratedHelloscreenWidget extends StatelessWidget {
           child: Stack(
               fit: StackFit.expand,
               alignment: Alignment.center,
-              // overflow: Overflow.visible,
+              ////overflow: Overflow.visible,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.zero,
@@ -34,7 +34,7 @@ class GeneratedHelloscreenWidget extends StatelessWidget {
                 ),
                 Positioned(
                   left: 77.0,
-                  top: 37.0,
+                  top: 50.0,
                   right: null,
                   bottom: null,
                   width: 207.0,
@@ -42,13 +42,13 @@ class GeneratedHelloscreenWidget extends StatelessWidget {
                   child: GeneratedXinchoMnhlLightsWidget(),
                 ),
                 Positioned(
-                  left: -42.0,
-                  top: 101.0,
+                  left: 55.0,
+                  top: 253.0,
                   right: null,
                   bottom: null,
-                  width: 430.0,
-                  height: 776.0,
-                  child: Generated83Widget(),
+                  width: 273.0,
+                  height: 450.0,
+                  child: Generated86Widget(),
                 )
               ]),
         ),
