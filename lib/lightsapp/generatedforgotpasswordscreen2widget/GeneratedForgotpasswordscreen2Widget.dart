@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedVectorWidget7.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/Generated810Widget2.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedRectangle1Widget4.dart';
-import 'package:flutterapp/helpers/transform/transform.dart';
+import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedRectangle3Widget10.dart';
 import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedChngtisgimOTPnsinthoicabnWidget.dart';
 import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedBNQUNMTKHUWidget1.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedRectangle3Widget2.dart';
 import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedNhpmOTPWidget.dart';
+import 'package:flutterapp/helpers/transform/transform.dart';
+import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedVectorWidget18.dart';
+import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/Generated810Widget5.dart';
 import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedGroup5Widget1.dart';
 
 /* Frame forgot password screen 2
@@ -24,12 +23,12 @@ class GeneratedForgotpasswordscreen2Widget extends StatelessWidget {
         child: Stack(
             fit: StackFit.expand,
             alignment: Alignment.center,
-            ////overflow: Overflow.visible,
+            //overflow: Overflow.visible,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.zero,
                 child: Image.asset(
-                  "assets/images/3890c3231620d942b721643b360ba38e7aa00362.png",
+                  "assets/images/e283b33ab7375327428a58bc4d7aa0f81936911c.png",
                   color: null,
                   fit: BoxFit.cover,
                   width: 360.0,
@@ -44,25 +43,7 @@ class GeneratedForgotpasswordscreen2Widget extends StatelessWidget {
                 bottom: null,
                 width: 273.0,
                 height: 450.0,
-                child: Generated810Widget2(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 360.0,
-                height: 800.0,
-                child: GeneratedRectangle1Widget4(),
-              ),
-              Positioned(
-                left: 70.0,
-                top: 59.0,
-                right: null,
-                bottom: null,
-                width: 223.0,
-                height: 113.0,
-                child: GeneratedBNQUNMTKHUWidget1(),
+                child: Generated810Widget5(),
               ),
               Positioned(
                 left: 0.0,
@@ -73,12 +54,12 @@ class GeneratedForgotpasswordscreen2Widget extends StatelessWidget {
                 height: null,
                 child: LayoutBuilder(builder:
                     (BuildContext context, BoxConstraints constraints) {
-                  double percentWidth = 0.1111111111111111;
-                  double scaleX = (constraints.maxWidth * percentWidth) / 40.0;
+                  double percentWidth = 0.09166666666666666;
+                  double scaleX = (constraints.maxWidth * percentWidth) / 33.0;
 
-                  double percentHeight = 0.05;
+                  double percentHeight = 0.04125;
                   double scaleY =
-                      (constraints.maxHeight * percentHeight) / 40.0;
+                      (constraints.maxHeight * percentHeight) / 33.0;
 
                   return Stack(children: [
                     TransformHelper.translateAndScale(
@@ -88,9 +69,18 @@ class GeneratedForgotpasswordscreen2Widget extends StatelessWidget {
                         scaleX: scaleX,
                         scaleY: scaleY,
                         scaleZ: 1,
-                        child: GeneratedVectorWidget7())
+                        child: GeneratedVectorWidget18())
                   ]);
                 }),
+              ),
+              Positioned(
+                left: 70.0,
+                top: 59.0,
+                right: null,
+                bottom: null,
+                width: 223.0,
+                height: 113.0,
+                child: GeneratedBNQUNMTKHUWidget1(),
               ),
               Positioned(
                 left: 16.0,
@@ -108,7 +98,7 @@ class GeneratedForgotpasswordscreen2Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: GeneratedRectangle3Widget2(),
+                child: GeneratedRectangle3Widget10(),
               ),
               Positioned(
                 left: 112.0,

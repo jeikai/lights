@@ -19,7 +19,6 @@ class GeneratedHelloscreenWidget extends StatelessWidget {
           child: Stack(
               fit: StackFit.expand,
               alignment: Alignment.center,
-              ////overflow: Overflow.visible,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.zero,
@@ -32,14 +31,23 @@ class GeneratedHelloscreenWidget extends StatelessWidget {
                     colorBlendMode: BlendMode.dstATop,
                   ),
                 ),
-                Positioned(
-                  left: 77.0,
-                  top: 50.0,
-                  right: null,
-                  bottom: null,
-                  width: 207.0,
-                  height: 105.0,
-                  child: GeneratedXinchoMnhlLightsWidget(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 40),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Positioned(
+                        left: 77.0,
+                        top: 50.0,
+                        right: null,
+                        bottom: null,
+                        width: 207.0,
+                        height: 105.0,
+                        child: GeneratedXinchoMnhlLightsWidget(),
+                      ),
+                    ],
+                  ),
                 ),
                 Positioned(
                   left: 55.0,

@@ -20,7 +20,7 @@ class GeneratedStoryscreen1Widget extends StatelessWidget {
           child: Stack(
               fit: StackFit.expand,
               alignment: Alignment.center,
-              ////overflow: Overflow.visible,
+              //overflow: Overflow.visible,
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.zero,

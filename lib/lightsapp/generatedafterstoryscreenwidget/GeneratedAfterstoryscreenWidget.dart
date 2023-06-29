@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/lightsapp/generatedafterstoryscreenwidget/generated/GeneratedGroup2Widget.dart';
 import 'package:flutterapp/lightsapp/generatedafterstoryscreenwidget/generated/Generated88Widget.dart';
-import 'package:flutterapp/lightsapp/generatedafterstoryscreenwidget/generated/GeneratedRectangle1Widget.dart';
 import 'package:flutterapp/lightsapp/generatedafterstoryscreenwidget/generated/GeneratedGroup1Widget.dart';
 
 /* Frame after story screen
@@ -19,12 +18,12 @@ class GeneratedAfterstoryscreenWidget extends StatelessWidget {
         child: Stack(
             fit: StackFit.expand,
             alignment: Alignment.center,
-            ////overflow: Overflow.visible,
+            //overflow: Overflow.visible,
             children: [
               ClipRRect(
                 borderRadius: BorderRadius.zero,
                 child: Image.asset(
-                  "assets/images/3890c3231620d942b721643b360ba38e7aa00362.png",
+                  "assets/images/cfeabdfbed2717f02dab508e472955062aca37cc.png",
                   color: null,
                   fit: BoxFit.cover,
                   width: 360.0,
@@ -40,15 +39,6 @@ class GeneratedAfterstoryscreenWidget extends StatelessWidget {
                 width: 273.0,
                 height: 450.0,
                 child: Generated88Widget(),
-              ),
-              Positioned(
-                left: 0.0,
-                top: 0.0,
-                right: null,
-                bottom: null,
-                width: 360.0,
-                height: 800.0,
-                child: GeneratedRectangle1Widget(),
               ),
               Positioned(
                 left: 41.0,

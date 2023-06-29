@@ -7,15 +7,19 @@ import 'package:flutterapp/helpers/svg/svg.dart';
 class GeneratedVectorWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 40.0,
-      height: 40.0,
-      child: SvgWidget(painters: [
-        SvgPathPainter.fill()
-          ..addPath(
-              'M20 40C8.95161 40 0 31.0484 0 20C0 8.95161 8.95161 0 20 0C31.0484 0 40 8.95161 40 20C40 31.0484 31.0484 40 20 40ZM29.3548 16.4516L20 16.4516L20 10.7339C20 9.87097 18.9516 9.43548 18.3468 10.0484L9.12903 19.3145C8.75 19.6935 8.75 20.2984 9.12903 20.6774L18.3468 29.9435C18.9597 30.5564 20 30.121 20 29.2581L20 23.5484L29.3548 23.5484C29.8871 23.5484 30.3226 23.1129 30.3226 22.5806L30.3226 17.4194C30.3226 16.8871 29.8871 16.4516 29.3548 16.4516Z')
-          ..color = Color.fromARGB(255, 0, 0, 0),
-      ]),
+    return GestureDetector(
+      onTap: () =>
+          Navigator.pushNamed(context, '/GeneratedAfterstoryscreenWidget'),
+      child: Container(
+        width: 33.0,
+        height: 33.0,
+        child: SvgWidget(painters: [
+          SvgPathPainter.fill()
+            ..addPath(
+                'M16.5 33C7.38508 33 0 25.6149 0 16.5C0 7.38508 7.38508 0 16.5 0C25.6149 0 33 7.38508 33 16.5C33 25.6149 25.6149 33 16.5 33ZM24.2177 13.5726L16.5 13.5726L16.5 8.85544C16.5 8.14355 15.6351 7.78428 15.1361 8.28992L7.53145 15.9345C7.21875 16.2472 7.21875 16.7462 7.53145 17.0589L15.1361 24.7034C15.6417 25.2091 16.5 24.8498 16.5 24.1379L16.5 19.4274L24.2177 19.4274C24.6569 19.4274 25.0161 19.0681 25.0161 18.629L25.0161 14.371C25.0161 13.9319 24.6569 13.5726 24.2177 13.5726Z')
+            ..color = Color.fromARGB(255, 0, 0, 0),
+        ]),
+      ),
     );
   }
 }

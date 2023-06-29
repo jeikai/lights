@@ -9,8 +9,7 @@ class GeneratedGroup2Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, '/GeneratedWhentouchloginbuttonWidget'),
+      onTap: () => Navigator.pushNamed(context, '/GeneratedLoginscreenWidget'),
       child: Container(
         width: 287.0,
         height: 127.0,
