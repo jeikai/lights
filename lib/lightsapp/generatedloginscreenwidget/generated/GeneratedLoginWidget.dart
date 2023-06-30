@@ -30,15 +30,15 @@ class GeneratedLoginWidget extends StatelessWidget {
                 height: 71.0,
                 child: GeneratedRectangle5Widget(),
               ),
-              Positioned(
-                left: 93.0,
-                top: 19.0,
-                right: null,
-                bottom: null,
-                width: 142.0,
-                height: 36.0,
-                child: GeneratedngnhpWidget(),
-              )
+              // Positioned(
+              //   left: 93.0,
+              //   top: 19.0,
+              //   right: null,
+              //   bottom: null,
+              //   width: 142.0,
+              //   height: 36.0,
+              //   child: GeneratedngnhpWidget(),
+              // )
             ]),
       ),
     );
