@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedRectangle5Widget5.dart';
+import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedRectangle5Widget6.dart';
 import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/generated/GeneratedGiWidget.dart';
 
 /* Group Group 5
@@ -29,7 +29,7 @@ class GeneratedGroup5Widget1 extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: GeneratedRectangle5Widget5(),
+                child: GeneratedRectangle5Widget6(),
               ),
               Positioned(
                 left: 143.0,

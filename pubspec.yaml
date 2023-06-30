@@ -29,5 +29,5 @@ flutter:
         - 
           asset: "fonts/Mistrully.ttf"
           style: "normal"
-          weight: 400   
+          weight: 400 
   uses-material-design: true

@@ -7,8 +7,7 @@ class Generated87Widget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () =>
-          Navigator.pushNamed(context, '/GeneratedAfterstoryscreenWidget'),
+      onTap: () => Navigator.pushNamed(context, '/GeneratedMainScreenWidget'),
       child: Container(
         width: 273.0,
         height: 450.0,

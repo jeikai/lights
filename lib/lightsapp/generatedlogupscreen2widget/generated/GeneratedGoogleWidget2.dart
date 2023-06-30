@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/lightsapp/generatedlogupscreen2widget/generated/GeneratedVectorWidget14.dart';
+import 'package:flutterapp/lightsapp/generatedlogupscreen2widget/generated/GeneratedVectorWidget13.dart';
 import 'package:flutterapp/lightsapp/generatedlogupscreen2widget/generated/GeneratedEllipse2Widget2.dart';
 import 'package:flutterapp/helpers/transform/transform.dart';
 
@@ -51,7 +51,7 @@ class GeneratedGoogleWidget2 extends StatelessWidget {
                       scaleX: scaleX,
                       scaleY: scaleY,
                       scaleZ: 1,
-                      child: GeneratedVectorWidget14())
+                      child: GeneratedVectorWidget13())
                 ]);
               }),
             )

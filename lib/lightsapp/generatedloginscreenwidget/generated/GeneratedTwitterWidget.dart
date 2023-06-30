@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/lightsapp/generatedloginscreenwidget/generated/GeneratedVectorWidget1.dart';
 import 'package:flutterapp/lightsapp/generatedloginscreenwidget/generated/GeneratedEllipse3Widget.dart';
-import 'package:flutterapp/lightsapp/generatedloginscreenwidget/generated/GeneratedVectorWidget2.dart';
 import 'package:flutterapp/helpers/transform/transform.dart';
 
 /* Group twitter
@@ -51,7 +51,7 @@ class GeneratedTwitterWidget extends StatelessWidget {
                       scaleX: scaleX,
                       scaleY: scaleY,
                       scaleZ: 1,
-                      child: GeneratedVectorWidget2())
+                      child: GeneratedVectorWidget1())
                 ]);
               }),
             )

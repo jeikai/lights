@@ -25,11 +25,12 @@ class GeneratedXinchoMnhlLightsWidget extends StatelessWidget {
 Mình là ''',
             ),
             TextSpan(
-              text: 'Light\'s',
+              text: '''Light\'s''',
               style: TextStyle(
                 fontFamily: 'Mistrully',
                 fontWeight: FontWeight.w400,
 
+                /* letterSpacing: null, */
               ),
             )
           ],
