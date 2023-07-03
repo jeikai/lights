@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/lightsapp/generatedstartscreenwidget/GeneratedStartscreenWidget.dart';
-import 'package:flutterapp/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
-import 'package:flutterapp/lightsapp/generatedstoryscreen1widget/GeneratedStoryscreen1Widget.dart';
-import 'package:flutterapp/lightsapp/generatedloginscreenwidget/GeneratedLoginscreenWidget.dart';
-import 'package:flutterapp/lightsapp/generatedlogupscreen1widget/GeneratedLogupscreen1Widget.dart';
-import 'package:flutterapp/lightsapp/generatedlogupscreen2widget/GeneratedLogupscreen2Widget.dart';
-import 'package:flutterapp/lightsapp/generatedfavoritescreenwidget/GeneratedFavoritescreenWidget.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
-import 'package:flutterapp/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
-import 'package:flutterapp/lightsapp/generatedmainscreenwidget/GeneratedMainScreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/generatedstartscreenwidget/GeneratedStartscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/generatedstoryscreen1widget/GeneratedStoryscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedloginscreenwidget/GeneratedLoginscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/generatedlogupscreen1widget/GeneratedLogupscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedlogupscreen2widget/GeneratedLogupscreen2Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedfavoritescreenwidget/GeneratedFavoritescreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedmainscreenwidget/GeneratedMainScreenWidget.dart';
 
 void main() {
   runApp(lightsApp());
