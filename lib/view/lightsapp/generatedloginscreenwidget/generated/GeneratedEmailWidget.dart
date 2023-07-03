@@ -30,42 +30,8 @@ class GeneratedEmailWidget extends StatelessWidget {
               height: 71.0,
               child: GeneratedRectangle3Widget(),
             ),
-            Positioned(
-              left: 17.0,
-              top: 22.0,
-              right: null,
-              bottom: null,
-              width: 148.0,
-              height: 30.0,
-              child: GeneratedEmailcabnWidget(),
-            ),
-            Positioned(
-              left: 0.0,
-              top: 0.0,
-              right: 0.0,
-              bottom: 0.0,
-              width: null,
-              height: null,
-              child: LayoutBuilder(
-                  builder: (BuildContext context, BoxConstraints constraints) {
-                double percentWidth = 0.0950920245398773;
-                double scaleX = (constraints.maxWidth * percentWidth) / 31.0;
+            GeneratedEmailcabnWidget(),
 
-                double percentHeight = 0.43661971830985913;
-                double scaleY = (constraints.maxHeight * percentHeight) / 31.0;
-
-                return Stack(children: [
-                  TransformHelper.translateAndScale(
-                      translateX: constraints.maxWidth * 0.8711656441717791,
-                      translateY: constraints.maxHeight * 0.28169014084507044,
-                      translateZ: 0,
-                      scaleX: scaleX,
-                      scaleY: scaleY,
-                      scaleZ: 1,
-                      child: GeneratedVectorWidget4())
-                ]);
-              }),
-            )
           ]),
     );
   }
