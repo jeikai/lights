@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/view/lightsapp/generatedstartscreenwidget/GeneratedStartscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/startscreen/GeneratedStartscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/generatedstoryscreen1widget/GeneratedStoryscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedloginscreenwidget/GeneratedLoginscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/generatedlogupscreen1widget/GeneratedLogupscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedlogupscreen2widget/GeneratedLogupscreen2Widget.dart';
+import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen1/GeneratedLogupscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen2/GeneratedLogupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedfavoritescreenwidget/GeneratedFavoritescreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedmainscreenwidget/GeneratedMainScreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/mainScreen/GeneratedMainScreenWidget.dart';
+
+import 'setting.dart';
 
 void main() {
   runApp(lightsApp());
@@ -18,8 +20,12 @@ void main() {
 class lightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
+    setting.setWidthSize(MediaQuery.of(context).size.width);
+    setting.setHeightSize(MediaQuery.of(context).size.height);
+    return SafeArea(
+        child: MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: 'Lights',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -47,6 +53,6 @@ class lightsApp extends StatelessWidget {
             GeneratedForgotpasswordscreen3Widget(),
         '/GeneratedMainScreenWidget': (context) => GeneratedMainScreenWidget(),
       },
-    );
+    ));
   }
 }
