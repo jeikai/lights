@@ -3,13 +3,13 @@ import 'package:flutterapp/view/lightsapp/startscreen/GeneratedStartscreenWidget
 import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/logupScreen1/GeneratedLogupscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/logupScreen2/GeneratedLogupscreen2Widget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedfavoritescreenwidget/GeneratedFavoritescreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/GeneratedMainScreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 
 import 'setting.dart';
 

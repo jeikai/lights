@@ -2,7 +2,13 @@ import 'package:flutter/material.dart';
 
 TextField Input(String placeholder, _textController, data, context) {
   return (TextField(
-      keyboardType: TextInputType.emailAddress,
+      style: TextStyle(
+        color: Color.fromRGBO(135, 161, 209, 1.0),
+        fontSize: 20.0,
+        fontFamily: 'Paytone One',
+        fontWeight: FontWeight.w400,
+      ),
+      keyboardType: TextInputType.text,
       onTapOutside: (event) => {FocusScope.of(context).unfocus()},
       controller: _textController,
       enableSuggestions: true,
@@ -14,6 +20,7 @@ TextField Input(String placeholder, _textController, data, context) {
         suffixIconColor: Color.fromRGBO(172, 193, 254, 1.0),
         border: OutlineInputBorder(
           borderRadius: BorderRadius.circular(20.0),
+          borderSide: BorderSide.none,
         ),
         suffixIcon: IconButton(
           onPressed: () {
@@ -22,7 +29,10 @@ TextField Input(String placeholder, _textController, data, context) {
           icon: const Icon(Icons.clear),
         ),
         hintStyle: TextStyle(
-          color: Color.fromRGBO(172, 193, 254, 1.0),
+          color: Color.fromRGBO(135, 161, 209, 1.0),
+          fontSize: 20.0,
+          fontFamily: 'Paytone One',
+          fontWeight: FontWeight.w400,
         ),
       )));
 }

@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/reusable_widget/Button.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Input_Email.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/GeneratedLogupWidget.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Input_Password.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/whale.dart';
+import 'package:flutterapp/reusable_widget/whale.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/GeneratedLoginWidget.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_dangNhap.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
 
-import '../../../reusable_widget/Title.dart';
-import '../../../reusable_widget/Input.dart';
+import 'package:flutterapp/reusable_widget/Title.dart';
+import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/setting.dart';
 
+final _email = TextEditingController();
+String email = '';
 final _password = TextEditingController();
 String password = '';
 
@@ -96,12 +94,7 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input(
-                  'Mật khẩu của bạn',
-                  _password,
-                  password,
-                  context
-                ),
+                child: Input('Mật khẩu của bạn', _password, password, context),
               ),
               Positioned(
                 top: width * 82 / 100,
@@ -109,7 +102,8 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: GeneratedLogupWidget(),
+                child: Button_Navigate(
+                    "Đăng ký", context, '/GeneratedLogupscreen1Widget'),
               ),
               Positioned(
                 top: width * 35 / 100,
@@ -117,10 +111,9 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input_Email(),
+                child: Input('Email của bạn', _email, email, context),
               ),
               Positioned(
-                left: width / 8,
                 top: width * 60 / 100,
                 right: null,
                 bottom: null,
@@ -134,7 +127,8 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: GeneratedLoginWidget(),
+                child: Button_Navigate(
+                    "Đăng nhập", context,  '/GeneratedMainScreenWidget'),
               ),
             ]),
       ),
