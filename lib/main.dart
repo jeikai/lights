@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/startscreen/GeneratedStartscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
@@ -14,7 +15,33 @@ import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'setting.dart';
 
 void main() {
-  runApp(lightsApp());
+  runApp(DataCaching());
+}
+
+class DataCaching extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DataCachingState();
+}
+
+class DataCachingState extends State<DataCaching> {
+  RiveUtil? riveUtil;
+
+  @override
+  void initState() {
+    super.initState();
+    riveUtil = RiveUtil();
+    riveUtil!.setup().then((value) {
+      setState(() {
+        print("test");
+      });
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return lightsApp();
+  }
+
 }
 
 class lightsApp extends StatelessWidget {
