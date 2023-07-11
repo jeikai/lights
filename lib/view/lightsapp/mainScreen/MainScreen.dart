@@ -31,7 +31,7 @@ class GeneratedMainScreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 273.0,
                 height: 450.0,
-                child: whale(),
+                child: Whale(),
               ),
               Positioned(
                 left: 118.0,
