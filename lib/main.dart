@@ -31,9 +31,7 @@ class DataCachingState extends State<DataCaching> {
     super.initState();
     riveUtil = RiveUtil();
     riveUtil!.setup().then((value) {
-      setState(() {
-        print("test");
-      });
+      setState(() {});
     });
   }
 

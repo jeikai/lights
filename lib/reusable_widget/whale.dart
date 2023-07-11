@@ -25,7 +25,6 @@ class WhaleState extends State<Whale> {
     } catch (e) {
       child = Container();
     }
-    print("main widget");
     return Container(
       width: 273.0,
       height: 450.0,
