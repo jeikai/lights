@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/test/shader/test.dart';
 
 Container background(String link) {
   return Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(
-        image: AssetImage(link),
-        fit: BoxFit.cover,
-      ),
-    ),
+    child: Test(),
   );
 }

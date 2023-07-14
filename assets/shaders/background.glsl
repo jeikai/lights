@@ -1,6 +1,7 @@
 #version 460
 #include <flutter/runtime_effect.glsl>
 
+uniform float iTime;
 uniform vec2 iResolution;
 
 out vec4 fragColor;
@@ -14,7 +15,7 @@ vec3 palette( in float t, in vec3 a, in vec3 b, in vec3 c, in vec3 d )
 }
 
 void calcMask(in vec2 uv, out vec3 inMask, out vec3 outMask) {
-    float a = sin(uv.y * 10.0)*0.25;
+    float a = sin((uv.y + iTime) * 3.0)*0.25;
     float d = abs(uv.x*10.0 - a);
 
     vec3 col = mix(black, white, d);
@@ -33,8 +34,9 @@ vec2 random2(vec2 st){
 // Gradient Noise by Inigo Quilez - iq/2013
 // https://www.shadertoy.com/view/XdXGW8
 float noise(vec2 st) {
-    vec2 i = floor(st);
-    vec2 f = fract(st);
+    vec2 v = st + (sin(iTime));
+    vec2 i = floor(v);
+    vec2 f = fract(v);
 
     vec2 u = f*f*(3.0-2.0*f);
 
