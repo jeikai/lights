@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/Button.dart';
+import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
-import 'package:flutterapp/reusable_widget/Title.dart';
+import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
@@ -50,40 +50,11 @@ class GeneratedLogupscreen2Widget extends StatelessWidget {
                 child: title("ĐĂNG KÝ"),
               ),
               Positioned(
-                left: 102.0,
-                top: width * 15 / 100,
-                right: null,
-                bottom: null,
-                width: 60.0,
-                height: 60.0,
-                child: Insta(),
-              ),
-              Positioned(
-                left: 197.0,
-                top: width * 15 / 100,
-                right: null,
-                bottom: null,
-                width: 60.0,
-                height: 60.0,
-                child: Twitter(),
-              ),
-              Positioned(
-                left: 292.0,
-                top: width * 15 / 100,
-                right: null,
-                bottom: null,
-                width: 60.0,
-                height: 60.0,
-                child: Google(),
-              ),
-              Positioned(
-                left: 7.0,
-                top: width * 15 / 100,
-                right: null,
-                bottom: null,
-                width: 60.0,
-                height: 60.0,
-                child: Facebook(),
+                top: (width / 100 - 0.5) * 15,
+                child: Wrap(
+                  spacing: 29,
+                  children: [Insta(), Twitter(), Google(), Facebook()],
+                ),
               ),
               Positioned(
                 top: width * 25 / 100,
@@ -103,8 +74,7 @@ class GeneratedLogupscreen2Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child:
-                    Input('Mật khẩu của bạn', _password, password, context),
+                child: Input('Mật khẩu của bạn', _password, password, context),
               ),
               Positioned(
                 top: width * 56 / 100,

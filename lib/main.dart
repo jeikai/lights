@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
-import 'package:flutterapp/view/lightsapp/startscreen/GeneratedStartscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
 import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedfavoritescreenwidget/GeneratedFavoritescreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
@@ -57,7 +57,7 @@ class lightsApp extends StatelessWidget {
       initialRoute: '/GeneratedLoginscreenWidget',
       routes: {
         '/GeneratedStartscreenWidget': (context) =>
-            GeneratedStartscreenWidget(),
+            Egg_Screen(),
         '/GeneratedHelloscreenWidget': (context) =>
             GeneratedHelloscreenWidget(),
         '/GeneratedStoryscreen1Widget': (context) =>

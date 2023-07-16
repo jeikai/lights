@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/Button.dart';
+import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
@@ -9,7 +9,7 @@ import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
 
-import 'package:flutterapp/reusable_widget/Title.dart';
+import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/setting.dart';
 
