@@ -3,8 +3,14 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 5000;
+const authRouter = require("./routes/auth")
 dotenv.config();
-
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
 mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
@@ -14,16 +20,7 @@ mongoose
     console.log(err);
   });
 
-app.use(express.json());
-app.use(
-  express.urlencoded({
-    extended: true,
-  })
-);
-
-app.get("/", (req, res) => {
-  res.send("Hello");
-});
+app.use("/api/", authRouter)
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
