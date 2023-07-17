@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Test extends StatefulWidget {
 
@@ -13,6 +14,7 @@ class Test extends StatefulWidget {
 class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixin {
   FragmentProgram? program;
   FragmentProgram? program2;
+  Image? cloudsampler;
   late AnimationController _controller;
   late Animation animation;
 
@@ -55,6 +57,10 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
     super.initState();
   }
 
+  Future<void> loadTextureSampler() async {
+    AssetImage()
+  }
+
   Future<void> loadShaderProgram() async {
     var a = FragmentProgram.fromAsset("assets/shaders/background.glsl").then((value) {
       program = value;
@@ -89,6 +95,7 @@ class TestPainter extends CustomPainter {
     bg_shader.setFloat(2, size.height);//
 
     //c_shader
+    c_shader.setImageSampler(index, image)
   }
 
   @override
