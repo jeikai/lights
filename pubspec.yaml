@@ -16,6 +16,7 @@ environment:
 flutter:
   shaders:
     - "assets/shaders/background.glsl"
+    - "assets/shaders/cloud.glsl"
   assets: 
     - "assets/images/"
     - "assets/rive/"

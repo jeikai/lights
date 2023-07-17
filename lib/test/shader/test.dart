@@ -12,6 +12,7 @@ class Test extends StatefulWidget {
 
 class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixin {
   FragmentProgram? program;
+  FragmentProgram? program2;
   late AnimationController _controller;
   late Animation animation;
 
@@ -20,7 +21,11 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
   @override
   Widget build(BuildContext context) {
     Widget child = program == null ? Container() : CustomPaint(
-      painter: TestPainter(program!.fragmentShader(), animation.value),
+      painter: TestPainter(
+          program!.fragmentShader(),
+          program2!.fragmentShader(),
+          animation.value
+      ),
     );
     return Container(
         child: child
@@ -42,13 +47,23 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
         if(status == AnimationStatus.completed) _controller.repeat(reverse: true);
       });
     _controller.stop();
-    FragmentProgram.fromAsset("assets/shaders/background.glsl").then((value) {
-      setState(() {
-        program = value;
-      });
+    loadShaderProgram().then((value) {
+      print("6");
+      setState(() {});
       _controller.forward();
     });
     super.initState();
+  }
+
+  Future<void> loadShaderProgram() async {
+    var a = FragmentProgram.fromAsset("assets/shaders/background.glsl").then((value) {
+      program = value;
+    });
+    var b = FragmentProgram.fromAsset("assets/shaders/cloud.glsl").then((value) {
+      program2 = value;
+    });
+    await Future.wait([a,b]);
+    return;
   }
 
   @override
@@ -60,27 +75,29 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
 }
 
 class TestPainter extends CustomPainter {
-  FragmentShader shader;
+  FragmentShader bg_shader;
+  FragmentShader c_shader;
   double? time;
 
-  TestPainter(this.shader, this.time);
+  TestPainter(this.bg_shader, this.c_shader, this.time);
 
-  void updateShader(FragmentShader shader, double time, Size size) {
-    shader.setFloat(0, time); //time
+  void updateShader(double time, Size size) {
+    //bg_shader
+    bg_shader.setFloat(0, time); //time
 
-    shader.setFloat(1, size.width); // size
-    shader.setFloat(2, size.height);//
+    bg_shader.setFloat(1, size.width); // size
+    bg_shader.setFloat(2, size.height);//
 
-
+    //c_shader
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     Rect rect = Rect.fromLTWH(0.0, 0.0, size.width, size.height);
 
-    updateShader(shader, time!, size);
+    updateShader(time!, size);
 
-    canvas.drawRect(rect, Paint()..shader = this.shader);
+    canvas.drawRect(rect, Paint()..shader = this.bg_shader);
   }
 
   @override
