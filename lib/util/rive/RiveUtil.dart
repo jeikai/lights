@@ -19,9 +19,10 @@ class RiveUtil {
   RiveUtil._internal();
 
   Future<void> setup() async {
-    await rootBundle.load('assets/rive/whale.riv').then( (value) async {
+    var a = rootBundle.load('assets/rive/whale.riv').then( (value) async {
       WHALE = RiveFile.import(value);
     });
+    Future.wait([a]);
   }
 
   late RiveFile WHALE;

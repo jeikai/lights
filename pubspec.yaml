@@ -6,6 +6,7 @@ dependencies:
   cupertino_icons: "^1.0.5"
   path_drawing: "^1.0.0"
   rive:
+  image:
   flutter: 
     sdk: "flutter"
 dev_dependencies: 
@@ -20,6 +21,8 @@ flutter:
   assets: 
     - "assets/images/"
     - "assets/rive/"
+    - "assets/shaders/image/2.jpg"
+    - "assets/shaders/image/3.jpg"
   fonts: 
     - 
       family: "Paytone One"

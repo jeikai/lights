@@ -1,7 +1,10 @@
-import 'dart:ui';
+import 'dart:async';
+import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
+import '../../util/image/ImageUtil.dart';
+import 'TestPainter.dart';
 
 class Test extends StatefulWidget {
 
@@ -12,9 +15,10 @@ class Test extends StatefulWidget {
 }
 
 class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixin {
-  FragmentProgram? program;
-  FragmentProgram? program2;
-  Image? cloudsampler;
+  ui.FragmentProgram? program;
+  ui.FragmentProgram? program2;
+  ui.Image? cloudsampler;
+  ui.Image? glxsampler;
   late AnimationController _controller;
   late Animation animation;
 
@@ -26,7 +30,9 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
       painter: TestPainter(
           program!.fragmentShader(),
           program2!.fragmentShader(),
-          animation.value
+          animation.value,
+          cloudsampler!,
+          glxsampler!
       ),
     );
     return Container(
@@ -49,26 +55,42 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
         if(status == AnimationStatus.completed) _controller.repeat(reverse: true);
       });
     _controller.stop();
+
+    //Todo: cleanup move to dedicated class (ShaderUtil, ImageUtil)
+    print("1");
     loadShaderProgram().then((value) {
-      print("6");
+      print("7");
       setState(() {});
       _controller.forward();
     });
+    //
     super.initState();
   }
 
   Future<void> loadTextureSampler() async {
-    AssetImage()
+    print("2");
+    var a = ImageUtil.getImage("assets/shaders/image/2.jpg").then((value) {
+      cloudsampler = value;
+      print("3");
+    });
+    var b = ImageUtil.getImage("assets/shaders/image/3.jpg").then((value) {
+      glxsampler = value;
+      print("4");
+    });
+    await Future.wait([a,b]);
   }
 
   Future<void> loadShaderProgram() async {
-    var a = FragmentProgram.fromAsset("assets/shaders/background.glsl").then((value) {
+    var c = loadTextureSampler();
+    print("5");
+    var a = ui.FragmentProgram.fromAsset("assets/shaders/background.glsl").then((value) {
       program = value;
     });
-    var b = FragmentProgram.fromAsset("assets/shaders/cloud.glsl").then((value) {
+    var b = ui.FragmentProgram.fromAsset("assets/shaders/cloud.glsl").then((value) {
       program2 = value;
     });
-    await Future.wait([a,b]);
+    await Future.wait([a,b,c]);
+    print("6");
     return;
   }
 
@@ -80,37 +102,4 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
 
 }
 
-class TestPainter extends CustomPainter {
-  FragmentShader bg_shader;
-  FragmentShader c_shader;
-  double? time;
 
-  TestPainter(this.bg_shader, this.c_shader, this.time);
-
-  void updateShader(double time, Size size) {
-    //bg_shader
-    bg_shader.setFloat(0, time); //time
-
-    bg_shader.setFloat(1, size.width); // size
-    bg_shader.setFloat(2, size.height);//
-
-    //c_shader
-    c_shader.setImageSampler(index, image)
-  }
-
-  @override
-  void paint(Canvas canvas, Size size) {
-    Rect rect = Rect.fromLTWH(0.0, 0.0, size.width, size.height);
-
-    updateShader(time!, size);
-
-    canvas.drawRect(rect, Paint()..shader = this.bg_shader);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    //if(this.shader == (oldDelegate as TestPainter).shader && this.time == (oldDelegate).time) return false;
-    return true;
-  }
-
-}
