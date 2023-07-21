@@ -21,4 +21,13 @@ const verifyToken = (req, res, next) => {
     }
 }
 
-module.exports = {verifyToken}
+const verifyAndAuthorization = (req, res, next) => {
+    verifyToken(req, res, () => {
+        if ( req.user.id === req.params.id) {
+            next()
+        } else {
+            res.status(403).json("Ban ko du quyen truy cap")
+        }
+    })
+}
+module.exports = {verifyToken, verifyAndAuthorization}
