@@ -23,6 +23,7 @@ flutter:
     - "assets/rive/"
     - "assets/shaders/image/2.jpg"
     - "assets/shaders/image/3.jpg"
+    - "assets/shaders/image/4.jpg"
   fonts: 
     - 
       family: "Paytone One"

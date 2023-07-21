@@ -19,6 +19,7 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
   ui.FragmentProgram? program2;
   ui.Image? cloudsampler;
   ui.Image? glxsampler;
+  ui.Image? nsampler;
   late AnimationController _controller;
   late Animation animation;
 
@@ -32,7 +33,8 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
           program2!.fragmentShader(),
           animation.value,
           cloudsampler!,
-          glxsampler!
+          glxsampler!,
+          nsampler!
       ),
     );
     return Container(
@@ -77,7 +79,11 @@ class TestState extends State<StatefulWidget> with SingleTickerProviderStateMixi
       glxsampler = value;
       print("4");
     });
-    await Future.wait([a,b]);
+    var c = ImageUtil.getImage("assets/shaders/image/4.jpg").then((value) {
+      nsampler = value;
+      print("41");
+    });
+    await Future.wait([a,b,c]);
   }
 
   Future<void> loadShaderProgram() async {

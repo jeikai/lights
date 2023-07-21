@@ -3,6 +3,7 @@
 
 uniform float iTime;
 uniform vec2 iResolution;
+uniform sampler2D glx_sample;
 
 out vec4 fragColor;
 
@@ -68,6 +69,10 @@ vec3 calcColor2(vec2 uv, vec3 outMask) {
     float f3 = noise(vec2(f,f2));
 
     vec3 col = palette(f3, a, b, c, d);
+
+    vec2 uv2 = abs(vec2(uv.x +0.5, uv.y) * 2 - 1);
+
+    col = col * 0.7 + texture(glx_sample, uv2).xyz * 0.3;
 
     return col * outMask;
 }

@@ -9,30 +9,34 @@ class TestPainter extends CustomPainter {
   double time;
   ui.Image cloudsampler;
   ui.Image glxsampler;
+  ui.Image nsampler;
 
-  TestPainter(this.bg_shader, this.c_shader, this.time, this.cloudsampler, this.glxsampler);
+  TestPainter(this.bg_shader, this.c_shader, this.time, this.cloudsampler, this.glxsampler, this.nsampler);
 
-  void updateShader(double time, Size size, ui.Image image, ui.Image image2) {
+  void updateShader(double time, Size size, ui.Image image, ui.Image image2, ui.Image image3) {
     //bg_shader
     bg_shader.setFloat(0, time); //time
 
     bg_shader.setFloat(1, size.width); // size
     bg_shader.setFloat(2, size.height);//
 
+    bg_shader.setImageSampler(0, image2);// glxsampler
+
     //c_shader
     c_shader.setFloat(0, time); //time
 
     c_shader.setFloat(1, size.width); // size
     c_shader.setFloat(2, size.height);//
+
     c_shader.setImageSampler(0, image); // cloudsampler
-    c_shader.setImageSampler(1, image2);// glxsampler
+    c_shader.setImageSampler(1, image3);// nsampler
   }
 
   @override
   void paint(Canvas canvas, Size size) {
     Rect rect = Rect.fromLTWH(0.0, 0.0, size.width, size.height);
 
-    updateShader(time, size, cloudsampler, glxsampler);
+    updateShader(time, size, cloudsampler, glxsampler, nsampler);
 
     canvas.drawRect(rect, Paint()..shader = this.c_shader);
   }
