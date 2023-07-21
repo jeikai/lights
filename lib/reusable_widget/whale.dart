@@ -37,6 +37,7 @@ class WhaleState extends State<Whale> {
 
   @override
   void initState() {
+    super.initState();
     riveUtil = RiveUtil();
   }
 

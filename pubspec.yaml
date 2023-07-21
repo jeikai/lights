@@ -31,5 +31,8 @@ flutter:
         - 
           asset: "fonts/Mistrully.ttf"
           style: "normal"
-          weight: 400 
+          weight: 400
+    - family: "MyFlutterApp"
+      fonts:
+        - asset: "fonts/MyFlutterApp.ttf"
   uses-material-design: true
