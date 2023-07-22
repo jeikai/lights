@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
+import 'package:flutterapp/reusable_widget/home/buttom/template.dart';
+import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedMissionWidget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedHeaderWidget.dart';
@@ -52,6 +54,31 @@ class GeneratedMainScreenWidget extends StatelessWidget {
             ),
           ],
         ),
+      ),
+      floatingActionButton:  Row(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          Template(
+            width: 50,
+            height: 50,
+            onPress: null,
+            icon: MyFlutterIcon.home,
+          ),
+          SizedBox(width: 16),
+          Template(
+            width: 50,
+            height: 50,
+            onPress: null,
+            icon: MyFlutterIcon.bell,
+          ),
+          SizedBox(width: 16),
+          Template(
+            width: 50,
+            height: 50,
+            onPress: null,
+            icon: MyFlutterIcon.rectangle_list,
+          ),
+        ],
       ),
     );
     // Material(
