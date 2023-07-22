@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/home/buttom/template.dart';
-import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
+import 'package:flutterapp/reusable_widget/vux/listview/dailytask/list_view.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,15 +11,19 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Template Button Example')),
-        body: Center(
-          child: Template(
-            width: 50,
-            height: 50,
-            icon: MyFlutterIcon.home,
-            bg_color: Colors.limeAccent,
-            key: Key('template_button'),
+        body: Container(
+          color: Colors.red,
+          child: Center(
+            child: Container(
+              width: 500,
+              height: 500,
+              child: DTListView(
+                deviderHeight: 1.5,
+                deviderColor: Colors.blueGrey,
+              ),
+            ),
           ),
-        ),
+        )
       ),
     );
   }

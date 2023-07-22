@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
-import 'package:flutterapp/reusable_widget/home/buttom/template.dart';
+import 'package:flutterapp/reusable_widget/vux/buttom/template.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedMissionWidget.dart';
@@ -14,8 +14,6 @@ import 'package:flutterapp/setting.dart';
 class GeneratedMainScreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(255, 250, 241, 255),
