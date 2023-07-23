@@ -14,7 +14,7 @@ class DTListView extends StatefulWidget {
   final Color bgColor;
   final double textSize;
 
-  const DTListView({Key? key, this.deviderColor = dcDefault, this.deviderHeight = 2, this.borderRadius = 16, this.bgColor = Colors.white, this.textSize = 20}) : super(key: key);
+  const DTListView({Key? key, this.deviderColor = dcDefault, this.deviderHeight = 1.5, this.borderRadius = 16, this.bgColor = Colors.white, this.textSize = 15}) : super(key: key);
 
   @override
   _DTListViewState createState() => _DTListViewState();
@@ -26,10 +26,10 @@ class _DTListViewState extends State<DTListView>
   List<Artboard?> riveArtboard = [];
 
   List<TaskData> tasks = [
-    TaskData(taskDes: "test1", percent: 0.0),
-    TaskData(taskDes: "test2", percent: 1.0),
-    TaskData(taskDes: "test3", percent: 0.5),
-    TaskData(taskDes: "test4", percent: 0.25)
+    TaskData(taskDes: "Thien trong 10p", percent: 0.0),
+    TaskData(taskDes: "Thien trong 20p", percent: 1.0),
+    TaskData(taskDes: "Thien trong 30p", percent: 0.5),
+    TaskData(taskDes: "Thien trong 50p", percent: 0.25)
   ];
 
   @override

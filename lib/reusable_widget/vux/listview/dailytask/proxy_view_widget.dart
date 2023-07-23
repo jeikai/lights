@@ -51,7 +51,7 @@ class ProxyViewWidget extends StatelessWidget {
                           Container(
                             width: r_w,
                             child: Padding(
-                              padding: EdgeInsets.all(r_w * 0.15),
+                              padding: EdgeInsets.only(right: r_w * 0.15, top: r_w * 0.15, bottom: r_w * 0.15),
                               child: Container(
                                 decoration: BoxDecoration(
                                     color: ProgressBar.color2,

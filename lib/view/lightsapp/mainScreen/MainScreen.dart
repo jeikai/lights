@@ -2,14 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/vux/buttom/template.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
+import 'package:flutterapp/reusable_widget/vux/listview/dailytask/daily_task.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedMissionWidget.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedHeaderWidget.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedSettingWidget.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedHomeWidget.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/generated/Generated811Widget.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/generated/GeneratedNotiWidget.dart';
-import 'package:flutterapp/setting.dart';
 
 class GeneratedMainScreenWidget extends StatelessWidget {
   @override
@@ -73,7 +67,9 @@ class GeneratedMainScreenWidget extends StatelessWidget {
           Template(
             width: 50,
             height: 50,
-            onPress: null,
+            onPress: () {
+              showDialog(context: context, builder: (BuildContext context) => DailyTaskProxy());
+            },
             icon: MyFlutterIcon.rectangle_list,
           ),
         ],

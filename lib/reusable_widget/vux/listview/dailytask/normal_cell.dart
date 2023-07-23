@@ -30,8 +30,8 @@ class NormalCell extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
-        double l_w = constraints.maxWidth * 0.75;
-        double r_w = constraints.maxWidth * 0.25;
+        double l_w = constraints.maxWidth * 0.7;
+        double r_w = constraints.maxWidth * 0.3;
         return Row(
           children: [
             Container(
@@ -39,10 +39,16 @@ class NormalCell extends StatelessWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Text(taskDes,
-                    style: TextStyle(
-                      fontSize: textSize
+                  Container(
+                    child: Text(taskDes,
+                      style: TextStyle(
+                        fontSize: textSize,
+                        fontFamily: "Paytone One",
+                      ),
+                      textAlign: TextAlign.left,
+                      textDirection: TextDirection.ltr,
                     ),
+                    width: l_w * 0.8,
                   ),
                   AnimatedBuilder(animation: lineAnimation, builder: (context2, widget) {
                     return ProgressBar(
@@ -71,7 +77,7 @@ class NormalCell extends StatelessWidget {
 class Star extends StatefulWidget {
   final Artboard? riveArtboard;
 
-  SMIInput<bool>? isFinished;
+  late final SMIInput<bool>? isFinished;
 
   Star({required this.riveArtboard});
 

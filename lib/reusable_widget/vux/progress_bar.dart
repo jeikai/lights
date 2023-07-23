@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class ProgressBar extends StatelessWidget {
   static const Color color1 = Color.fromARGB(255, 170,168,220);
-  static const Color color2 = Color.fromARGB(255, 183,188,22);
+  static const Color color2 = Color.fromARGB(255, 183,188,223);
 
   final double value;
   final double width;
