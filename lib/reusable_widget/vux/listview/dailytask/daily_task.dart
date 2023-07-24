@@ -5,8 +5,6 @@ class DailyTaskProxy extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context2, constraints) {
-      print(constraints.maxWidth);
-      print(constraints.maxHeight);
       return Dialog(
         insetAnimationCurve: Curves.easeOutBack,
         insetAnimationDuration: Duration(seconds: 1),
