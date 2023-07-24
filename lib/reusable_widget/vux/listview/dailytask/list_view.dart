@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/normal_cell.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/proxy_view_widget.dart';
+import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../model/user_model.dart';
@@ -74,18 +75,14 @@ class _DTListViewState extends State<DTListView>
   }
 
   Future<void> fetchDailyTask() async {
+    RiveUtil util = RiveUtil();
     var a = Future.delayed(Duration(seconds: 5));
     List<Future> waitList = [a];
-    var b = rootBundle.load('assets/rive/star.riv').then(
-          (data) async {
-        for (int i = 0; i < 4; i ++) {
-          final file = RiveFile.import(data);
-          final artboard = file.mainArtboard;
-          riveArtboard.add(artboard);
-        }
-      },
-    );
-    waitList.add(b);
+    for (int i = 0; i < 4; i ++) {
+      final file = util.getStar();
+      final artboard = file.mainArtboard;
+      riveArtboard.add(artboard);
+    }
     await Future.wait(waitList);
     _controller4Normal.reset();
     _controller4Normal.forward();

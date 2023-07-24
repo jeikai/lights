@@ -5,7 +5,12 @@ import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/daily_task.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
 
+import '../../../reusable_widget/vux/listview/noti/notification_menu.dart';
+
 class GeneratedMainScreenWidget extends StatelessWidget {
+  final GlobalKey<OverlayState> overlayKey = GlobalKey<OverlayState>();
+  OverlayEntry? _overlayEntry;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,7 +65,9 @@ class GeneratedMainScreenWidget extends StatelessWidget {
           Template(
             width: 50,
             height: 50,
-            onPress: null,
+            onPress: () {
+              showOverlay(context);
+            },
             icon: MyFlutterIcon.bell,
           ),
           SizedBox(width: 16),
@@ -70,77 +77,24 @@ class GeneratedMainScreenWidget extends StatelessWidget {
             onPress: () {
               showDialog(context: context, builder: (BuildContext context) => DailyTaskProxy());
             },
-            icon: MyFlutterIcon.rectangle_list,
+            icon: MyFlutterIcon.list_alt,
           ),
         ],
       ),
     );
-    // Material(
-    //   child: Container(
-    //     width: double.infinity,
-    //     height: double.infinity,
-    //     child: Stack(
-    //         fit: StackFit.expand,
-    //         alignment: Alignment.center,
-    //         //overflow: Overflow.visible,
-    //         children: [
-    //           background(
-    //               "assets/images/85467c0186aa1e39f7aba60db02bf4fe6c044214.png"),
-    //           Positioned(
-    //             top: width * 30 / 100,
-    //             right: null,
-    //             bottom: null,
-    //             width: 273.0,
-    //             height: 450.0,
-    //             child: Whale(),
-    //           ),
-    //           Positioned(
-    //             left: 118.0,
-    //             top: 719.0,
-    //             right: null,
-    //             bottom: null,
-    //             width: 57.0,
-    //             height: 57.0,
-    //             child: GeneratedHomeWidget(),
-    //           ),
-    //           Positioned(
-    //             left: 199.0,
-    //             top: 719.0,
-    //             right: null,
-    //             bottom: null,
-    //             width: 57.0,
-    //             height: 57.0,
-    //             child: GeneratedNotiWidget(),
-    //           ),
-    //           Positioned(
-    //             left: 280.0,
-    //             top: 719.0,
-    //             right: null,
-    //             bottom: null,
-    //             width: 57.0,
-    //             height: 57.0,
-    //             child: GeneratedMissionWidget(),
-    //           ),
-    //           Positioned(
-    //             left: 0.0,
-    //             top: 0.0,
-    //             right: null,
-    //             bottom: null,
-    //             width: 360.0,
-    //             height: 52.0,
-    //             child: GeneratedHeaderWidget(),
-    //           ),
-    //           Positioned(
-    //             left: 11.0,
-    //             top: 10.0,
-    //             right: null,
-    //             bottom: null,
-    //             width: 38.0,
-    //             height: 38.0,
-    //             child: GeneratedSettingWidget(),
-    //           )
-    //         ]),
-    //   ),
-    // );
+  }
+
+  void showOverlay(BuildContext context) {
+    OverlayState? state = Overlay.of(context);
+    if(_overlayEntry != null) return;
+    _overlayEntry = OverlayEntry(
+      builder: (context) => NotificationMenu(removeOverlayCallback: this.removeOverlay,),
+    );
+    state.insert(_overlayEntry!);
+  }
+
+  void removeOverlay() {
+    _overlayEntry!.remove();
+    _overlayEntry = null;
   }
 }

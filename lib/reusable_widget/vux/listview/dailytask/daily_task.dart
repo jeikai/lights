@@ -103,7 +103,7 @@ class _DailyTaskState extends State<DailyTask>
           )
         ],
       ),
-    ) : AnimatedBuilder(animation: CurvedAnimation(parent: _controller, curve: Curves.easeOutBack,), builder: (context2, widget) {
+    ) : AnimatedBuilder(animation: _animation, builder: (context2, widget) {
       return Transform.translate(
         offset: _animation.value,
         child: Center(
@@ -114,7 +114,33 @@ class _DailyTaskState extends State<DailyTask>
                 color: bg,
                 borderRadius: BorderRadius.circular(radius)
             ),
-          ),
+            child: Column(
+              children: [
+                Container(
+                  height: h * 0.125,
+                  width: w,
+                  child: Center(
+                    child: Text("Nhiệm vụ hằng ngày",
+                      style: TextStyle(
+                        fontFamily: "Paytone One",
+                        fontSize: 25,
+                        color: Colors.black,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Container(
+                  height: h * 0.875,
+                  width: w,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(radius),
+                  ),
+                )
+              ],
+            ),
+          )
         ),
       );
     });
