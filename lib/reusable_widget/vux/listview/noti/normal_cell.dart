@@ -3,12 +3,14 @@ import 'package:flutterapp/reusable_widget/avatar.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
 
+import '../../../../model/notification.dart';
+
 class NormalCell extends StatelessWidget {
-  const NormalCell({Key? key, this.isClickable = false, this.onPress}) : super(key: key);
+  const NormalCell({Key? key, this.isClickable = false, this.onPress, required this.noti}) : super(key: key);
 
   final bool isClickable;
-
   final VoidCallback? onPress;
+  final NotificationContent noti;
 
   @override
   Widget build(BuildContext context) {
