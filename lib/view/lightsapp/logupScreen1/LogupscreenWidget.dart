@@ -12,26 +12,33 @@ import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/setting.dart';
 
-final _email = TextEditingController();
-String email = '';
-final _name = TextEditingController();
-String name = '';
-final _phoneNumber = TextEditingController();
-String phoneNumber = '';
-final _address = TextEditingController();
-String address = '';
+class LogupScreen extends StatefulWidget {
+  @override
+  State<LogupScreen> createState() => _LogupScreenState();
+}
 
-class GeneratedLogupscreen1Widget extends StatelessWidget {
+class _LogupScreenState extends State<LogupScreen> {
+  final _email = TextEditingController();
+
+  final _name = TextEditingController();
+
+  final _phoneNumber = TextEditingController();
+
+  final _address = TextEditingController();
+
+  @override
+  void dispose() {
+    _email.dispose();
+    _name.dispose();
+    _phoneNumber.dispose();
+    _address.dispose();
+    super.dispose();
+  }
   @override
   Widget build(BuildContext context) {
     var width = setting.getWidthSize();
     var height = setting.getHeightSize();
-    var data = {
-      "name": name,
-      "phone_Number": phoneNumber,
-      "email": email,
-      "address": address
-    };
+
     return Material(
         child: ClipRRect(
       borderRadius: BorderRadius.zero,
@@ -74,7 +81,26 @@ class GeneratedLogupscreen1Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Tên của bạn', _name, name, context),
+                child: Input(
+                  textController: _name,
+                  placeholder: "Tên của bạn",
+                  keyboardType: TextInputType.name,
+                  validate: (_name) {
+                    if (_name!.isEmpty || _name.length > 7) {
+                      return "Tên không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: false,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      _name.clear();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 44 / 100,
@@ -83,7 +109,26 @@ class GeneratedLogupscreen1Widget extends StatelessWidget {
                 width: 326.0,
                 height: 71.0,
                 child:
-                    Input('Số điện thoại', _phoneNumber, phoneNumber, context),
+                    Input(
+                  textController: _phoneNumber,
+                  placeholder: "Số điện thoại của bạn",
+                  keyboardType: TextInputType.emailAddress,
+                  validate: (_phoneNumber) {
+                    if (_phoneNumber!.isEmpty || _phoneNumber.length != 10) {
+                      return "Số điện thoại không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: false,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      _phoneNumber.clear();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 56 / 100,
@@ -91,7 +136,26 @@ class GeneratedLogupscreen1Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Email của bạn', _email, email, context),
+                child: Input(
+                  textController: _email,
+                  placeholder: "Email của bạn",
+                  keyboardType: TextInputType.emailAddress,
+                  validate: (_email) {
+                    if (_email!.isEmpty || !_email.contains("@")) {
+                      return "Email không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: false,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      _email.clear();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 68 / 100,
@@ -99,7 +163,26 @@ class GeneratedLogupscreen1Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Địa chỉ của bạn', _address, address, context),
+                child: Input(
+                  textController: _address,
+                  placeholder: "Địa chỉ của bạn",
+                  keyboardType: TextInputType.emailAddress,
+                  validate: (_address) {
+                    if (_address!.isEmpty) {
+                      return "Địa chỉ không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: false,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      _address.clear();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 82 / 100,
@@ -107,7 +190,8 @@ class GeneratedLogupscreen1Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Button_Navigate("Tiếp theo", context, '/GeneratedLogupscreen2Widget'),
+                child: Button_Navigate(
+                    "Tiếp theo", context, '/GeneratedLogupscreen2Widget'),
               ),
             ]),
       ),

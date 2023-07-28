@@ -13,12 +13,25 @@ import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/setting.dart';
 
-final _email = TextEditingController();
-String email = '';
-final _password = TextEditingController();
-String password = '';
+class GeneratedLoginscreenWidget extends StatefulWidget {
+  @override
+  State<GeneratedLoginscreenWidget> createState() =>
+      _GeneratedLoginscreenWidgetState();
+}
 
-class GeneratedLoginscreenWidget extends StatelessWidget {
+class _GeneratedLoginscreenWidgetState
+    extends State<GeneratedLoginscreenWidget> {
+  final _email = TextEditingController();
+
+  final _password = TextEditingController();
+  bool obscure = true;
+  @override
+  void dispose() {
+    _email.dispose();
+    _password.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = setting.getWidthSize();
@@ -52,12 +65,7 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 top: (width / 100 - 0.5) * 15,
                 child: Wrap(
                   spacing: 29,
-                  children: [
-                    Insta(),
-                    Twitter(),
-                    Google(),
-                    Facebook()
-                  ],
+                  children: [Insta(), Twitter(), Google(), Facebook()],
                 ),
               ),
               Positioned(
@@ -65,13 +73,35 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 child: Text_HoacVoi(),
               ),
               Positioned(
-                top: width * 50 / 100,
-                right: null,
-                bottom: null,
-                width: 326.0,
-                height: 71.0,
-                child: Input('Mật khẩu của bạn', _password, password, context),
-              ),
+                  top: width * 50 / 100,
+                  right: null,
+                  bottom: null,
+                  width: 326.0,
+                  height: 71.0,
+                  child: Input(
+                    textController: _password,
+                    placeholder: "Mật khẩu của bạn",
+                    keyboardType: TextInputType.emailAddress,
+                    validate: (_password) {
+                      if (_password!.isEmpty || _password.length < 6) {
+                        return "pass word không hợp lệ";
+                      } else {
+                        return null;
+                      }
+                    },
+                    obscureText: obscure,
+                    onDataChanged: (value) => {},
+                    Icon: IconButton(
+                      onPressed: () {
+                        setState(() {
+                          obscure = !obscure; // Toggle the password visibility
+                        });
+                      },
+                      icon: Icon(
+                        obscure ? Icons.visibility : Icons.visibility_off,
+                      ),
+                    ),
+                  )),
               Positioned(
                 top: width * 82 / 100,
                 right: null,
@@ -87,7 +117,26 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Email của bạn', _email, email, context),
+                child: Input(
+                  textController: _email,
+                  placeholder: "Email của bạn",
+                  keyboardType: TextInputType.emailAddress,
+                  validate: (_email) {
+                    if (_email!.isEmpty || !_email.contains("@")) {
+                      return "Email không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: false,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      _email.clear();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 60 / 100,
@@ -104,7 +153,7 @@ class GeneratedLoginscreenWidget extends StatelessWidget {
                 width: 326.0,
                 height: 71.0,
                 child: Button_Navigate(
-                    "Đăng nhập", context,  '/GeneratedMainScreenWidget'),
+                    "Đăng nhập", context, '/GeneratedMainScreenWidget'),
               ),
             ]),
       ),

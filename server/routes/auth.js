@@ -8,4 +8,5 @@ app.post("/login", authController.loginUser)
 
 app.put("/user/:id", verifyAndAuthorization, userController.updateUser)
 app.get("/user/getInfor/:id", verifyAndAuthorization, userController.getUser);
+
 module.exports = app
