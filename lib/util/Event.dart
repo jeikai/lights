@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:flutter/foundation.dart';
 
 class HandlerWithPriority<T extends Event> {
@@ -114,13 +112,13 @@ abstract class EventCallable<T extends Event> {
 }
 
 enum Priorities {
-  low(pri: 0),
-  belowNormal(pri: 1),
-  normal(pri: 2),
+  low(pri: 6),
+  belowNormal(pri: 5),
+  normal(pri: 4),
   aboveNormal(pri: 3),
-  high(pri: 4),
-  realTime(pri: 5),
-  critical(pri: 6);
+  high(pri: 2),
+  realTime(pri: 1),
+  critical(pri: 0);
   const Priorities({
     required this.pri
   });
