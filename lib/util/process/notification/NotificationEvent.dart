@@ -12,12 +12,8 @@ class NotificationEventCallable extends EventCallable<NotificationEvent> {
   NotificationEventCallable();
 
   @override
-  void preCall() {
-
-  }
+  void preCall() {}
 
   @override
-  void postCall() {
-
-  }
+  void postCall() {}
 }
