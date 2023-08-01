@@ -6,3 +6,10 @@ class User {
 
   User({this.name, this.phone_Number, this.address, this.email});
 }
+
+class TaskData {
+  final String? taskDes;
+  final double? percent;
+
+  TaskData({this.taskDes, this.percent});
+}

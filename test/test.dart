@@ -1,26 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/home/buttom/template.dart';
-import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
+import 'package:flutterapp/reusable_widget/vux/listview/noti/normal_cell.dart';
+import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/util/rive/RiveUtil.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(DataCaching());
+}
+
+class DataCaching extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() => DataCachingState();
+}
+
+class DataCachingState extends State<DataCaching> {
+  RiveUtil? riveUtil;
+
+  @override
+  void initState() {
+    super.initState();
+    riveUtil = RiveUtil();
+    riveUtil!.setup().then((value) {
+      setState(() {});
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return MyApp();
+  }
+
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    setting.setWidthSize(MediaQuery.of(context).size.width);
+    setting.setHeightSize(MediaQuery.of(context).size.height);
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(title: Text('Template Button Example')),
-        body: Center(
-          child: Template(
-            width: 50,
-            height: 50,
-            icon: MyFlutterIcon.home,
-            bg_color: Colors.limeAccent,
-            key: Key('template_button'),
+        body: Container(
+          color: Colors.red,
+          child: Center(
+            child: NormalCell(
+              isClickable: true,
+              onPress: () {
+                print("press");
+              },
+            )
           ),
-        ),
+        )
       ),
     );
   }

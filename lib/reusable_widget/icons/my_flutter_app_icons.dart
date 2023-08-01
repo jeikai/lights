@@ -25,7 +25,8 @@ class MyFlutterIcon {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData rectangle_list = IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cancel = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData home = IconData(0xf015, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData list_alt = IconData(0xf022, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData bell = IconData(0xf0f3, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

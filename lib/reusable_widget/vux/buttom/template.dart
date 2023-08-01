@@ -14,6 +14,8 @@ class Template extends StatelessWidget {
       Color? bgColor,
       double? width = 100,
       double? height = 100,
+      double padding = 8.0,
+      double? size,
       this.scaleValue,
       this.onPress})
       : super(key: key) {
@@ -29,7 +31,7 @@ class Template extends StatelessWidget {
         height: height,
         child: Center(
           child: Padding(
-            padding: EdgeInsets.all(8.0), // Add the desired margin
+            padding: EdgeInsets.all(padding), // Add the desired margin
             child: Text(
               text,
               style: TextStyle(color: innerColor ?? Colors.blueGrey),
@@ -48,8 +50,8 @@ class Template extends StatelessWidget {
           height: height,
           child: Center(
             child: Padding(
-              padding: EdgeInsets.all(8.0), // Add the desired margin
-              child: Icon(icon, color: innerColor ?? Colors.blueGrey),
+              padding: EdgeInsets.all(padding), // Add the desired margin
+              child: Icon(icon, color: innerColor ?? Colors.blueGrey, size: size,),
             ),
           ),
           decoration: BoxDecoration(
@@ -63,7 +65,7 @@ class Template extends StatelessWidget {
           height: height,
           child: Center(
             child: Padding(
-              padding: EdgeInsets.all(8.0), // Add the desired margin
+              padding: EdgeInsets.all(padding), // Add the desired margin
               child: Icon(
                 Icons.access_alarm,
                 color: innerColor ?? Colors.blueGrey,
