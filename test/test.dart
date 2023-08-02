@@ -1,10 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/app_fundemantal.dart';
+import 'package:flutterapp/model/notification.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/noti/normal_cell.dart';
 import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 
 void main() {
-  runApp(DataCaching());
+  MyApp(
+      Container(
+        color: Colors.yellow,
+      ),
+      Container(
+        color: Colors.black,
+      ));
 }
 
 class DataCaching extends StatefulWidget {
@@ -26,31 +34,30 @@ class DataCachingState extends State<DataCaching> {
 
   @override
   Widget build(BuildContext context) {
-    return MyApp();
+    return MyAppA();
   }
 
 }
 
-class MyApp extends StatelessWidget {
+class MyAppA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setting.setWidthSize(MediaQuery.of(context).size.width);
     setting.setHeightSize(MediaQuery.of(context).size.height);
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(title: Text('Template Button Example')),
-        body: Container(
-          color: Colors.red,
-          child: Center(
-            child: NormalCell(
+          appBar: AppBar(title: Text('Template Button Example')),
+          body: Container(
+            color: Colors.red,
+            child: Center(
+                child: NormalCell(
               isClickable: true,
               onPress: () {
                 print("press");
               },
-            )
-          ),
-        )
-      ),
+              noti: NotificationContent(),
+            )),
+          )),
     );
   }
 }

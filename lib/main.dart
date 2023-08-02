@@ -1,48 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
-import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
+import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 
 import 'setting.dart';
 
 void main() {
-  runApp(DataCaching());
+  runApp(LightsApp());
 }
 
-class DataCaching extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => DataCachingState();
+void initState() {
+  RiveUtil riveUtil = RiveUtil();
+  riveUtil.setup();
 }
 
-class DataCachingState extends State<DataCaching> {
-  RiveUtil? riveUtil;
-
-  @override
-  void initState() {
-    super.initState();
-    riveUtil = RiveUtil();
-    riveUtil!.setup().then((value) {
-      setState(() {});
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return lightsApp();
-  }
-
-}
-
-class lightsApp extends StatelessWidget {
+class LightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setting.setWidthSize(MediaQuery.of(context).size.width);
