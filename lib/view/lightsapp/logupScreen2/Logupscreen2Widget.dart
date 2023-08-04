@@ -12,25 +12,31 @@ import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/setting.dart';
 
-final _DOB = TextEditingController();
-String DOB = '';
-final _password = TextEditingController();
-String password = '';
-final _repass = TextEditingController();
-String repass = '';
+class GeneratedLogupscreen2Widget extends StatefulWidget {
+  @override
+  State<GeneratedLogupscreen2Widget> createState() =>
+      _GeneratedLogupscreen2WidgetState();
+}
 
-class GeneratedLogupscreen2Widget extends StatelessWidget {
+class _GeneratedLogupscreen2WidgetState
+    extends State<GeneratedLogupscreen2Widget> {
+  final _DOB = TextEditingController();
+  final _password = TextEditingController();
+  final _repass = TextEditingController();
+  bool obscure = true;
+  bool re_obscure = true;
+
   @override
   Widget build(BuildContext context) {
     var width = setting.getWidthSize();
     var height = setting.getHeightSize();
     return Material(
-        child: ClipRRect(
-      borderRadius: BorderRadius.zero,
-      child: Container(
-        width: double.infinity,
-        height: double.infinity,
-        child: Stack(
+      child: ClipRRect(
+        borderRadius: BorderRadius.zero,
+        child: Container(
+          width: double.infinity,
+          height: double.infinity,
+          child: Stack(
             fit: StackFit.expand,
             alignment: Alignment.center,
             //overflow: Overflow.visible,
@@ -66,7 +72,26 @@ class GeneratedLogupscreen2Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Tuổi của bạn YYYY/MM/DD', _DOB, DOB, context),
+                child: Input(
+                  textController: _DOB,
+                  placeholder: "Tuổi của bạn",
+                  keyboardType: TextInputType.datetime,
+                  validate: (_DOB) {
+                    if (_DOB!.isEmpty) {
+                      return "Tuổi không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: false,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      _DOB.clear();
+                    },
+                    icon: const Icon(Icons.clear),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 44 / 100,
@@ -74,7 +99,30 @@ class GeneratedLogupscreen2Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Mật khẩu của bạn', _password, password, context),
+                child: Input(
+                  textController: _password,
+                  placeholder: "Mật khẩu của bạn",
+                  keyboardType: TextInputType.text,
+                  validate: (_password) {
+                    if (_password!.isEmpty || _password.length < 6) {
+                      return "password không hợp lệ";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: obscure,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        obscure = !obscure; // Toggle the password visibility
+                      });
+                    },
+                    icon: Icon(
+                      obscure ? Icons.visibility : Icons.visibility_off,
+                    ),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 56 / 100,
@@ -82,7 +130,30 @@ class GeneratedLogupscreen2Widget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Input('Xác nhận mật khẩu', _repass, repass, context),
+                child: Input(
+                  textController: _repass,
+                  placeholder: "Nhập lại mật khẩu của bạn",
+                  keyboardType: TextInputType.text,
+                  validate: (_repass) {
+                    if (_repass!.isEmpty || _repass != _password.text) {
+                      return "Mật khẩu không trùng khớp";
+                    } else {
+                      return null;
+                    }
+                  },
+                  obscureText: re_obscure,
+                  onDataChanged: (value) => {},
+                  Icon: IconButton(
+                    onPressed: () {
+                      setState(() {
+                        re_obscure = !re_obscure; // Toggle the password visibility
+                      });
+                    },
+                    icon: Icon(
+                      obscure ? Icons.visibility : Icons.visibility_off,
+                    ),
+                  ),
+                ),
               ),
               Positioned(
                 top: width * 82 / 100,
@@ -91,10 +162,15 @@ class GeneratedLogupscreen2Widget extends StatelessWidget {
                 width: 326.0,
                 height: 71.0,
                 child: Button_Navigate(
-                    "Tiếp theo", context, '/GeneratedFavoritescreenWidget'),
+                  "Tiếp theo",
+                  context,
+                  '/GeneratedFavoritescreenWidget',
+                ),
               ),
-            ]),
+            ],
+          ),
+        ),
       ),
-    ));
+    );
   }
 }

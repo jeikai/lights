@@ -31,8 +31,9 @@ class LightsApp extends StatelessWidget {
     return SafeArea(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Lights',
+      title: 'Light\'s',
       theme: ThemeData(
+        
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/GeneratedLoginscreenWidget',
@@ -46,7 +47,7 @@ class LightsApp extends StatelessWidget {
         '/GeneratedLoginscreenWidget': (context) =>
             GeneratedLoginscreenWidget(),
         '/GeneratedLogupscreen1Widget': (context) =>
-            GeneratedLogupscreen1Widget(),
+            LogupScreen(),
         '/GeneratedLogupscreen2Widget': (context) =>
             GeneratedLogupscreen2Widget(),
         '/GeneratedFavoritescreenWidget': (context) =>
