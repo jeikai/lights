@@ -37,7 +37,6 @@ flutter:
   assets: 
     - "assets/images/"
     - "assets/rive/"
-    - "assets/rive/star.riv"
   fonts: 
     - 
       family: "Paytone One"

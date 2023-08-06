@@ -20,7 +20,7 @@ class MyApp {
 
   //Method chạy trước khi App được chạy
   Future<void> preRun() async {
-    RiveUtil();
+    RiveUtil().setup();
     for (int i = 0; i < 5; i++) {
       await Future.delayed(Duration(seconds: 1));
       print(i + 1);
@@ -51,17 +51,27 @@ class _AppFund extends StatefulWidget {
 }
 
 class _AppFundState extends State<_AppFund> {
+  bool _showLoading = true;
+
   @override
   Widget build(BuildContext context) {
-    return widget.prerun.getValue()
-        ? widget.child ??
-            Container(
-              color: Colors.black,
-            )
-        : widget.loading ??
-            Container(
-              color: Colors.yellow,
-            );
+    return AnimatedSwitcher(
+      switchInCurve: Curves.easeInExpo,
+      switchOutCurve: Curves.easeOutBack,
+      duration: Duration(milliseconds: 1000),
+      // Duration of the transition animation
+      child: _showLoading
+          ? widget.loading ??
+              Container(
+                key: ValueKey('loading'),
+                color: Colors.yellow,
+              )
+          : widget.child ??
+              Container(
+                key: ValueKey('child'),
+                color: Colors.black,
+              ),
+    );
   }
 
   @override
@@ -70,8 +80,10 @@ class _AppFundState extends State<_AppFund> {
     widget.myapp.preRun().whenComplete(() {
       print("prerun finished");
       widget.prerun.setTrue();
-      setState(
-          () {}); // This will trigger a rebuild after the prerun is finished
+      setState(() {
+        _showLoading =
+            false; // Switch to the child content after prerun is finished
+      });
     });
   }
 }

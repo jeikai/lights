@@ -12,10 +12,11 @@ import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 
+import 'app_fundemantal.dart';
 import 'setting.dart';
 
 void main() {
-  runApp(LightsApp());
+  MyApp(_LightsApp(), _Loading());
 }
 
 void initState() {
@@ -23,7 +24,28 @@ void initState() {
   riveUtil.setup();
 }
 
-class LightsApp extends StatelessWidget {
+class _Loading extends StatelessWidget {
+  const _Loading({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Container(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _LightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setting.setWidthSize(MediaQuery.of(context).size.width);
@@ -33,7 +55,6 @@ class LightsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Light\'s',
       theme: ThemeData(
-        
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/GeneratedLoginscreenWidget',
