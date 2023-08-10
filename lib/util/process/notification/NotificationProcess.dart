@@ -1,21 +1,16 @@
-import 'dart:ui';
-
-import 'package:flutterapp/model/notification.dart';
-import 'package:flutterapp/util/process/notification/NotificationEvent.dart';
-
-import '../../Event.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 
 class NotificationProcess {
-  List<VoidCallback> _handler = [];
-  late NotificationEventCallable callable;
-
   late Duration _pollingInterval;
 
   bool _isRunning = false;
 
+  late NotificationManager manager;
+
   NotificationProcess({required Duration pollingInterval}) {
-    callable = NotificationEventCallable();
     _pollingInterval = pollingInterval;
+
+    manager = NotificationManager();
   }
 
   void run() {
@@ -38,6 +33,7 @@ class NotificationProcess {
 
   Future<void> _fetchNotificationsFromServer() async {
     try {
+      print("a");
       // Make an HTTP request to fetch notifications from the server
       // Example using the http package:
       // final response = await http.get('your_api_endpoint_here');
@@ -48,15 +44,5 @@ class NotificationProcess {
       print('Error fetching notifications: $e');
       // Handle errors, such as retrying or logging errors
     }
-  }
-
-
-  void callEvent(NotificationContent notificationContent) {
-    callable.setEvent(NotificationEvent(notificationContent));
-    callable.callEvent();
-  }
-
-  void addListener(void Function(NotificationEvent event) callback, Priorities priority) {
-    callable.addHandler(callback, priority);
   }
 }

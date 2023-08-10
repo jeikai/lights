@@ -1,63 +1,64 @@
-import 'package:flutter/material.dart';
-import 'package:flutterapp/app_fundemantal.dart';
 import 'package:flutterapp/model/notification.dart';
-import 'package:flutterapp/reusable_widget/vux/listview/noti/normal_cell.dart';
-import 'package:flutterapp/setting.dart';
-import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:flutterapp/util/Event.dart';
+import 'package:flutterapp/util/process/notification/NotificationEvent.dart';
 
 void main() {
-  MyApp(
-      Container(
-        color: Colors.yellow,
-      ),
-      Container(
-        color: Colors.black,
-      ));
+  NotificationProcess(pollingInterval: Duration(seconds: 1)).run();
+  print("b");
 }
 
-class DataCaching extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => DataCachingState();
-}
+class NotificationProcess {
+  late NotificationEventCallable callable;
 
-class DataCachingState extends State<DataCaching> {
-  RiveUtil? riveUtil;
+  late Duration _pollingInterval;
 
-  @override
-  void initState() {
-    super.initState();
-    riveUtil = RiveUtil();
-    riveUtil!.setup().then((value) {
-      setState(() {});
-    });
+  bool _isRunning = false;
+
+  NotificationProcess({required Duration pollingInterval}) {
+    callable = NotificationEventCallable();
+    _pollingInterval = pollingInterval;
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return MyAppA();
+  void run() {
+    if (!_isRunning) {
+      _isRunning = true;
+      _fetchNotificationsPeriodically();
+    }
   }
 
-}
+  void stop() {
+    _isRunning = false;
+  }
 
-class MyAppA extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    setting.setWidthSize(MediaQuery.of(context).size.width);
-    setting.setHeightSize(MediaQuery.of(context).size.height);
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(title: Text('Template Button Example')),
-          body: Container(
-            color: Colors.red,
-            child: Center(
-                child: NormalCell(
-              isClickable: true,
-              onPress: () {
-                print("press");
-              },
-              noti: NotificationContent(),
-            )),
-          )),
-    );
+  Future<void> _fetchNotificationsPeriodically() async {
+    while (_isRunning) {
+      await _fetchNotificationsFromServer();
+      await Future.delayed(_pollingInterval);
+    }
+  }
+
+  Future<void> _fetchNotificationsFromServer() async {
+    try {
+      print("a");
+      // Make an HTTP request to fetch notifications from the server
+      // Example using the http package:
+      // final response = await http.get('your_api_endpoint_here');
+      // Parse the response and extract the notifications
+      // Add the new notifications to the NotificationManager
+      // NotificationManager.getInstance().addNotification(newNotification);
+    } catch (e) {
+      print('Error fetching notifications: $e');
+      // Handle errors, such as retrying or logging errors
+    }
+  }
+
+  void callEvent(NotificationContent notificationContent) {
+    callable.setEvent(NotificationEvent(notificationContent));
+    callable.callEvent();
+  }
+
+  void addListener(
+      void Function(NotificationEvent event) callback, Priorities priority) {
+    callable.addHandler(callback, priority);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 
 class MyApp {
@@ -21,11 +22,12 @@ class MyApp {
   //Method chạy trước khi App được chạy
   Future<void> preRun() async {
     RiveUtil().setup();
-    for (int i = 0; i < 5; i++) {
-      await Future.delayed(Duration(seconds: 1));
-      print(i + 1);
-    }
+    NotificationManager();
     return;
+  }
+
+  void onPreRunFinish() {
+    NotificationManager().runNotiProcess();
   }
 
   void onPaused() {}
@@ -78,6 +80,7 @@ class _AppFundState extends State<_AppFund> {
   void initState() {
     super.initState();
     widget.myapp.preRun().whenComplete(() {
+      widget.myapp.onPreRunFinish();
       print("prerun finished");
       widget.prerun.setTrue();
       setState(() {
