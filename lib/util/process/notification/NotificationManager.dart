@@ -8,9 +8,7 @@ import 'NotificationProcess.dart';
 
 class NotificationManager {
   bool _isLoadingFromStorage = true;
-  NotificationProcess process =
-      NotificationProcess(pollingInterval: Duration(seconds: 10));
-
+  late NotificationProcess process;
   late NotificationEventCallable _callable;
 
   static NotificationManager? _instance;
@@ -29,12 +27,16 @@ class NotificationManager {
   GlobalKey<AnimatedListState> get listKey => _listKey;
 
   NotificationManager._internal() {
+    process = NotificationProcess(
+        pollingInterval: Duration(seconds: 10), manager: this);
     loadNotificationsFromLocalStorage().then((value) {
-      _list = ListModel(listKey: _listKey, initialItems: value);
+      _list = ListModel(
+        listKey: _listKey,
+        initialItems: [NotificationContent(), NotificationContent()],
+      );
       _isLoadingFromStorage = false;
-      runNotiProcess();
     });
-    _callable = NotificationEventCallable();
+    _callable = NotificationEventCallable(this);
   }
 
   void runNotiProcess() {
@@ -50,7 +52,9 @@ class NotificationManager {
   }
 
   void addNotiWithoutEvent(NotificationContent notificationContent) {
+    print("b");
     _list.insertTop(notificationContent);
+    print(_list.length);
   }
 
   void removeNotification(NotificationContent notificationContent) {}
@@ -76,7 +80,7 @@ class NotificationManager {
     _list.clear();
   }
 
-  int get notificationCount => _list.length;
+  int get notificationCount => notifications.length;
 
   // Saving notifications to local storage
   void saveNotificationsToLocalStorage(List<NotificationContent> notificationList) async {
@@ -102,8 +106,7 @@ class NotificationManager {
   }
 
   void callEvent(NotificationContent notificationContent) {
-    _callable.setEvent(NotificationEvent(notificationContent));
-    _callable.callEvent();
+    _callable.callEvent(NotificationEvent(notificationContent));
   }
 
   set removedItemBuilder(RemovedItemBuilder<NotificationContent> builder) {
@@ -122,7 +125,7 @@ class ListModel<E> {
         _removedItemBuilder = removedItemBuilder ??
             ((E item, BuildContext context, Animation<double> animation) {
               return Container();
-            });
+            }) {}
 
   final GlobalKey<AnimatedListState> listKey;
   RemovedItemBuilder<E> _removedItemBuilder;
@@ -132,7 +135,9 @@ class ListModel<E> {
 
   void insert(int index, E item) {
     _items.insert(index, item);
-    _animatedList!.insertItem(index);
+    if (_animatedList != null) {
+      _animatedList!.insertItem(index);
+    }
   }
 
   void insertTop(E item) {

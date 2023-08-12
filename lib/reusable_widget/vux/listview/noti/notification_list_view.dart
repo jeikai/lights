@@ -35,9 +35,13 @@ class _NotificationListViewState extends State<NotificationListView>
       color: Colors.white,
       child: AnimatedList(
         key: _manager.listKey,
+        initialItemCount: _manager.notificationCount,
         itemBuilder:
             (BuildContext context, int index, Animation<double> animation) {
-          return Container();
+          return Container(
+            color: Colors.yellow,
+            height: 20,
+          );
         },
       ),
     );

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/ConfigManager.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 
 class MyApp {
   BoolWarpper isPreRunFinished = BoolWarpper(false);
 
+  static NotificationManager? manager;
+
   MyApp(Widget main, Widget mainloading) {
     WidgetsFlutterBinding.ensureInitialized()
         .addObserver(AppLifecycleObserver(this));
-    print("a");
     runApp(_AppFund(
       this,
       isPreRunFinished,
@@ -16,23 +18,31 @@ class MyApp {
       loading: mainloading,
       key: Key("Fundemental"),
     ));
-    print("b");
   }
 
   //Method chạy trước khi App được chạy
-  Future<void> preRun() async {
-    RiveUtil().setup();
-    NotificationManager();
-    return;
+  Future<Object?> preRun() async {
+    manager = NotificationManager();
+    manager!.eventCallable;
+    await RiveUtil().setup();
+    await ConfigManager().setup();
+    print("a");
+    return null;
   }
 
   void onPreRunFinish() {
-    NotificationManager().runNotiProcess();
+    print("b");
+    manager!.runNotiProcess();
+    print(manager!.eventCallable.handlers.length);
   }
 
-  void onPaused() {}
+  void onPaused() {
+    if (manager != null) manager!.process.stop();
+  }
 
-  void onResumed() {}
+  void onResumed() {
+    if (manager != null) manager!.runNotiProcess();
+  }
 
   void onInactive() {}
 
@@ -79,15 +89,17 @@ class _AppFundState extends State<_AppFund> {
   @override
   void initState() {
     super.initState();
-    widget.myapp.preRun().whenComplete(() {
-      widget.myapp.onPreRunFinish();
-      print("prerun finished");
-      widget.prerun.setTrue();
-      setState(() {
-        _showLoading =
-            false; // Switch to the child content after prerun is finished
+    if (widget.prerun.isFalse()) {
+      widget.myapp.preRun().then((o) {
+        widget.myapp.onPreRunFinish();
+        print("prerun finished");
+        widget.prerun.setTrue();
+        setState(() {
+          _showLoading =
+              false; // Switch to the child content after prerun is finished
+        });
       });
-    });
+    }
   }
 }
 

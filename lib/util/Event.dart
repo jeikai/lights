@@ -24,7 +24,7 @@ mixin Cancelable {
 }
 
 abstract class EventCallable<T extends Event> {
-  List<HandlerWithPriority> _handlers = [];
+  List<HandlerWithPriority<T>> _handlers = [];
   T? event;
 
   EventCallable();
@@ -34,12 +34,13 @@ abstract class EventCallable<T extends Event> {
   }
 
   @nonVirtual
-  Future<void> callEvent() async {
+  Future<void> callEvent(T event) async {
+    setEvent(event);
     preCall();
-    for(HandlerWithPriority handler in _handlers) {
-      handler.handler.call(event!);
-      if(event! is Cancelable) {
-        if ((event! as Cancelable).isCancel()) {
+    for (HandlerWithPriority<T> handler in _handlers) {
+      handler.handler(this.event!);
+      if (event.isCancelable()) {
+        if ((event as Cancelable).isCancel()) {
           break;
         }
       }
@@ -109,6 +110,8 @@ abstract class EventCallable<T extends Event> {
     _handlers[i] = _handlers[j];
     _handlers[j] = temp;
   }
+
+  List<HandlerWithPriority<T>> get handlers => _handlers;
 }
 
 enum Priorities {

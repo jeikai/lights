@@ -12,9 +12,9 @@ class NotificationEvent extends Event with Cancelable {
 class NotificationEventCallable extends EventCallable<NotificationEvent> {
   late NotificationManager manager;
 
-  NotificationEventCallable() {
-    manager = NotificationManager();
-    this.addHandler((event) {
+  NotificationEventCallable(NotificationManager manager) {
+    this.manager = manager;
+    this.addHandler((NotificationEvent event) {
       manager.addNotiWithoutEvent(event.notificationContent);
     }, Priorities.low);
   }
