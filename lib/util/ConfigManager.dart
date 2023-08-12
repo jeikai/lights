@@ -8,6 +8,7 @@ class ConfigManager {
 
   static const NOTI_URL = "noti_url";
   static const TASK_URL = "task_url";
+  static const POLLING_INTERVAL = "polling_interval";
 
   ConfigMap? _configMap;
 
@@ -38,4 +39,10 @@ class ConfigManager {
   }
 
   ConfigMap get configMap => _configMap ?? YamlMap();
+
+  int get pollingInterval => (configMap[POLLING_INTERVAL] as int);
+
+  String get taskUrl => (configMap[TASK_URL]);
+
+  String get notiUrl => (configMap[NOTI_URL]);
 }

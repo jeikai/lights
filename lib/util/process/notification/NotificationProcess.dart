@@ -1,5 +1,21 @@
+import 'dart:math';
+
 import 'package:flutterapp/model/notification.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
+
+String generateRandomString(int length) {
+  const String _charset =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  Random _random = Random();
+
+  String randomString = '';
+  for (int i = 0; i < length; i++) {
+    int randomIndex = _random.nextInt(_charset.length);
+    randomString += _charset[randomIndex];
+  }
+
+  return randomString;
+}
 
 class NotificationProcess {
   late Duration _pollingInterval;
@@ -36,7 +52,10 @@ class NotificationProcess {
   Future<NotificationContent?> _fetchNotificationsFromServer() async {
     NotificationContent? res;
     try {
-      NotificationContent content = NotificationContent();
+      Random _random = Random();
+      NotificationContent content = NotificationContent(
+          isRead: false,
+          content: generateRandomString(_random.nextInt(100) + 100));
       res = content;
     } catch (e) {
       print('Error fetching notifications: $e');

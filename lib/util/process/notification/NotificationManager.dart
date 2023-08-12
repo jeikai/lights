@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/notification.dart';
+import 'package:flutterapp/util/ConfigManager.dart';
 import 'package:flutterapp/util/process/notification/NotificationEvent.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -28,11 +29,12 @@ class NotificationManager {
 
   NotificationManager._internal() {
     process = NotificationProcess(
-        pollingInterval: Duration(seconds: 10), manager: this);
+        pollingInterval: Duration(seconds: ConfigManager().pollingInterval),
+        manager: this);
     loadNotificationsFromLocalStorage().then((value) {
       _list = ListModel(
         listKey: _listKey,
-        initialItems: [NotificationContent(), NotificationContent()],
+        initialItems: value,
       );
       _isLoadingFromStorage = false;
     });

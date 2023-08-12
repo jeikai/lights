@@ -22,10 +22,9 @@ class MyApp {
 
   //Method chạy trước khi App được chạy
   Future<Object?> preRun() async {
-    manager = NotificationManager();
-    manager!.eventCallable;
-    await RiveUtil().setup();
     await ConfigManager().setup();
+    await RiveUtil().setup();
+    manager = NotificationManager();
     print("a");
     return null;
   }

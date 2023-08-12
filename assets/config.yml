@@ -1,2 +1,3 @@
 noti_url: '123'
 task_url: '321'
+polling_interval: 10

@@ -173,8 +173,12 @@ class NotificationMain extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    color: Colors.white,
                     height: h * 0.89,
-                    child: NotificationListView(),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: h / 20),
+                      child: NotificationListView(),
+                    ),
                   )
                 ],
               );

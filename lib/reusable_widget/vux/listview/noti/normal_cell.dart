@@ -18,9 +18,9 @@ class NormalCell extends StatelessWidget {
       double w_l = constr.maxWidth / 6;
       double w_r = constr.maxWidth / 6 * 3.9;
       return Container(
-        height: w_l,
+        constraints: BoxConstraints(minHeight: w_l),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 250,241,255),
+          color: Color.fromARGB(255, 250, 241, 255),
           borderRadius: BorderRadius.circular(w_l / 4),
           border: Border.all(),
         ),
@@ -37,7 +37,16 @@ class NormalCell extends StatelessWidget {
             Container(
               width: w_r,
               child: Center(
-
+                child: Padding(
+                  padding: EdgeInsets.only(top: w_l / 10, bottom: w_l / 10),
+                  child: Text(
+                    noti.content,
+                    style: TextStyle(
+                        fontFamily: "Paytone One",
+                        decoration: null,
+                        color: Colors.black),
+                  ),
+                ),
               ),
             ),
             Builder(builder: (context2) {
