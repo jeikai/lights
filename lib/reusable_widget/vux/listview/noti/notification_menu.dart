@@ -59,18 +59,16 @@ class _NotificationMenuState extends State<NotificationMenu>
 
   @override
   Widget build(BuildContext context) {
-
     return !_finishAni ? AnimatedBuilder(animation: _animation, builder: (context2, w) {
       return Transform.translate(
-        offset: _animation.value,
-        child: Material(
-          child: Container(
-              color: NotificationMenu.colorMain,
-              child: LayoutBuilder(
-                builder: (context2, cstr) {
-                  double h = cstr.maxHeight;
+                  offset: _animation.value,
+                  child: Material(
+                    child: Container(
+                        color: NotificationMenu.colorMain,
+                        child: LayoutBuilder(
+                          builder: (context2, cstr) {
+                            double h = cstr.maxHeight;
                             double w = cstr.maxWidth;
-
                             double hTop = h * 0.1;
                             //double h_bot = h * 0.9;
                             return Column(
@@ -94,16 +92,14 @@ class _NotificationMenuState extends State<NotificationMenu>
                                 Container(
                                   height: h * 0.89,
                                   color: Colors.white,
-                                  child: NotificationListView(),
                                 )
                               ],
                             );
-                },
-              )
-          ),
-        )
-      );
-    }) : NotificationMain(close);
+                          },
+                        )),
+                  ));
+            })
+        : NotificationMain(close);
   }
 }
 

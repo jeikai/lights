@@ -59,7 +59,10 @@ class NotificationManager {
     print(_list.length);
   }
 
-  void removeNotification(NotificationContent notificationContent) {}
+  void removeNotification(NotificationContent notificationContent) {
+    int index = _list.indexOf(notificationContent);
+    _list.removeAt(index);
+  }
 
   List<NotificationContent> get unreadNotifications {
     List<NotificationContent> unread = [];

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/avatar.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
 import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
 
@@ -58,7 +59,7 @@ class _NormalCellState extends State<NormalCell>
   Widget build(BuildContext context) {
     var size = MediaQuery.of(this.context).size;
     double w = size.width;
-    widget.inner.w = w;
+    widget.inner.w = (w);
     return GestureDetector(
       onHorizontalDragStart: _onPanStart,
       onHorizontalDragUpdate: _onPanUpdate,
@@ -71,14 +72,18 @@ class _NormalCellState extends State<NormalCell>
             child: Container(
               key: Key("NormalMainContainer"),
               width: w / 6 * 5.9,
-              child: ClipRect(
+              height: widget.inner.height + 10,
+              child: Stack(
                 clipBehavior: Clip.antiAlias,
-                child: Container(
-                  width: (w / 20 + w / 5 + w),
-                  transform:
-                      Matrix4.translationValues(dw * _animation.value.dx, 0, 0),
-                  child: child!,
-                ),
+                children: [
+                  Positioned(
+                    left: dw * _animation.value.dx,
+                    child: Container(
+                      width: (w / 20 + w / 5 + w),
+                      child: child!,
+                    ),
+                  )
+                ],
               ),
             ),
           );
@@ -96,6 +101,10 @@ class _NormalCellState extends State<NormalCell>
                     height: w / 10,
                     innerColor: Colors.white,
                     bgColor: Colors.red,
+                    onPress: () {
+                      NotificationManager()
+                          .removeNotification(widget.inner.noti);
+                    },
                   ),
                 ),
               ),
@@ -128,14 +137,35 @@ class InnerNormalCell extends StatelessWidget {
       {Key? key, this.isClickable = false, this.onPress, required this.noti})
       : super(key: key);
 
-  late double w;
+  static final TextStyle style = TextStyle(
+      fontFamily: "Paytone One", decoration: null, color: Colors.black);
+
+  late double _w;
+  late final double _height;
   final bool isClickable;
   final VoidCallback? onPress;
   final NotificationContent noti;
 
+  double get height => (_height + _w * 0.9 / 3 * 3.9 / 10);
+
+  set w(double width) {
+    _w = width;
+    _height = _calcHeight();
+  }
+
+  double _calcHeight() {
+    TextSpan textSpan = TextSpan(text: noti.content, style: style);
+    TextPainter textPainter = TextPainter(
+      text: textSpan,
+      textDirection: TextDirection.ltr,
+    );
+    textPainter.layout(maxWidth: _w * 0.9 / 6 * 3.9);
+    return textPainter.height;
+  }
+
   @override
   Widget build(BuildContext context) {
-    double w = this.w * 0.9;
+    double w = this._w * 0.9;
     double w_l = w / 6;
     double w_r = w / 6 * 3.9;
     return Container(
@@ -158,15 +188,13 @@ class InnerNormalCell extends StatelessWidget {
           ),
           Container(
             width: w_r,
+            height: height,
             child: Center(
               child: Padding(
                 padding: EdgeInsets.only(top: w_l / 10, bottom: w_l / 10),
                 child: Text(
                   noti.content,
-                  style: TextStyle(
-                      fontFamily: "Paytone One",
-                      decoration: null,
-                      color: Colors.black),
+                  style: style,
                 ),
               ),
             ),
