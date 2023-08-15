@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/setting.dart';
 
 import '../../../../model/notification.dart';
+import '../../../../util/process/notification/NotificationManager.dart';
+import 'normal_cell.dart';
 
 class NotificationListView extends StatefulWidget {
   const NotificationListView({Key? key}) : super(key: key);
@@ -11,16 +14,15 @@ class NotificationListView extends StatefulWidget {
 
 class _NotificationListViewState extends State<NotificationListView>
     with SingleTickerProviderStateMixin {
-  final GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
   late AnimationController _controller;
-  late ListModel<NotificationContent> _list;
+  late NotificationManager _manager;
 
   @override
   void initState() {
     _controller = AnimationController(vsync: this);
     super.initState();
-    
-    _list = ListModel(listKey: _listKey, removedItemBuilder: _buildRemovedItem);
+    _manager = NotificationManager();
+    _manager.removedItemBuilder = _buildRemovedItem;
   }
 
   @override
@@ -33,56 +35,32 @@ class _NotificationListViewState extends State<NotificationListView>
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      child: AnimatedList(itemBuilder: (BuildContext context, int index, Animation<double> animation) {
-        return Container();
-      },
+      child: AnimatedList(
+        key: _manager.listKey,
+        initialItemCount: _manager.notificationCount,
+        physics: BouncingScrollPhysics(),
+        itemBuilder:
+            (BuildContext context2, int index, Animation<double> animation) {
+          return _buildItem(_manager.notifications[index], context2, animation);
+        },
       ),
     );
   }
 
-  Widget _buildRemovedItem(NotificationContent item, BuildContext context, Animation<double> animation) {
+  Widget _buildItem(NotificationContent item, BuildContext context,
+      Animation<double> animation) {
+    double w = setting.widthSize / 40;
+    return SizeTransition(
+      sizeFactor: animation,
+      child: Padding(
+        padding: EdgeInsets.only(left: w, right: w, top: 0, bottom: w),
+        child: NormalCell(noti: item),
+      ),
+    );
+  }
+
+  Widget _buildRemovedItem(NotificationContent item, BuildContext context,
+      Animation<double> animation) {
     return Container();
   }
-}
-
-typedef RemovedItemBuilder<T> = Widget Function(
-    T item, BuildContext context, Animation<double> animation);
-
-
-class ListModel<E> {
-  ListModel({
-    required this.listKey,
-    required this.removedItemBuilder,
-    Iterable<E>? initialItems,
-  }) : _items = List<E>.from(initialItems ?? <E>[]);
-
-  final GlobalKey<AnimatedListState> listKey;
-  final RemovedItemBuilder<E> removedItemBuilder;
-  final List<E> _items;
-
-  AnimatedListState? get _animatedList => listKey.currentState;
-
-  void insert(int index, E item) {
-    _items.insert(index, item);
-    _animatedList!.insertItem(index);
-  }
-
-  E removeAt(int index) {
-    final E removedItem = _items.removeAt(index);
-    if (removedItem != null) {
-      _animatedList!.removeItem(
-        index,
-            (BuildContext context, Animation<double> animation) {
-          return removedItemBuilder(removedItem, context, animation);
-        },
-      );
-    }
-    return removedItem;
-  }
-
-  int get length => _items.length;
-
-  E operator [](int index) => _items[index];
-
-  int indexOf(E item) => _items.indexOf(item);
 }

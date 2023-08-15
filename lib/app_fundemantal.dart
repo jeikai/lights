@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/ConfigManager.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 
 class MyApp {
   BoolWarpper isPreRunFinished = BoolWarpper(false);
 
+  static NotificationManager? manager;
+
   MyApp(Widget main, Widget mainloading) {
     WidgetsFlutterBinding.ensureInitialized()
         .addObserver(AppLifecycleObserver(this));
-    print("a");
     runApp(_AppFund(
       this,
       isPreRunFinished,
@@ -15,22 +18,30 @@ class MyApp {
       loading: mainloading,
       key: Key("Fundemental"),
     ));
-    print("b");
   }
 
   //Method chạy trước khi App được chạy
-  Future<void> preRun() async {
-    RiveUtil();
-    for (int i = 0; i < 5; i++) {
-      await Future.delayed(Duration(seconds: 1));
-      print(i + 1);
-    }
-    return;
+  Future<Object?> preRun() async {
+    await ConfigManager().setup();
+    await RiveUtil().setup();
+    manager = NotificationManager();
+    print("a");
+    return null;
   }
 
-  void onPaused() {}
+  void onPreRunFinish() {
+    print("b");
+    manager!.runNotiProcess();
+    print(manager!.eventCallable.handlers.length);
+  }
 
-  void onResumed() {}
+  void onPaused() {
+    if (manager != null) manager!.process.stop();
+  }
+
+  void onResumed() {
+    if (manager != null) manager!.runNotiProcess();
+  }
 
   void onInactive() {}
 
@@ -51,28 +62,43 @@ class _AppFund extends StatefulWidget {
 }
 
 class _AppFundState extends State<_AppFund> {
+  bool _showLoading = true;
+
   @override
   Widget build(BuildContext context) {
-    return widget.prerun.getValue()
-        ? widget.child ??
-            Container(
-              color: Colors.black,
-            )
-        : widget.loading ??
-            Container(
-              color: Colors.yellow,
-            );
+    return AnimatedSwitcher(
+      switchInCurve: Curves.easeInExpo,
+      switchOutCurve: Curves.easeOutBack,
+      duration: Duration(milliseconds: 1000),
+      // Duration of the transition animation
+      child: _showLoading
+          ? widget.loading ??
+              Container(
+                key: ValueKey('loading'),
+                color: Colors.yellow,
+              )
+          : widget.child ??
+              Container(
+                key: ValueKey('child'),
+                color: Colors.black,
+              ),
+    );
   }
 
   @override
   void initState() {
     super.initState();
-    widget.myapp.preRun().whenComplete(() {
-      print("prerun finished");
-      widget.prerun.setTrue();
-      setState(
-          () {}); // This will trigger a rebuild after the prerun is finished
-    });
+    if (widget.prerun.isFalse()) {
+      widget.myapp.preRun().then((o) {
+        widget.myapp.onPreRunFinish();
+        print("prerun finished");
+        widget.prerun.setTrue();
+        setState(() {
+          _showLoading =
+              false; // Switch to the child content after prerun is finished
+        });
+      });
+    }
   }
 }
 

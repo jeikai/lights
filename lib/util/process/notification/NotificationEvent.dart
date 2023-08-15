@@ -1,6 +1,7 @@
 import 'package:flutterapp/util/Event.dart';
 
 import '../../../model/notification.dart';
+import 'NotificationManager.dart';
 
 class NotificationEvent extends Event with Cancelable {
   final NotificationContent notificationContent;
@@ -9,7 +10,14 @@ class NotificationEvent extends Event with Cancelable {
 }
 
 class NotificationEventCallable extends EventCallable<NotificationEvent> {
-  NotificationEventCallable();
+  late NotificationManager manager;
+
+  NotificationEventCallable(NotificationManager manager) {
+    this.manager = manager;
+    this.addHandler((NotificationEvent event) {
+      manager.addNotiWithoutEvent(event.notificationContent);
+    }, Priorities.low);
+  }
 
   @override
   void preCall() {}

@@ -1,63 +1,36 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/app_fundemantal.dart';
-import 'package:flutterapp/model/notification.dart';
-import 'package:flutterapp/reusable_widget/vux/listview/noti/normal_cell.dart';
-import 'package:flutterapp/setting.dart';
-import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:flutterapp/util/ConfigManager.dart';
 
 void main() {
-  MyApp(
-      Container(
-        color: Colors.yellow,
-      ),
-      Container(
-        color: Colors.black,
-      ));
+  WidgetsFlutterBinding.ensureInitialized();
+  runApp(MaterialApp(
+    home: Scaffold(
+      body: A(),
+    ),
+  ));
 }
 
-class DataCaching extends StatefulWidget {
+class A extends StatefulWidget {
+  const A({super.key});
+
   @override
-  State<StatefulWidget> createState() => DataCachingState();
+  State<A> createState() => _AState();
 }
 
-class DataCachingState extends State<DataCaching> {
-  RiveUtil? riveUtil;
-
+class _AState extends State<A> {
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    riveUtil = RiveUtil();
-    riveUtil!.setup().then((value) {
-      setState(() {});
+    var manager = ConfigManager();
+    manager.setup().then((value) {
+      print(manager.getConfig(ConfigManager.TASK_URL));
+      print(manager.getConfig(ConfigManager.NOTI_URL));
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return MyAppA();
-  }
-
-}
-
-class MyAppA extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    setting.setWidthSize(MediaQuery.of(context).size.width);
-    setting.setHeightSize(MediaQuery.of(context).size.height);
-    return MaterialApp(
-      home: Scaffold(
-          appBar: AppBar(title: Text('Template Button Example')),
-          body: Container(
-            color: Colors.red,
-            child: Center(
-                child: NormalCell(
-              isClickable: true,
-              onPress: () {
-                print("press");
-              },
-              noti: NotificationContent(),
-            )),
-          )),
-    );
+    return const Placeholder();
   }
 }
