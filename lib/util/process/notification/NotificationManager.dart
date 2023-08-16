@@ -50,13 +50,11 @@ class NotificationManager {
   }
 
   void addNotification(NotificationContent notificationContent) {
-    callEvent(notificationContent);
+    _callable.callAddEvent(notificationContent);
   }
 
   void addNotiWithoutEvent(NotificationContent notificationContent) {
-    print("b");
     _list.insertTop(notificationContent);
-    print(_list.length);
   }
 
   void removeNotification(NotificationContent notificationContent) {
@@ -79,6 +77,7 @@ class NotificationManager {
 
   void markNotificationAsRead(NotificationContent notificationContent) {
     notificationContent.isRead = true;
+    _callable.callMarkReadEvent(notificationContent);
   }
 
   void clearAllNotifications() {
@@ -86,6 +85,8 @@ class NotificationManager {
   }
 
   int get notificationCount => notifications.length;
+
+  int get notificationUnreadCount => unreadNotifications.length;
 
   // Saving notifications to local storage
   void saveNotificationsToLocalStorage(List<NotificationContent> notificationList) async {
@@ -108,10 +109,6 @@ class NotificationManager {
   void addListener(
       void Function(NotificationEvent event) callback, Priorities priority) {
     _callable.addHandler(callback, priority);
-  }
-
-  void callEvent(NotificationContent notificationContent) {
-    _callable.callEvent(NotificationEvent(notificationContent));
   }
 
   set removedItemBuilder(RemovedItemBuilder<NotificationContent> builder) {

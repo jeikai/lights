@@ -8,6 +8,7 @@ dependencies:
   rive:
   shared_preferences:
   yaml:
+  visibility_detector:
   flutter:
     sdk: "flutter"
 dev_dependencies: 
