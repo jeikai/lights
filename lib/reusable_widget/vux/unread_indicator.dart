@@ -21,10 +21,8 @@ class _UnreadIndicatorState extends State<UnreadIndicator> {
     super.initState();
     manager = NotificationManager();
     manager.addListener((event) {
-      print("listen");
       setState(() {
         number = manager.notificationUnreadCount;
-        print(number);
       });
     }, Priorities.belowNormal);
   }
