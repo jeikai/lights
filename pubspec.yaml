@@ -2,12 +2,15 @@ description: "A new Flutter application."
 name: "flutterapp"
 publish_to: "none"
 version: "1.0.0+1"
-dependencies: 
+dependencies:
   cupertino_icons: "^1.0.5"
   path_drawing: "^1.0.0"
   rive:
-  shared_preferences: ^2.2.0
-  flutter: 
+  shared_preferences:
+  yaml:
+  visibility_detector:
+  chat_bubbles:
+  flutter:
     sdk: "flutter"
 dev_dependencies: 
   flutter_test: 
@@ -18,7 +21,7 @@ flutter_launcher_icons:
   android: "launcher_icon"
   ios: true
   image_path: "assets/images/logo.png"
-  min_sdk_android: 21 # android min sdk min:16, default 21
+  min_sdk_android: 16 # android min sdk min:16, default 21
   web:
     generate: true
     image_path: "assets/images/logo.png"
@@ -34,10 +37,10 @@ flutter_launcher_icons:
 environment: 
   sdk: ">=2.17.0 <3.0.0"
 flutter: 
-  assets: 
+  assets:
     - "assets/images/"
     - "assets/rive/"
-    - "assets/rive/star.riv"
+    - "assets/config.yml"
   fonts: 
     - 
       family: "Paytone One"

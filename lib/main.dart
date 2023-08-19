@@ -1,48 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
-import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
+import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
+import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 
+import 'app_fundemantal.dart';
 import 'setting.dart';
 
 void main() {
-  runApp(DataCaching());
+  MyApp(_LightsApp(), _Loading());
 }
 
-class DataCaching extends StatefulWidget {
-  @override
-  State<StatefulWidget> createState() => DataCachingState();
+void initState() {
+  RiveUtil riveUtil = RiveUtil();
+  riveUtil.setup();
 }
 
-class DataCachingState extends State<DataCaching> {
-  RiveUtil? riveUtil;
-
-  @override
-  void initState() {
-    super.initState();
-    riveUtil = RiveUtil();
-    riveUtil!.setup().then((value) {
-      setState(() {});
-    });
-  }
+class _Loading extends StatelessWidget {
+  const _Loading({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return lightsApp();
+    // TODO: implement build
+    return Container(
+      color: Colors.white,
+      child: Center(
+        child: Container(
+          width: 50,
+          height: 50,
+          child: CircularProgressIndicator(
+            valueColor: AlwaysStoppedAnimation<Color>(Colors.yellow),
+          ),
+        ),
+      ),
+    );
   }
-
 }
 
-class lightsApp extends StatelessWidget {
+class _LightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     setting.setWidthSize(MediaQuery.of(context).size.width);
@@ -52,7 +55,6 @@ class lightsApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Light\'s',
       theme: ThemeData(
-        
         primarySwatch: Colors.blue,
       ),
       initialRoute: '/GeneratedLoginscreenWidget',

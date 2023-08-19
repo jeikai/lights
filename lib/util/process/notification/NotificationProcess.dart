@@ -1,20 +1,31 @@
-import 'dart:ui';
+import 'dart:math';
 
 import 'package:flutterapp/model/notification.dart';
-import 'package:flutterapp/util/process/notification/NotificationEvent.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 
-import '../../Event.dart';
+String generateRandomString(int length) {
+  const String _charset =
+      'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  Random _random = Random();
+
+  String randomString = '';
+  for (int i = 0; i < length; i++) {
+    int randomIndex = _random.nextInt(_charset.length);
+    randomString += _charset[randomIndex];
+  }
+
+  return randomString;
+}
 
 class NotificationProcess {
-  List<VoidCallback> _handler = [];
-  late NotificationEventCallable callable;
-
   late Duration _pollingInterval;
 
   bool _isRunning = false;
 
-  NotificationProcess({required Duration pollingInterval}) {
-    callable = NotificationEventCallable();
+  NotificationManager manager;
+
+  NotificationProcess(
+      {required Duration pollingInterval, required this.manager}) {
     _pollingInterval = pollingInterval;
   }
 
@@ -31,32 +42,24 @@ class NotificationProcess {
 
   Future<void> _fetchNotificationsPeriodically() async {
     while (_isRunning) {
-      await _fetchNotificationsFromServer();
+      var content = await _fetchNotificationsFromServer();
+      if (content != null) manager.addNotification(content);
       await Future.delayed(_pollingInterval);
     }
   }
 
-  Future<void> _fetchNotificationsFromServer() async {
+  Future<NotificationContent?> _fetchNotificationsFromServer() async {
+    NotificationContent? res;
     try {
-      // Make an HTTP request to fetch notifications from the server
-      // Example using the http package:
-      // final response = await http.get('your_api_endpoint_here');
-      // Parse the response and extract the notifications
-      // Add the new notifications to the NotificationManager
-      // NotificationManager.getInstance().addNotification(newNotification);
+      Random _random = Random();
+      NotificationContent content = NotificationContent(
+          isRead: false,
+          content: generateRandomString(_random.nextInt(100) + 100));
+      //res = content;
     } catch (e) {
       print('Error fetching notifications: $e');
       // Handle errors, such as retrying or logging errors
     }
-  }
-
-
-  void callEvent(NotificationContent notificationContent) {
-    callable.setEvent(NotificationEvent(notificationContent));
-    callable.callEvent();
-  }
-
-  void addListener(void Function(NotificationEvent event) callback, Priorities priority) {
-    callable.addHandler(callback, priority);
+    return res;
   }
 }

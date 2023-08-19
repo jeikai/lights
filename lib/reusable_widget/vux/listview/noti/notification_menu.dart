@@ -59,50 +59,47 @@ class _NotificationMenuState extends State<NotificationMenu>
 
   @override
   Widget build(BuildContext context) {
-
     return !_finishAni ? AnimatedBuilder(animation: _animation, builder: (context2, w) {
       return Transform.translate(
-        offset: _animation.value,
-        child: Material(
-          child: Container(
-              color: NotificationMenu.colorMain,
-              child: LayoutBuilder(
-                builder: (context2, cstr) {
-                  double h = cstr.maxHeight;
-                  double w = cstr.maxWidth;
-
-                  double h_top = h * 0.1;
-                  double h_bot = h * 0.9;
-                  return Column(
-                    children: [
-                      Container(
-                        key: Key("ThongBaoText"),
-                        height: h_top,
-                        width: w,
-                        child: Center(
-                          child: Text("Thông báo",
-                            style: TextStyle(
-                                fontFamily: "Paytone One",
-                                fontSize: h_top * 0.33,
-                                decoration: null,
-                                color: Colors.black
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                      Container(
-                        height: h * 0.89,
-                        color: Colors.white,
-                      )
-                    ],
-                  );
-                },
-              )
-          ),
-        )
-      );
-    }) : NotificationMain(close);
+                  offset: _animation.value,
+                  child: Material(
+                    child: Container(
+                        color: NotificationMenu.colorMain,
+                        child: LayoutBuilder(
+                          builder: (context2, cstr) {
+                            double h = cstr.maxHeight;
+                            double w = cstr.maxWidth;
+                            double hTop = h * 0.1;
+                            //double h_bot = h * 0.9;
+                            return Column(
+                              children: [
+                                Container(
+                                  key: Key("ThongBaoText"),
+                                  height: hTop,
+                                  width: w,
+                                  child: Center(
+                                    child: Text(
+                                      "Thông báo",
+                                      style: TextStyle(
+                                          fontFamily: "Paytone One",
+                                          fontSize: hTop * 0.33,
+                                          decoration: null,
+                                          color: Colors.black),
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  height: h * 0.89,
+                                  color: Colors.white,
+                                )
+                              ],
+                            );
+                          },
+                        )),
+                  ));
+            })
+        : NotificationMain(close);
   }
 }
 
@@ -122,27 +119,27 @@ class NotificationMain extends StatelessWidget {
               double h = cstr.maxHeight;
               double w = cstr.maxWidth;
 
-              double h_top = h * 0.1;
-              double h_bot = h * 0.9;
+              double hTop = h * 0.1;
+              //double h_bot = h * 0.9;
               return Column(
                 children: [
                   Container(
-                    height: h_top,
+                    height: hTop,
                     width: w,
                     child: Stack(
                       children: [
                         Container(
                           key: Key("ThongBaoText"),
-                          height: h_top,
+                          height: hTop,
                           width: w,
                           child: Center(
-                            child: Text("Thông báo",
+                            child: Text(
+                              "Thông báo",
                               style: TextStyle(
                                   fontFamily: "Paytone One",
-                                  fontSize: h_top * 0.33,
+                                  fontSize: hTop * 0.33,
                                   decoration: null,
-                                  color: Colors.black
-                              ),
+                                  color: Colors.black),
                               textAlign: TextAlign.center,
                             ),
                           ),
@@ -152,16 +149,16 @@ class NotificationMain extends StatelessWidget {
                           right: 0,
                           child: Container(
                             key: Key("CloseThongBaoButtom"),
-                            width: h_top,
-                            height: h_top,
+                            width: hTop,
+                            height: hTop,
                             child: Template(
-                              innerColor: Color.fromARGB(255, 149,147,212),
+                              innerColor: Color.fromARGB(255, 149, 147, 212),
                               icon: MyFlutterIcon.cancel,
                               bgColor: Colors.transparent,
-                              width: h_top * 0.7,
-                              height: h_top * 0.7,
+                              width: hTop * 0.7,
+                              height: hTop * 0.7,
                               padding: 0.0,
-                              size: (h_top / 2) ,
+                              size: (hTop / 2),
                               onPress: () {
                                 close.call();
                               },
@@ -172,8 +169,12 @@ class NotificationMain extends StatelessWidget {
                     ),
                   ),
                   Container(
+                    color: Colors.white,
                     height: h * 0.89,
-                    child: NotificationListView(),
+                    child: Padding(
+                      padding: EdgeInsets.only(top: h / 20),
+                      child: NotificationListView(),
+                    ),
                   )
                 ],
               );

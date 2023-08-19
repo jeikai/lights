@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
-import 'package:flutterapp/reusable_widget/vux/buttom/template.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
+import 'package:flutterapp/reusable_widget/vux/buttom/template.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/daily_task.dart';
+import 'package:flutterapp/reusable_widget/vux/unread_indicator.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
 
 import '../../../reusable_widget/vux/listview/noti/notification_menu.dart';
@@ -62,20 +63,38 @@ class GeneratedMainScreenWidget extends StatelessWidget {
             icon: MyFlutterIcon.home,
           ),
           SizedBox(width: 16),
-          Template(
-            width: 50,
-            height: 50,
-            onPress: () {
-              showOverlay(context);
-            },
-            icon: MyFlutterIcon.bell,
+          ConstrainedBox(
+            constraints: BoxConstraints(maxWidth: 50, maxHeight: 50),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Template(
+                  width: 50,
+                  height: 50,
+                  onPress: () {
+                    showOverlay(context);
+                  },
+                  icon: MyFlutterIcon.bell,
+                ),
+                Positioned(
+                  child: UnreadIndicator(
+                    height: 20,
+                    width: 20,
+                  ),
+                  top: -10,
+                  right: -10,
+                ),
+              ],
+            ),
           ),
           SizedBox(width: 16),
           Template(
             width: 50,
             height: 50,
             onPress: () {
-              showDialog(context: context, builder: (BuildContext context) => DailyTaskProxy());
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) => DailyTaskProxy());
             },
             icon: MyFlutterIcon.list_alt,
           ),
