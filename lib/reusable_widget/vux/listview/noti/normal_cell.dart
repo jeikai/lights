@@ -5,6 +5,7 @@ import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../../../model/notification.dart';
 import '../../buttom/template.dart';
@@ -60,63 +61,70 @@ class _NormalCellState extends State<NormalCell>
     var size = MediaQuery.of(this.context).size;
     double w = size.width;
     widget.inner.w = (w);
-    return GestureDetector(
-      onHorizontalDragStart: _onPanStart,
-      onHorizontalDragUpdate: _onPanUpdate,
-      onHorizontalDragEnd: _onPanEnd,
-      child: AnimatedBuilder(
-        animation: _animation,
-        builder: (BuildContext context, Widget? child) {
-          double dw = -(w / 20 + w / 5);
-          return Center(
+    return VisibilityDetector(
+        key: Key(widget.inner.noti.content),
+        child: GestureDetector(
+          onHorizontalDragStart: _onPanStart,
+          onHorizontalDragUpdate: _onPanUpdate,
+          onHorizontalDragEnd: _onPanEnd,
+          child: AnimatedBuilder(
+            animation: _animation,
+            builder: (BuildContext context, Widget? child) {
+              double dw = -(w / 20 + w / 5);
+              return Center(
+                child: Container(
+                  key: Key("NormalMainContainer"),
+                  width: w / 6 * 5.9,
+                  height: widget.inner.height + 10,
+                  child: Stack(
+                    clipBehavior: Clip.antiAlias,
+                    children: [
+                      Positioned(
+                        left: dw * _animation.value.dx,
+                        child: Container(
+                          width: (w / 20 + w / 5 + w),
+                          child: child!,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            },
             child: Container(
-              key: Key("NormalMainContainer"),
-              width: w / 6 * 5.9,
-              height: widget.inner.height + 10,
-              child: Stack(
-                clipBehavior: Clip.antiAlias,
+              width: (w / 20 + w / 5 + w),
+              child: Row(
                 children: [
-                  Positioned(
-                    left: dw * _animation.value.dx,
-                    child: Container(
-                      width: (w / 20 + w / 5 + w),
-                      child: child!,
+                  Container(
+                    width: w / 5,
+                    child: Center(
+                      child: Template(
+                        icon: MyFlutterIcon.cancel,
+                        width: w / 10,
+                        height: w / 10,
+                        innerColor: Colors.white,
+                        bgColor: Colors.red,
+                        onPress: () {
+                          NotificationManager()
+                              .removeNotification(widget.inner.noti);
+                        },
+                      ),
                     ),
-                  )
+                  ),
+                  SizedBox(
+                    width: w / 20,
+                  ),
+                  widget.inner
                 ],
               ),
             ),
-          );
-        },
-        child: Container(
-          width: (w / 20 + w / 5 + w),
-          child: Row(
-            children: [
-              Container(
-                width: w / 5,
-                child: Center(
-                  child: Template(
-                    icon: MyFlutterIcon.cancel,
-                    width: w / 10,
-                    height: w / 10,
-                    innerColor: Colors.white,
-                    bgColor: Colors.red,
-                    onPress: () {
-                      NotificationManager()
-                          .removeNotification(widget.inner.noti);
-                    },
-                  ),
-                ),
-              ),
-              SizedBox(
-                width: w / 20,
-              ),
-              widget.inner
-            ],
           ),
         ),
-      ),
-    );
+        onVisibilityChanged: (VisibilityInfo infor) {
+          if (infor.visibleFraction != 0) {
+            NotificationManager().markNotificationAsRead(widget.inner.noti);
+          }
+        });
   }
 
   @override

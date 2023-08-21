@@ -8,6 +8,8 @@ dependencies:
   rive:
   shared_preferences:
   yaml:
+  visibility_detector:
+  chat_bubbles:
   flutter:
     sdk: "flutter"
 dev_dependencies: 
