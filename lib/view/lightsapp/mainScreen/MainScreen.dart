@@ -44,11 +44,12 @@ class GeneratedMainScreenWidget extends StatelessWidget {
       body: Center(
         child: Stack(
           children: [
-            background(
-                "assets/images/85467c0186aa1e39f7aba60db02bf4fe6c044214.png"),
+            BackGround(),
             Align(
               alignment: Alignment.center,
-              child: Whale(),
+              child: Whale(
+                isClickable: true,
+              ),
             ),
           ],
         ),

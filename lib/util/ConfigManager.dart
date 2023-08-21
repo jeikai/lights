@@ -9,6 +9,7 @@ class ConfigManager {
   static const NOTI_URL = "noti_url";
   static const TASK_URL = "task_url";
   static const POLLING_INTERVAL = "polling_interval";
+  static const WHALE_MESSAGE = "whale_message";
 
   ConfigMap? _configMap;
 
@@ -45,4 +46,6 @@ class ConfigManager {
   String get taskUrl => (configMap[TASK_URL]);
 
   String get notiUrl => (configMap[NOTI_URL]);
+
+  YamlList get whaleMessage => (configMap[WHALE_MESSAGE] as YamlList);
 }
