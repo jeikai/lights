@@ -48,11 +48,10 @@
 //   }
 // }
 
-import 'dart:typed_data';
 import 'dart:ui' as ui;
 
-import 'package:flutter/widgets.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 class CroppedImage extends StatelessWidget {
   const CroppedImage(

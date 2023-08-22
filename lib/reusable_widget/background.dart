@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import '../util/image/ImageManager.dart';
+import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:rive/rive.dart';
 
 Container background(String link) {
   return Container(
@@ -13,18 +13,22 @@ Container background(String link) {
   );
 }
 
-class BackGround extends StatelessWidget {
-  const BackGround({super.key});
+class BackGroundMainScreen extends StatelessWidget {
+  final Widget? child;
+
+  const BackGroundMainScreen({super.key, this.child});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: ImageManager().getImageProvider(ImageManager.mainBG),
-          fit: BoxFit.cover,
+    return Stack(
+      fit: StackFit.passthrough,
+      children: [
+        RiveAnimation.direct(
+          RiveUtil().BG,
+          fit: BoxFit.fill,
         ),
-      ),
+        child ?? Container()
+      ],
     );
   }
 }

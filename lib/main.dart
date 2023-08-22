@@ -48,8 +48,8 @@ class _Loading extends StatelessWidget {
 class _LightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    setting.setWidthSize(MediaQuery.of(context).size.width);
-    setting.setHeightSize(MediaQuery.of(context).size.height);
+    Setting.setWidthSize(MediaQuery.of(context).size.width);
+    Setting.setHeightSize(MediaQuery.of(context).size.height);
     return SafeArea(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -59,8 +59,7 @@ class _LightsApp extends StatelessWidget {
       ),
       initialRoute: '/GeneratedLoginscreenWidget',
       routes: {
-        '/GeneratedStartscreenWidget': (context) =>
-            Egg_Screen(),
+        '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
         '/GeneratedHelloscreenWidget': (context) =>
             GeneratedHelloscreenWidget(),
         '/GeneratedStoryscreen1Widget': (context) =>
@@ -79,7 +78,7 @@ class _LightsApp extends StatelessWidget {
             GeneratedForgotpasswordscreen2Widget(),
         '/GeneratedForgotpasswordscreen3Widget': (context) =>
             GeneratedForgotpasswordscreen3Widget(),
-        '/GeneratedMainScreenWidget': (context) => GeneratedMainScreenWidget(),
+        '/GeneratedMainScreenWidget': (context) => MainScreenWidget(),
       },
     ));
   }

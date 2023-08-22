@@ -1,6 +1,5 @@
-import 'package:flutter/material.dart';
 
-class setting {
+class Setting {
   static var widthSize;
   static var heightSize;
 
@@ -11,6 +10,7 @@ class setting {
   static setHeightSize(var b) {
     widthSize = b;
   }
+
   static getWidthSize() {
     return widthSize;
   }

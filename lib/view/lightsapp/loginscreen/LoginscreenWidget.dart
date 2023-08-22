@@ -1,17 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
-import 'package:flutterapp/reusable_widget/background.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
-import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-
-import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
+import 'package:flutterapp/reusable_widget/Title_dark.dart';
+import 'package:flutterapp/reusable_widget/background.dart';
+import 'package:flutterapp/reusable_widget/whale.dart';
 import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
 
 class GeneratedLoginscreenWidget extends StatefulWidget {
   @override
@@ -34,8 +33,8 @@ class _GeneratedLoginscreenWidgetState
 
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
+    var width = Setting.getWidthSize();
+    var height = Setting.getHeightSize();
     return Material(
         child: ClipRRect(
       borderRadius: BorderRadius.zero,
@@ -91,7 +90,7 @@ class _GeneratedLoginscreenWidgetState
                     },
                     obscureText: obscure,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         setState(() {
                           obscure = !obscure; // Toggle the password visibility
@@ -108,7 +107,7 @@ class _GeneratedLoginscreenWidgetState
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Button_Navigate(
+                child: buttonNavigate(
                     "Đăng ký", context, '/GeneratedLogupscreen1Widget'),
               ),
               Positioned(
@@ -130,7 +129,7 @@ class _GeneratedLoginscreenWidgetState
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       _email.clear();
                     },
@@ -152,7 +151,7 @@ class _GeneratedLoginscreenWidgetState
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Button_Navigate(
+                child: buttonNavigate(
                     "Đăng nhập", context, '/GeneratedMainScreenWidget'),
               ),
             ]),

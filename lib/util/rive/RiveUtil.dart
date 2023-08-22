@@ -24,13 +24,17 @@ class RiveUtil {
         .then((value) => _whale = value);
     var b =
         rootBundle.load('assets/rive/star.riv').then((value) => _star = value);
-
-    await Future.wait([a, b]);
+    var c = rootBundle
+        .load('assets/rive/background.riv')
+        .then((value) => _bg = value);
+    await Future.wait([a, b, c]);
   }
 
   late ByteData _whale;
 
   late ByteData _star;
+
+  late ByteData _bg;
 
   RiveFile getStar() {
     return RiveFile.import(_star);
@@ -38,5 +42,9 @@ class RiveUtil {
 
   RiveFile get WHALE {
     return RiveFile.import(_whale);
+  }
+
+  RiveFile get BG {
+    return RiveFile.import(_bg);
   }
 }

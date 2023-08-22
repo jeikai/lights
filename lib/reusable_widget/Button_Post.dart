@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/services/api.dart';
 
-TextButton Button_Post(String text, context, data) {
+TextButton buttonPost(String text, context, data) {
   return TextButton(
     style: TextButton.styleFrom(
       backgroundColor: Color.fromRGBO(196, 160, 216, 1.0),

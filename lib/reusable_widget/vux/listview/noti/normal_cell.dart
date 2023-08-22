@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/avatar.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
 import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/util/VuxUtil.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
@@ -51,7 +52,7 @@ class _NormalCellState extends State<NormalCell>
   }
 
   void onDragUpdate(DragUpdateDetails details) {
-    double w = setting.widthSize;
+    double w = Setting.widthSize;
     double dy = details.delta.dy;
     print("" + (dy / w).toString() + " " + dy.toString() + " " + w.toString());
   }
@@ -140,6 +141,7 @@ class _NormalCellState extends State<NormalCell>
   }
 }
 
+// ignore: must_be_immutable
 class InnerNormalCell extends StatelessWidget {
   InnerNormalCell(
       {Key? key, this.isClickable = false, this.onPress, required this.noti})
@@ -162,13 +164,7 @@ class InnerNormalCell extends StatelessWidget {
   }
 
   double _calcHeight() {
-    TextSpan textSpan = TextSpan(text: noti.content, style: style);
-    TextPainter textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(maxWidth: _w * 0.9 / 6 * 3.9);
-    return textPainter.height;
+    return calcHeight(noti.content, style, _w * 0.9 / 6 * 3.9);
   }
 
   @override

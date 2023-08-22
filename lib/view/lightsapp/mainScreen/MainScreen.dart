@@ -1,114 +1,53 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/background.dart';
-import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
-import 'package:flutterapp/reusable_widget/vux/buttom/template.dart';
-import 'package:flutterapp/reusable_widget/vux/listview/dailytask/daily_task.dart';
-import 'package:flutterapp/reusable_widget/vux/unread_indicator.dart';
-import 'package:flutterapp/reusable_widget/whale.dart';
+import 'package:flutterapp/view/lightsapp/mainScreen/main_screen_body.dart';
 
 import '../../../reusable_widget/vux/listview/noti/notification_menu.dart';
+import 'menu_buttom.dart';
 
-class GeneratedMainScreenWidget extends StatelessWidget {
+// ignore: must_be_immutable
+class MainScreenWidget extends StatelessWidget {
   final GlobalKey<OverlayState> overlayKey = GlobalKey<OverlayState>();
   OverlayEntry? _overlayEntry;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color.fromARGB(255, 250, 241, 255),
-        centerTitle: true,
-        automaticallyImplyLeading: false,
-        leading: IconButton(
-          icon: CircleAvatar(
-            backgroundImage: AssetImage(
-                'assets/images/user_icon.png'), 
-          ),
-          onPressed: () {
-            
-          },
-        ),
-        title: Text(
-          'light s',
-          overflow: TextOverflow.visible,
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            height: 1.6,
-            fontSize: 30.0,
-            fontFamily: 'Mistrully',
-            fontWeight: FontWeight.w400,
-            color: Color.fromARGB(255, 195, 160, 212),
-          ),
-        ),
-      ),
-      body: Center(
-        child: Stack(
-          children: [
-            BackGround(),
-            Align(
-              alignment: Alignment.center,
-              child: Whale(
-                isClickable: true,
-              ),
+        appBar: AppBar(
+          backgroundColor: Color.fromARGB(255, 250, 241, 255),
+          centerTitle: true,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: CircleAvatar(
+              backgroundImage: AssetImage('assets/images/user_icon.png'),
             ),
-          ],
-        ),
-      ),
-      floatingActionButton:  Row(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Template(
-            width: 50,
-            height: 50,
-            onPress: null,
-            icon: MyFlutterIcon.home,
+            onPressed: () {},
           ),
-          SizedBox(width: 16),
-          ConstrainedBox(
-            constraints: BoxConstraints(maxWidth: 50, maxHeight: 50),
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Template(
-                  width: 50,
-                  height: 50,
-                  onPress: () {
-                    showOverlay(context);
-                  },
-                  icon: MyFlutterIcon.bell,
-                ),
-                Positioned(
-                  child: UnreadIndicator(
-                    height: 20,
-                    width: 20,
-                  ),
-                  top: -10,
-                  right: -10,
-                ),
-              ],
+          title: Text(
+            'light s',
+            overflow: TextOverflow.visible,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              height: 1.6,
+              fontSize: 30.0,
+              fontFamily: 'Mistrully',
+              fontWeight: FontWeight.w400,
+              color: Color.fromARGB(255, 195, 160, 212),
             ),
           ),
-          SizedBox(width: 16),
-          Template(
-            width: 50,
-            height: 50,
-            onPress: () {
-              showDialog(
-                  context: context,
-                  builder: (BuildContext context) => DailyTaskProxy());
-            },
-            icon: MyFlutterIcon.list_alt,
-          ),
-        ],
-      ),
-    );
+        ),
+        body: MainScreenBody(),
+        floatingActionButton: MenuButtom(
+          showOverlay: showOverlay,
+        ));
   }
 
   void showOverlay(BuildContext context) {
     OverlayState? state = Overlay.of(context);
-    if(_overlayEntry != null) return;
+    if (_overlayEntry != null) return;
     _overlayEntry = OverlayEntry(
-      builder: (context) => NotificationMenu(removeOverlayCallback: this.removeOverlay,),
+      builder: (context) => NotificationMenu(
+        removeOverlayCallback: this.removeOverlay,
+      ),
     );
     state.insert(_overlayEntry!);
   }

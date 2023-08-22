@@ -30,6 +30,13 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
 
   String oldmessage = "";
 
+  double _width = 150;
+
+  static const maxLine = 4;
+
+  static const style = TextStyle(
+      fontFamily: "Paytone One", decoration: null, color: Colors.black);
+
   String getRandomMessage() {
     String res = "";
     Random random = Random(DateTime.now().microsecond);
@@ -73,7 +80,7 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     if (message != "") _controller.forward();
-    double bw = 150;
+    double bw = 150 > _width ? 150 : _width;
     double bh = 150;
     return GestureDetector(
       onTap: widget.isClickable ? onClick : null,
@@ -90,19 +97,19 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
               child: message == ""
                   ? SizedBox()
                   : FadeTransition(
-                opacity: Tween<double>(begin: 0, end: 1).animate(
-                  CurvedAnimation(
-                    parent: _controller,
-                    curve: Curves.easeIn,
-                  ),
-                ),
-                child: WhaleBubble(
-                  width: bw,
-                  height: bh,
-                  text: message,
-                  remove: removeMessage,
-                ),
-              ),
+                      opacity: Tween<double>(begin: 0, end: 1).animate(
+                        CurvedAnimation(
+                          parent: _controller,
+                          curve: Curves.easeIn,
+                        ),
+                      ),
+                      child: WhaleBubble(
+                        width: bw,
+                        height: bh,
+                        text: message,
+                        remove: removeMessage,
+                      ),
+                    ),
             )
           ],
           clipBehavior: Clip.none,
@@ -143,11 +150,12 @@ class WhaleBubble extends StatefulWidget {
 
   final VoidCallback remove;
 
-  const WhaleBubble({Key? key,
-    required this.width,
-    required this.height,
-    required this.text,
-    required this.remove})
+  const WhaleBubble(
+      {Key? key,
+      required this.width,
+      required this.height,
+      required this.text,
+      required this.remove})
       : super(key: key);
 
   @override
@@ -156,6 +164,11 @@ class WhaleBubble extends StatefulWidget {
 
 class _WhaleBubbleState extends State<WhaleBubble> {
   // Your text to animate
+
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,7 +192,7 @@ class _WhaleBubbleState extends State<WhaleBubble> {
                 child: TweenAnimationBuilder(
                   duration: Duration(
                       milliseconds:
-                          150 * _fullText.length), // Adjust the duration
+                      150 * _fullText.length), // Adjust the duration
                   tween: Tween<double>(begin: 0, end: 1),
                   builder: (BuildContext context, double value, Widget? child) {
                     int charCount = (_fullText.length * value).toInt();

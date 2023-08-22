@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
-import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
 
 class LogupScreen extends StatefulWidget {
   @override
@@ -36,8 +35,8 @@ class _LogupScreenState extends State<LogupScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
+    var width = Setting.getWidthSize();
+    var height = Setting.getHeightSize();
 
     return Material(
         child: ClipRRect(
@@ -94,7 +93,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       _name.clear();
                     },
@@ -122,7 +121,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                      icon: IconButton(
                     onPressed: () {
                       _phoneNumber.clear();
                     },
@@ -149,7 +148,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       _email.clear();
                     },
@@ -176,7 +175,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       _address.clear();
                     },
@@ -190,7 +189,7 @@ class _LogupScreenState extends State<LogupScreen> {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Button_Navigate(
+                child: buttonNavigate(
                     "Tiếp theo", context, '/GeneratedLogupscreen2Widget'),
               ),
             ]),
