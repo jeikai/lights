@@ -21,7 +21,7 @@ class ConfigManager {
     return _instance!;
   }
 
-  ConfigManager._internal() {}
+  ConfigManager._internal();
 
   Future<void> setup() async {
     await loadConfig();

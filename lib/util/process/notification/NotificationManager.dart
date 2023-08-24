@@ -127,7 +127,7 @@ class ListModel<E> {
         _removedItemBuilder = removedItemBuilder ??
             ((E item, BuildContext context, Animation<double> animation) {
               return Container();
-            }) {}
+            });
 
   final GlobalKey<AnimatedListState> listKey;
   RemovedItemBuilder<E> _removedItemBuilder;

@@ -51,9 +51,11 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
     return res;
   }
 
+  bool _clicked = false;
+
   void onClick() {
-    if (talking.value == true) return;
-    talking.value = true;
+    if (_clicked) return;
+    _clicked = true;
     final String _message = getRandomMessage();
     setState(() {
       message = _message;
@@ -64,6 +66,7 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
     await Future.delayed(Duration(seconds: 1, milliseconds: 500));
 
     await _controller.reverse().then((value) {
+      _clicked = false;
       talking.value = false;
       setState(() {
         message = "";
@@ -82,39 +85,36 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
     if (message != "") _controller.forward();
     double bw = 150 > _width ? 150 : _width;
     double bh = 150;
-    return GestureDetector(
-      onTap: widget.isClickable ? onClick : null,
-      child: ConstrainedBox(
-        /*width: 273.0,
+    return ConstrainedBox(
+      /*width: 273.0,
       height: 450.0,*/
-        constraints: BoxConstraints(maxHeight: 450.0, maxWidth: 273.0),
-        child: Stack(
-          children: [
-            child,
-            Positioned(
-              top: -(bh - 70),
-              left: 0,
-              child: message == ""
-                  ? SizedBox()
-                  : FadeTransition(
-                      opacity: Tween<double>(begin: 0, end: 1).animate(
-                        CurvedAnimation(
-                          parent: _controller,
-                          curve: Curves.easeIn,
-                        ),
-                      ),
-                      child: WhaleBubble(
-                        width: bw,
-                        height: bh,
-                        text: message,
-                        remove: removeMessage,
+      constraints: BoxConstraints(maxHeight: 450.0, maxWidth: 273.0),
+      child: Stack(
+        children: [
+          child,
+          Positioned(
+            top: -(bh - 70),
+            left: 0,
+            child: message == ""
+                ? SizedBox()
+                : FadeTransition(
+                    opacity: Tween<double>(begin: 0, end: 1).animate(
+                      CurvedAnimation(
+                        parent: _controller,
+                        curve: Curves.easeIn,
                       ),
                     ),
-            )
-          ],
-          clipBehavior: Clip.none,
-          alignment: AlignmentDirectional.center,
-        ),
+                    child: WhaleBubble(
+                      width: bw,
+                      height: bh,
+                      text: message,
+                      remove: removeMessage,
+                    ),
+                  ),
+          )
+        ],
+        clipBehavior: Clip.none,
+        alignment: AlignmentDirectional.center,
       ),
     );
   }
@@ -129,7 +129,13 @@ class WhaleState extends State<Whale> with SingleTickerProviderStateMixin {
       whale = riveUtil!.WHALE;
       var artboard = whale.mainArtboard;
       ar = artboard;
-      var controller = StateMachineController.fromArtboard(artboard, "Test");
+      var controller = StateMachineController.fromArtboard(artboard, "Test",
+          onStateChange: (String stateMachine, String animation) {
+        switch (animation) {
+          case "talking":
+            if (widget.isClickable) onClick();
+        }
+      });
       child = RiveAnimation.direct(
         whale,
         controllers: [controller!],

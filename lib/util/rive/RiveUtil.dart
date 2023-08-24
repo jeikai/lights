@@ -1,4 +1,4 @@
-
+// ignore_for_file: non_constant_identifier_names
 
 import 'dart:async';
 
@@ -46,5 +46,12 @@ class RiveUtil {
 
   RiveFile get BG {
     return RiveFile.import(_bg);
+  }
+
+  RiveFile? _bgOne;
+
+  RiveFile get BGONE {
+    if (_bgOne == null) _bgOne = BG;
+    return _bgOne!;
   }
 }

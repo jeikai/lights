@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/normal_cell.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/proxy_view_widget.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';

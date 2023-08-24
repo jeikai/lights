@@ -16,7 +16,11 @@ import 'app_fundemantal.dart';
 import 'setting.dart';
 
 void main() {
-  MyApp(_LightsApp(), _Loading());
+  MyApp(
+      _LightsApp(),
+      _Loading(
+        key: Key("loading"),
+      ));
 }
 
 void initState() {
