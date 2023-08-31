@@ -10,6 +10,7 @@ class GeneratedFavoritescreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var width = Setting.getWidthSize();
+    // ignore: unused_local_variable
     var height = Setting.getHeightSize();
     return Material(
         child: ClipRRect(

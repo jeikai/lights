@@ -55,7 +55,7 @@ class NotificationProcess {
       NotificationContent content = NotificationContent(
           isRead: false,
           content: generateRandomString(_random.nextInt(100) + 100));
-      //res = content;
+      res = content;
     } catch (e) {
       print('Error fetching notifications: $e');
       // Handle errors, such as retrying or logging errors

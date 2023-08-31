@@ -61,6 +61,7 @@ class _AnimatedWaitingPreloadMainScreenState
 
   late final Widget _mainScreen;
   bool _isStart = false;
+  // ignore: unused_field
   bool _isWaiting = true;
 
   @override

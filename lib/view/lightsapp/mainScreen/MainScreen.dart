@@ -29,7 +29,6 @@ class MainScreenWidget extends StatelessWidget {
   void avaClick() {}
 
   void redPlanetClick(BuildContext context) {
-    print("click");
     Navigator.pushNamed(context, '/WhaleMenu');
   }
 
@@ -65,8 +64,7 @@ class _MainScreenBodyWrapper extends StatefulWidget {
   final void Function() avaClick;
 
   const _MainScreenBodyWrapper(
-      {super.key,
-      required this.redPlanetClick,
+      {required this.redPlanetClick,
       required this.showNotiOverlay,
       required this.avaClick});
 

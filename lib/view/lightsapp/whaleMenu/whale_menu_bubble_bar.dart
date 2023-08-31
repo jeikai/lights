@@ -17,7 +17,6 @@ class _WhaleMenuBubbleBarState extends State<WhaleMenuBubbleBar>
   late final int size;
   late final Widget gd;
   late AnimationController _controller;
-  late Animation<double> _animation;
 
   static const double senMul = 0.9; //SensitivityMultiplier
 
@@ -154,12 +153,14 @@ class _WhaleMenuBubbleBarState extends State<WhaleMenuBubbleBar>
   }
 
   Offset? _startPoint;
+  // ignore: unused_field
   double? _dragStartValue;
 
   //
   void _onHorizontalDragUpdate(DragUpdateDetails details) {
     assert(_startPoint != null);
 
+    // ignore: unused_local_variable
     var current = details.globalPosition;
     var delta = details.delta;
     var value = _controller.value;
@@ -263,9 +264,9 @@ class _WhaleMenuBubbleState extends State<WhaleMenuBubble>
 
   @override
   void dispose() {
-    super.dispose();
     _ziggalController.dispose();
     _clickController.dispose();
+    super.dispose();
   }
 
   @override
