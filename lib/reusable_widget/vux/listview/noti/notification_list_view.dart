@@ -61,6 +61,6 @@ class _NotificationListViewState extends State<NotificationListView>
 
   Widget _buildRemovedItem(NotificationContent item, BuildContext context,
       Animation<double> animation) {
-    return Container();
+    return SizedBox();
   }
 }

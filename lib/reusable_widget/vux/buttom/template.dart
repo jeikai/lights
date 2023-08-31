@@ -88,15 +88,13 @@ class Template extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TemplateButton(
-        onPressed: onPress ??
-            () {
-              print("press");
-            },
-        child: _child!,
-        scaleValue: scaleValue ?? 1.5,
-      ),
+    return TemplateButton(
+      onPressed: onPress ??
+          () {
+            print("press");
+          },
+      child: _child!,
+      scaleValue: scaleValue ?? 1.5,
     );
   }
 }

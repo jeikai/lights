@@ -2,53 +2,49 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
 
+typedef CallBack = void Function(BuildContext context);
+
 class RedPlanetNavigate extends StatefulWidget {
-  const RedPlanetNavigate({Key? key}) : super(key: key);
+  final CallBack onClick;
+
+  RedPlanetNavigate({Key? key, required this.onClick}) : super(key: key);
 
   @override
   _RedPlanetNavigateState createState() => _RedPlanetNavigateState();
 }
 
-class _RedPlanetNavigateState extends State<RedPlanetNavigate>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late RiveFile planet;
-  Widget child = Container();
-
+class _RedPlanetNavigateState extends State<RedPlanetNavigate> {
   @override
   void initState() {
-    _controller = AnimationController(vsync: this);
     super.initState();
-
-    planet = RiveUtil().BGONE;
-    child = RiveAnimation.direct(
-      planet,
-      artboard: "red_star",
-      fit: BoxFit.fill,
-    );
-  }
-
-  void onClick() {
-    print("clicked");
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onClick,
+      onTap: () {
+        widget.onClick(context);
+      },
       child: ClipOval(
         child: Container(
           height: 400,
           width: 400,
-          child: child,
+          child: const _RedPlanetWrapper(),
         ),
       ),
+    );
+  }
+}
+
+class _RedPlanetWrapper extends StatelessWidget {
+  const _RedPlanetWrapper({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return RiveAnimation.direct(
+      RiveUtil.BG,
+      artboard: "red_star",
+      fit: BoxFit.fill,
     );
   }
 }

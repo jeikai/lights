@@ -30,7 +30,7 @@ class _UnreadIndicatorState extends State<UnreadIndicator> {
   @override
   Widget build(BuildContext context) {
     return number == 0
-        ? Container()
+        ? SizedBox()
         : CircleNumberWidget(
             number: this.number,
             height: widget.height,

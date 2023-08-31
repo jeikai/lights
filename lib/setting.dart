@@ -1,4 +1,3 @@
-
 class Setting {
   static var widthSize;
   static var heightSize;

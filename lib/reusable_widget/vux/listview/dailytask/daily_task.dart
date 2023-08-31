@@ -11,11 +11,11 @@ class DailyTaskProxy extends StatelessWidget {
         surfaceTintColor: Colors.deepPurpleAccent,
         shadowColor: Color.fromARGB(0, 0, 0, 0),
         backgroundColor: Color.fromARGB(0, 0, 0, 0),
-        child: DailyTask(w: constraints.maxWidth, h: constraints.maxHeight / 6 * 4),
+        child: DailyTask(
+            w: constraints.maxWidth, h: constraints.maxHeight / 6 * 4),
       );
     });
   }
-
 }
 
 class DailyTask extends StatefulWidget {
@@ -35,11 +35,12 @@ class _DailyTaskState extends State<DailyTask>
 
   bool finishAni = false;
 
-  static const Color bg = Color.fromARGB(255, 250,241,255);
+  static const Color bg = Color.fromARGB(255, 250, 241, 255);
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
     super.initState();
     _animation = Tween<Offset>(
       begin: Offset(-1000.0, 0.0),
@@ -51,9 +52,10 @@ class _DailyTaskState extends State<DailyTask>
       ),
     );
     _animation.addStatusListener((status) {
-      if(status == AnimationStatus.completed) setState(() {
-        finishAni = true;
-      });
+      if (status == AnimationStatus.completed)
+        setState(() {
+          finishAni = true;
+        });
     });
     _controller.forward();
   }
@@ -71,54 +73,20 @@ class _DailyTaskState extends State<DailyTask>
 
     double radius = 16;
 
-    return finishAni ? Container(
-      height: h,
-      width: w,
-      decoration: BoxDecoration(
-        color: bg,
-        borderRadius: BorderRadius.circular(radius)
-      ),
-      child: Column(
-        children: [
-          Container(
-            height: h * 0.125,
-            width: w,
-            child: Center(
-              child: Text("Nhiệm vụ hằng ngày",
-                style: TextStyle(
-                  fontFamily: "Paytone One",
-                  fontSize: 25,
-                  color: Colors.black,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-          ),
-          Container(
-            height: h * 0.875,
-            width: w,
-            child: DTListView(borderRadius: radius,),
-          )
-        ],
-      ),
-    ) : AnimatedBuilder(animation: _animation, builder: (context2, widget) {
-      return Transform.translate(
-        offset: _animation.value,
-        child: Center(
-          child: Container(
+    return finishAni
+        ? Container(
             height: h,
             width: w,
             decoration: BoxDecoration(
-                color: bg,
-                borderRadius: BorderRadius.circular(radius)
-            ),
+                color: bg, borderRadius: BorderRadius.circular(radius)),
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   height: h * 0.125,
                   width: w,
                   child: Center(
-                    child: Text("Nhiệm vụ hằng ngày",
+                    child: Text(
+                      "Nhiệm vụ hằng ngày",
                       style: TextStyle(
                         fontFamily: "Paytone One",
                         fontSize: 25,
@@ -128,19 +96,56 @@ class _DailyTaskState extends State<DailyTask>
                     ),
                   ),
                 ),
-                Container(
+                SizedBox(
                   height: h * 0.875,
                   width: w,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(radius),
+                  child: DTListView(
+                    borderRadius: radius,
                   ),
                 )
               ],
             ),
           )
-        ),
-      );
-    });
+        : AnimatedBuilder(
+            animation: _animation,
+            builder: (context2, widget) {
+              return Transform.translate(
+                offset: _animation.value,
+                child: Center(
+                    child: Container(
+                  height: h,
+                  width: w,
+                  decoration: BoxDecoration(
+                      color: bg, borderRadius: BorderRadius.circular(radius)),
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: h * 0.125,
+                        width: w,
+                        child: Center(
+                          child: Text(
+                            "Nhiệm vụ hằng ngày",
+                            style: TextStyle(
+                              fontFamily: "Paytone One",
+                              fontSize: 25,
+                              color: Colors.black,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: h * 0.875,
+                        width: w,
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(radius),
+                        ),
+                      )
+                    ],
+                  ),
+                )),
+              );
+            });
   }
 }

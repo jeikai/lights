@@ -10,7 +10,6 @@ import 'package:flutterapp/reusable_widget/vux/buttom/template.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-
     /// Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
@@ -23,21 +22,25 @@ void main() {
     await tester.longPress(finder);
     await tester.pumpAndSettle(Duration(milliseconds: 200));
 
-    final scaleValue = tester.widget<ScaleTransition>(
-      find.descendant(
-        of: finder,
-        matching: find.byType(ScaleTransition),
-      ),
-    ).scale.value;
+    final scaleValue = tester
+        .widget<ScaleTransition>(
+          find.descendant(
+            of: finder,
+            matching: find.byType(ScaleTransition),
+          ),
+        )
+        .scale
+        .value;
 
     print(scaleValue);
 
     await tester.tap(finder);
     await tester.pump();
+
     /// Verify that our counter has incremented.
     // expect(find.text('0'), findsNothing);
     // expect(find.text('1'), findsOneWidget);
-    
+
     expect(scaleValue, isNot(equals(1.0)));
   });
 }

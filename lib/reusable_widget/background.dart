@@ -24,7 +24,7 @@ class BackGroundMainScreen extends StatelessWidget {
       fit: StackFit.passthrough,
       children: [
         RiveAnimation.direct(
-          RiveUtil().BGONE,
+          RiveUtil.BGONE,
           fit: BoxFit.fill,
         ),
         child ?? Container()

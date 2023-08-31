@@ -20,6 +20,7 @@ mixin Cancelable {
   void cancel() {
     _isCancel = true;
   }
+
   bool isCancel() => _isCancel;
 }
 
@@ -49,12 +50,9 @@ abstract class EventCallable<T extends Event> {
     return;
   }
 
-  void preCall() {
+  void preCall() {}
 
-  }
-  void postCall() {
-
-  }
+  void postCall() {}
 
   @nonVirtual
   void addHandler(void Function(T event) callback, Priorities priority) {
@@ -65,7 +63,8 @@ abstract class EventCallable<T extends Event> {
 
   @nonVirtual
   void removeHandler(Function handler) {
-    final index = _handlers.indexWhere((handlerWithPriority) => handlerWithPriority.handler == handler);
+    final index = _handlers.indexWhere(
+        (handlerWithPriority) => handlerWithPriority.handler == handler);
     if (index >= 0) {
       _handlers[index] = _handlers.last;
       _handlers.removeLast();
@@ -90,11 +89,15 @@ abstract class EventCallable<T extends Event> {
     final rightChildIndex = 2 * index + 2;
     int smallestIndex = index;
 
-    if (leftChildIndex < _handlers.length && _handlers[leftChildIndex].priority.pri < _handlers[smallestIndex].priority.pri) {
+    if (leftChildIndex < _handlers.length &&
+        _handlers[leftChildIndex].priority.pri <
+            _handlers[smallestIndex].priority.pri) {
       smallestIndex = leftChildIndex;
     }
 
-    if (rightChildIndex < _handlers.length && _handlers[rightChildIndex].priority.pri < _handlers[smallestIndex].priority.pri) {
+    if (rightChildIndex < _handlers.length &&
+        _handlers[rightChildIndex].priority.pri <
+            _handlers[smallestIndex].priority.pri) {
       smallestIndex = rightChildIndex;
     }
 
@@ -122,8 +125,8 @@ enum Priorities {
   high(pri: 2),
   realTime(pri: 1),
   critical(pri: 0);
-  const Priorities({
-    required this.pri
-  });
+
+  const Priorities({required this.pri});
+
   final int pri;
 }

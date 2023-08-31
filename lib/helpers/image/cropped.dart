@@ -73,7 +73,8 @@ class CroppedImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (BuildContext context, BoxConstraints constraints) {
+    return LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
       final int width = constraints.maxWidth ~/ scaleX;
       final int height = constraints.maxHeight ~/ scaleY;
       print("WidthX: $width => ${constraints.maxWidth} => $scaleX");
@@ -111,7 +112,8 @@ class CroppedImage extends StatelessWidget {
 
   Future<ui.Image> resizeImage(int width, int height) async {
     final Uint8List m = Uint8List.view((await rootBundle.load(url)).buffer);
-    final codec = await ui.instantiateImageCodec(m, targetHeight: height, targetWidth: width, allowUpscaling: true);
+    final codec = await ui.instantiateImageCodec(m,
+        targetHeight: height, targetWidth: width, allowUpscaling: true);
     final frameInfo = await codec.getNextFrame();
     print("resized image");
     return frameInfo.image;

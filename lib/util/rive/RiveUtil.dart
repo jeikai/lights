@@ -9,7 +9,7 @@ class RiveUtil {
   static RiveUtil? _instance;
 
   factory RiveUtil() {
-    if(_instance == null) {
+    if (_instance == null) {
       _instance = RiveUtil._internal();
       return _instance!;
     }
@@ -40,17 +40,17 @@ class RiveUtil {
     return RiveFile.import(_star);
   }
 
-  RiveFile get WHALE {
-    return RiveFile.import(_whale);
+  static RiveFile get WHALE {
+    return RiveFile.import(RiveUtil()._whale);
   }
 
-  RiveFile get BG {
-    return RiveFile.import(_bg);
+  static RiveFile get BG {
+    return RiveFile.import(RiveUtil()._bg);
   }
 
-  RiveFile? _bgOne;
+  static RiveFile? _bgOne;
 
-  RiveFile get BGONE {
+  static RiveFile get BGONE {
     if (_bgOne == null) _bgOne = BG;
     return _bgOne!;
   }

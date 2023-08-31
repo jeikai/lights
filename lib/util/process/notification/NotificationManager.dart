@@ -89,9 +89,12 @@ class NotificationManager {
   int get notificationUnreadCount => unreadNotifications.length;
 
   // Saving notifications to local storage
-  void saveNotificationsToLocalStorage(List<NotificationContent> notificationList) async {
+  void saveNotificationsToLocalStorage(
+      List<NotificationContent> notificationList) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> notificationStrings = notificationList.map((notification) => notification.toMap().toString()).toList();
+    List<String> notificationStrings = notificationList
+        .map((notification) => notification.toMap().toString())
+        .toList();
     await prefs.setStringList('notificationList', notificationStrings);
   }
 

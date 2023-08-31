@@ -73,7 +73,7 @@ class _NormalCellState extends State<NormalCell>
             builder: (BuildContext context, Widget? child) {
               double dw = -(w / 20 + w / 5);
               return Center(
-                child: Container(
+                child: SizedBox(
                   key: Key("NormalMainContainer"),
                   width: w / 6 * 5.9,
                   height: widget.inner.height + 10,
@@ -82,7 +82,7 @@ class _NormalCellState extends State<NormalCell>
                     children: [
                       Positioned(
                         left: dw * _animation.value.dx,
-                        child: Container(
+                        child: SizedBox(
                           width: (w / 20 + w / 5 + w),
                           child: child!,
                         ),
@@ -92,11 +92,11 @@ class _NormalCellState extends State<NormalCell>
                 ),
               );
             },
-            child: Container(
+            child: SizedBox(
               width: (w / 20 + w / 5 + w),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: w / 5,
                     child: Center(
                       child: Template(
@@ -190,7 +190,7 @@ class InnerNormalCell extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: w_r,
             height: height,
             child: Center(
@@ -205,7 +205,7 @@ class InnerNormalCell extends StatelessWidget {
           ),
           Builder(builder: (context2) {
             return isClickable
-                ? Container(
+                ? SizedBox(
                     width: w_l,
                     child: Center(
                       child: ElevatedButton(
@@ -220,7 +220,7 @@ class InnerNormalCell extends StatelessWidget {
                       ),
                     ),
                   )
-                : Container(
+                : SizedBox(
                     width: w_l,
                   );
           })

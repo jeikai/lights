@@ -11,6 +11,7 @@ import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
 
 import 'app_fundemantal.dart';
 import 'setting.dart';
@@ -52,8 +53,9 @@ class _Loading extends StatelessWidget {
 class _LightsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Setting.setWidthSize(MediaQuery.of(context).size.width);
-    Setting.setHeightSize(MediaQuery.of(context).size.height);
+    final size = MediaQuery.of(context).size;
+    Setting.setWidthSize(size.width);
+    Setting.setHeightSize(size.height);
     return SafeArea(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,
@@ -70,8 +72,7 @@ class _LightsApp extends StatelessWidget {
             GeneratedStoryscreen1Widget(),
         '/GeneratedLoginscreenWidget': (context) =>
             GeneratedLoginscreenWidget(),
-        '/GeneratedLogupscreen1Widget': (context) =>
-            LogupScreen(),
+        '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
         '/GeneratedLogupscreen2Widget': (context) =>
             GeneratedLogupscreen2Widget(),
         '/GeneratedFavoritescreenWidget': (context) =>
@@ -83,6 +84,7 @@ class _LightsApp extends StatelessWidget {
         '/GeneratedForgotpasswordscreen3Widget': (context) =>
             GeneratedForgotpasswordscreen3Widget(),
         '/GeneratedMainScreenWidget': (context) => MainScreenWidget(),
+        '/WhaleMenu': (context) => WhaleMenu(),
       },
     ));
   }

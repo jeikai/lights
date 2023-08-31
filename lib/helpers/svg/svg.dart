@@ -1,6 +1,6 @@
+import 'dart:math' as math;
 import 'dart:typed_data';
 import 'dart:ui' as ui;
-import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,7 +13,8 @@ class SvgWidget extends StatelessWidget {
   final List<SvgPathPainter> painters;
 
   @override
-  Widget build(BuildContext context) => CustomPaint(painter: SvgPathsPainter(painters, Notifier()));
+  Widget build(BuildContext context) =>
+      CustomPaint(painter: SvgPathsPainter(painters, Notifier()));
 }
 
 class SvgPathPainter {
@@ -24,7 +25,10 @@ class SvgPathPainter {
     return SvgPathPainter._(paint);
   }
 
-  factory SvgPathPainter.stroke(double strokeWidth, {StrokeCap? strokeCap, StrokeJoin? strokeJoin, double? strokeMiterLimit}) {
+  factory SvgPathPainter.stroke(double strokeWidth,
+      {StrokeCap? strokeCap,
+      StrokeJoin? strokeJoin,
+      double? strokeMiterLimit}) {
     final Paint paint = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = strokeWidth;
@@ -56,12 +60,25 @@ class SvgPathPainter {
     _paint.color = color;
   }
 
-  void setLinearGradient({required double startX, required double startY, required double endX, required double endY, required List<Color> colors, List<double>? colorStops}) {
-    _paint.shader = ui.Gradient.linear(Offset(startX, startY), Offset(endX, endY), colors, colorStops);
+  void setLinearGradient(
+      {required double startX,
+      required double startY,
+      required double endX,
+      required double endY,
+      required List<Color> colors,
+      List<double>? colorStops}) {
+    _paint.shader = ui.Gradient.linear(
+        Offset(startX, startY), Offset(endX, endY), colors, colorStops);
   }
 
-  void setRadialGradient({required double centerX, required double centerY, required double radius, required List<Color> colors, List<double>? colorStops}) {
-    _paint.shader = ui.Gradient.radial(Offset(centerX, centerY), radius, colors, colorStops);
+  void setRadialGradient(
+      {required double centerX,
+      required double centerY,
+      required double radius,
+      required List<Color> colors,
+      List<double>? colorStops}) {
+    _paint.shader = ui.Gradient.radial(
+        Offset(centerX, centerY), radius, colors, colorStops);
   }
 
   void setSweepGradient({
@@ -72,14 +89,16 @@ class SvgPathPainter {
     double startAngle = 0,
     double endAngle = math.pi * 2,
   }) {
-    _paint.shader = ui.Gradient.sweep(Offset(centerX, centerY), colors, colorStops, TileMode.clamp, startAngle, endAngle);
+    _paint.shader = ui.Gradient.sweep(Offset(centerX, centerY), colors,
+        colorStops, TileMode.clamp, startAngle, endAngle);
   }
 
   void setBlur(double sigma) {
     _paint.maskFilter = MaskFilter.blur(BlurStyle.inner, sigma);
   }
 
-  Future<void> setImage({required String imageAssetPath, double? opacity}) async {
+  Future<void> setImage(
+      {required String imageAssetPath, double? opacity}) async {
     final ByteData data = await rootBundle.load(imageAssetPath);
     final codec = await ui.instantiateImageCodec(Uint8List.view(data.buffer));
     final frameInfo = await codec.getNextFrame();

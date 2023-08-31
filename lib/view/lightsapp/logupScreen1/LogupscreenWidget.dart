@@ -33,6 +33,7 @@ class _LogupScreenState extends State<LogupScreen> {
     _address.dispose();
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     var width = Setting.getWidthSize();
@@ -107,8 +108,7 @@ class _LogupScreenState extends State<LogupScreen> {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child:
-                    Input(
+                child: Input(
                   textController: _phoneNumber,
                   placeholder: "Số điện thoại của bạn",
                   keyboardType: TextInputType.emailAddress,
@@ -121,7 +121,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                      icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       _phoneNumber.clear();
                     },

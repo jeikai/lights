@@ -7,11 +7,13 @@ class ImageManager {
 
   static final String mainBG =
       "assets/images/85467c0186aa1e39f7aba60db02bf4fe6c044214.png";
+  static final String cloudTransition = "assets/images/cloud_transition.png";
 
   ImageManager._internal();
 
   Future<void> setup() async {
     this.preloadImage(mainBG);
+    this.preloadImage(cloudTransition);
   }
 
   Map<String, ImageProvider> _preloadedImages = {};
@@ -23,6 +25,6 @@ class ImageManager {
   }
 
   ImageProvider getImageProvider(String imageUrl) {
-    return _preloadedImages[imageUrl] ?? NetworkImage(imageUrl);
+    return _preloadedImages[imageUrl] ?? AssetImage(imageUrl);
   }
 }

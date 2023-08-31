@@ -4,8 +4,7 @@ import '../../../reusable_widget/icons/my_flutter_app_icons.dart';
 import '../../../reusable_widget/vux/buttom/template.dart';
 import '../../../reusable_widget/vux/listview/dailytask/daily_task.dart';
 import '../../../reusable_widget/vux/unread_indicator.dart';
-
-typedef ShowOverlay = void Function(BuildContext context);
+import 'MainScreen.dart';
 
 class MenuButtom extends StatelessWidget {
   final ShowOverlay showOverlay;
