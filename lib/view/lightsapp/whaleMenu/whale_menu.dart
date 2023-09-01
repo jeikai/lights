@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/animated_switcher_with_preload_main_screen.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
+import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu_bubble_bar.dart';
@@ -41,18 +42,31 @@ class WhaleMenu extends StatelessWidget {
                   WhaleMenuBubbleBar(
                     children: [
                       WhaleMenuBubble(
-                        child: Container(
-                          color: Colors.white,
+                        child: Image.memory(
+                          ImageManager().getBytes(ImageManager.wbi1)!,
+                          fit: BoxFit.fill,
                         ),
                         onClick: (context) {
                           print("a");
                         },
                       ),
                       WhaleMenuBubble(
-                        child: Container(color: Colors.black),
+                        child: Image.memory(
+                          ImageManager().getBytes(ImageManager.wbi2)!,
+                          fit: BoxFit.fill,
+                        ),
+                        onClick: (context) {
+                          print("b");
+                        },
                       ),
                       WhaleMenuBubble(
-                        child: Container(color: Colors.red),
+                        child: Image.memory(
+                          ImageManager().getBytes(ImageManager.wbi3)!,
+                          fit: BoxFit.fill,
+                        ),
+                        onClick: (context) {
+                          print("c");
+                        },
                       )
                     ],
                   )

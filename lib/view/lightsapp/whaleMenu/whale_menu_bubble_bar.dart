@@ -89,7 +89,7 @@ class _WhaleMenuBubbleBarState extends State<WhaleMenuBubbleBar>
   List<Widget> _calcBubble(List<Widget> children) {
     List<Widget> list = <Widget>[];
     int i = 0;
-    double childSize = screenSize!.width * 1.2 / 3;
+    double childSize = screenSize!.width * 1.4 / 3;
     double value = _controller.value;
     children.forEach((w) {
       var size = _calcSize(i.toDouble(), value, childSize);
@@ -233,7 +233,7 @@ class _WhaleMenuBubbleState extends State<WhaleMenuBubble>
         CurvedAnimation(
             parent: _ziggalController, curve: Curves.easeInOutSine));
 
-    Future.delayed(Duration(milliseconds: Random().nextInt(100)))
+    Future.delayed(Duration(milliseconds: Random().nextInt(200) + 100))
         .then((value) => _runZiggalAni());
 
     _clickController = AnimationController(
