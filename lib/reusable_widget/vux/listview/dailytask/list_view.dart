@@ -5,7 +5,7 @@ import 'package:flutterapp/reusable_widget/vux/listview/dailytask/proxy_view_wid
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
 
-import '../../../../model/user_model.dart';
+import '../../../../model/model_data.dart';
 
 class DTListView extends StatefulWidget {
   static const Color dcDefault = Color.fromARGB(255, 212,216,234);
