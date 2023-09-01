@@ -49,7 +49,7 @@ class _NotificationListViewState extends State<NotificationListView>
 
   Widget _buildItem(NotificationContent item, BuildContext context,
       Animation<double> animation) {
-    double w = setting.widthSize / 40;
+    double w = Setting.widthSize / 40;
     return SizeTransition(
       sizeFactor: animation,
       child: Padding(
@@ -61,6 +61,6 @@ class _NotificationListViewState extends State<NotificationListView>
 
   Widget _buildRemovedItem(NotificationContent item, BuildContext context,
       Animation<double> animation) {
-    return Container();
+    return SizedBox();
   }
 }

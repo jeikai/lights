@@ -1,10 +1,10 @@
 class User {
   final String? name;
-  final String? phone_Number;
+  final String? phoneNumber;
   final String? address;
   final String? email;
 
-  User({this.name, this.phone_Number, this.address, this.email});
+  User({this.name, this.phoneNumber, this.address, this.email});
 }
 
 class TaskData {

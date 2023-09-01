@@ -17,6 +17,6 @@ Future<String> fetchData() {
 }
 
 void main() {
-  mySyncFunction();
-  print('This line will be executed before the result from fetchData');
+  double a = 1.934;
+  print(a.toInt());
 }

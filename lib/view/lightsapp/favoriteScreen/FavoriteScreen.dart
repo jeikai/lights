@@ -4,14 +4,14 @@ import 'package:flutterapp/reusable_widget/Quote_text.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/helpers/transform/transform.dart';
 import 'package:flutterapp/setting.dart';
 
 class GeneratedFavoritescreenWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
+    var width = Setting.getWidthSize();
+    // ignore: unused_local_variable
+    var height = Setting.getHeightSize();
     return Material(
         child: ClipRRect(
       borderRadius: BorderRadius.zero,
@@ -43,7 +43,7 @@ class GeneratedFavoritescreenWidget extends StatelessWidget {
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Button_Navigate(
+                child: buttonNavigate(
                     "Hoàn tất", context, '/GeneratedStartscreenWidget'),
               ),
               Positioned(

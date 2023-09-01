@@ -8,8 +8,11 @@ class Avatar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context2, constr) {
-      double c = size ?? (constr.maxWidth > constr.maxHeight ? constr.maxHeight : constr.maxWidth);
-      double r = c/2;
+      double c = size ??
+          (constr.maxWidth > constr.maxHeight
+              ? constr.maxHeight
+              : constr.maxWidth);
+      double r = c / 2;
       return Container(
         height: c,
         width: c,
@@ -18,15 +21,17 @@ class Avatar extends StatelessWidget {
           backgroundColor: Colors.black,
           child: CircleAvatar(
             radius: r * 0.95,
-            backgroundColor: Color.fromARGB(255, 228,225,243),
+            backgroundColor: Color.fromARGB(255, 228, 225, 243),
             child: CircleAvatar(
-              radius: r*0.75,
+              radius: r * 0.75,
               backgroundColor: Colors.black,
               child: CircleAvatar(
-                radius: r*0.7,
-                backgroundColor: avatar == null ? Color.fromARGB(255, 135,161,201) : null,
-                backgroundImage: avatar == null ? null : NetworkImage(avatar!)
-              ),
+                  radius: r * 0.7,
+                  backgroundColor: avatar == null
+                      ? Color.fromARGB(255, 135, 161, 201)
+                      : null,
+                  backgroundImage:
+                      avatar == null ? null : NetworkImage(avatar!)),
             ),
           ),
         ),

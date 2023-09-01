@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Quote_text.dart';
 import 'package:flutterapp/reusable_widget/Title_white.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
-import 'package:flutterapp/helpers/transform/transform.dart';
-import 'package:flutterapp/view/lightsapp/egg_screen/generated/GeneratedEgg1Widget.dart';
-
 import 'package:flutterapp/setting.dart';
 
 class Egg_Screen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
+    var width = Setting.getWidthSize();
+    // ignore: unused_local_variable
+    var height = Setting.getHeightSize();
     return Material(
         child: ClipRRect(
       borderRadius: BorderRadius.zero,

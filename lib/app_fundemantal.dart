@@ -27,14 +27,14 @@ class MyApp {
     await RiveUtil().setup();
     await ImageManager().setup();
     manager = NotificationManager();
-    print("a");
+    //print("a");
     return null;
   }
 
   void onPreRunFinish() {
-    print("b");
+    //print("b");
     manager!.runNotiProcess();
-    print(manager!.eventCallable.handlers.length);
+    //print(manager!.eventCallable.handlers.length);
   }
 
   void onPaused() {
@@ -93,7 +93,7 @@ class _AppFundState extends State<_AppFund> {
     if (widget.prerun.isFalse()) {
       widget.myapp.preRun().then((o) {
         widget.myapp.onPreRunFinish();
-        print("prerun finished");
+        //print("prerun finished");
         widget.prerun.setTrue();
         setState(() {
           _showLoading =

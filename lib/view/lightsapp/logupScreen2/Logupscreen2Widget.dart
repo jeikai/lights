@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
 
 class GeneratedLogupscreen2Widget extends StatefulWidget {
   @override
@@ -28,8 +27,9 @@ class _GeneratedLogupscreen2WidgetState
 
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
+    var width = Setting.getWidthSize();
+    // ignore: unused_local_variable
+    var height = Setting.getHeightSize();
     return Material(
       child: ClipRRect(
         borderRadius: BorderRadius.zero,
@@ -85,7 +85,7 @@ class _GeneratedLogupscreen2WidgetState
                   },
                   obscureText: false,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       _DOB.clear();
                     },
@@ -112,7 +112,7 @@ class _GeneratedLogupscreen2WidgetState
                   },
                   obscureText: obscure,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       setState(() {
                         obscure = !obscure; // Toggle the password visibility
@@ -143,10 +143,11 @@ class _GeneratedLogupscreen2WidgetState
                   },
                   obscureText: re_obscure,
                   onDataChanged: (value) => {},
-                  Icon: IconButton(
+                  icon: IconButton(
                     onPressed: () {
                       setState(() {
-                        re_obscure = !re_obscure; // Toggle the password visibility
+                        re_obscure =
+                            !re_obscure; // Toggle the password visibility
                       });
                     },
                     icon: Icon(
@@ -161,7 +162,7 @@ class _GeneratedLogupscreen2WidgetState
                 bottom: null,
                 width: 326.0,
                 height: 71.0,
-                child: Button_Navigate(
+                child: buttonNavigate(
                   "Tiếp theo",
                   context,
                   '/GeneratedFavoritescreenWidget',

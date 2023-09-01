@@ -1,3 +1,4 @@
 noti_url: '123'
 task_url: '321'
-polling_interval: 10
+polling_interval: 60
+whale_message: [ "Hello", "I am a friendly Whale" ]
