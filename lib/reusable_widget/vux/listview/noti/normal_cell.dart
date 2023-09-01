@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/avatar.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
-import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/util/VuxUtil.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
@@ -49,12 +48,6 @@ class _NormalCellState extends State<NormalCell>
     } else {
       _controller.reverse();
     }
-  }
-
-  void onDragUpdate(DragUpdateDetails details) {
-    double w = Setting.widthSize;
-    double dy = details.delta.dy;
-    print("" + (dy / w).toString() + " " + dy.toString() + " " + w.toString());
   }
 
   @override

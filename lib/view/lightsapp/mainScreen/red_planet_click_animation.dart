@@ -35,7 +35,7 @@ class _RedPlanetClickAnimationState extends State<RedPlanetClickAnimation>
     if (widget.isReverse) {
       _controller.reverse(from: 1).then((value) {
         widget.remove();
-        print("pop");
+        //print("pop");
       });
     } else {
       _controller.forward().then((value) {

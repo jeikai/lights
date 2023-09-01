@@ -11,7 +11,7 @@ class MainScreenBody extends StatelessWidget {
       : super(key: key);
 
   void onClick(BuildContext context) {
-    print("clicked");
+    //print("clicked");
     redPlanetClick(context, false);
   }
 

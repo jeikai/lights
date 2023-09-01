@@ -77,8 +77,8 @@ class CroppedImage extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
       final int width = constraints.maxWidth ~/ scaleX;
       final int height = constraints.maxHeight ~/ scaleY;
-      print("WidthX: $width => ${constraints.maxWidth} => $scaleX");
-      print("WidthY: $height => ${constraints.maxHeight} => $scaleY");
+      //print("WidthX: $width => ${constraints.maxWidth} => $scaleX");
+      //print("WidthY: $height => ${constraints.maxHeight} => $scaleY");
       return FutureBuilder<ui.Image>(
         future: resizeImage(width, height),
         builder: (BuildContext context, AsyncSnapshot<ui.Image> snapshot) {
@@ -115,7 +115,7 @@ class CroppedImage extends StatelessWidget {
     final codec = await ui.instantiateImageCodec(m,
         targetHeight: height, targetWidth: width, allowUpscaling: true);
     final frameInfo = await codec.getNextFrame();
-    print("resized image");
+    //print("resized image");
     return frameInfo.image;
   }
 }

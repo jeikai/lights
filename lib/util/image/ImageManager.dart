@@ -24,9 +24,9 @@ class ImageManager {
 
   Future<void> setup() async {
     await this.preloadImage(template);
-    await this.preloadByte(wb1);
-    await this.preloadByte(wb2);
-    await this.preloadByte(wb3);
+    // await this.preloadByte(wb1);
+    // await this.preloadByte(wb2);
+    // await this.preloadByte(wb3);
     await this.preloadImage(wbi1);
     await this.preloadImage(wbi2);
     await this.preloadImage(wbi3);

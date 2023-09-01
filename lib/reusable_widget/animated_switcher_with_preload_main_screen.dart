@@ -114,7 +114,7 @@ class AnimatedWaitingPreloadMainScreenState
   }
 
   Future<void> startOuttro() async {
-    print("outro");
+    //print("outro");
     return _controller.reverse();
   }
 
@@ -156,16 +156,6 @@ class _AnimatedCoverWrapper extends StatefulWidget {
 class _AnimatedCoverWrapperState extends State<_AnimatedCoverWrapper> {
   bool isFinish = false;
 
-  Future<bool> onWillPop() async {
-    // setState(() {
-    //   isFinish = false;
-    // });
-    // widget.controller.reverse().then((value) {
-    //   //Navigator.pop(context);
-    // });
-    return false;
-  }
-
   @override
   Widget build(BuildContext context) {
     if (isFinish) return SizedBox();
@@ -181,29 +171,37 @@ class _AnimatedCoverWrapperState extends State<_AnimatedCoverWrapper> {
         });
   }
 
+  void listener(status) {
+    switch (status) {
+      case AnimationStatus.forward:
+        setState(() {
+          isFinish = false;
+        });
+        break;
+      case AnimationStatus.reverse:
+        setState(() {
+          isFinish = false;
+        });
+        break;
+      case AnimationStatus.completed:
+        setState(() {
+          isFinish = true;
+        });
+        break;
+      case AnimationStatus.dismissed:
+        break;
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    widget.animation.addStatusListener((status) {
-      switch (status) {
-        case AnimationStatus.forward:
-          setState(() {
-            isFinish = false;
-          });
-          break;
-        case AnimationStatus.reverse:
-          setState(() {
-            isFinish = false;
-          });
-          break;
-        case AnimationStatus.completed:
-          setState(() {
-            isFinish = true;
-          });
-          break;
-        case AnimationStatus.dismissed:
-          break;
-      }
-    });
+    widget.animation.addStatusListener(listener);
+  }
+
+  @override
+  void dispose() {
+    widget.animation.removeStatusListener(listener);
+    super.dispose();
   }
 }
