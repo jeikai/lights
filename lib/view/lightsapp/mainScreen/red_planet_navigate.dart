@@ -26,7 +26,7 @@ class _RedPlanetNavigateState extends State<RedPlanetNavigate> {
         widget.onClick(context);
       },
       child: ClipOval(
-        child: Container(
+        child: SizedBox(
           height: 400,
           width: 400,
           child: const _RedPlanetWrapper(),

@@ -62,7 +62,7 @@ abstract class EventCallable<T extends Event> {
   }
 
   @nonVirtual
-  void removeHandler(Function handler) {
+  void removeHandler(void Function(T event) handler) {
     final index = _handlers.indexWhere(
         (handlerWithPriority) => handlerWithPriority.handler == handler);
     if (index >= 0) {

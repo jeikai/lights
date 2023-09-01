@@ -83,9 +83,46 @@ class _LightsApp extends StatelessWidget {
             GeneratedForgotpasswordscreen2Widget(),
         '/GeneratedForgotpasswordscreen3Widget': (context) =>
             GeneratedForgotpasswordscreen3Widget(),
-        '/GeneratedMainScreenWidget': (context) => MainScreenWidget(),
-        '/WhaleMenu': (context) => WhaleMenu(),
+      },
+      onGenerateRoute: (RouteSettings setting) {
+        switch (setting.name) {
+          case '/WhaleMenu':
+            return NoAnimationPageRoute(builder: (context) => WhaleMenu());
+          case '/GeneratedMainScreenWidget':
+            return NoAnimationPageRoute(
+                builder: (context) => MainScreenWidget());
+        }
       },
     ));
+  }
+}
+
+class NoAnimationPageRoute<T> extends PageRoute<T> {
+  final WidgetBuilder builder;
+
+  NoAnimationPageRoute({required this.builder});
+
+  @override
+  Color get barrierColor => Colors.transparent;
+
+  @override
+  String? get barrierLabel => null;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return builder(context);
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 0);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return child;
   }
 }

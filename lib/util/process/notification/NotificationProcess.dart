@@ -42,9 +42,9 @@ class NotificationProcess {
 
   Future<void> _fetchNotificationsPeriodically() async {
     while (_isRunning) {
+      await Future.delayed(_pollingInterval);
       var content = await _fetchNotificationsFromServer();
       if (content != null) manager.addNotification(content);
-      await Future.delayed(_pollingInterval);
     }
   }
 

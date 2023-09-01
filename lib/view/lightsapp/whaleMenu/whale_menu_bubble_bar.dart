@@ -215,7 +215,9 @@ class _WhaleMenuBubbleState extends State<WhaleMenuBubble>
   bool isClicked = false;
 
   void _runZiggalAni() {
-    _ziggalController.repeat(reverse: true);
+    try {
+      _ziggalController.repeat(reverse: true);
+    } catch (a) {}
   }
 
   @override
@@ -251,12 +253,12 @@ class _WhaleMenuBubbleState extends State<WhaleMenuBubble>
     if (isClicked) return;
     isClicked = true;
     _ziggalController.reset();
+    _clickController.reset();
     _clickController.forward().then((value) {
       _clickController.reverse().then((value) async {
         await Future.delayed(Duration(milliseconds: 500));
         widget.onClick(context);
         isClicked = false;
-        _clickController.reset();
         _runZiggalAni();
       });
     });

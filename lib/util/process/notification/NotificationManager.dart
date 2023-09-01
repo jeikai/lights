@@ -114,6 +114,10 @@ class NotificationManager {
     _callable.addHandler(callback, priority);
   }
 
+  void removeListener(void Function(NotificationEvent event) callback) {
+    _callable.removeHandler(callback);
+  }
+
   set removedItemBuilder(RemovedItemBuilder<NotificationContent> builder) {
     _list.removedItemBuilder = builder;
   }

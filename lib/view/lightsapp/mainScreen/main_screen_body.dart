@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/red_planet_navigate.dart';
 
 import '../../../reusable_widget/background.dart';
 import '../../../reusable_widget/whale.dart';
 
 class MainScreenBody extends StatelessWidget {
-  final ShowOverlay redPlanetClick;
+  final void Function(BuildContext context, bool isReverse) redPlanetClick;
 
   const MainScreenBody({Key? key, required this.redPlanetClick})
       : super(key: key);
 
   void onClick(BuildContext context) {
     print("clicked");
-    redPlanetClick(context);
+    redPlanetClick(context, false);
   }
 
   @override

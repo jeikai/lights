@@ -1,35 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/animated_switcher_with_preload_main_screen.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/main_screen_body.dart';
+import 'package:flutterapp/view/lightsapp/mainScreen/red_planet_click_animation.dart';
 
 import '../../../reusable_widget/vux/listview/noti/notification_menu.dart';
 import 'menu_buttom.dart';
 
 // ignore: must_be_immutable
 class MainScreenWidget extends StatelessWidget {
+  static GlobalKey<AnimatedWaitingPreloadMainScreenState> aniKey = GlobalKey();
+  static GlobalKey<MainScreenBodyWrapperState> aniKey2 = GlobalKey();
+
   final GlobalKey<OverlayState> overlayKey = GlobalKey<OverlayState>();
   OverlayEntry? _overlayEntry;
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedWaitingPreloadMainScreen(
-      duration: Duration(milliseconds: 500),
-      mainChildBuilder: (context) => _MainScreenBodyWrapper(
-        redPlanetClick: redPlanetClick,
-        showNotiOverlay: showNotiOverlay,
-        avaClick: avaClick,
+    return WillPopScope(
+      child: AnimatedWaitingPreloadMainScreen(
+        key: aniKey,
+        duration: Duration(milliseconds: 500),
+        mainChildBuilder: (context) => _MainScreenBodyWrapper(
+          key: aniKey2,
+          redPlanetClick: redPlanetClick,
+          showNotiOverlay: showNotiOverlay,
+          avaClick: avaClick,
+        ),
+        cover: Container(
+          color: Colors.white,
+        ),
+        delay: Duration(seconds: 2),
       ),
-      cover: Container(
-        color: Colors.white,
-      ),
-      delay: Duration(seconds: 2),
+      onWillPop: () async {
+        //await aniKey.currentState!.startOuttro();
+        return false;
+      },
     );
   }
 
   void avaClick() {}
 
-  void redPlanetClick(BuildContext context) {
-    Navigator.pushNamed(context, '/WhaleMenu');
+  void redPlanetClick(BuildContext context, bool isReverse) {
+    this.showOverlay(
+        context,
+        (context) =>
+            RedPlanetClickAnimation(context, removeOverlay, isReverse));
+    /*Navigator.pushNamed(context, "/WhaleMenu");*/
   }
 
   void showNotiOverlay(BuildContext context) {
@@ -59,20 +75,21 @@ typedef Builder = Widget Function(BuildContext context);
 typedef ShowOverlay = void Function(BuildContext context);
 
 class _MainScreenBodyWrapper extends StatefulWidget {
-  final void Function(BuildContext context) redPlanetClick;
+  final void Function(BuildContext context, bool isReverse) redPlanetClick;
   final void Function(BuildContext context) showNotiOverlay;
   final void Function() avaClick;
 
   const _MainScreenBodyWrapper(
       {required this.redPlanetClick,
       required this.showNotiOverlay,
-      required this.avaClick});
+      required this.avaClick,
+      super.key});
 
   @override
-  State<_MainScreenBodyWrapper> createState() => _MainScreenBodyWrapperState();
+  State<_MainScreenBodyWrapper> createState() => MainScreenBodyWrapperState();
 }
 
-class _MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
+class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
   final TextStyle style = TextStyle(
     height: 1.6,
     fontSize: 30.0,

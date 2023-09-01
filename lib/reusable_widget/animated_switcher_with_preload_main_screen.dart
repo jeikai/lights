@@ -12,6 +12,7 @@ class AnimatedWaitingPreloadMainScreen extends StatefulWidget {
   final Duration? reverseDuration;
   final Widget? cover;
   final Duration delay;
+  final String? navigatePath;
 
   const AnimatedWaitingPreloadMainScreen(
       {Key? key,
@@ -25,12 +26,13 @@ class AnimatedWaitingPreloadMainScreen extends StatefulWidget {
       this.switchInCurve = Curves.linear,
       this.switchOutCurve = Curves.linear,
       this.cover,
-      this.delay = Duration.zero})
+      this.delay = Duration.zero,
+      this.navigatePath})
       : super(key: key);
 
   @override
-  _AnimatedWaitingPreloadMainScreenState createState() =>
-      _AnimatedWaitingPreloadMainScreenState();
+  AnimatedWaitingPreloadMainScreenState createState() =>
+      AnimatedWaitingPreloadMainScreenState();
 
   static Widget defaultLayoutBuilder(
       Widget? currentCover, Widget mainScreenChild) {
@@ -53,7 +55,7 @@ class AnimatedWaitingPreloadMainScreen extends StatefulWidget {
   }
 }
 
-class _AnimatedWaitingPreloadMainScreenState
+class AnimatedWaitingPreloadMainScreenState
     extends State<AnimatedWaitingPreloadMainScreen>
     with TickerProviderStateMixin {
   late AnimationController _controller;
@@ -61,6 +63,7 @@ class _AnimatedWaitingPreloadMainScreenState
 
   late final Widget _mainScreen;
   bool _isStart = false;
+
   // ignore: unused_field
   bool _isWaiting = true;
 
@@ -110,6 +113,11 @@ class _AnimatedWaitingPreloadMainScreenState
     _mainScreen = widget.mainChildBuilder(context);
   }
 
+  Future<void> startOuttro() async {
+    print("outro");
+    return _controller.reverse();
+  }
+
   @override
   Widget build(BuildContext context) {
     if (_isFinish()) {
@@ -120,6 +128,7 @@ class _AnimatedWaitingPreloadMainScreenState
             animation: _animation,
             transitionBuilder: widget.transitionBuilder,
             cover: widget.cover,
+            controller: _controller,
           ),
           _mainScreen);
     }
@@ -131,11 +140,13 @@ class _AnimatedCoverWrapper extends StatefulWidget {
   final Widget Function(Widget child, Animation<double> animation)
       transitionBuilder;
   final Widget? cover;
+  final AnimationController controller;
 
   const _AnimatedCoverWrapper(
       {super.key,
       required this.animation,
       required this.transitionBuilder,
+      required this.controller,
       this.cover});
 
   @override
@@ -144,6 +155,16 @@ class _AnimatedCoverWrapper extends StatefulWidget {
 
 class _AnimatedCoverWrapperState extends State<_AnimatedCoverWrapper> {
   bool isFinish = false;
+
+  Future<bool> onWillPop() async {
+    // setState(() {
+    //   isFinish = false;
+    // });
+    // widget.controller.reverse().then((value) {
+    //   //Navigator.pop(context);
+    // });
+    return false;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -164,10 +185,25 @@ class _AnimatedCoverWrapperState extends State<_AnimatedCoverWrapper> {
   void initState() {
     super.initState();
     widget.animation.addStatusListener((status) {
-      if (status == AnimationStatus.completed)
-        setState(() {
-          isFinish = true;
-        });
+      switch (status) {
+        case AnimationStatus.forward:
+          setState(() {
+            isFinish = false;
+          });
+          break;
+        case AnimationStatus.reverse:
+          setState(() {
+            isFinish = false;
+          });
+          break;
+        case AnimationStatus.completed:
+          setState(() {
+            isFinish = true;
+          });
+          break;
+        case AnimationStatus.dismissed:
+          break;
+      }
     });
   }
 }
