@@ -78,8 +78,6 @@ class _RPCACustomPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Path mPath = Path();
     Paint debugPaint = Paint();
-    debugPaint.color = Colors.red;
-    canvas.drawCircle(Offset(0, size.height), 10, debugPaint);
     mPath.moveTo(0, size.height);
     var h = size.height * value * 2;
     mPath.lineTo(0, size.height - h);

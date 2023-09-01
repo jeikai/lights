@@ -256,7 +256,6 @@ class _WhaleMenuBubbleState extends State<WhaleMenuBubble>
     _clickController.reset();
     _clickController.forward().then((value) {
       _clickController.reverse().then((value) async {
-        await Future.delayed(Duration(milliseconds: 500));
         widget.onClick(context);
         isClicked = false;
         _runZiggalAni();

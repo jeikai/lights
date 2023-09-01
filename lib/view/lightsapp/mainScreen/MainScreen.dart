@@ -4,6 +4,7 @@ import 'package:flutterapp/view/lightsapp/mainScreen/main_screen_body.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/red_planet_click_animation.dart';
 
 import '../../../reusable_widget/vux/listview/noti/notification_menu.dart';
+import 'blue_planet_click_animation.dart';
 import 'menu_buttom.dart';
 
 // ignore: must_be_immutable
@@ -23,6 +24,7 @@ class MainScreenWidget extends StatelessWidget {
         mainChildBuilder: (context) => _MainScreenBodyWrapper(
           key: aniKey2,
           redPlanetClick: redPlanetClick,
+          bluePlanetClick: bluePlanetClick,
           showNotiOverlay: showNotiOverlay,
           avaClick: avaClick,
         ),
@@ -39,6 +41,14 @@ class MainScreenWidget extends StatelessWidget {
   }
 
   void avaClick() {}
+
+  void bluePlanetClick(BuildContext context, bool isReverse) {
+    this.showOverlay(
+        context,
+        (context) =>
+            BluePlanetClickAnimation(context, removeOverlay, isReverse));
+    /*Navigator.pushNamed(context, "/WhaleMenu");*/
+  }
 
   void redPlanetClick(BuildContext context, bool isReverse) {
     this.showOverlay(
@@ -76,11 +86,13 @@ typedef ShowOverlay = void Function(BuildContext context);
 
 class _MainScreenBodyWrapper extends StatefulWidget {
   final void Function(BuildContext context, bool isReverse) redPlanetClick;
+  final void Function(BuildContext context, bool isReverse) bluePlanetClick;
   final void Function(BuildContext context) showNotiOverlay;
   final void Function() avaClick;
 
   const _MainScreenBodyWrapper(
       {required this.redPlanetClick,
+      required this.bluePlanetClick,
       required this.showNotiOverlay,
       required this.avaClick,
       super.key});
@@ -120,6 +132,7 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
         ),
         body: MainScreenBody(
           redPlanetClick: widget.redPlanetClick,
+          bluePlanetClick: widget.bluePlanetClick,
         ),
         floatingActionButton: MenuButtom(
           showOverlay: widget.showNotiOverlay,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
@@ -91,6 +92,8 @@ class _LightsApp extends StatelessWidget {
           case '/GeneratedMainScreenWidget':
             return NoAnimationPageRoute(
                 builder: (context) => MainScreenWidget());
+          case '/CustomMenu':
+            return NoAnimationPageRoute(builder: (context) => CustomMenu());
         }
       },
     ));
