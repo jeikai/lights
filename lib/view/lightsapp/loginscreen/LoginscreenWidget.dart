@@ -146,8 +146,7 @@ class _GeneratedLoginscreenWidgetState
                       }
                     },
                     obscureText: false,
-                    onDataChanged: (value) => {
-                    },
+                    onDataChanged: (value) => {},
                     Icon: IconButton(
                       onPressed: () {
                         _email.clear();
@@ -178,7 +177,9 @@ class _GeneratedLoginscreenWidgetState
                           "email": _email.text,
                           "password": _password.text,
                         };
-                        Api().postData("login", data);
+                        // Api().postData("login", data);
+                        Navigator.pushNamed(
+                            context, '/Chatbot');
                       } else {
                         print("not ok");
                       }

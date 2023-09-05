@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
@@ -59,16 +60,14 @@ class _LightsApp extends StatelessWidget {
       ),
       initialRoute: '/GeneratedLoginscreenWidget',
       routes: {
-        '/GeneratedStartscreenWidget': (context) =>
-            Egg_Screen(),
+        '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
         '/GeneratedHelloscreenWidget': (context) =>
             GeneratedHelloscreenWidget(),
         '/GeneratedStoryscreen1Widget': (context) =>
             GeneratedStoryscreen1Widget(),
         '/GeneratedLoginscreenWidget': (context) =>
             GeneratedLoginscreenWidget(),
-        '/GeneratedLogupscreen1Widget': (context) =>
-            LogupScreen(),
+        '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
         '/GeneratedLogupscreen2Widget': (context) =>
             GeneratedLogupscreen2Widget(),
         '/GeneratedFavoritescreenWidget': (context) =>
@@ -80,7 +79,9 @@ class _LightsApp extends StatelessWidget {
         '/GeneratedForgotpasswordscreen3Widget': (context) =>
             GeneratedForgotpasswordscreen3Widget(),
         '/GeneratedMainScreenWidget': (context) => GeneratedMainScreenWidget(),
+        '/Chatbot': (context) => Chatbot(),
       },
     ));
   }
 }
+

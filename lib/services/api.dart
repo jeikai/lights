@@ -22,19 +22,24 @@ class Api {
 
   Future<void> postData(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);
-    print(uri);
-    var response = await http.post(uri,
-        headers: {'Context-Type': 'application/json'},
-        body: data);
-    var json = jsonDecode(response.body);
-    print("haha");
-    print(json);
-    // if (response.statusCode == 200) {
-    //   // Xử lý dữ liệu ở đây nếu cần
-    //   print('Dữ liệu đã được gửi thành công.');
-    // } else {
-    //   // Xử lý lỗi nếu có
-    //   print('Có lỗi xảy ra: ${response.statusCode}');
-    // }
+
+    try {
+      // Chuyển đổi dữ liệu thành JSON string
+      String jsonData = jsonEncode(data);
+      var response = await http.post(uri,
+          // headers: {'Content-Type': 'application/json'},
+           body: jsonData);
+      print(response);
+      if (response.statusCode == 200) {
+        var jsonResponse = jsonDecode(response.body);
+        print(jsonResponse);
+        print('Dữ liệu đã được gửi thành công.');
+      } else {
+        // Xử lý lỗi nếu có
+        print('Có lỗi xảy ra: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Lỗi: $e');
+    }
   }
 }

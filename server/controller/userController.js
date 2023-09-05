@@ -51,7 +51,7 @@ module.exports = {
       const user = await User.findOne({
         email: req.body.email
       })
-      if ( !user) {
+      if (!user) {
         res.status(401).json({ messase: "Email không tồn tại" })
       }
 
@@ -59,8 +59,8 @@ module.exports = {
       const depassword = de_pass.toString(cryptoJS.enc.Utf8);
 
       depassword != req.body.password && res.status(401).json({ messase: "Sai mật khẩu" })
-
-      res.status(200).json({ user: user }) 
+      console.log("haha")
+      res.status(200).json({ user: user, message: true })
     } catch (error) {
       res.status(500).json(error)
     }

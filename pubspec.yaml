@@ -3,6 +3,8 @@ name: "flutterapp"
 publish_to: "none"
 version: "1.0.0+1"
 dependencies:
+  chat_gpt_sdk: ^2.2.4  
+  velocity_x: ^3.6.0
   cupertino_icons: "^1.0.5"
   path_drawing: "^1.0.0"
   rive:
@@ -12,7 +14,7 @@ dependencies:
   chat_bubbles:
   flutter:
     sdk: "flutter"
-  http:
+  http: ^0.13.5
 dev_dependencies: 
   flutter_test: 
     sdk: "flutter"
