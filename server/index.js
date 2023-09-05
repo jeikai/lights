@@ -3,8 +3,7 @@ const app = express();
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 5000;
-const authRouter = require("./routes/auth")
-const userRouter = require("./routes/user")
+const routers = require("./routes/route")
 dotenv.config();
 app.use(express.json());
 app.use(
@@ -12,7 +11,7 @@ app.use(
     extended: true,
   })
 );
-mongoose 
+mongoose
   .connect(process.env.MONGO_URL)
   .then(() => {
     console.log("Connected");
@@ -21,7 +20,7 @@ mongoose
     console.log(err);
   });
 
-app.use("/api/", userRouter)
+app.use("/api/", routers);
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);

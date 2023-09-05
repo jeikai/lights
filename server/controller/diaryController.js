@@ -1,7 +1,7 @@
 const Diary = require("../models/Diary");
 
 module.exports = {
-  createDiary: async (req, res) => {
+  insertDiary: async (req, res) => {
     try {
       const { userId, time, content } = req.body;
 

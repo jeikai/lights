@@ -30,8 +30,9 @@ module.exports = {
 
   getMissionDayById: async (req, res) => {
     try {
-      // Truy vấn MissionDay bằng ID
-      const missionDay = await MissionDay.findById(req.params.id);
+      // Truy vấn MissionDay bằng ID và sử dụng populate để lấy dữ liệu từ bảng Mission
+      const missionDay = await MissionDay.findById(req.params.id)
+        .populate("missionId"); // "missionId" phải trùng với tên trường trong missionDaySchema
 
       if (!missionDay) {
         return res.status(404).json({ message: "MissionDay không tồn tại" });
