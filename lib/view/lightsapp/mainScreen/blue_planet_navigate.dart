@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/util/rive/RiveUtil.dart';
-import 'package:rive/rive.dart';
+
+import '../../../util/image/ImageManager.dart';
 
 typedef CallBack = void Function(BuildContext context);
 
@@ -41,10 +41,24 @@ class _BluePlanetWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return RiveAnimation.direct(
-      RiveUtil.BG,
-      artboard: "red_star",
-      fit: BoxFit.fill,
+    return CustomPaint(
+      size: Size(400, 400),
+      painter: _RPCustomPainter(),
     );
+  }
+}
+
+class _RPCustomPainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    paintImage(
+        canvas: canvas,
+        rect: Rect.fromPoints(Offset.zero, Offset(size.width, size.height)),
+        image: ImageManager().getUIImage(ImageManager.blue_planet)!);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    throw false;
   }
 }

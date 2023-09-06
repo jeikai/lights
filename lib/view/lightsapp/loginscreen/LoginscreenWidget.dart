@@ -43,7 +43,7 @@ class _GeneratedLoginscreenWidgetState
       mainChildBuilder: (context) {
         return ClipRRect(
           borderRadius: BorderRadius.zero,
-          child: Container(
+          child: SizedBox(
             width: double.infinity,
             height: double.infinity,
             child: Stack(

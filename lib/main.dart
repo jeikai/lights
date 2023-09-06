@@ -58,45 +58,47 @@ class _LightsApp extends StatelessWidget {
     Setting.setWidthSize(size.width);
     Setting.setHeightSize(size.height);
     return SafeArea(
-        child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Light\'s',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Light\'s',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/GeneratedFavoritescreenWidget',
+        routes: {
+          '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
+          '/GeneratedHelloscreenWidget': (context) =>
+              GeneratedHelloscreenWidget(),
+          '/GeneratedStoryscreen1Widget': (context) =>
+              GeneratedStoryscreen1Widget(),
+          '/GeneratedLoginscreenWidget': (context) =>
+              GeneratedLoginscreenWidget(),
+          '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
+          '/GeneratedLogupscreen2Widget': (context) =>
+              GeneratedLogupscreen2Widget(),
+          '/GeneratedFavoritescreenWidget': (context) => FavoriteScreenWidget(),
+          '/GeneratedForgotpasswordscreen1Widget': (context) =>
+              GeneratedForgotpasswordscreen1Widget(),
+          '/GeneratedForgotpasswordscreen2Widget': (context) =>
+              GeneratedForgotpasswordscreen2Widget(),
+          '/GeneratedForgotpasswordscreen3Widget': (context) =>
+              GeneratedForgotpasswordscreen3Widget(),
+        },
+        onGenerateRoute: (RouteSettings setting) {
+          switch (setting.name) {
+            case '/WhaleMenu':
+              return NoAnimationPageRoute(builder: (context) => WhaleMenu());
+            case '/GeneratedMainScreenWidget':
+              return NoAnimationPageRoute(
+                  builder: (context) => MainScreenWidget());
+            case '/CustomMenu':
+              return NoAnimationPageRoute(builder: (context) => CustomMenu());
+            default:
+              return null;
+          }
+        },
       ),
-      initialRoute: '/GeneratedLoginscreenWidget',
-      routes: {
-        '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
-        '/GeneratedHelloscreenWidget': (context) =>
-            GeneratedHelloscreenWidget(),
-        '/GeneratedStoryscreen1Widget': (context) =>
-            GeneratedStoryscreen1Widget(),
-        '/GeneratedLoginscreenWidget': (context) =>
-            GeneratedLoginscreenWidget(),
-        '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
-        '/GeneratedLogupscreen2Widget': (context) =>
-            GeneratedLogupscreen2Widget(),
-        '/GeneratedFavoritescreenWidget': (context) =>
-            GeneratedFavoritescreenWidget(),
-        '/GeneratedForgotpasswordscreen1Widget': (context) =>
-            GeneratedForgotpasswordscreen1Widget(),
-        '/GeneratedForgotpasswordscreen2Widget': (context) =>
-            GeneratedForgotpasswordscreen2Widget(),
-        '/GeneratedForgotpasswordscreen3Widget': (context) =>
-            GeneratedForgotpasswordscreen3Widget(),
-      },
-      onGenerateRoute: (RouteSettings setting) {
-        switch (setting.name) {
-          case '/WhaleMenu':
-            return NoAnimationPageRoute(builder: (context) => WhaleMenu());
-          case '/GeneratedMainScreenWidget':
-            return NoAnimationPageRoute(
-                builder: (context) => MainScreenWidget());
-          case '/CustomMenu':
-            return NoAnimationPageRoute(builder: (context) => CustomMenu());
-        }
-      },
-    ));
+    );
   }
 }
 

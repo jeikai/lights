@@ -29,7 +29,7 @@ class _RedPlanetClickAnimationState extends State<RedPlanetClickAnimation>
     image = ImageManager().getUIImage(ImageManager.template)!;
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1, milliseconds: 500),
     );
     super.initState();
     if (widget.isReverse) {
@@ -55,7 +55,7 @@ class _RedPlanetClickAnimationState extends State<RedPlanetClickAnimation>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Animation<double> animation =
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCirc);
+        CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     return AnimatedBuilder(
       animation: animation,
       builder: (BuildContext context, Widget? child) {
@@ -77,7 +77,6 @@ class _RPCACustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Path mPath = Path();
-    Paint debugPaint = Paint();
     mPath.moveTo(0, size.height);
     var h = size.height * value * 2;
     mPath.lineTo(0, size.height - h);
