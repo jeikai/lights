@@ -9,7 +9,7 @@ const Level_DepressionController = require("../controller/Level_DepressionContro
 const missionController = require("../controller/missionController");
 const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
-
+const ChatbotController = require("../controller/chatbotController");
 // Route cho user
 app.post("/register", userController.createUser)
 app.post("/login", userController.loginUser)
@@ -50,4 +50,7 @@ app.post("/updateMissionDay", MissionDayController.updateMissionDay);
 // Router cho Test
 app.post("/Test", testController.createTest);
 app.get("/getTest", testController.getTests);
+
+//Route cho Chatbot
+app.post("/Chatbot", ChatbotController.Chatbot)
 module.exports = app

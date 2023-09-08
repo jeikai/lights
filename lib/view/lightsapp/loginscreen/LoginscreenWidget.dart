@@ -177,9 +177,9 @@ class _GeneratedLoginscreenWidgetState
                           "email": _email.text,
                           "password": _password.text,
                         };
-                        // Api().postData("login", data);
-                        Navigator.pushNamed(
-                            context, '/Chatbot');
+                        Api().postData("login", data);
+                        // Navigator.pushNamed(
+                        //     context, '/Chatbot');
                       } else {
                         print("not ok");
                       }
