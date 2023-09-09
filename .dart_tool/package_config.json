@@ -140,6 +140,12 @@
       "languageVersion": "3.0"
     },
     {
+      "name": "fluttertoast",
+      "rootUri": "file:///C:/Users/bomch/AppData/Local/Pub/Cache/hosted/pub.dev/fluttertoast-8.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "graphs",
       "rootUri": "file:///C:/Users/bomch/AppData/Local/Pub/Cache/hosted/pub.dev/graphs-2.3.1",
       "packageUri": "lib/",
@@ -416,7 +422,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-09-03T05:45:54.769672Z",
+  "generated": "2023-09-09T06:33:13.193806Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

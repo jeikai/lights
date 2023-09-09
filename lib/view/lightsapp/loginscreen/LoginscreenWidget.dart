@@ -14,7 +14,7 @@ import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/services/api.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 class GeneratedLoginscreenWidget extends StatefulWidget {
   @override
   State<GeneratedLoginscreenWidget> createState() =>
@@ -177,7 +177,8 @@ class _GeneratedLoginscreenWidgetState
                           "email": _email.text,
                           "password": _password.text,
                         };
-                        Api().postData("login", data);
+                        var response = Api().postData("login", data);
+                        print(response);
                         // Navigator.pushNamed(
                         //     context, '/Chatbot');
                       } else {
