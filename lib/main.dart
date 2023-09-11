@@ -66,7 +66,7 @@ class _LightsApp extends StatelessWidget {
         ),
         initialRoute: '/GeneratedFavoritescreenWidget',
         routes: {
-          '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
+          '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>
               GeneratedHelloscreenWidget(),
           '/GeneratedStoryscreen1Widget': (context) =>

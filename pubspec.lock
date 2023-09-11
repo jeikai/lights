@@ -5,10 +5,10 @@ packages:
     dependency: transitive
     description:
       name: archive
-      sha256: "0c8368c9b3f0abbc193b9d6133649a614204b528982bebc7026372d61677ce3a"
+      sha256: "49b1fad315e57ab0bbc15bcbb874e83116a1d78f77ebd500a4af6c9407d6b28e"
       url: "https://pub.dev"
     source: hosted
-    version: "3.3.7"
+    version: "3.3.8"
   args:
     dependency: transitive
     description:
@@ -134,6 +134,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_gif:
+    dependency: "direct main"
+    description:
+      name: flutter_gif
+      sha256: b13d7e484e40685e9236ffbaddf012c2448a2e2c1ac48bed345184dd7bc87f88
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   flutter_launcher_icons:
     dependency: "direct dev"
     description:
@@ -324,18 +332,18 @@ packages:
     dependency: "direct main"
     description:
       name: rive
-      sha256: b7780ebdc56320da1f02a39a18f050a6079cad60c0cb92003c0801cc4eec6673
+      sha256: "5fbb92f9f880cddbb9181342dc24099eee323ca43339e2c8e1ae6fad85df915e"
       url: "https://pub.dev"
     source: hosted
-    version: "0.11.14"
+    version: "0.11.16"
   rive_common:
     dependency: transitive
     description:
       name: rive_common
-      sha256: "1431b99c9f361234cc6fa9aee7987b20030622df25ff64343a4010f9446b275e"
+      sha256: e41f12917cb58e0c9376836490ebaa431e12744da0c67e19dad8d4bee9fedd46
       url: "https://pub.dev"
     source: hosted
-    version: "0.2.6"
+    version: "0.2.7"
   shared_preferences:
     dependency: "direct main"
     description:
@@ -526,5 +534,5 @@ packages:
     source: hosted
     version: "3.1.2"
 sdks:
-  dart: ">=3.0.0 <4.0.0"
+  dart: ">3.0.0 <4.0.0"
   flutter: ">=3.7.0"

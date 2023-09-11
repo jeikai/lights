@@ -34,12 +34,14 @@ class _FavoriteListState extends State<FavoriteList>
     size = widget.iniSize ?? getCategorySize(widget._category);
     row = size ~/ 3 + 1;
     _reverse = ValueNotifier(false);
-    _controller =
-        AnimationController(vsync: this, duration: Duration(seconds: 3));
+    _controller = AnimationController(
+        vsync: this, duration: Duration(milliseconds: 250 * size));
     _animation = IntTween(begin: 0, end: size).animate(_controller);
     _animation.addListener(() {
-      if (_animation.value == oldValue) return;
-      oldValue = _animation.value;
+      var v = _animation.value;
+      if (v == oldValue) return;
+      oldValue = v;
+      print(v);
       setState(() {
         final a = _FavoriteCell(
           wrapper: widget.data
@@ -59,6 +61,7 @@ class _FavoriteListState extends State<FavoriteList>
         });
     });
     super.initState();
+    _runAnimation();
   }
 
   @override
@@ -78,7 +81,6 @@ class _FavoriteListState extends State<FavoriteList>
 
   @override
   Widget build(BuildContext context) {
-    _runAnimation();
     return LayoutBuilder(builder: (context, constraints) {
       var a = _buildChild(context, constraints);
       return IgnorePointer(
@@ -137,7 +139,7 @@ class _FavoriteCell extends StatefulWidget {
   final FavoriteWrapper wrapper;
 
   const _FavoriteCell(
-      {super.key, this.child, required this.reverse, required this.wrapper});
+      {this.child, required this.reverse, required this.wrapper});
 
   @override
   State<_FavoriteCell> createState() => _FavoriteCellState();
