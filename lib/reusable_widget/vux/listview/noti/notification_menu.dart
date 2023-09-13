@@ -6,9 +6,10 @@ import 'package:flutterapp/reusable_widget/vux/listview/noti/notification_list_v
 class NotificationMenu extends StatefulWidget {
   final VoidCallback removeOverlayCallback;
 
-  static const Color colorMain = Color.fromARGB(255, 250,241,255);
+  static const Color colorMain = Color.fromARGB(255, 250, 241, 255);
 
-  const NotificationMenu({Key? key, required this.removeOverlayCallback}) : super(key: key);
+  const NotificationMenu({Key? key, required this.removeOverlayCallback})
+      : super(key: key);
 
   @override
   _NotificationMenuState createState() => _NotificationMenuState();
@@ -23,7 +24,8 @@ class _NotificationMenuState extends State<NotificationMenu>
 
   @override
   void initState() {
-    _controller = AnimationController(vsync: this, duration: Duration(seconds: 1));
+    _controller =
+        AnimationController(vsync: this, duration: Duration(seconds: 1));
     super.initState();
 
     _animation = Tween<Offset>(
@@ -36,9 +38,10 @@ class _NotificationMenuState extends State<NotificationMenu>
       ),
     );
     _animation.addStatusListener((status) {
-      if(status == AnimationStatus.completed) setState(() {
-        _finishAni = true;
-      });
+      if (status == AnimationStatus.completed)
+        setState(() {
+          _finishAni = true;
+        });
     });
     _controller.forward();
     //Todo: add Notification Process Listener
@@ -59,8 +62,11 @@ class _NotificationMenuState extends State<NotificationMenu>
 
   @override
   Widget build(BuildContext context) {
-    return !_finishAni ? AnimatedBuilder(animation: _animation, builder: (context2, w) {
-      return Transform.translate(
+    return !_finishAni
+        ? AnimatedBuilder(
+            animation: _animation,
+            builder: (context2, w) {
+              return Transform.translate(
                   offset: _animation.value,
                   child: Material(
                     child: Container(
@@ -104,7 +110,6 @@ class _NotificationMenuState extends State<NotificationMenu>
 }
 
 class NotificationMain extends StatelessWidget {
-
   final VoidCallback close;
 
   NotificationMain(this.close);
@@ -179,11 +184,7 @@ class NotificationMain extends StatelessWidget {
                 ],
               );
             },
-          )
-      ),
+          )),
     );
   }
-
 }
-
-

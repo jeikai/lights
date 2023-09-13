@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/avatar.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
-import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/util/VuxUtil.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
@@ -50,12 +50,6 @@ class _NormalCellState extends State<NormalCell>
     }
   }
 
-  void onDragUpdate(DragUpdateDetails details) {
-    double w = setting.widthSize;
-    double dy = details.delta.dy;
-    print("" + (dy / w).toString() + " " + dy.toString() + " " + w.toString());
-  }
-
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(this.context).size;
@@ -72,7 +66,7 @@ class _NormalCellState extends State<NormalCell>
             builder: (BuildContext context, Widget? child) {
               double dw = -(w / 20 + w / 5);
               return Center(
-                child: Container(
+                child: SizedBox(
                   key: Key("NormalMainContainer"),
                   width: w / 6 * 5.9,
                   height: widget.inner.height + 10,
@@ -81,7 +75,7 @@ class _NormalCellState extends State<NormalCell>
                     children: [
                       Positioned(
                         left: dw * _animation.value.dx,
-                        child: Container(
+                        child: SizedBox(
                           width: (w / 20 + w / 5 + w),
                           child: child!,
                         ),
@@ -91,11 +85,11 @@ class _NormalCellState extends State<NormalCell>
                 ),
               );
             },
-            child: Container(
+            child: SizedBox(
               width: (w / 20 + w / 5 + w),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     width: w / 5,
                     child: Center(
                       child: Template(
@@ -140,6 +134,7 @@ class _NormalCellState extends State<NormalCell>
   }
 }
 
+// ignore: must_be_immutable
 class InnerNormalCell extends StatelessWidget {
   InnerNormalCell(
       {Key? key, this.isClickable = false, this.onPress, required this.noti})
@@ -162,13 +157,7 @@ class InnerNormalCell extends StatelessWidget {
   }
 
   double _calcHeight() {
-    TextSpan textSpan = TextSpan(text: noti.content, style: style);
-    TextPainter textPainter = TextPainter(
-      text: textSpan,
-      textDirection: TextDirection.ltr,
-    );
-    textPainter.layout(maxWidth: _w * 0.9 / 6 * 3.9);
-    return textPainter.height;
+    return calcHeight(noti.content, style, _w * 0.9 / 6 * 3.9);
   }
 
   @override
@@ -194,7 +183,7 @@ class InnerNormalCell extends StatelessWidget {
               ),
             ),
           ),
-          Container(
+          SizedBox(
             width: w_r,
             height: height,
             child: Center(
@@ -209,7 +198,7 @@ class InnerNormalCell extends StatelessWidget {
           ),
           Builder(builder: (context2) {
             return isClickable
-                ? Container(
+                ? SizedBox(
                     width: w_l,
                     child: Center(
                       child: ElevatedButton(
@@ -224,7 +213,7 @@ class InnerNormalCell extends StatelessWidget {
                       ),
                     ),
                   )
-                : Container(
+                : SizedBox(
                     width: w_l,
                   );
           })

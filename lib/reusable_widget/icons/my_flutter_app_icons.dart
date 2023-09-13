@@ -11,7 +11,7 @@
 ///      fonts:
 ///       - asset: fonts/MyFlutterApp.ttf
 ///
-/// 
+///
 /// * Font Awesome 5, Copyright (C) 2016 by Dave Gandy
 ///         Author:    Dave Gandy
 ///         License:   SIL (https://github.com/FortAwesome/Font-Awesome/blob/master/LICENSE.txt)
@@ -25,8 +25,14 @@ class MyFlutterIcon {
   static const _kFontFam = 'MyFlutterApp';
   static const String? _kFontPkg = null;
 
-  static const IconData cancel = IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData home = IconData(0xf015, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData list_alt = IconData(0xf022, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData bell = IconData(0xf0f3, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData arrow_back =
+      IconData(0xe800, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData cancel =
+      IconData(0xe801, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData home =
+      IconData(0xf015, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData list_alt =
+      IconData(0xf022, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData bell =
+      IconData(0xf0f3, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }

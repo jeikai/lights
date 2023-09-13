@@ -16,21 +16,30 @@ class _UnreadIndicatorState extends State<UnreadIndicator> {
   late NotificationManager manager;
   int number = 0;
 
+  void listener(event) {
+    setState(() {
+      number = manager.notificationUnreadCount;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     manager = NotificationManager();
-    manager.addListener((event) {
-      setState(() {
-        number = manager.notificationUnreadCount;
-      });
-    }, Priorities.belowNormal);
+    number = manager.notificationUnreadCount;
+    manager.addListener(listener, Priorities.belowNormal);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    manager.removeListener(listener);
   }
 
   @override
   Widget build(BuildContext context) {
     return number == 0
-        ? Container()
+        ? SizedBox()
         : CircleNumberWidget(
             number: this.number,
             height: widget.height,

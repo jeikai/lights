@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class Template extends StatelessWidget {
-  Widget? child;
-  double? scaleValue;
+  late final Widget? _child;
+  final double? scaleValue;
   final VoidCallback? onPress;
 
   Template(
@@ -19,13 +19,14 @@ class Template extends StatelessWidget {
       this.scaleValue,
       this.onPress})
       : super(key: key) {
+    Widget? child;
     if (image != null) {
       child = Container(
         width: width,
         height: height,
         child: Image(image: image),
       );
-    } else if (text != null && child == null) {
+    } else if (text != null) {
       child = Container(
         width: width,
         height: height,
@@ -44,14 +45,18 @@ class Template extends StatelessWidget {
               BorderRadius.circular(6.0), // Set the desired border radius
         ),
       );
-    } else if (icon != null && child == null) {
+    } else if (icon != null) {
       child = Container(
           width: width,
           height: height,
           child: Center(
             child: Padding(
               padding: EdgeInsets.all(padding), // Add the desired margin
-              child: Icon(icon, color: innerColor ?? Colors.blueGrey, size: size,),
+              child: Icon(
+                icon,
+                color: innerColor ?? Colors.blueGrey,
+                size: size,
+              ),
             ),
           ),
           decoration: BoxDecoration(
@@ -59,7 +64,7 @@ class Template extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(6.0), // Set the desired border radius
           ));
-    } else if (child == null) {
+    } else
       child = Container(
           width: width,
           height: height,
@@ -77,20 +82,19 @@ class Template extends StatelessWidget {
             borderRadius:
                 BorderRadius.circular(6.0), // Set the desired border radius
           ));
-    }
+
+    _child = child;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: TemplateButton(
-        onPressed: onPress ??
-            () {
-              print("press");
-            },
-        child: child!,
-        scaleValue: scaleValue ?? 1.5,
-      ),
+    return TemplateButton(
+      onPressed: onPress ??
+          () {
+            print("press");
+          },
+      child: _child!,
+      scaleValue: scaleValue ?? 1.5,
     );
   }
 }

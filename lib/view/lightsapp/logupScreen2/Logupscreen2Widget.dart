@@ -28,8 +28,8 @@ class _GeneratedLogupscreen2WidgetState
 
   @override
   Widget build(BuildContext context) {
-    var width = setting.getWidthSize();
-    var height = setting.getHeightSize();
+    var width = Setting.getWidthSize();
+    var height = Setting.getHeightSize();
     return Material(
       child: ClipRRect(
         borderRadius: BorderRadius.zero,

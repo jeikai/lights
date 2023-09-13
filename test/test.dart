@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/reusable_widget/animated_switcher_with_preload_main_screen.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
 
 void main() {
@@ -31,6 +32,15 @@ class _AState extends State<A> {
 
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return AnimatedWaitingPreloadMainScreen(
+      duration: Duration(seconds: 3),
+      mainChildBuilder: (context) {
+        return Container(color: Colors.black);
+      },
+      cover: Container(
+        color: Colors.white,
+      ),
+      delay: Duration(milliseconds: 1000),
+    );
   }
 }

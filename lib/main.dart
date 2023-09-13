@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
+import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
 import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
@@ -13,11 +14,17 @@ import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
+
 import 'app_fundemantal.dart';
 import 'setting.dart';
 
 void main() {
-  MyApp(_LightsApp(), _Loading());
+  MyApp(
+      _LightsApp(),
+      _Loading(
+        key: Key("loading"),
+      ));
 }
 
 void initState() {
@@ -54,39 +61,81 @@ class _LightsApp extends StatefulWidget {
 class _LightsAppState extends State<_LightsApp> {
   @override
   Widget build(BuildContext context) {
-    setting.setWidthSize(MediaQuery.of(context).size.width);
-    setting.setHeightSize(MediaQuery.of(context).size.height);
+    final size = MediaQuery.of(context).size;
+    Setting.setWidthSize(size.width);
+    Setting.setHeightSize(size.height);
     return SafeArea(
-        child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      builder: FToastBuilder(),
-      title: 'Light\'s',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Light\'s',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        initialRoute: '/GeneratedLoginscreenWidget',
+        routes: {
+          '/GeneratedStartscreenWidget': (context) => EggScreen(),
+          '/GeneratedHelloscreenWidget': (context) =>
+              GeneratedHelloscreenWidget(),
+          '/GeneratedStoryscreen1Widget': (context) =>
+              GeneratedStoryscreen1Widget(),
+          '/GeneratedLoginscreenWidget': (context) =>
+              GeneratedLoginscreenWidget(),
+          '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
+          '/GeneratedLogupscreen2Widget': (context) =>
+              GeneratedLogupscreen2Widget(),
+          '/GeneratedFavoritescreenWidget': (context) => FavoriteScreenWidget(),
+          '/GeneratedForgotpasswordscreen1Widget': (context) =>
+              GeneratedForgotpasswordscreen1Widget(),
+          '/GeneratedForgotpasswordscreen2Widget': (context) =>
+              GeneratedForgotpasswordscreen2Widget(),
+          '/GeneratedForgotpasswordscreen3Widget': (context) =>
+              GeneratedForgotpasswordscreen3Widget(),
+          '/Chatbot': (context) => Chatbot(),
+        },
+        onGenerateRoute: (RouteSettings setting) {
+          switch (setting.name) {
+            case '/WhaleMenu':
+              return NoAnimationPageRoute(builder: (context) => WhaleMenu());
+            case '/GeneratedMainScreenWidget':
+              return NoAnimationPageRoute(
+                  builder: (context) => MainScreenWidget());
+            case '/CustomMenu':
+              return NoAnimationPageRoute(builder: (context) => CustomMenu());
+            default:
+              return null;
+          }
+        },
       ),
-      initialRoute: '/GeneratedLoginscreenWidget',
-      routes: {
-        '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
-        '/GeneratedHelloscreenWidget': (context) =>
-            GeneratedHelloscreenWidget(),
-        '/GeneratedStoryscreen1Widget': (context) =>
-            GeneratedStoryscreen1Widget(),
-        '/GeneratedLoginscreenWidget': (context) =>
-            GeneratedLoginscreenWidget(),
-        '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
-        '/GeneratedLogupscreen2Widget': (context) =>
-            GeneratedLogupscreen2Widget(),
-        '/GeneratedFavoritescreenWidget': (context) =>
-            GeneratedFavoritescreenWidget(),
-        '/GeneratedForgotpasswordscreen1Widget': (context) =>
-            GeneratedForgotpasswordscreen1Widget(),
-        '/GeneratedForgotpasswordscreen2Widget': (context) =>
-            GeneratedForgotpasswordscreen2Widget(),
-        '/GeneratedForgotpasswordscreen3Widget': (context) =>
-            GeneratedForgotpasswordscreen3Widget(),
-        '/GeneratedMainScreenWidget': (context) => GeneratedMainScreenWidget(),
-        '/Chatbot': (context) => Chatbot(),
-      },
-    ));
+    );
+  }
+}
+
+class NoAnimationPageRoute<T> extends PageRoute<T> {
+  final WidgetBuilder builder;
+
+  NoAnimationPageRoute({required this.builder});
+
+  @override
+  Color get barrierColor => Colors.transparent;
+
+  @override
+  String? get barrierLabel => null;
+
+  @override
+  Widget buildPage(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation) {
+    return builder(context);
+  }
+
+  @override
+  bool get maintainState => true;
+
+  @override
+  Duration get transitionDuration => Duration(milliseconds: 0);
+
+  @override
+  Widget buildTransitions(BuildContext context, Animation<double> animation,
+      Animation<double> secondaryAnimation, Widget child) {
+    return child;
   }
 }

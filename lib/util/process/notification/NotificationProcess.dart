@@ -42,9 +42,9 @@ class NotificationProcess {
 
   Future<void> _fetchNotificationsPeriodically() async {
     while (_isRunning) {
+      await Future.delayed(_pollingInterval);
       var content = await _fetchNotificationsFromServer();
       if (content != null) manager.addNotification(content);
-      await Future.delayed(_pollingInterval);
     }
   }
 
@@ -55,7 +55,7 @@ class NotificationProcess {
       NotificationContent content = NotificationContent(
           isRead: false,
           content: generateRandomString(_random.nextInt(100) + 100));
-      //res = content;
+      res = content;
     } catch (e) {
       print('Error fetching notifications: $e');
       // Handle errors, such as retrying or logging errors
