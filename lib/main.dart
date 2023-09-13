@@ -12,7 +12,7 @@ import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
 import 'app_fundemantal.dart';
 import 'setting.dart';
 
@@ -46,7 +46,12 @@ class _Loading extends StatelessWidget {
   }
 }
 
-class _LightsApp extends StatelessWidget {
+class _LightsApp extends StatefulWidget {
+  @override
+  State<_LightsApp> createState() => _LightsAppState();
+}
+
+class _LightsAppState extends State<_LightsApp> {
   @override
   Widget build(BuildContext context) {
     setting.setWidthSize(MediaQuery.of(context).size.width);
@@ -54,6 +59,7 @@ class _LightsApp extends StatelessWidget {
     return SafeArea(
         child: MaterialApp(
       debugShowCheckedModeBanner: false,
+      builder: FToastBuilder(),
       title: 'Light\'s',
       theme: ThemeData(
         primarySwatch: Colors.blue,
@@ -84,4 +90,3 @@ class _LightsApp extends StatelessWidget {
     ));
   }
 }
-

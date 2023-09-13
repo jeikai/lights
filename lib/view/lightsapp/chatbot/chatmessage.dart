@@ -1,44 +1,56 @@
+import 'package:custom_clippers/custom_clippers.dart';
 import "package:flutter/material.dart";
-import 'package:velocity_x/velocity_x.dart';
 
 class chatmessage extends StatelessWidget {
-  const chatmessage(
-      {super.key,
-      required this.text,
-      required this.sender,
-      this.isImage = false});
+  const chatmessage({
+    Key? key,
+    required this.text,
+    required this.sender,
+    this.isImage = false,
+  }) : super(key: key);
+
   final String text;
   final String sender;
   final bool isImage;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    final isUser = sender == "user";
+    return Column(
+      crossAxisAlignment:
+          isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
-        Text(sender)
-            .text
-            .subtitle1(context)
-            .make()
-            .box
-            .color(sender == "user" ? Vx.red200 : Vx.green200)
-            .p16
-            .rounded
-            .alignCenter
-            .makeCentered(),
-        Expanded(
-          child: isImage
-              ? AspectRatio(
-                  aspectRatio: 16 / 9,
-                  child: Image.network(
-                    text,
-                    loadingBuilder: (context, child, loadingProgress) =>
-                        loadingProgress == null
-                            ? child
-                            : const CircularProgressIndicator.adaptive(),
-                  ),
-                )
-              : text.trim().text.bodyText1(context).make().px8(),
+        Padding(
+          padding: EdgeInsets.only(top: 20),
+          child: ClipPath(
+            clipper: isUser
+                ? LowerNipMessageClipper(MessageType.send)
+                : UpperNipMessageClipper(MessageType.receive),
+            child: Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: isUser
+                    ? Color.fromRGBO(149, 147, 212, 1)
+                    : Color.fromRGBO(250, 241, 255, 1),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 10,
+                    offset: Offset(3, 3),
+                  )
+                ],
+              ),
+              child: Text(
+                text,
+                style: TextStyle(
+                    fontSize: 16,
+                    color: isUser ? Colors.white : Colors.black,
+                    fontFamily: 'Paytone One',
+                    fontWeight: FontWeight.w400),
+              ),
+            ),
+          ),
         ),
       ],
     );

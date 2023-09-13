@@ -92,6 +92,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "custom_clippers",
+      "rootUri": "file:///C:/Users/bomch/AppData/Local/Pub/Cache/hosted/pub.dev/custom_clippers-2.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "dio",
       "rootUri": "file:///C:/Users/bomch/AppData/Local/Pub/Cache/hosted/pub.dev/dio-5.3.2",
       "packageUri": "lib/",
@@ -120,6 +126,12 @@
       "rootUri": "file:///D:/Program/src/flutter/packages/flutter",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_custom_clippers",
+      "rootUri": "file:///C:/Users/bomch/AppData/Local/Pub/Cache/hosted/pub.dev/flutter_custom_clippers-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "flutter_launcher_icons",
@@ -422,7 +434,7 @@
       "languageVersion": "2.17"
     }
   ],
-  "generated": "2023-09-09T06:33:13.193806Z",
+  "generated": "2023-09-11T03:10:08.447289Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

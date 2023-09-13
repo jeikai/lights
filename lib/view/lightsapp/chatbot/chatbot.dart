@@ -1,9 +1,11 @@
 import 'dart:async';
 import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'chatmessage.dart';
 import 'package:flutter/services.dart';
+import 'package:flutterapp/services/api.dart';
 
 class Chatbot extends StatefulWidget {
   const Chatbot({super.key});
@@ -15,25 +17,11 @@ class Chatbot extends StatefulWidget {
 class _ChatbotState extends State<Chatbot> {
   final TextEditingController _controller = TextEditingController();
   final List<chatmessage> _message = [];
+  final _formKey = GlobalKey<FormState>();
   bool _isTyping = false;
-
-  //Dùng biến late để cho biết sau khi khai báo thì khởi tạo
-  late OpenAI? chatGPT;
-  StreamSubscription? _subscription;
-
-  @override
-  void initState() {
-    chatGPT = OpenAI.instance.build(
-      token: "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",
-      baseOption: HttpSetup(receiveTimeout: Duration(milliseconds: 100000)),
-      enableLog: true,
-    );
-    super.initState();
-  }
 
   @override
   void dispose() {
-    _subscription?.cancel();
     super.dispose();
   }
 
@@ -44,22 +32,12 @@ class _ChatbotState extends State<Chatbot> {
       _message.insert(0, message);
       _isTyping = true;
     });
+    Map<String, dynamic> request = {
+      "message": _controller.text,
+    };
     _controller.clear();
-
-    final request = CompleteText(
-      prompt: message.text,
-      model: TextDavinci3Model(),
-      maxTokens: 200,
-    );
-
-    try {
-      final response = await chatGPT!.onCompletion(request: request);
-      Vx.log(response?.choices[0].text);
-      print(response);
-      insertNewData(response!.choices[0].text, isImage: false);
-    } catch (e) {
-      print("Lỗi khi gửi yêu cầu đến OpenAI: $e");
-    }
+    var response = await Api().postData("chatbot", request);
+    insertNewData(response!["response"]);
   }
 
   void insertNewData(String response, {bool isImage = false}) {
@@ -75,26 +53,58 @@ class _ChatbotState extends State<Chatbot> {
   }
 
   Widget InputText() {
-    final vietnameseFormatter = FilteringTextInputFormatter.allow(
-      RegExp(r'[a-zA-Z\u00E0-\u1EF3\s]'),
-    );
-
     return Row(
       children: [
         Expanded(
-          child: TextField(
-            controller: _controller,
-            onSubmitted: (value) => _sendMessage(),
-            decoration: const InputDecoration.collapsed(
-              hintText: "Điền tin nhắn",
+          child: Container(
+            decoration: BoxDecoration(
+              color: Color.fromRGBO(248, 240, 253, 1),
+              borderRadius: BorderRadius.circular(30.0),
             ),
-            inputFormatters: [vietnameseFormatter],
+            child: Form(
+              key: _formKey,
+              child: TextFormField(
+                controller: _controller,
+                onFieldSubmitted: (value) => _sendMessage(),
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    ToastNoti.show("Vui lòng nhập gì đó");
+                  }
+                },
+                onTapOutside: (event) => {FocusScope.of(context).unfocus()},
+                decoration: InputDecoration(
+                  hintText: "Điền tin nhắn",
+                  hintStyle: TextStyle(
+                    color: Color.fromRGBO(90, 106, 176, 1),
+                    fontSize: 20.0,
+                    fontFamily: 'Paytone One',
+                    fontWeight: FontWeight.w300,
+                  ),
+                  border: InputBorder.none,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                ),
+                style: TextStyle(
+                  color: Color.fromRGBO(90, 106, 176, 1),
+                  fontSize: 20.0,
+                  fontFamily: 'Paytone One',
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ),
           ),
         ),
         IconButton(
-          icon: const Icon(Icons.send, color: Color(0xFFB8BCDF),),
-          onPressed: () {
-            _sendMessage();
+          icon: const Icon(
+            Icons.send,
+            color: Color.fromRGBO(185, 188, 223, 1),
+          ),
+          onPressed: () async {
+            if (_formKey.currentState!.validate()) {
+              _sendMessage();
+            } else {
+              print("Không hợp lệ");
+            }
           },
         ),
       ],
@@ -104,27 +114,37 @@ class _ChatbotState extends State<Chatbot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFE5C6E7),
-        iconTheme: IconThemeData(color: Colors.black),
-        title: Row(
-          children: [
-            Image.asset(
-              'assets/images/logo.png',
-              width: 30,
-              height: 30,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(60.0),
+        child: Padding(
+          padding: EdgeInsets.only(top: 0),
+          child: AppBar(
+            leadingWidth: 30,
+            backgroundColor: Color(0xFFE5C6E7),
+            title: Row(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30),
+                  child: Image.asset(
+                    'assets/images/ava.png',
+                    width: 70,
+                    height: 70,
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(left: 5),
+                    child: Text(
+                      "Cá voi light's",
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontSize: 15,
+                        fontFamily: 'Paytone One',
+                        fontWeight: FontWeight.w300,
+                      ),
+                    )),
+              ],
             ),
-            const SizedBox(width: 8), // Để tạo khoảng cách giữa ảnh và text
-            Text(
-              "Cá voi light's",
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 20,
-                fontFamily: 'Paytone One',
-                fontWeight: FontWeight.w300,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
       body: Container(
@@ -141,11 +161,12 @@ class _ChatbotState extends State<Chatbot> {
               Flexible(
                 child: ListView.builder(
                   reverse: true,
-                  padding: Vx.m8,
-                  itemCount: _message.length,
+                  padding:
+                      EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 80),
                   itemBuilder: (context, index) {
                     return _message[index];
                   },
+                  itemCount: _message.length,
                 ),
               ),
               Container(

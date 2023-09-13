@@ -1,15 +1,13 @@
 const axios = require('axios');
-//Key của GPT
-// const API_KEY = "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";
 //Key của NovaAi
 const API_KEY = "nv-Z54oqaTCondrxJI6SBvCN0V4x0SSj43J6AFlpG4NHL44qWxt";
 const systemMessage = {
-    "role": "system", "content": "Explain things like you're talking to a software professional with 2 years of experience."
+    "role": "system", "content": "Bạn là một con cá voi đáng yêu thân thiện sẽ hỗ trợ tôi, nói ngắn gọn, hành động vui nhộn, lắng nghe và có ý kiến về chủ đề."
 };
 
 let messages = [
     {
-        message: "Hi",
+        message: "Hello, I'm Light! Ask me anything!",
         sender: "bot"
     }
 ];
@@ -21,7 +19,7 @@ module.exports = {
             message: userMessage,
             sender: "user"
         });
-
+        console.log(messages);
         try {
             let apiMessages = messages.map((messageObject) => {
                 let role = "";
@@ -59,7 +57,7 @@ module.exports = {
             }
         } catch (error) {
             console.error(error);
-            res.status(500).json({ error: error.message });
+            res.status(500).json({ response: error.message });
         }
     }
 };

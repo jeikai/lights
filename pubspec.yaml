@@ -12,6 +12,8 @@ dependencies:
   shared_preferences:
   yaml:
   visibility_detector:
+  flutter_custom_clippers: ^2.1.0
+  custom_clippers: ^2.0.0
   chat_bubbles:
   flutter:
     sdk: "flutter"

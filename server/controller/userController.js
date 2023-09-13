@@ -52,13 +52,13 @@ module.exports = {
         email: req.body.email
       })
       if (!user) {
-        res.status(200).json({ messase: "Email không tồn tại" })
+        res.status(200).json({ message: false })
       } else {
 
         const de_pass = cryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
         const depassword = de_pass.toString(cryptoJS.enc.Utf8);
         if (depassword != req.body.password) {
-          res.status(401).json({ messase: "Sai mật khẩu" })
+          res.status(400).json({ message: false })
         } else {
           res.status(200).json({ user: user, message: true })
         }

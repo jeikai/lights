@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/model/model_data.dart';
-import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
@@ -15,6 +13,8 @@ import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:flutterapp/reusable_widget/toast.dart';
+
 class GeneratedLoginscreenWidget extends StatefulWidget {
   @override
   State<GeneratedLoginscreenWidget> createState() =>
@@ -89,13 +89,7 @@ class _GeneratedLoginscreenWidgetState
                     textController: _password,
                     placeholder: "Mật khẩu của bạn",
                     keyboardType: TextInputType.emailAddress,
-                    validate: (_password) {
-                      if (_password!.isEmpty || _password.length < 6) {
-                        print("Mật khẩu không hợp lệ");
-                      } else {
-                        return null;
-                      }
-                    },
+                    validate: (_password) {},
                     obscureText: obscure,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -134,17 +128,7 @@ class _GeneratedLoginscreenWidgetState
                     textController: _email,
                     placeholder: "Email của bạn",
                     keyboardType: TextInputType.emailAddress,
-                    validate: (_email) {
-                      if (_email!.isEmpty) {
-                        print("Email không hợp lệ");
-                      } else if (RegExp(
-                              r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                          .hasMatch(_email)) {
-                        return null;
-                      } else {
-                        print('Email hợp lệ');
-                      }
-                    },
+                    validate: (_email) {},
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -171,16 +155,20 @@ class _GeneratedLoginscreenWidgetState
                   height: 71.0,
                   child: Button(
                     text: 'Đăng nhập',
-                    onPress: () {
+                    onPress: () async {
                       if (_formKey.currentState!.validate()) {
                         Map data = {
                           "email": _email.text,
                           "password": _password.text,
                         };
-                        var response = Api().postData("login", data);
+                        var response = await Api().postData("login", data);
                         print(response);
-                        // Navigator.pushNamed(
-                        //     context, '/Chatbot');
+                        if (response?["message"]) {
+                          ToastNoti.show("Đăng nhập thành công");
+                          Navigator.pushNamed(context, '/GeneratedMainScreenWidget');
+                        } else {
+                          ToastNoti.show("Sai email hoặc mật khẩu");
+                        }
                       } else {
                         print("not ok");
                       }
