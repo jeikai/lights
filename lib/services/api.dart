@@ -1,9 +1,8 @@
 import 'dart:convert';
-import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "http://10.15.226.69:5000/api/";
+  static String baseUrl = "http://10.15.226.185:5000/api/";
 
   Future<Map<String, dynamic>?> postData(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);
@@ -28,8 +27,8 @@ class Api {
     }
   }
 
-  Future<Map<String, dynamic>?> getData(String path) async {
-    final Uri uri = Uri.parse(baseUrl + path);
+  Future<Map<String, dynamic>?> getData(String path, String id) async {
+    final Uri uri = Uri.parse(baseUrl + path + "/" + id);
     try {
       Map<String, String> headers = {
         'Content-Type': 'application/json',

@@ -111,19 +111,18 @@ class AppLifecycleObserver extends WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.paused:
-        myapp.onPaused();
-        break;
-      case AppLifecycleState.resumed:
-        myapp.onResumed();
-        break;
-      case AppLifecycleState.inactive:
-        myapp.onInactive();
-        break;
-      case AppLifecycleState.detached:
-        myapp.onDetached();
-        break;
+    if (state case AppLifecycleState.paused) {
+      myapp.onPaused();
+      // break;
+    } else if (state case AppLifecycleState.resumed) {
+      myapp.onResumed();
+      // break;
+    } else if (state case AppLifecycleState.inactive) {
+      myapp.onInactive();
+      // break;
+    } else if (state case AppLifecycleState.detached) {
+      myapp.onDetached();
+      // break;
     }
   }
 }

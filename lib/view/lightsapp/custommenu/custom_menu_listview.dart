@@ -130,7 +130,7 @@ class _CMLVCNButtonState extends State<_CMLVCNButton>
     _clickController.forward().then((value) {
       _clickController.reverse().then((value) async {
         isClicked = false;
-        widget.onClick(context);
+        Navigator.pushNamed(context, '/Movie');
       });
     });
   }

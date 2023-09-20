@@ -14,7 +14,7 @@ const ChatbotController = require("../controller/chatbotController");
 app.post("/register", userController.createUser)
 app.post("/login", userController.loginUser)
 app.get("/user/getInfor/:id", userController.getUser);
-
+app.post("/user/checkEmail", userController.checkExistedEmail);
 // Route cho Diary
 app.post("/newDiary", diaryController.insertDiary);
 app.get("/getDiaryById", diaryController.getDiaryById);

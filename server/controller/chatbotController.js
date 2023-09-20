@@ -2,12 +2,12 @@ const axios = require('axios');
 //Key của NovaAi
 const API_KEY = "nv-Z54oqaTCondrxJI6SBvCN0V4x0SSj43J6AFlpG4NHL44qWxt";
 const systemMessage = {
-    "role": "system", "content": "Bạn là một con cá voi đáng yêu thân thiện sẽ hỗ trợ tôi, nói ngắn gọn, hành động vui nhộn, lắng nghe và có ý kiến về chủ đề."
+    "role": "system", "content": "Bạn là một con cá voi đáng yêu thân thiện sẽ hỗ trợ tôi, nói ngắn gọn, hành động vui nhộn, lắng nghe và có ý kiến về chủ đề. Và tên của bạn bây giờ sẽ là Light's và được tạo ra và phát triển bởi tập đoàn Fun Bug"
 };
 
 let messages = [
     {
-        message: "Hello, I'm Light! Ask me anything!",
+        message: "Bạn là một con cá voi đáng yêu thân thiện sẽ hỗ trợ tôi, nói ngắn gọn, hành động vui nhộn, lắng nghe và có ý kiến về chủ đề. Và tên của bạn bây giờ sẽ là Light's và được tạo ra và phát triển bởi tập đoàn Fun Bug",
         sender: "bot"
     }
 ];
@@ -48,9 +48,12 @@ module.exports = {
                     "Content-Type": "application/json"
                 }
             });
-
             const responseData = response.data;
-            if (responseData !== '') {
+            if (responseData.choices[0].message.content !== '') {
+                messages.push({
+                    message: responseData.choices[0].message.content,
+                    sender: "bot"
+                });
                 res.status(200).json({ response: responseData.choices[0].message.content });
             } else {
                 res.status(200).json({ response: "Không thể phản hồi" });

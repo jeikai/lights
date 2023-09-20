@@ -59,6 +59,6 @@ class _RPCustomPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    throw false;
+    return true;
   }
 }

@@ -19,31 +19,49 @@ module.exports = {
       res.status.json("Update thanh cong")
     } catch (err) { }
   },
-  getUser: async (req, res) => {
+  checkExistedEmail: async (req, res) => {
     try {
-      const data = await User.findById(req.params.id);
-      const { password, _v, createdAt, updatedAt, ...userData } = data._doc;
+      const email = req.body.email;
+      const existingUser = await User.findOne({ email });
 
-      res.status(200).json(userData)
+      if (existingUser) {
+        return res.json({ exists: true });
+      } else {
+        return res.json({ exists: false });
+      }
     } catch (error) {
       res.status(500).json(error)
     }
   },
+  getUser: async (req, res) => {
+    try {
+      const userData = await User.findById(req.params.id).select('-password');
+      res.status(200).json(userData);
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
   createUser: async (req, res) => {
+    const dateString = req.body.DOB;
+    const parts = dateString.split("/");
+    const day = parseInt(parts[0], 10);
+    const month = parseInt(parts[1], 10);
+    const year = parseInt(parts[2], 10);
+    const dob = new Date(year, month - 1, day);
     const newUser = new User({
       name: req.body.name,
       email: req.body.email,
       phoneNumber: req.body.phoneNumber,
       address: req.body.address,
-      age: req.body.age,
+      DOB: dob,
       password: cryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString(),
     });
-
+    console.log(newUser)
     try {
       const savedUser = await newUser.save();
-      res.status(201).json(savedUser);
+      res.status(200).json(savedUser);
     } catch (error) {
-      res.status(500).json(error)
+      res.status(400).json(error)
     }
   },
   loginUser: async (req, res) => {

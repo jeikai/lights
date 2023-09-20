@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
   name: { type: String, required: true },
   phoneNumber: { type: String },
   DOB: { type: Date },
+  address: {type: String}
 }); 
 
 const User = mongoose.model('User', userSchema);

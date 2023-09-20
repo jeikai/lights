@@ -5,7 +5,9 @@ version: "1.0.0+1"
 dependencies:
   chat_gpt_sdk: ^2.2.4
   fluttertoast: ^8.2.2
+  url_launcher: ^6.1.14
   velocity_x: ^3.6.0
+  carousel_slider: ^4.2.1
   cupertino_icons: "^1.0.5"
   path_drawing: "^1.0.0"
   rive:
@@ -17,6 +19,7 @@ dependencies:
   chat_bubbles:
   flutter_svg:
   flutter_gif:
+  fl_chart: ^0.63.0
   flutter:
     sdk: "flutter"
   http: ^0.13.5
@@ -49,6 +52,7 @@ flutter:
     - "assets/images/"
     - "assets/rive/"
     - "assets/config.yml"
+    - "assets/images/movie/"
   fonts: 
     - 
       family: "Paytone One"

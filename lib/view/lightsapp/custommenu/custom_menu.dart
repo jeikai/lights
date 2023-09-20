@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu_listview.dart';
 import 'package:rive/rive.dart';
-
 import '../../../reusable_widget/animated_switcher_with_preload_main_screen.dart';
 import '../../../util/rive/RiveUtil.dart';
 import '../mainScreen/MainScreen.dart';
@@ -49,16 +48,16 @@ class CustomMenu extends StatelessWidget {
                           text: "MỤC PHIM",
                           icon: SizedBox(),
                         ),
-                        CustomMenuListViewCell(
-                          color: Color.fromARGB(255, 196, 160, 216),
-                          text: "MỤC SÁCH",
-                          icon: SizedBox(),
-                        ),
-                        CustomMenuListViewCell(
-                          color: Color.fromARGB(255, 196, 194, 255),
-                          text: "MỤC KHÁC NỮA",
-                          icon: SizedBox(),
-                        ),
+                        // CustomMenuListViewCell(
+                        //   color: Color.fromARGB(255, 196, 160, 216),
+                        //   text: "MỤC SÁCH",
+                        //   icon: SizedBox(),
+                        // ),
+                        // CustomMenuListViewCell(
+                        //   color: Color.fromARGB(255, 196, 194, 255),
+                        //   text: "MỤC KHÁC NỮA",
+                        //   icon: SizedBox(),
+                        // ),
                       ],
                       gap: gap,
                     ),

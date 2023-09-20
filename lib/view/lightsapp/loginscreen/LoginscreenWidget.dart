@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
 import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
@@ -23,19 +24,16 @@ class GeneratedLoginscreenWidget extends StatefulWidget {
 
 class _GeneratedLoginscreenWidgetState
     extends State<GeneratedLoginscreenWidget> {
-  // Editing controllers
   final _email = TextEditingController();
   final _password = TextEditingController();
   bool obscure = true;
-
+  final _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
+    super.dispose();
     _email.dispose();
     _password.dispose();
-    super.dispose();
   }
-
-  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -162,15 +160,21 @@ class _GeneratedLoginscreenWidgetState
                           "password": _password.text,
                         };
                         var response = await Api().postData("login", data);
-                        print(response);
                         if (response?["message"]) {
                           ToastNoti.show("Đăng nhập thành công");
-                          Navigator.pushNamed(context, '/GeneratedMainScreenWidget');
+                          await Preferences.setId(response?["user"]["_id"]);
+                          await Preferences.setUsername(response?["user"]["name"]);
+                          await Preferences.setEmail(response?["user"]["email"]);
+                          await Preferences.setPhoneNumber(response?["user"]["phoneNumber"]);
+                          await Preferences.setDOB(response?["user"]["DOB"]);
+                          await Preferences.setAddress(response?["user"]["address"]);
+                          Navigator.pushNamed(
+                              context, '/GeneratedMainScreenWidget');
                         } else {
                           ToastNoti.show("Sai email hoặc mật khẩu");
                         }
                       } else {
-                        print("not ok");
+                        ToastNoti.show("Có lỗi");
                       }
                     },
                   ),
