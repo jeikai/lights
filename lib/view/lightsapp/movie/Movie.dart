@@ -7,17 +7,18 @@ import 'MovieDetail.dart';
 class Movie {
   final String title;
   final String image;
-  final String description;
+  final String genre;
   final String duration;
   final String rating;
+  final String description;
 
-  Movie({
-    required this.title,
-    required this.image,
-    required this.description,
-    required this.duration,
-    required this.rating,
-  });
+  Movie(
+      {required this.title,
+      required this.image,
+      required this.genre,
+      required this.duration,
+      required this.rating,
+      required this.description});
 }
 
 class MoviesPage extends StatefulWidget {
@@ -34,26 +35,29 @@ class _MoviesPageState extends State<MoviesPage> {
   // Danh sách các phim
   List<Movie> _movies = [
     Movie(
-      title: 'Soul',
-      image: 'assets/images/movie/soul.jpg',
-      description: 'Animation Family\n Comedy Fantasy Drama',
-      duration: '1h41m',
-      rating: '8',
-    ),
+        title: 'Soul',
+        image: 'soul.jpg',
+        genre: 'Animation Family\n Comedy Fantasy Drama',
+        duration: '1h41m',
+        rating: '8',
+        description:
+            'Created by director Pete Docter and written by Kemp Powers, Soul brought positive vibes to the year 2020, a year marked by numerous events that left humanity grappling. With that fresh energy, the film carries no satire or criticism towards anyone. Soul is truly like a gentle jazz tune that resonates with the viewers\' souls and kindles the flame of love for life within each person.'),
     Movie(
-      title: 'Little Forest (2014)',
-      image: 'assets/images/movie/LittleForest.png',
-      description: 'Drama',
-      duration: '1h43m',
-      rating: '7.6',
-    ),
+        title: 'Little Forest (2014)',
+        image: 'LittleForest.png',
+        genre: 'Drama',
+        duration: '1h43m',
+        rating: '7.6',
+        description:
+            'The film\'s storyline is based on a manga about life in Japan. The movie is set in the Tōhoku region of Japan. The main character in the film is Ichiko (Ai Hashimoto), a young girl living in the city. \nAfter a series of heartbreaking events in her life in the big city, she decides to return to her old home in the countryside and lead a simple rural life. Going through the four seasons of spring, summer, autumn, and winter in the peaceful countryside, Ichiko finds inner peace and tranquility in her soul.'),
     Movie(
-      title: 'Move to heaven',
-      image: 'assets/images/movie/MoveTheHeaven.png',
-      description: 'Drama',
-      duration: '10 Eps',
-      rating: '7.9',
-    ),
+        title: 'Move to heaven',
+        image: 'MoveTheHeaven.png',
+        genre: 'Drama',
+        duration: '10 Eps',
+        rating: '7.9',
+        description:
+            'The film tells the story of Han Geu Roo (Tang Joon Sang), a 20-year-old with a distinctive neurodevelopmental disorder. Since he was a child, Geu Roo has followed his father\'s profession of cleaning up the belongings of the deceased. They meticulously and respectfully tidy up the scene, arrange the belongings left behind by the departed. Occasionally, they also complete the unfinished tasks of the deceased, so they can peacefully move on to the afterlife.\nThen, Geu Roo\'s father suddenly passes away, leaving him deeply wounded. Geu Roo has to live with Sang Gu, his recently released-from-prison uncle whom he has never met before. Initially, Sang Gu agrees to become Geu Roo\'s guardian solely with the desire to inherit the property his older brother left behind. However, as he and Geu Roo work together to clean up the possessions of the deceased, Sang Gu embarks on a profoundly moving journey of discovering the untold stories behind the lives of those who have passed away.'),
   ];
 
   @override
@@ -72,6 +76,7 @@ class _MoviesPageState extends State<MoviesPage> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       body: Container(
         height: MediaQuery.of(context).size.height,
@@ -104,6 +109,20 @@ class _MoviesPageState extends State<MoviesPage> {
                       Colors.grey.shade50.withOpacity(0.0),
                     ],
                   ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: 10,
+              left: 10,
+              child: InkWell(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                  size: screenWidth * 0.07,
                 ),
               ),
             ),
@@ -164,7 +183,7 @@ class _MoviesPageState extends State<MoviesPage> {
                                 SizedBox(height: 20),
                                 Container(
                                   child: Text(
-                                    movie.description,
+                                    movie.genre,
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       color: Colors.grey.shade600,
@@ -184,7 +203,7 @@ class _MoviesPageState extends State<MoviesPage> {
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           child: Row(
@@ -225,8 +244,9 @@ class _MoviesPageState extends State<MoviesPage> {
                                           ),
                                         ),
                                         Container(
-                                          width:
-                                          MediaQuery.of(context).size.width *
+                                          width: MediaQuery.of(context)
+                                                  .size
+                                                  .width *
                                               0.2,
                                           child: Row(
                                             children: [

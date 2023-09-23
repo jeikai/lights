@@ -1,21 +1,6 @@
 const Mission = require("../models/Mission");
 
 module.exports = {
-  createMission: async (req, res) => {
-    try {
-      const { description } = req.body;
-
-      // Tạo một bản ghi mới cho Mission
-      const newMission = new Mission({ description });
-
-      // Lưu bản ghi Mission vào cơ sở dữ liệu
-      const savedMission = await newMission.save();
-
-      res.status(201).json(savedMission);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  },
 
   getMissions: async (req, res) => {
     try {

@@ -1,12 +1,10 @@
-import 'dart:async';
-import 'package:chat_gpt_sdk/chat_gpt_sdk.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'chatmessage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp/services/api.dart';
-
+import 'package:flutterapp/view/lightsapp/chatbot/threedots.dart';
 class Chatbot extends StatefulWidget {
   const Chatbot({super.key});
 
@@ -168,6 +166,10 @@ class _ChatbotState extends State<Chatbot> {
                   },
                   itemCount: _message.length,
                 ),
+              ),
+              if (_isTyping) const ThreeDots(),
+              const Divider(
+                height: 1.0,
               ),
               Container(
                 decoration: BoxDecoration(

@@ -18,7 +18,7 @@ class MovieDetail extends StatelessWidget {
           Opacity(
             opacity: 0.4,
             child: Image.asset(
-              movie.image, // Sử dụng đường dẫn hình ảnh từ thông tin phim
+              'assets/images/movie/' + movie.image,
               height: screenHeight * 0.3,
               width: screenWidth,
               fit: BoxFit.cover,
@@ -46,14 +46,6 @@ class MovieDetail extends StatelessWidget {
                             size: screenWidth * 0.07,
                           ),
                         ),
-                        InkWell(
-                          onTap: () {},
-                          child: Icon(
-                            Icons.favorite_border,
-                            color: Colors.white,
-                            size: screenWidth * 0.08,
-                          ),
-                        ),
                       ],
                     ),
                   ),
@@ -62,14 +54,14 @@ class MovieDetail extends StatelessWidget {
                   ),
                   Padding(
                     padding:
-                        EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                    EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                           decoration: BoxDecoration(
                             borderRadius:
-                                BorderRadius.circular(screenWidth * 0.04),
+                            BorderRadius.circular(screenWidth * 0.04),
                             boxShadow: [
                               BoxShadow(
                                 color: Colors.red.withOpacity(0.5),
@@ -80,7 +72,7 @@ class MovieDetail extends StatelessWidget {
                           ),
                           child: ClipRRect(
                             borderRadius:
-                                BorderRadius.circular(screenWidth * 0.04),
+                            BorderRadius.circular(screenWidth * 0.04),
                             child: Image.asset(
                               movie.image,
                               // Sử dụng đường dẫn hình ảnh từ thông tin phim
@@ -107,7 +99,7 @@ class MovieDetail extends StatelessWidget {
                             width: screenWidth * 0.2,
                             decoration: BoxDecoration(
                               borderRadius:
-                                  BorderRadius.circular(screenWidth * 0.1),
+                              BorderRadius.circular(screenWidth * 0.1),
                               color: Colors.red,
                               boxShadow: [
                                 BoxShadow(
@@ -144,6 +136,34 @@ class MovieDetail extends StatelessWidget {
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.015),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'Genre: ${movie.genre}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth * 0.04,
+                              ),
+                            ),
+                            Text(
+                              'Rating: ${movie.rating}',
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: screenWidth * 0.04,
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: screenHeight * 0.015),
+                        Text(
+                          'Description:',
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: screenWidth * 0.05,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         Text(
                           movie.description,
                           style: TextStyle(
@@ -151,7 +171,7 @@ class MovieDetail extends StatelessWidget {
                             fontSize: screenWidth * 0.04,
                           ),
                           textAlign: TextAlign.justify,
-                        )
+                        ),
                       ],
                     ),
                   )
