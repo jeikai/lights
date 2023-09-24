@@ -11,10 +11,12 @@ const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
 const ChatbotController = require("../controller/chatbotController");
 // Route cho user
-app.post("/register", userController.createUser)
-app.post("/login", userController.loginUser)
+app.post("/register", userController.createUser);
+app.post("/login", userController.loginUser);
 app.get("/user/getInfor/:id", userController.getUser);
 app.post("/user/checkEmail", userController.checkExistedEmail);
+app.get("/user/getData/:id", userController.getUserDataById);
+
 // Route cho Diary
 app.post("/newDiary", diaryController.insertDiary);
 app.get("/getDiaryById", diaryController.getDiaryById);
@@ -53,4 +55,82 @@ app.get("/getTest", testController.getTests);
 
 //Route cho Chatbot
 app.post("/Chatbot", ChatbotController.Chatbot)
+
+//Route de Update Data
+app.put('/user/update-name/:id', async (req, res) => {
+    const userId = req.params.id;
+    const {name} = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate(userId, {$set: {name}}, {new: true});
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+// Cập nhật trường phoneNumber của User
+app.put('/user/update-phone/:id', async (req, res) => {
+    const userId = req.params.id;
+    const {phoneNumber} = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate(userId, {$set: {phoneNumber}}, {new: true});
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+// Cập nhật trường DOB của User
+app.put('/user/update-dob/:id', async (req, res) => {
+    const userId = req.params.id;
+    const {DOB} = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate(userId, {$set: {DOB}}, {new: true});
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+// Cập nhật trường address của User
+app.put('/user/update-address/:id', async (req, res) => {
+    const userId = req.params.id;
+    const {address} = req.body;
+
+    try {
+        const user = await User.findByIdAndUpdate(userId, {$set: {address}}, {new: true});
+        res.json(user);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+app.put('/userdata/update-bio/:id', async (req, res) => {
+    const userDataId = req.params.id;
+    const {bio} = req.body;
+
+    try {
+        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {bio}}, {new: true});
+        res.json(userData);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
+// Cập nhật trường socialConnections của UserData
+app.put('/userdata/update-social/:id', async (req, res) => {
+    const userDataId = req.params.id;
+    const {socialConnections} = req.body.s;
+
+    try {
+        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {socialConnections}}, {new: true});
+        res.json(userData);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
+});
+
 module.exports = app

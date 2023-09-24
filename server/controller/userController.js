@@ -1,5 +1,6 @@
 const User = require("../models/User");
 const cryptoJS = require("crypto-js");
+const UserData = require("../models/UserData");
 
 module.exports = {
   updateUser: async (req, res) => {
@@ -75,15 +76,34 @@ module.exports = {
 
         const de_pass = cryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
         const depassword = de_pass.toString(cryptoJS.enc.Utf8);
-        if (depassword != req.body.password) {
-          res.status(400).json({ message: false })
-        } else {
-          res.status(200).json({ user: user, message: true })
-        }
+          if (depassword != req.body.password) {
+              res.status(400).json({message: false})
+          } else {
+              res.status(200).json({user: user, message: true})
+          }
 
       }
     } catch (error) {
-      res.status(500).json(error)
+        res.status(500).json(error)
     }
-  }
+  },
+    getUserDataById: async (req, res) => {
+        try {
+            console.log(req.params.id);
+            const userData = await UserData.findById(req.params.id);
+            if (!userData) {
+                let newUserData = await UserData({
+                    _id: req.params.id,
+                    bio: "Whaly's bio",
+                    socialConnections: [],
+                });
+                const savedUserData = await newUserData.save();
+                res.status(200).json({userData: newUserData, message: true});
+            }
+        } catch (error) {
+            console.log(error);
+            res.status(500).json(error)
+        }
+    },
+
 };

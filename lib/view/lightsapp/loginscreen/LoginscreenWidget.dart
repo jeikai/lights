@@ -1,20 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
+import 'package:flutterapp/reusable_widget/Input.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
+import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
+import 'package:flutterapp/reusable_widget/toast.dart';
+import 'package:flutterapp/reusable_widget/whale.dart';
+import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_Forget_Pass.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
-import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-import 'package:flutterapp/reusable_widget/Title_dark.dart';
-import 'package:flutterapp/reusable_widget/Input.dart';
-import 'package:flutterapp/setting.dart';
-import 'package:flutterapp/services/api.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:flutterapp/reusable_widget/toast.dart';
 
 class GeneratedLoginscreenWidget extends StatefulWidget {
   @override
@@ -163,11 +162,16 @@ class _GeneratedLoginscreenWidgetState
                         if (response?["message"]) {
                           ToastNoti.show("Đăng nhập thành công");
                           await Preferences.setId(response?["user"]["_id"]);
-                          await Preferences.setUsername(response?["user"]["name"]);
-                          await Preferences.setEmail(response?["user"]["email"]);
-                          await Preferences.setPhoneNumber(response?["user"]["phoneNumber"]);
+                          await Preferences.setUsername(
+                              response?["user"]["name"]);
+                          await Preferences.setEmail(
+                              response?["user"]["email"]);
+                          await Preferences.setPhoneNumber(
+                              response?["user"]["phoneNumber"]);
                           await Preferences.setDOB(response?["user"]["DOB"]);
-                          await Preferences.setAddress(response?["user"]["address"]);
+                          await Preferences.setAddress(
+                              response?["user"]["address"]);
+                          Preferences.setupUser(response?["user"]["_id"]);
                           Navigator.pushNamed(
                               context, '/GeneratedMainScreenWidget');
                         } else {

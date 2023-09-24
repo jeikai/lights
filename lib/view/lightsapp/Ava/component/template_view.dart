@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 
 class TemplateView extends StatelessWidget {
   final Color color;
-  final double height;
-  final List<Widget> children;
+  final double? height;
+  final Widget child;
 
   const TemplateView({
     Key? key,
     required this.color,
-    required this.height,
-    required this.children,
+    this.height,
+    required this.child,
   }) : super(key: key);
 
   @override
@@ -18,19 +18,12 @@ class TemplateView extends StatelessWidget {
       builder: (BuildContext context, BoxConstraints constraints) {
         Size size = MediaQuery.of(context).size;
         return Container(
-          margin: EdgeInsets.only(
-            top: 0,
-            bottom: 10,
-          ),
           constraints: BoxConstraints.expand(height: height),
           decoration: BoxDecoration(
             color: color,
             borderRadius: BorderRadius.all(Radius.circular(size.width * 0.03)),
           ),
-          child: Flex(
-            direction: Axis.horizontal,
-            children: children,
-          ),
+          child: child,
         );
       },
     );

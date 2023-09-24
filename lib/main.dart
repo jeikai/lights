@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/Music/Music.dart';
@@ -16,7 +15,6 @@ import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/movie/Movie.dart';
-import 'package:flutterapp/view/lightsapp/movie/MovieDetail.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
 
@@ -30,7 +28,6 @@ Future main() async{
       _Loading(
         key: Key("loading"),
       ));
-  await Preferences.init();
 }
 
 void initState() {
@@ -77,7 +74,7 @@ class _LightsAppState extends State<_LightsApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/GeneratedLoginscreenWidget',
+        initialRoute: '/Ava',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>

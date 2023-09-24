@@ -19,6 +19,8 @@ class _EggWidgetState extends State<EggWidget>
   late Animation<double> _ani3;
   late Animation<double> _ani4;
 
+  late ValueNotifier<bool> _isFinish;
+
   void _setupAnimation() {
     _ani1 = Tween(begin: 0.0, end: 1.0).animate(CurvedAnimation(
         parent: _controller, curve: Interval(0, 0.25, curve: Curves.linear)));
@@ -54,12 +56,24 @@ class _EggWidgetState extends State<EggWidget>
   @override
   void initState() {
     super.initState();
+    _isFinish = ValueNotifier(false);
     _controller = AnimationController(
         vsync: this, duration: Duration(milliseconds: 300 * 4));
     _controller.addListener(() {
       print("controller: ${_controller.value}");
     });
+    _controller.addStatusListener((status) {
+      if (status == AnimationStatus.completed && _fv == 1) {
+        _isFinish.value = true;
+        runTimer();
+      }
+    });
     _setupAnimation();
+  }
+
+  void runTimer() async {
+    await Future.delayed(Duration(seconds: 1)).then(
+        (value) => Navigator.pushNamed(context, '/GeneratedHelloscreenWidget'));
   }
 
   @override
@@ -118,34 +132,42 @@ class _EggWidgetState extends State<EggWidget>
             child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
                 var v = _controller.value / 2;
-                return ColorFiltered(
-                  colorFilter: ColorFilter.matrix([
-                    v * 2 + 1,
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0,
-                    v + 1,
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0,
-                    v * 2 + 1,
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0,
-                    0.0,
-                    1.0,
-                    0.0,
-                  ]),
-                  child: Image.memory(
-                    ImageManager().getBytes(ImageManager.egg)!,
-                    fit: BoxFit.fitWidth,
-                    width: constraints.maxWidth * 0.7,
-                  ),
+                return Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    ColorFiltered(
+                      colorFilter: ColorFilter.matrix([
+                        v * 2 + 1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        v + 1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        v * 2 + 1,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        0.0,
+                        1.0,
+                        0.0,
+                      ]),
+                      child: Image.memory(
+                        ImageManager().getBytes(ImageManager.egg)!,
+                        fit: BoxFit.fitWidth,
+                        width: constraints.maxWidth * 0.7,
+                      ),
+                    ),
+                    COGWidget(
+                      isFinish: _isFinish,
+                    )
+                  ],
                 );
               },
             ),
@@ -162,4 +184,33 @@ class _EggWidgetState extends State<EggWidget>
     } else {}
   }
 //Navigator.pushNamed(context, '/GeneratedHelloscreenWidget')
+}
+
+class COGWidget extends StatelessWidget {
+  final ValueNotifier<bool> isFinish;
+
+  const COGWidget({super.key, required this.isFinish});
+
+  @override
+  Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
+    return ValueListenableBuilder(
+      valueListenable: isFinish,
+      builder: (BuildContext context, bool value, Widget? child) {
+        return Opacity(
+          opacity: value ? 1 : 0,
+          child: IgnorePointer(
+            ignoring: true,
+            child: Container(
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: MemoryImage(
+                          ImageManager().getBytes(ImageManager.cog)!))),
+            ),
+          ),
+        );
+      },
+    );
+  }
 }

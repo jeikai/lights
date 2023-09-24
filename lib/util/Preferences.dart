@@ -1,3 +1,4 @@
+import 'package:flutterapp/services/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -7,9 +8,23 @@ class Preferences {
     _preferences = await SharedPreferences.getInstance();
   }
 
+  static Future<void> setupUser(String id) async {
+    Map<String, dynamic>? res = await Api().getData("user/getData", id);
+    if (res?["message"]) {
+      await Preferences.setBio(res?["userData"]["bio"]);
+      await Preferences.setSocialConnections(
+          res?["userData"]["socialConnections"]);
+    }
+  }
+
   // Lưu dữ liệu người dùng
   static Future setUsername(String username) async =>
       await _preferences?.setString("username", username);
+
+  static Future setUsernameUpdate(String username) async {
+    await setUsername(username);
+    //TODO: update username
+  }
 
   static String? getUsername() => _preferences?.getString("username");
 
@@ -21,22 +36,64 @@ class Preferences {
   static Future setEmail(String email) async =>
       await _preferences?.setString("email", email);
 
+  static Future setMailUpdate(String email) async {
+    await _preferences?.setString("email", email);
+    //TODO: update email
+  }
+
   static String? getEmail() => _preferences?.getString("email");
 
   static Future setPhoneNumber(String phone) async =>
       await _preferences?.setString("phoneNumber", phone);
+
+  static Future setPhoneUpdate(String email) async {
+    await _preferences?.setString("phoneNumber", email);
+    //TODO: update phone
+  }
 
   static String? getPhoneNumber() => _preferences?.getString("phoneNumber");
 
   static Future setDOB(String id) async =>
       await _preferences?.setString("DOB", id);
 
+  static Future setDOBUpdate(String email) async {
+    await _preferences?.setString("DOB", email);
+    //TODO: update date of birth
+  }
+
   static String? getDOB() => _preferences?.getString("DOB");
 
   static Future setAddress(String id) async =>
       await _preferences?.setString("address", id);
 
+  static Future setAddressUpdate(String email) async {
+    await _preferences?.setString("address", email);
+    //TODO: update address
+  }
+
   static String? getAddress() => _preferences?.getString("address");
+
+  static String? get bio => _preferences?.getString("bio");
+
+  static Future<bool>? setBio(String bio) =>
+      _preferences?.setString("bio", bio);
+
+  static Future setBioUpdate(String email) async {
+    await _preferences?.setString("bio", email);
+    //TODO: update bio
+  }
+
+  static List<String> get socialConnections =>
+      _preferences?.getStringList("socialConnections") ?? [];
+
+  static Future<bool>? setSocialConnections(List<String> socialConnections) =>
+      _preferences?.setStringList("socialConnections", socialConnections);
+
+  static Future setSocialConnectionsUpdate(
+      List<String> socialConnections) async {
+    await _preferences?.setStringList("socialConnections", socialConnections);
+    //TODO: update social connections
+  }
 
   // Dữ liệu cho đăng ký
   static Future setRegisUsername(String username) async =>
