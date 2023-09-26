@@ -13,4 +13,14 @@ class DataConfig {
       "newestMessage": "Hello"
     },
   ];
+  static List chat = [
+    {
+      "sender": "me",
+      "message": "Hello"
+    },
+    {
+      "sender": "opponent",
+      "message": "Hello there"
+    },
+  ];
 }

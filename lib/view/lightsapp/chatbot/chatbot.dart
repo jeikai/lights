@@ -5,6 +5,7 @@ import 'chatmessage.dart';
 import 'package:flutter/services.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/threedots.dart';
+
 class Chatbot extends StatefulWidget {
   const Chatbot({super.key});
 
@@ -112,37 +113,44 @@ class _ChatbotState extends State<Chatbot> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(60.0),
-        child: Padding(
-          padding: EdgeInsets.only(top: 0),
-          child: AppBar(
-            leadingWidth: 30,
-            backgroundColor: Color(0xFFE5C6E7),
-            title: Row(
-              children: [
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.asset(
-                    'assets/images/ava.png',
-                    width: 70,
-                    height: 70,
-                  ),
-                ),
-                Padding(
-                    padding: EdgeInsets.only(left: 5),
-                    child: Text(
-                      "Cá voi light's",
-                      style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 15,
-                        fontFamily: 'Paytone One',
-                        fontWeight: FontWeight.w300,
-                      ),
-                    )),
-              ],
+      appBar: AppBar(
+        backgroundColor: Color(0xFFE5C6E7),
+        title: Row(
+          children: [
+            Container(
+              height: 50,
+              width: 50,
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage('assets/images/ava.png'),
+                  )),
             ),
-          ),
+            const SizedBox(
+              width: 10,
+            ),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Cá voi Light\'s',
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
+                const SizedBox(
+                  height: 5,
+                ),
+                const Text(
+                  'Light\'s',
+                  style: TextStyle(
+                    fontFamily: 'Mistrully',
+                    fontSize: 12,
+                    color: Color.fromARGB(255, 195, 160, 212),
+                  ),
+                )
+              ],
+            )
+          ],
         ),
       ),
       body: Container(

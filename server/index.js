@@ -31,13 +31,14 @@ const server = app.listen(port, () => {
 });
 const io = socket(server, {
   cors: {
-    origin: "http://localhost:5000",
+    origin: "*",
     credentials: true,
   },
 });
 //tất cả người dùng được lưu ở đây
 global.onlineUsers = new Map();
 io.on("connection", (socket) => {
+  console.log("connected")
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
     onlineUsers.set(userId, socket.id);

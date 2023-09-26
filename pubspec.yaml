@@ -56,7 +56,6 @@ flutter:
     - "assets/rive/"
     - "assets/config.yml"
     - "assets/images/movie/"
-    - "assets/story/"
   fonts: 
     - 
       family: "Paytone One"
