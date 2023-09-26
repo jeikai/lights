@@ -19,6 +19,9 @@ dependencies:
   velocity_x:
   fl_chart: ^0.63.0
   flutter_social_button:
+  table_calendar:
+  fluentui_emoji_icon:
+  intl:
   flutter:
     sdk: "flutter"
 dev_dependencies: 
@@ -45,27 +48,28 @@ flutter_launcher_icons:
     image_path: "assets/images/logo.png"
 environment:
   sdk: ">3.0.0"
-flutter: 
+flutter:
   assets:
     - "assets/images/"
     - "assets/rive/"
     - "assets/config.yml"
-  fonts: 
-    - 
-      family: "Paytone One"
-      fonts: 
-        - 
-          asset: "fonts/PaytoneOne-regular.ttf"
+  fonts:
+    - family: "Paytone One"
+      fonts:
+        - asset: "fonts/PaytoneOne-regular.ttf"
           style: "normal"
           weight: 400
-    - 
-      family: "Mistrully"
-      fonts: 
-        - 
-          asset: "fonts/Mistrully.ttf"
+    - family: "Mistrully"
+      fonts:
+        - asset: "fonts/Mistrully.ttf"
           style: "normal"
           weight: 400
     - family: "MyFlutterApp"
       fonts:
         - asset: "fonts/MyFlutterApp.ttf"
+    - family: "PinnacleJYLiningBookItalic"
+      fonts:
+        - asset: "fonts/PinnacleJYLiningBookItalic.ttf"
+          style: "normal"
+          weight: 400
   uses-material-design: true

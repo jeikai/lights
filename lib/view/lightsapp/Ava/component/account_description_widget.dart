@@ -29,7 +29,7 @@ class AccountDescriptionWidget extends StatelessWidget {
         child: Align(
           alignment: Alignment.topCenter,
           child: Text(
-            'Nội dung văn bản của bạn ở đây.',
+            Preferences.bio!,
             style: TextStyle(fontSize: 16.0, fontFamily: "Paytone One"),
           ),
         ),

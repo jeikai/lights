@@ -24,6 +24,9 @@ class Preferences {
   static Future setUsernameUpdate(String username) async {
     await setUsername(username);
     //TODO: update username
+    Map<String, dynamic> data = {"username": username};
+    var res = await Api().pushDataUpdate("user/update-name", getId()!, data);
+    print(res);
   }
 
   static String? getUsername() => _preferences?.getString("username");
@@ -49,6 +52,9 @@ class Preferences {
   static Future setPhoneUpdate(String email) async {
     await _preferences?.setString("phoneNumber", email);
     //TODO: update phone
+    Map<String, dynamic> data = {"phoneNumber": email};
+    var res = await Api().pushDataUpdate("user/update-phone", getId()!, data);
+    print(res);
   }
 
   static String? getPhoneNumber() => _preferences?.getString("phoneNumber");
@@ -59,6 +65,9 @@ class Preferences {
   static Future setDOBUpdate(String email) async {
     await _preferences?.setString("DOB", email);
     //TODO: update date of birth
+    Map<String, dynamic> data = {"DOB": email};
+    var res = await Api().pushDataUpdate("user/update-dob", getId()!, data);
+    print(res);
   }
 
   static String? getDOB() => _preferences?.getString("DOB");
@@ -69,6 +78,9 @@ class Preferences {
   static Future setAddressUpdate(String email) async {
     await _preferences?.setString("address", email);
     //TODO: update address
+    Map<String, dynamic> data = {"address": email};
+    var res = await Api().pushDataUpdate("user/update-address", getId()!, data);
+    print(res);
   }
 
   static String? getAddress() => _preferences?.getString("address");
@@ -81,6 +93,9 @@ class Preferences {
   static Future setBioUpdate(String email) async {
     await _preferences?.setString("bio", email);
     //TODO: update bio
+    Map<String, dynamic> data = {"bio": email};
+    var res = await Api().pushDataUpdate("userdata/update-bio", getId()!, data);
+    print(res);
   }
 
   static List<String> get socialConnections =>
@@ -93,6 +108,10 @@ class Preferences {
       List<String> socialConnections) async {
     await _preferences?.setStringList("socialConnections", socialConnections);
     //TODO: update social connections
+    Map<String, dynamic> data = {"bio": socialConnections};
+    var res =
+        await Api().pushDataUpdate("userdata/update-social", getId()!, data);
+    print(res);
   }
 
   // Dữ liệu cho đăng ký

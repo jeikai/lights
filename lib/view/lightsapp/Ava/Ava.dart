@@ -71,7 +71,7 @@ class _AvaState extends State<Ava> {
                   configHeight: 0,
                   oriHeight: gap * 1.5,
                   isConfig: isConfig,
-                  title: "lịch sử hoạt động"),
+                  title: "biểu đồ cảm xúc"),
               // AccountFriendsListWidget(isConfig: isConfig),
               // AvaTitleWidget(
               //   configHeight: gap * 1.5,

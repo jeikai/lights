@@ -10,6 +10,8 @@ const missionController = require("../controller/missionController");
 const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
 const ChatbotController = require("../controller/chatbotController");
+const User = require("../models/User");
+const UserData = require("../models/UserData");
 // Route cho user
 app.post("/register", userController.createUser);
 app.post("/login", userController.loginUser);
@@ -62,7 +64,7 @@ app.put('/user/update-name/:id', async (req, res) => {
     const {name} = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {name}}, {new: true});
+        const user = await User.findByIdAndUpdate(userId, {$set: {name}}, {new: true}).select('-password');
         res.json(user);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -75,7 +77,7 @@ app.put('/user/update-phone/:id', async (req, res) => {
     const {phoneNumber} = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {phoneNumber}}, {new: true});
+        const user = await User.findByIdAndUpdate(userId, {$set: {phoneNumber}}, {new: true}).select('-password');
         res.json(user);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -88,7 +90,7 @@ app.put('/user/update-dob/:id', async (req, res) => {
     const {DOB} = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {DOB}}, {new: true});
+        const user = await User.findByIdAndUpdate(userId, {$set: {DOB}}, {new: true}).select('-password');
         res.json(user);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -101,7 +103,7 @@ app.put('/user/update-address/:id', async (req, res) => {
     const {address} = req.body;
 
     try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {address}}, {new: true});
+        const user = await User.findByIdAndUpdate(userId, {$set: {address}}, {new: true}).select('-password');
         res.json(user);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -113,7 +115,7 @@ app.put('/userdata/update-bio/:id', async (req, res) => {
     const {bio} = req.body;
 
     try {
-        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {bio}}, {new: true});
+        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {bio}}, {new: true}).select('-password');
         res.json(userData);
     } catch (error) {
         res.status(500).json({error: error.message});
@@ -126,7 +128,7 @@ app.put('/userdata/update-social/:id', async (req, res) => {
     const {socialConnections} = req.body.s;
 
     try {
-        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {socialConnections}}, {new: true});
+        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {socialConnections}}, {new: true}).select('-password');
         res.json(userData);
     } catch (error) {
         res.status(500).json({error: error.message});

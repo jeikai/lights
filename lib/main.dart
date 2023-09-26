@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/Music/Music.dart';
+import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
@@ -74,7 +75,7 @@ class _LightsAppState extends State<_LightsApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/Ava',
+        initialRoute: '/GeneratedLoginscreenWidget',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>
@@ -96,7 +97,8 @@ class _LightsAppState extends State<_LightsApp> {
           '/Chatbot': (context) => Chatbot(),
           '/Ava': (context) => Ava(),
           '/Movie': (context) => MoviesPage(),
-          '/Music': (context) => Music()
+          '/Music': (context) => Music(),
+          '/Calender': (context) => CalenderScreen()
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {
