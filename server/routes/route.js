@@ -10,6 +10,7 @@ const missionController = require("../controller/missionController");
 const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
 const ChatbotController = require("../controller/chatbotController");
+const filmController = require("../controller/filmController");
 // Route cho user
 app.post("/register", userController.createUser)
 app.post("/login", userController.loginUser)
@@ -52,5 +53,9 @@ app.post("/Test", testController.createTest);
 app.get("/getTest", testController.getTests);
 
 //Route cho Chatbot
-app.post("/Chatbot", ChatbotController.Chatbot)
-module.exports = app
+app.post("/Chatbot", ChatbotController.Chatbot);
+
+//Router cho Film
+app.get("/Film", filmController.getFilm);
+app.delete("/DeleteAllFilm", filmController.deleteAllFilms);
+module.exports = app;

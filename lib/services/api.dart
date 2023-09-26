@@ -27,7 +27,7 @@ class Api {
     }
   }
 
-  Future<Map<String, dynamic>?> getData(String path, String id) async {
+  Future<Map<String, dynamic>?> getDataById(String path, String id) async {
     final Uri uri = Uri.parse(baseUrl + path + "/" + id);
     try {
       Map<String, String> headers = {
@@ -37,6 +37,25 @@ class Api {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse;
+      } else {
+        print('Có lỗi xảy ra: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Lỗi: $e');
+      return null;
+    }
+  }
+  Future<List<dynamic>?> getData(String path) async {
+    final Uri uri = Uri.parse(baseUrl + path);
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      final http.Response response = await http.get(uri, headers: headers);
+      if (response.statusCode == 200) {
+        List<dynamic> jsonDataList = jsonDecode(response.body);
+        return jsonDataList;
       } else {
         print('Có lỗi xảy ra: ${response.statusCode}');
         return null;

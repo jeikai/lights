@@ -74,7 +74,7 @@ class MovieDetail extends StatelessWidget {
                             borderRadius:
                             BorderRadius.circular(screenWidth * 0.04),
                             child: Image.asset(
-                              movie.image,
+                              'assets/images/movie/' + movie.image,
                               // Sử dụng đường dẫn hình ảnh từ thông tin phim
                               height: screenHeight * 0.25,
                               width: screenWidth * 0.4,
@@ -84,7 +84,7 @@ class MovieDetail extends StatelessWidget {
                         InkWell(
                           onTap: () async {
                             final url = Uri.parse(
-                                'https://cineb.stream/movie/soul-47429/');
+                                movie.path);
                             try {
                               await launch(url.toString());
                             } catch (e) {

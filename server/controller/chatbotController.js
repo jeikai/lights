@@ -19,7 +19,6 @@ module.exports = {
             message: userMessage,
             sender: "user"
         });
-        console.log(messages);
         try {
             let apiMessages = messages.map((messageObject) => {
                 let role = "";

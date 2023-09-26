@@ -19,8 +19,10 @@ class MenuButtom extends StatelessWidget {
         Template(
           width: 50,
           height: 50,
-          onPress: null,
-          icon: MyFlutterIcon.home,
+          onPress: () {
+            Navigator.pushNamed(context, "/homeMessage");
+          },
+          icon: Icons.message,
         ),
         SizedBox(width: 16),
         ConstrainedBox(

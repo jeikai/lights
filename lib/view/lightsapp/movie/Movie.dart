@@ -1,9 +1,9 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/services/api.dart';
 
 import 'MovieDetail.dart';
 
-// Lớp dữ liệu để đại diện cho thông tin phim
 class Movie {
   final String title;
   final String image;
@@ -11,14 +11,16 @@ class Movie {
   final String duration;
   final String rating;
   final String description;
+  final String path;
 
   Movie(
       {required this.title,
-      required this.image,
-      required this.genre,
-      required this.duration,
-      required this.rating,
-      required this.description});
+        required this.image,
+        required this.genre,
+        required this.duration,
+        required this.rating,
+        required this.description,
+      required this.path});
 }
 
 class MoviesPage extends StatefulWidget {
@@ -31,41 +33,48 @@ class MoviesPage extends StatefulWidget {
 class _MoviesPageState extends State<MoviesPage> {
   CarouselController _carouselController = CarouselController();
   int _current = 0;
-
-  // Danh sách các phim
-  List<Movie> _movies = [
-    Movie(
-        title: 'Soul',
-        image: 'soul.jpg',
-        genre: 'Animation Family\n Comedy Fantasy Drama',
-        duration: '1h41m',
-        rating: '8',
-        description:
-            'Created by director Pete Docter and written by Kemp Powers, Soul brought positive vibes to the year 2020, a year marked by numerous events that left humanity grappling. With that fresh energy, the film carries no satire or criticism towards anyone. Soul is truly like a gentle jazz tune that resonates with the viewers\' souls and kindles the flame of love for life within each person.'),
-    Movie(
-        title: 'Little Forest (2014)',
-        image: 'LittleForest.png',
-        genre: 'Drama',
-        duration: '1h43m',
-        rating: '7.6',
-        description:
-            'The film\'s storyline is based on a manga about life in Japan. The movie is set in the Tōhoku region of Japan. The main character in the film is Ichiko (Ai Hashimoto), a young girl living in the city. \nAfter a series of heartbreaking events in her life in the big city, she decides to return to her old home in the countryside and lead a simple rural life. Going through the four seasons of spring, summer, autumn, and winter in the peaceful countryside, Ichiko finds inner peace and tranquility in her soul.'),
-    Movie(
-        title: 'Move to heaven',
-        image: 'MoveTheHeaven.png',
-        genre: 'Drama',
-        duration: '10 Eps',
-        rating: '7.9',
-        description:
-            'The film tells the story of Han Geu Roo (Tang Joon Sang), a 20-year-old with a distinctive neurodevelopmental disorder. Since he was a child, Geu Roo has followed his father\'s profession of cleaning up the belongings of the deceased. They meticulously and respectfully tidy up the scene, arrange the belongings left behind by the departed. Occasionally, they also complete the unfinished tasks of the deceased, so they can peacefully move on to the afterlife.\nThen, Geu Roo\'s father suddenly passes away, leaving him deeply wounded. Geu Roo has to live with Sang Gu, his recently released-from-prison uncle whom he has never met before. Initially, Sang Gu agrees to become Geu Roo\'s guardian solely with the desire to inherit the property his older brother left behind. However, as he and Geu Roo work together to clean up the possessions of the deceased, Sang Gu embarks on a profoundly moving journey of discovering the untold stories behind the lives of those who have passed away.'),
-  ];
+  List<Movie> _movies = [];
+  String _currentImage = 'assets/images/movie/soul.jpg';
 
   @override
   void initState() {
     super.initState();
+    _getDataFromApi();
   }
 
-  // Phương thức để chuyển sang trang chi tiết phim
+  Future<void> _getDataFromApi() async {
+    final api = Api();
+    final response = await api.getData("Film");
+    print('Type of response: ${response.runtimeType}');
+    if (response != null) {
+      setState(() {
+        _movies = _parseMovies(response);
+        print(_movies);
+        if (_movies.isNotEmpty) {
+          _currentImage = 'assets/images/movie/' + _movies[0].image;
+        }
+      });
+    }
+  }
+
+  List<Movie> _parseMovies(List<dynamic> jsonData) {
+    final List<Movie> movies = [];
+
+    for (final movieData in jsonData) {
+      final Movie movie = Movie(
+        title: movieData['title'],
+        image: movieData['image'],
+        genre: movieData['genre'],
+        duration: movieData['duration'],
+        rating: movieData['rating'],
+        description: movieData['description'],
+        path: movieData['path']
+      );
+      movies.add(movie);
+    }
+    return movies;
+  }
+
   void _navigateToMovieDetail(Movie movie) {
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -83,7 +92,7 @@ class _MoviesPageState extends State<MoviesPage> {
         child: Stack(
           children: [
             Image(
-              image: AssetImage(_movies[_current].image),
+              image: AssetImage(_currentImage), // Sử dụng biến tạm thời
               fit: BoxFit.cover,
               width: MediaQuery.of(context).size.width,
             ),
@@ -139,6 +148,8 @@ class _MoviesPageState extends State<MoviesPage> {
                   onPageChanged: (index, reason) {
                     setState(() {
                       _current = index;
+                      // Cập nhật hình ảnh hiện tại khi chuyển trang
+                      _currentImage = 'assets/images/movie/' + _movies[_current].image;
                     });
                   },
                 ),
@@ -168,7 +179,7 @@ class _MoviesPageState extends State<MoviesPage> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Image(
-                                    image: AssetImage(movie.image),
+                                    image: AssetImage('assets/images/movie/' + movie.image),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
@@ -203,7 +214,7 @@ class _MoviesPageState extends State<MoviesPage> {
                                     ),
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceBetween,
                                       children: [
                                         Container(
                                           child: Row(
@@ -245,8 +256,8 @@ class _MoviesPageState extends State<MoviesPage> {
                                         ),
                                         Container(
                                           width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
+                                              .size
+                                              .width *
                                               0.2,
                                           child: Row(
                                             children: [
