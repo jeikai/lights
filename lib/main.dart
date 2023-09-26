@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
 import 'package:flutterapp/view/lightsapp/Music/Music.dart';
+import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
@@ -30,7 +30,6 @@ Future main() async{
       _Loading(
         key: Key("loading"),
       ));
-  await Preferences.init();
 }
 
 void initState() {
@@ -100,7 +99,8 @@ class _LightsAppState extends State<_LightsApp> {
           '/Ava': (context) => Ava(),
           '/Movie': (context) => MoviesPage(),
           '/Music': (context) => Music(),
-          '/homeMessage': (context) => mainMessage()
+          '/homeMessage': (context) => mainMessage(),
+          '/Calender': (context) => CalenderScreen()
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
@@ -26,6 +27,7 @@ class MyApp {
     await ConfigManager().setup();
     await RiveUtil().setup();
     await ImageManager().setup();
+    await Preferences.init();
     manager = NotificationManager();
     //print("a");
     return null;

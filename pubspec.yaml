@@ -5,9 +5,7 @@ version: "1.0.0+1"
 dependencies:
   chat_gpt_sdk: ^2.2.4
   fluttertoast: ^8.2.2
-  video_player: ^2.7.2
   url_launcher: ^6.1.14
-  chewie: ^1.7.1
   velocity_x: ^3.6.0
   carousel_slider: ^4.2.1
   cupertino_icons: "^1.0.5"
@@ -16,16 +14,22 @@ dependencies:
   shared_preferences:
   yaml:
   visibility_detector:
-  flutter_custom_clippers: ^2.1.0
-  custom_clippers: ^2.0.0
   chat_bubbles:
   flutter_svg:
   flutter_gif:
+  fluttertoast:
+  carousel_slider: ^4.2.1
+  custom_clippers:
+  url_launcher:
+  velocity_x:
   fl_chart: ^0.63.0
+  flutter_social_button:
+  table_calendar:
+  fluentui_emoji_icon:
+  intl:
   flutter:
     sdk: "flutter"
   http: ^0.13.5
-  socket_io_client: ^2.0.3+1
 dev_dependencies: 
   flutter_test: 
     sdk: "flutter"
@@ -50,28 +54,28 @@ flutter_launcher_icons:
     image_path: "assets/images/logo.png"
 environment:
   sdk: ">3.0.0"
-flutter: 
+flutter:
   assets:
     - "assets/images/"
     - "assets/rive/"
     - "assets/config.yml"
-    - "assets/images/movie/"
-  fonts: 
-    - 
-      family: "Paytone One"
-      fonts: 
-        - 
-          asset: "fonts/PaytoneOne-regular.ttf"
+  fonts:
+    - family: "Paytone One"
+      fonts:
+        - asset: "fonts/PaytoneOne-regular.ttf"
           style: "normal"
           weight: 400
-    - 
-      family: "Mistrully"
-      fonts: 
-        - 
-          asset: "fonts/Mistrully.ttf"
+    - family: "Mistrully"
+      fonts:
+        - asset: "fonts/Mistrully.ttf"
           style: "normal"
           weight: 400
     - family: "MyFlutterApp"
       fonts:
         - asset: "fonts/MyFlutterApp.ttf"
+    - family: "PinnacleJYLiningBookItalic"
+      fonts:
+        - asset: "fonts/PinnacleJYLiningBookItalic.ttf"
+          style: "normal"
+          weight: 400
   uses-material-design: true

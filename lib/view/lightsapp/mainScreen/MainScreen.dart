@@ -123,8 +123,8 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
             ),
             onPressed: () => {
               // widget.avaClick
-            Navigator.pushNamed(context, "/Ava")
-          },
+              Navigator.pushNamed(context, "/Ava")
+            },
           ),
           title: Text(
             'light s',

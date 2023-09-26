@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/view/lightsapp/Ava/component/EmotionData.dart';
-import 'package:flutterapp/view/lightsapp/Ava/component/lineChart.dart';
-import 'package:flutterapp/view/lightsapp/Ava/component/template_view.dart';
 import 'package:flutterapp/util/Preferences.dart';
-import 'package:fl_chart/fl_chart.dart';
+import 'package:flutterapp/view/lightsapp/Ava/component/account_description_widget.dart';
+import 'package:flutterapp/view/lightsapp/Ava/component/account_detail_widget.dart';
+import 'package:flutterapp/view/lightsapp/Ava/component/ava_line_chart_widget.dart';
+import 'package:flutterapp/view/lightsapp/Ava/component/config_menu_converter.dart';
 
 class Ava extends StatefulWidget {
   const Ava({Key? key});
@@ -14,6 +14,7 @@ class Ava extends StatefulWidget {
 
 class _AvaState extends State<Ava> {
   String username = "";
+  final ValueNotifier<bool> isConfig = ValueNotifier(false);
 
   @override
   void initState() {
@@ -24,11 +25,11 @@ class _AvaState extends State<Ava> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    double gap = size.width * 0.075;
-    double padding = size.width * 0.1;
+    double gap = size.width * 0.06;
+    double padding = size.width * 0.06;
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
         actions: <Widget>[
@@ -38,98 +39,48 @@ class _AvaState extends State<Ava> {
               color: Color.fromRGBO(148, 161, 215, 1.0),
               size: 32.0,
             ),
-            onPressed: () {},
+            onPressed: () {
+              var b = isConfig.value;
+              isConfig.value = !b;
+            },
           ),
         ],
       ),
       body: Material(
-        child: ListView(
-          padding: EdgeInsets.all(0),
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                left: padding,
-                right: padding,
-                top: gap,
-                bottom: gap,
+        child: Padding(
+          padding: EdgeInsets.only(
+            left: padding,
+            right: padding,
+            top: 0,
+            bottom: 0,
+          ),
+          child: ListView(
+            physics: BouncingScrollPhysics(),
+            clipBehavior: Clip.antiAlias,
+            children: [
+              AccountDetailWidget(username: username, isConfig: isConfig),
+              SizedBox(
+                height: gap,
               ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TemplateView(
-                    color: Color.fromRGBO(188, 220, 237, 1),
-                    height: 70,
-                    children: [
-                      Expanded(
-                        flex: 1,
-                        child: Image.asset('assets/images/user_icon.png'),
-                      ),
-                      Expanded(
-                        flex: 2,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Row(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(bottom: 8.0),
-                                  child: Text(
-                                    username,
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      fontFamily: "Paytone One",
-                                      fontSize: 20,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: Color.fromRGBO(71, 79, 145, 1),
-                                borderRadius: BorderRadius.circular(5.0),
-                              ),
-                              height: 5.0,
-                              width: 200,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  TemplateView(
-                    color: Color.fromRGBO(168, 195, 230, 1),
-                    height: 100,
-                    children: [
-                      Container(
-                        height: 100, // Đặt chiều cao cho Container ở đây
-                        child: SingleChildScrollView(
-                          child: Text(
-                            'Nội dung văn bản của bạn ở đây.',
-                            style: TextStyle(fontSize: 16.0),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  TemplateView(
-                    color: Color.fromRGBO(168, 195, 230, 1),
-                    height: 300,
-                    children: [
-                      SingleChildScrollView(
-                        scrollDirection: Axis.vertical,
-                        child: SizedBox(
-                          width: MediaQuery.of(context).size.width,
-                          child: lineChart(emotionDatas),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
+              AccountDescriptionWidget(padding: padding, isConfig: isConfig),
+              SizedBox(
+                height: gap,
               ),
-            ),
-          ],
+              AvaLineChartWidget(isConfig: isConfig),
+              AvaTitleWidget(
+                  configHeight: 0,
+                  oriHeight: gap * 1.5,
+                  isConfig: isConfig,
+                  title: "biểu đồ cảm xúc"),
+              // AccountFriendsListWidget(isConfig: isConfig),
+              // AvaTitleWidget(
+              //   configHeight: gap * 1.5,
+              //   oriHeight: gap * 1.5,
+              //   isConfig: isConfig,
+              //   title: "danh sách bạn bè"
+              // ),
+            ],
+          ),
         ),
       ),
     );

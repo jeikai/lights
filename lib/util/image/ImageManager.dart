@@ -19,8 +19,10 @@ class ImageManager {
   static final String wbi3 = "assets/images/3.png";
   static final String blue_planet = "assets/images/blue_planet.png";
 
-  static final String cog = "assets/images/cog.gif";
+  static final String cog = "assets/images/cog-unscreen.gif";
   static final String egg = "assets/images/egg.png";
+
+  static final String coral = "assets/images/coral_calender.png";
 
   Map<String, ui.Image> _preloadedImages = {};
 
@@ -40,6 +42,7 @@ class ImageManager {
     await this.preloadImage(template2);
     await this.preloadImage(cog);
     await this.preloadImage(egg);
+    await this.preloadByte(coral);
   }
 
   Future<ui.Image> loadImage(Uint8List img) async {
