@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu_listview.dart';
 import 'package:rive/rive.dart';
+
 import '../../../reusable_widget/animated_switcher_with_preload_main_screen.dart';
 import '../../../util/rive/RiveUtil.dart';
 import '../mainScreen/MainScreen.dart';
@@ -61,18 +62,11 @@ class CustomMenu extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: size.height * 0.02, // Vị trí dựa trên kích thước màn hình
-                  left: size.width * 0.02, // Vị trí dựa trên kích thước màn hình
-                  child: InkWell(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Icon(
-                      Icons.arrow_back,
-                      color: Colors.white,
-                      size: iconSize,
-                    ),
-                  ),
+                  top: size.height * 0.02,
+                  // Vị trí dựa trên kích thước màn hình
+                  left: size.width * 0.02,
+                  // Vị trí dựa trên kích thước màn hình
+                  child: BackButton(),
                 ), // Thêm InkWell cho nút "Quay lại"
               ],
             );
