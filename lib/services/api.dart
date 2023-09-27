@@ -3,11 +3,10 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "http://192.168.1.11:5000/api/";
+  static String baseUrl = "http://192.168.40.189:5000/api/";
 
   Future<Map<String, dynamic>?> postData(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);
-
     try {
       String jsonData = jsonEncode(data);
       Map<String, String> headers = {

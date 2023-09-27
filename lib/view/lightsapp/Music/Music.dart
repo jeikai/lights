@@ -1,59 +1,169 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:just_audio/just_audio.dart';
+import 'package:rxdart/rxdart.dart' as rxdart;
+
+import 'package:flutterapp/model/song_model.dart';
+import '../Music/component/widgets.dart';
 
 class Music extends StatefulWidget {
-  const Music({Key? key}) : super(key: key);
+  final Song song;
+  const Music({Key? key, required this.song}) : super(key: key);
 
   @override
-  _MusicState createState() => _MusicState();
+  State<Music> createState() => _SongScreenState();
 }
 
-class _MusicState extends State<Music> {
+class _SongScreenState extends State<Music> {
+  AudioPlayer audioPlayer = AudioPlayer();
+
+
+  @override
+  void initState() {
+    super.initState();
+    audioPlayer.setAsset('assets/audio/' + widget.song.url);
+  }
+
+  @override
+  void dispose() {
+    audioPlayer.dispose();
+    super.dispose();
+  }
+
+  Stream<SeekBarData> get _seekBarDataStream =>
+      rxdart.Rx.combineLatest2<Duration, Duration?, SeekBarData>(
+          audioPlayer.positionStream, audioPlayer.durationStream, (
+          Duration position,
+          Duration? duration,
+          ) {
+        return SeekBarData(
+          position,
+          duration ?? Duration.zero,
+        );
+      });
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Music'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.search),
-            onPressed: () {
-              // Xử lý sự kiện tìm kiếm ở đây
-            },
-          ),
-        ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
       ),
-      body: Column(
+      extendBodyBehindAppBar: true,
+      body: Stack(
+        fit: StackFit.expand,
         children: [
-          // Thêm phần hiển thị danh sách bài hát ở đây
-          Expanded(
-            child: ListView.builder(
-              itemCount: 10, // Số lượng bài hát
-              itemBuilder: (context, index) {
-                return ListTile(
-                  leading: Icon(Icons.music_note),
-                  title: Text('Bài hát $index'),
-                  subtitle: Text('Nghệ sĩ $index'),
-                  trailing: IconButton(
-                    icon: Icon(Icons.play_circle_outline),
-                    onPressed: () {
-                      // Xử lý sự kiện play bài hát ở đây
-                    },
-                  ),
-                );
-              },
-            ),
+          Image.asset(
+            'assets/images/music/' + widget.song.coverUrl,
+            fit: BoxFit.cover,
           ),
-          // Thêm các điều khiển trình phát âm nhạc ở đây
-          // Ví dụ: nút play, pause, tua bài, v.v.
+          const _BackgroundFilter(),
+          _MusicPlayer(
+            song: widget.song,
+            seekBarDataStream: _seekBarDataStream,
+            audioPlayer: audioPlayer,
+          ),
         ],
       ),
     );
   }
 }
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: Music(),
-  ));
+class _MusicPlayer extends StatelessWidget {
+  const _MusicPlayer({
+    Key? key,
+    required this.song,
+    required Stream<SeekBarData> seekBarDataStream,
+    required this.audioPlayer,
+  })  : _seekBarDataStream = seekBarDataStream,
+        super(key: key);
+
+  final Song song;
+  final Stream<SeekBarData> _seekBarDataStream;
+  final AudioPlayer audioPlayer;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        horizontal: 20.0,
+        vertical: 50.0,
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            song.title,
+            style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          const SizedBox(height: 10),
+          Text(
+            song.description,
+            maxLines: 2,
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall!
+                .copyWith(color: Colors.white),
+          ),
+          const SizedBox(height: 30),
+          StreamBuilder<SeekBarData>(
+            stream: _seekBarDataStream,
+            builder: (context, snapshot) {
+              final positionData = snapshot.data;
+              return SeekBar(
+                position: positionData?.position ?? Duration.zero,
+                duration: positionData?.duration ?? Duration.zero,
+                onChangeEnd: audioPlayer.seek,
+              );
+            },
+          ),
+          PlayerButtons(audioPlayer: audioPlayer),
+        ],
+      ),
+    );
+  }
+}
+
+class _BackgroundFilter extends StatelessWidget {
+  const _BackgroundFilter({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+      shaderCallback: (rect) {
+        return LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.white,
+              Colors.white.withOpacity(0.5),
+              Colors.white.withOpacity(0.0),
+            ],
+            stops: const [
+              0.0,
+              0.4,
+              0.6
+            ]).createShader(rect);
+      },
+      blendMode: BlendMode.dstOut,
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Colors.deepPurple.shade200,
+              Colors.deepPurple.shade800,
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }

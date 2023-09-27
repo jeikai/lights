@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
+import 'package:flutterapp/view/lightsapp/Form/Form.dart';
+import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
 import 'package:flutterapp/view/lightsapp/Music/Music.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
@@ -19,7 +21,7 @@ import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/movie/Movie.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
-
+import 'package:get/get.dart';
 import 'app_fundemantal.dart';
 import 'setting.dart';
 
@@ -76,6 +78,7 @@ class _LightsAppState extends State<_LightsApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
+        // initialRoute: '/Music',
         initialRoute: '/GeneratedLoginscreenWidget',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
@@ -98,9 +101,10 @@ class _LightsAppState extends State<_LightsApp> {
           '/Chatbot': (context) => Chatbot(),
           '/Ava': (context) => Ava(),
           '/Movie': (context) => MoviesPage(),
-          '/Music': (context) => Music(),
+          '/Music': (context) => HomeScreenMusic(),
           '/homeMessage': (context) => mainMessage(),
-          '/Calender': (context) => CalenderScreen()
+          '/Calender': (context) => CalenderScreen(),
+          '/Form': (context) => FormDepression(),
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {

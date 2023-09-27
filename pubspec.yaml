@@ -17,11 +17,7 @@ dependencies:
   chat_bubbles:
   flutter_svg:
   flutter_gif:
-  fluttertoast:
-  carousel_slider: ^4.2.1
   custom_clippers:
-  url_launcher:
-  velocity_x:
   fl_chart: ^0.63.0
   flutter_social_button:
   table_calendar:
@@ -30,6 +26,10 @@ dependencies:
   flutter:
     sdk: "flutter"
   http: ^0.13.5
+  socket_io_client: ^2.0.3+1
+  get: ^4.6.5
+  just_audio: ^0.9.28
+  rxdart: ^0.27.5
 dev_dependencies: 
   flutter_test: 
     sdk: "flutter"
@@ -59,6 +59,9 @@ flutter:
     - "assets/images/"
     - "assets/rive/"
     - "assets/config.yml"
+    - "assets/images/movie/"
+    - "assets/images/music/"
+    - "assets/audio/"
   fonts:
     - family: "Paytone One"
       fonts:

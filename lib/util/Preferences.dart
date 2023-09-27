@@ -9,7 +9,7 @@ class Preferences {
   }
 
   static Future<void> setupUser(String id) async {
-    Map<String, dynamic>? res = await Api().getData("user/getData", id);
+    Map<String, dynamic>? res = await Api().getDataById("user/getData", id);
     if (res?["message"]) {
       await Preferences.setBio(res?["userData"]["bio"]);
       await Preferences.setSocialConnections(
