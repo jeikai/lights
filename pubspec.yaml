@@ -61,7 +61,6 @@ flutter:
     - "assets/config.yml"
     - "assets/images/movie/"
     - "assets/images/music/"
-    - "assets/audio/"
   fonts:
     - family: "Paytone One"
       fonts:

@@ -21,7 +21,16 @@ class _SongScreenState extends State<Music> {
   @override
   void initState() {
     super.initState();
-    audioPlayer.setAsset('assets/audio/' + widget.song.url);
+    // audioPlayer.setAsset('assets/audio/' + widget.song.url);
+    audioPlayer.setAudioSource(
+      ConcatenatingAudioSource(
+        children: [
+          AudioSource.uri(
+            Uri.parse(widget.song.url),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
