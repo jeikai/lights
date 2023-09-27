@@ -4,7 +4,6 @@ import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
 import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
-import 'package:flutterapp/view/lightsapp/Music/Music.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
@@ -21,7 +20,7 @@ import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/movie/Movie.dart';
 import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
-import 'package:get/get.dart';
+
 import 'app_fundemantal.dart';
 import 'setting.dart';
 
@@ -79,7 +78,7 @@ class _LightsAppState extends State<_LightsApp> {
           primarySwatch: Colors.blue,
         ),
         // initialRoute: '/Music',
-        initialRoute: '/GeneratedLoginscreenWidget',
+        initialRoute: '/GeneratedMainScreenWidget',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>

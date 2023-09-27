@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
+import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
 import 'package:flutterapp/services/api.dart';
-import 'package:flutterapp/util/Preferences.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/setting.dart';
+import 'package:flutterapp/util/Preferences.dart';
+import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
 import 'package:intl/intl.dart';
 
 class GeneratedLogupscreen2Widget extends StatefulWidget {

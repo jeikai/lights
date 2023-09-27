@@ -2,110 +2,124 @@ import 'dart:math';
 
 import 'package:fluentui_emoji_icon/fluentui_emoji_icon.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/view/lightsapp/calender/choose_emotion_widget.dart';
 
 class MenuOverlay extends StatelessWidget {
   final DateTime time;
+  final bool isToday;
 
-  const MenuOverlay({super.key, required this.time});
+  const MenuOverlay({super.key, required this.time, this.isToday = false});
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    return SimpleDialog(
+    return Dialog(
       insetPadding: EdgeInsets.zero,
       backgroundColor: Colors.transparent,
-      alignment: Alignment.center,
-      children: [
-        Align(
-          alignment: Alignment.topLeft,
-          child: BackButton(
-            color: Colors.white,
-          ),
-        ),
-        SizedBox.fromSize(
-          size: size,
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: MenuBar(
-              children: [
-                MenuBubble(
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Color.fromARGB(255, 244, 140, 167)
-                                    .withOpacity(0.8),
-                                width: 10),
-                            color: Color.fromARGB(255, 82, 167, 214)
-                                .withOpacity(0.5),
-                            shape: BoxShape.circle),
-                        child: Center(
-                          child: Icon(
-                            Icons.menu_book_rounded,
-                            size: constraints.maxWidth * 0.8,
-                            color: Color.fromARGB(255, 193, 230, 249),
+      child: SizedBox.fromSize(
+        size: size,
+        child: Stack(
+          children: [
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: MenuBar(
+                children: [
+                  MenuBubble(
+                    child: LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                  color: Color.fromARGB(255, 244, 140, 167)
+                                      .withOpacity(0.8),
+                                  width: 10),
+                              color: Color.fromARGB(255, 82, 167, 214)
+                                  .withOpacity(0.5),
+                              shape: BoxShape.circle),
+                          child: Center(
+                            child: Icon(
+                              Icons.menu_book_rounded,
+                              size: constraints.maxWidth * 0.8,
+                              color: Color.fromARGB(255, 193, 230, 249),
+                            ),
                           ),
-                        ),
-                      );
-                    },
+                        );
+                      },
+                    ),
                   ),
-                ),
-                MenuBubble(
-                  child: LayoutBuilder(
-                    builder:
-                        (BuildContext context, BoxConstraints constraints) {
-                      return Stack(
-                        fit: StackFit.expand,
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            left: -constraints.maxWidth / 7,
-                            top: -constraints.maxWidth / 7,
-                            child: FluentUiEmojiIcon(
-                              fl: Fluents.flSmilingFace,
-                              w: constraints.maxWidth / 2.5 * 2,
-                              h: constraints.maxWidth / 2.5 * 2,
-                            ),
-                          ),
-                          Positioned(
-                            top: -constraints.maxWidth / 4,
-                            right: -constraints.maxWidth / 5,
-                            child: FluentUiEmojiIcon(
-                              fl: Fluents.flNauseatedFace,
-                              w: constraints.maxWidth / 2.5 * 2,
-                              h: constraints.maxWidth / 2.5 * 2,
-                            ),
-                          ),
-                          Positioned(
-                            right: -constraints.maxWidth / 7,
-                            bottom: -constraints.maxWidth / 7,
-                            child: FluentUiEmojiIcon(
-                              fl: Fluents.flWorriedFace,
-                              w: constraints.maxWidth / 2.5 * 2,
-                              h: constraints.maxWidth / 2.5 * 2,
-                            ),
-                          ),
-                          Positioned(
-                            bottom: -constraints.maxWidth / 4,
-                            left: -constraints.maxWidth / 5,
-                            child: FluentUiEmojiIcon(
-                              fl: Fluents.flPleadingFace,
-                              w: constraints.maxWidth / 2.5 * 2,
-                              h: constraints.maxWidth / 2.5 * 2,
-                            ),
-                          )
-                        ],
-                      );
-                    },
-                  ),
-                )
-              ],
+                  if (isToday)
+                    MenuBubble(
+                      child: LayoutBuilder(
+                        builder:
+                            (BuildContext context, BoxConstraints constraints) {
+                          return Stack(
+                            fit: StackFit.expand,
+                            clipBehavior: Clip.none,
+                            children: [
+                              Positioned(
+                                left: -constraints.maxWidth / 7,
+                                top: -constraints.maxWidth / 7,
+                                child: FluentUiEmojiIcon(
+                                  fl: Fluents.flSmilingFace,
+                                  w: constraints.maxWidth / 2.5 * 2,
+                                  h: constraints.maxWidth / 2.5 * 2,
+                                ),
+                              ),
+                              Positioned(
+                                top: -constraints.maxWidth / 4,
+                                right: -constraints.maxWidth / 5,
+                                child: FluentUiEmojiIcon(
+                                  fl: Fluents.flNauseatedFace,
+                                  w: constraints.maxWidth / 2.5 * 2,
+                                  h: constraints.maxWidth / 2.5 * 2,
+                                ),
+                              ),
+                              Positioned(
+                                right: -constraints.maxWidth / 7,
+                                bottom: -constraints.maxWidth / 7,
+                                child: FluentUiEmojiIcon(
+                                  fl: Fluents.flWorriedFace,
+                                  w: constraints.maxWidth / 2.5 * 2,
+                                  h: constraints.maxWidth / 2.5 * 2,
+                                ),
+                              ),
+                              Positioned(
+                                bottom: -constraints.maxWidth / 4,
+                                left: -constraints.maxWidth / 5,
+                                child: FluentUiEmojiIcon(
+                                  fl: Fluents.flPleadingFace,
+                                  w: constraints.maxWidth / 2.5 * 2,
+                                  h: constraints.maxWidth / 2.5 * 2,
+                                ),
+                              )
+                            ],
+                          );
+                        },
+                      ),
+                      onClick: (BuildContext context) {
+                        Navigator.pop(context);
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return ChooseEmotionWidget(
+                                time: time,
+                              );
+                            });
+                      },
+                    )
+                ],
+              ),
             ),
-          ),
-        )
-      ],
+            Align(
+              alignment: Alignment.topLeft,
+              child: BackButton(
+                color: Colors.white,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

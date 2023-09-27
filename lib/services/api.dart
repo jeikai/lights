@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "http://192.168.40.189:5000/api/";
+  static String baseUrl = "http://192.168.1.11:5000/api/";
 
   Future<Map<String, dynamic>?> postData(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);
@@ -72,6 +72,30 @@ class Api {
       return null;
     }
   }
+
+  Future<Map<String, dynamic>?> pushDataUpdateWithoutId(
+      String path, Map data) async {
+    final Uri uri = Uri.parse(baseUrl + path);
+    try {
+      String jsonData = jsonEncode(data);
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      final http.Response response =
+          await http.put(uri, headers: headers, body: jsonData);
+      if (response.statusCode == 200) {
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        return jsonResponse;
+      } else {
+        print('Có lỗi xảy ra: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Lỗi: $e');
+      return null;
+    }
+  }
+
   Future<List<dynamic>?> getData(String path) async {
     final Uri uri = Uri.parse(baseUrl + path);
     try {

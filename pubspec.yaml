@@ -22,6 +22,7 @@ dependencies:
   flutter_social_button:
   table_calendar:
   fluentui_emoji_icon:
+  circle_list:
   intl:
   flutter:
     sdk: "flutter"

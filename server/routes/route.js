@@ -13,6 +13,15 @@ const ChatbotController = require("../controller/chatbotController");
 const filmController = require("../controller/filmController");
 const User = require("../models/User");
 const UserData = require("../models/UserData");
+const {
+    createUserDateActivity,
+    getUserDateActivitiesByUserId,
+    getUserDateActivityById,
+    deleteUserDateActivityById,
+    updateUserDateActivity,
+    getUserDateActivity
+} = require('../controller/dateDataController'); // Replace with the actual controller file
+
 // Route cho user
 app.post("/register", userController.createUser);
 app.post("/login", userController.loginUser);
@@ -138,5 +147,13 @@ app.put('/userdata/update-social/:id', async (req, res) => {
         res.status(500).json({error: error.message});
     }
 });
+
+// Define your routes and use the controller functions as handlers
+app.post('/user-date-activity', createUserDateActivity);
+app.get('/user-date-activity/:userId', getUserDateActivitiesByUserId);
+app.get('/user-date-activity/:id', getUserDateActivityById);
+app.delete('/user-date-activity/:id', deleteUserDateActivityById);
+app.put('/update-user-date-activity', updateUserDateActivity);
+app.post('/get-or-create-user-date-activity', getUserDateActivity);
 
 module.exports = app

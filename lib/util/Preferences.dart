@@ -1,4 +1,5 @@
 import 'package:flutterapp/services/api.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -135,4 +136,8 @@ class Preferences {
       await _preferences?.setString("regisAddress", username);
 
   static String? getRegisAddress() => _preferences?.getString("regisAddress");
+
+  static String formatDate(DateTime time) {
+    return DateFormat('yyyy-MM-dd').format(time);
+  }
 }
