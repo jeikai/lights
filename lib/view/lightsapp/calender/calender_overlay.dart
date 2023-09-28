@@ -3,12 +3,18 @@ import 'dart:math';
 import 'package:fluentui_emoji_icon/fluentui_emoji_icon.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/view/lightsapp/calender/choose_emotion_widget.dart';
+import 'package:flutterapp/view/lightsapp/calender/story_diary_widget.dart';
 
 class MenuOverlay extends StatelessWidget {
   final DateTime time;
   final bool isToday;
+  final bool isAfterDay;
 
-  const MenuOverlay({super.key, required this.time, this.isToday = false});
+  const MenuOverlay(
+      {super.key,
+      required this.time,
+      this.isToday = false,
+      this.isAfterDay = false});
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +53,16 @@ class MenuOverlay extends StatelessWidget {
                         );
                       },
                     ),
+                    onClick: (BuildContext context) {
+                      Navigator.pop(context);
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return StoryDiaryWidget(
+                              time: time,
+                            );
+                          });
+                    },
                   ),
                   if (isToday)
                     MenuBubble(

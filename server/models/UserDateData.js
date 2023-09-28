@@ -21,8 +21,7 @@ const userDateActivitySchema = new mongoose.Schema({
         type: String,
     },
     image: {
-        data: Buffer, // Store image data as binary
-        contentType: String, // Store content type (e.g., 'image/jpeg', 'image/png')
+        type: String,
     }
 });
 

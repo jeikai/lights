@@ -69,6 +69,11 @@ flutter:
         - asset: "fonts/PaytoneOne-regular.ttf"
           style: "normal"
           weight: 400
+    - family: "DancingScript"
+      fonts:
+        - asset: "fonts/DancingScript.ttf"
+          style: "normal"
+          weight: 400
     - family: "Mistrully"
       fonts:
         - asset: "fonts/Mistrully.ttf"
