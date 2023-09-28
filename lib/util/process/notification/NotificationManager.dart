@@ -42,7 +42,7 @@ class NotificationManager {
   }
 
   void runNotiProcess() {
-    process.run();
+    //process.run();
   }
 
   bool isLoading() {

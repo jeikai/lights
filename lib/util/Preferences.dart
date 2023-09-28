@@ -137,6 +137,15 @@ class Preferences {
 
   static String? getRegisAddress() => _preferences?.getString("regisAddress");
 
+  static List<String>? getTasks() {
+    return _preferences?.getStringList("tasks");
+  }
+
+  static Future<void> setTasks(List<String> tasks) async {
+    await _preferences?.setStringList("tasks", tasks);
+    return;
+  }
+
   static String formatDate(DateTime time) {
     return DateFormat('yyyy-MM-dd').format(time);
   }

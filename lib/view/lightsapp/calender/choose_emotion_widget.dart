@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
+import 'package:flutterapp/util/TaskManager.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 
 class ChooseEmotionWidget extends StatefulWidget {
@@ -167,7 +168,20 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
       "date": date,
       "updateFields": {"emotion": emotion}
     };
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
+    await TaskManager.updateTask(emotion);
     await Api().pushDataUpdateWithoutId("update-user-date-activity", data);
+    Navigator.pop(context);
+    Navigator.pop(context);
     return;
   }
 }

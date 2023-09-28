@@ -9,9 +9,11 @@ import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalenderScreen extends StatelessWidget {
-  const CalenderScreen({Key? key}) : super(key: key);
+  CalenderScreen({Key? key}) : super(key: key);
 
   static ValueNotifier<bool> calenderNotifier = ValueNotifier(true);
+
+  bool isTodayEmotionNull = false;
 
   @override
   Widget build(BuildContext context) {
@@ -59,9 +61,10 @@ class CalenderScreen extends StatelessWidget {
                               context: context,
                               builder: (BuildContext context) {
                                 return MenuOverlay(
-                                    time: selected,
-                                    isToday:
-                                        compareDate(DateTime.now(), focus));
+                                  time: selected,
+                                  isToday: compareDate(DateTime.now(),
+                                      focus) /*&& isTodayEmotionNull*/,
+                                );
                               });
                           return;
                         },
@@ -183,6 +186,8 @@ class CalenderScreen extends StatelessWidget {
                               "Data after fetch for calender: ${snapshot.data}");
                         }
                         FluentData? icons = getIcons(snapshot.data!);
+                        if (snapshot.data! == "Default")
+                          isTodayEmotionNull = true;
                         return icons == null
                             ? SizedBox()
                             : FluentUiEmojiIcon(
