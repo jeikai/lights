@@ -1,11 +1,19 @@
+import 'package:fluentui_emoji_icon/fluentui_emoji_icon.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_overlay.dart';
 import 'package:intl/intl.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 class CalenderScreen extends StatelessWidget {
-  const CalenderScreen({Key? key}) : super(key: key);
+  CalenderScreen({Key? key}) : super(key: key);
+
+  static ValueNotifier<bool> calenderNotifier = ValueNotifier(true);
+
+  bool isTodayEmotionNull = false;
 
   @override
   Widget build(BuildContext context) {
@@ -28,26 +36,39 @@ class CalenderScreen extends StatelessWidget {
                 child: SizedBox(
                   height: size.height / 0.5,
                   width: size.width * 0.9,
-                  child: TableCalendar(
-                    focusedDay: DateTime.now(),
-                    firstDay: DateTime.now(),
-                    lastDay: DateTime.now().add(Duration(days: 356 * 20)),
-                    headerStyle: HeaderStyle(
-                        formatButtonVisible: false,
-                        headerMargin:
-                            EdgeInsets.only(bottom: size.height / 20)),
-                    calendarBuilders: CalendarBuilders(
-                        disabledBuilder: disableBuilder,
-                        defaultBuilder: defaultBuilder,
-                        todayBuilder: todayBuilder,
-                        headerTitleBuilder: headTitleBuilder),
-                    onDaySelected: (DateTime selected, DateTime focus) {
-                      showDialog(
-                          context: context,
-                          builder: (BuildContext context) {
-                            return MenuOverlay(time: selected);
-                          });
-                      return;
+                  child: ValueListenableBuilder<bool>(
+                    valueListenable: calenderNotifier,
+                    builder: (BuildContext context, bool value, Widget? child) {
+                      return TableCalendar(
+                        focusedDay: DateTime.now(),
+                        firstDay:
+                            DateTime.now().subtract(Duration(days: 356 * 10)),
+                        lastDay: DateTime.now().add(Duration(days: 356 * 20)),
+                        headerStyle: HeaderStyle(
+                            formatButtonVisible: false,
+                            headerMargin:
+                                EdgeInsets.only(bottom: size.height / 20)),
+                        calendarBuilders: CalendarBuilders(
+                            disabledBuilder: disableBuilder,
+                            defaultBuilder: defaultBuilder,
+                            todayBuilder: todayBuilder,
+                            headerTitleBuilder: headTitleBuilder),
+                        onDaySelected: (DateTime selected, DateTime focus) {
+                          if (!kReleaseMode) {
+                            print("Selected: $selected \nFocus: $focus");
+                          }
+                          showDialog(
+                              context: context,
+                              builder: (BuildContext context) {
+                                return MenuOverlay(
+                                  time: selected,
+                                  isToday: compareDate(DateTime.now(),
+                                      focus) /*&& isTodayEmotionNull*/,
+                                );
+                              });
+                          return;
+                        },
+                      );
                     },
                   ),
                 ),
@@ -76,6 +97,10 @@ class CalenderScreen extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  bool compareDate(DateTime i1, DateTime i2) {
+    return i1.day == i2.day && i1.month == i2.month && i1.year == i2.year;
   }
 
   Widget headTitleBuilder(BuildContext context, DateTime day) {
@@ -124,6 +149,7 @@ class CalenderScreen extends StatelessWidget {
 
   Widget todayBuilder(BuildContext context, DateTime day, DateTime? focusDay) {
     Size size = MediaQuery.sizeOf(context);
+    double t = (size.height + size.width);
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -134,13 +160,47 @@ class CalenderScreen extends StatelessWidget {
             decoration: BoxDecoration(
                 shape: BoxShape.circle,
                 color: Color.fromARGB(100, 152, 162, 221)),
-            child: Center(
-              child: Text(
-                day.day.toString(),
-                style: TextStyle(
-                    fontFamily: "Paytone One",
-                    color: Colors.white.withAlpha(200)),
-              ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Center(
+                  child: Text(
+                    day.day.toString(),
+                    style: TextStyle(
+                        fontFamily: "Paytone One",
+                        color: Colors.white10.withAlpha(200)),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: FutureBuilder<String>(
+                    future: fetchDay(day),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox();
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        if (!kReleaseMode) {
+                          print(
+                              "Data after fetch for calender: ${snapshot.data}");
+                        }
+                        FluentData? icons = getIcons(snapshot.data!);
+                        if (snapshot.data! == "Default")
+                          isTodayEmotionNull = true;
+                        return icons == null
+                            ? SizedBox()
+                            : FluentUiEmojiIcon(
+                                fl: icons,
+                                w: t / 60,
+                                h: t / 60,
+                              );
+                      }
+                      return SizedBox();
+                    },
+                  ),
+                )
+              ],
             ),
           ),
         )
@@ -151,6 +211,7 @@ class CalenderScreen extends StatelessWidget {
   Widget defaultBuilder(
       BuildContext context, DateTime day, DateTime? focusDay) {
     Size size = MediaQuery.sizeOf(context);
+    double t = (size.height + size.width);
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -160,18 +221,63 @@ class CalenderScreen extends StatelessWidget {
             width: size.width / 9,
             decoration: BoxDecoration(
                 shape: BoxShape.circle, color: Colors.white10.withAlpha(50)),
-            child: Center(
-              child: Text(
-                day.day.toString(),
-                style: TextStyle(
-                    fontFamily: "Paytone One",
-                    color: Colors.white10.withAlpha(200)),
-              ),
+            child: Stack(
+              clipBehavior: Clip.none,
+              children: [
+                Center(
+                  child: Text(
+                    day.day.toString(),
+                    style: TextStyle(
+                        fontFamily: "Paytone One",
+                        color: Colors.white10.withAlpha(200)),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.bottomRight,
+                  child: FutureBuilder<String>(
+                    future: fetchDay(day),
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return SizedBox();
+                      } else if (snapshot.connectionState ==
+                          ConnectionState.done) {
+                        FluentData? icons = getIcons(snapshot.data!);
+                        return icons == null
+                            ? SizedBox()
+                            : FluentUiEmojiIcon(
+                                fl: icons,
+                                w: t / 60,
+                                h: t / 60,
+                              );
+                      }
+                      return SizedBox();
+                    },
+                  ),
+                )
+              ],
             ),
           ),
-        )
+        ),
       ],
     );
+  }
+
+  Future<String> fetchDay(DateTime time) async {
+    Map<String, dynamic> req = {
+      "userId": Preferences.getId()!,
+      "date": Preferences.formatDate(time)
+    };
+    Map<String, dynamic>? res =
+        await Api().postData("get-or-create-user-date-activity", req);
+    if (res != null) {
+      if (!kReleaseMode) {
+        print(res);
+      }
+      String ret = res["userDate"]["emotion"] ?? "Default";
+      return ret;
+    }
+    return "Default";
   }
 
   Widget disableBuilder(
@@ -202,5 +308,22 @@ class CalenderScreen extends StatelessWidget {
         )
       ],
     );
+  }
+}
+
+FluentData? getIcons(String name) {
+  switch (name) {
+    case "CucBuon":
+      return Fluents.flLoudlyCryingFace;
+    case "Buon":
+      return Fluents.flFrowningFace;
+    case "BinhThuong":
+      return Fluents.flNeutralFace;
+    case "Vui":
+      return Fluents.flGrinningFaceWithSmilingEyes;
+    case "CucVui":
+      return Fluents.flGrinningSquintingFace;
+    default:
+      return null;
   }
 }

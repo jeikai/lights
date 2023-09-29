@@ -9,7 +9,7 @@ module.exports = {
       const newLevelDepression = new Level_depression({ userId, level });
       const savedLevelDepression = await newLevelDepression.save();
 
-      res.status(201).json(savedLevelDepression);
+      res.status(200).json(savedLevelDepression);
     } catch (error) {
       res.status(500).json(error);
     }

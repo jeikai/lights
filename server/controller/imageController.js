@@ -37,7 +37,7 @@ module.exports = {
 
                         const newImage = new Image({ userId: userId, ImageUrl: publicUrl });
                         await newImage.save();
-                    
+
                         res.status(200).json({ status: true, url: publicUrl });
                     } else {
                         throw "Failed to get a valid signed URL.";
@@ -49,7 +49,7 @@ module.exports = {
             }
         } catch (error) {
             console.log(error)
-            res.status(500).json({ success: false, error });
+            res.status(500).json({success: false, error});
         }
     },
     getImage: async (req, res) => {

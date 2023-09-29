@@ -4,7 +4,6 @@ import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
 import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
-import 'package:flutterapp/view/lightsapp/Music/Music.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
@@ -19,13 +18,14 @@ import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
 import 'package:flutterapp/view/lightsapp/movie/Movie.dart';
-import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/story/story_widget.dart';
+import 'package:flutterapp/view/lightsapp/story/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
-import 'package:get/get.dart';
+
 import 'app_fundemantal.dart';
 import 'setting.dart';
 
-Future main() async{
+Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
   MyApp(
       _LightsApp(),
@@ -98,6 +98,9 @@ class _LightsAppState extends State<_LightsApp> {
               GeneratedForgotpasswordscreen2Widget(),
           '/GeneratedForgotpasswordscreen3Widget': (context) =>
               GeneratedForgotpasswordscreen3Widget(),
+          '/Story': (context) => StoryWidget(
+                key: ValueKey("StoryWidget"),
+              ),
           '/Chatbot': (context) => Chatbot(),
           '/Ava': (context) => Ava(),
           '/Movie': (context) => MoviesPage(),
@@ -113,6 +116,9 @@ class _LightsAppState extends State<_LightsApp> {
             case '/GeneratedMainScreenWidget':
               return NoAnimationPageRoute(
                   builder: (context) => MainScreenWidget());
+            case '/GeneratedStoryscreen1Widget':
+              return NoAnimationPageRoute(
+                  builder: (context) => GeneratedStoryscreen1Widget());
             case '/CustomMenu':
               return NoAnimationPageRoute(builder: (context) => CustomMenu());
             default:

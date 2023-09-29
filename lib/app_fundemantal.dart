@@ -49,7 +49,9 @@ class MyApp {
 
   void onInactive() {}
 
-  void onDetached() {}
+  void onDetached() {
+    if (manager != null) manager!.dispose();
+  }
 }
 
 class _AppFund extends StatefulWidget {

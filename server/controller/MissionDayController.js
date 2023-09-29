@@ -20,7 +20,6 @@ module.exports = {
       shuffleArray(Missions);
       const randomMissions = Missions.slice(0, 4);
       const missionDayRecords = [];
-
       for (let i = 0; i < randomMissions.length; i++) {
         const missionId = randomMissions[i]._id;
 
@@ -36,7 +35,7 @@ module.exports = {
         // Thêm bản ghi vào mảng missionDayRecords
         missionDayRecords.push(missionDayRecord);
       }
-      res.status(201).json(missionDayRecords);
+      res.status(200).json(missionDayRecords);
     } catch (error) { 
       res.status(500).json(error);
     }

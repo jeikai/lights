@@ -6,8 +6,16 @@ import 'package:rive/rive.dart';
 
 import '../../../../model/model_data.dart';
 
+List<TaskData> tasksDefault = [
+  TaskData(taskDes: "Thien trong 10p", percent: 0.0),
+  TaskData(taskDes: "Thien trong 20p", percent: 1.0),
+  TaskData(taskDes: "Thien trong 30p", percent: 0.5),
+  TaskData(taskDes: "Thien trong 50p", percent: 0.25)
+];
+
 class DTListView extends StatefulWidget {
   static const Color dcDefault = Color.fromARGB(255, 212, 216, 234);
+
   final Color deviderColor;
   final double deviderHeight;
   final double borderRadius;
@@ -32,12 +40,9 @@ class _DTListViewState extends State<DTListView>
   late AnimationController _controller4Normal;
   List<Artboard?> riveArtboard = [];
 
-  List<TaskData> tasks = [
-    TaskData(taskDes: "Thien trong 10p", percent: 0.0),
-    TaskData(taskDes: "Thien trong 20p", percent: 1.0),
-    TaskData(taskDes: "Thien trong 30p", percent: 0.5),
-    TaskData(taskDes: "Thien trong 50p", percent: 0.25)
-  ];
+  List<TaskData>? _tasks;
+
+  List<TaskData> get tasks => _tasks ?? tasksDefault;
 
   @override
   void initState() {
@@ -77,6 +82,8 @@ class _DTListViewState extends State<DTListView>
   Future<void> fetchDailyTask() async {
     RiveUtil util = RiveUtil();
     var a = Future.delayed(Duration(seconds: 5));
+    // var temp = await Api().getDataByIdForMissions("getMissionDayById", Preferences.getId()!);
+    // print("Missions Data: $temp");
     List<Future> waitList = [a];
     for (int i = 0; i < 4; i++) {
       final file = util.getStar();

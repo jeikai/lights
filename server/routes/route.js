@@ -10,6 +10,17 @@ const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
 const ChatbotController = require("../controller/chatbotController");
 const filmController = require("../controller/filmController");
+const User = require("../models/User");
+const UserData = require("../models/UserData");
+const {
+    createUserDateActivity,
+    getUserDateActivitiesByUserId,
+    getUserDateActivityById,
+    deleteUserDateActivityById,
+    updateUserDateActivity,
+    getUserDateActivity
+} = require('../controller/dateDataController'); // Replace with the actual controller file
+
 const imageController = require("../controller/imageController");
 
 const Multer = require('multer');
@@ -85,4 +96,13 @@ app.put('/userdata/update-social/:id', userController.updateSocialConnection);
 
 //Router cho Upload
 app.post('/upload', multer.single('image'), imageController.Upload)
+
+// Define your routes and use the controller functions as handlers
+app.post('/user-date-activity', createUserDateActivity);
+app.get('/user-date-activity/:userId', getUserDateActivitiesByUserId);
+app.get('/user-date-activity/:id', getUserDateActivityById);
+app.delete('/user-date-activity/:id', deleteUserDateActivityById);
+app.put('/update-user-date-activity', updateUserDateActivity);
+app.post('/get-or-create-user-date-activity', getUserDateActivity);
+
 module.exports = app

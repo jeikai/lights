@@ -1,4 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutterapp/services/api.dart';
+import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class Preferences {
@@ -104,13 +107,12 @@ class Preferences {
   static Future<bool>? setSocialConnections(List<String> socialConnections) =>
       _preferences?.setStringList("socialConnections", socialConnections);
 
-  static Future setSocialConnectionsUpdate(
-      List<String> socialConnections) async {
+  static Future setSocialConnectionsUpdate(List<String> socialConnections) async {
     await _preferences?.setStringList("socialConnections", socialConnections);
     //TODO: update social connections
     Map<String, dynamic> data = {"bio": socialConnections};
     var res =
-        await Api().pushDataUpdate("userdata/update-social", getId()!, data);
+    await Api().pushDataUpdate("userdata/update-social", getId()!, data);
     print(res);
   }
 
@@ -135,4 +137,27 @@ class Preferences {
       await _preferences?.setString("regisAddress", username);
 
   static String? getRegisAddress() => _preferences?.getString("regisAddress");
+
+  static List<dynamic>? getTasks() {
+    return jsonDecode(_preferences!.getString("tasks")!);
+  }
+
+  static Future<void> setTasks(List<dynamic> tasks) async {
+    String encoded = jsonEncode(tasks);
+    await _preferences?.setString("tasks", encoded);
+    return;
+  }
+
+  static String? getNotis() {
+    return _preferences!.getString("notificationList");
+  }
+
+  static Future<void> setNotis(String json) async {
+    await _preferences?.setString('notificationList', json);
+    return;
+  }
+
+  static String formatDate(DateTime time) {
+    return DateFormat('yyyy-MM-dd').format(time);
+  }
 }
