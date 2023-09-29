@@ -1,7 +1,6 @@
 const app = require("express").Router();
 const userController = require("../controller/userController");
 const diaryController = require("../controller/diaryController");
-const DiemDanhController = require("../controller/DiemDanhController");
 const EmotionController = require("../controller/EmotionController");
 const favorite_userController = require("../controller/favorite_userController");
 const favoriteController = require("../controller/favoriteController");
@@ -11,8 +10,17 @@ const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
 const ChatbotController = require("../controller/chatbotController");
 const filmController = require("../controller/filmController");
-const User = require("../models/User");
-const UserData = require("../models/UserData");
+const imageController = require("../controller/imageController");
+
+const Multer = require('multer');
+
+const multer = Multer({
+    storage: Multer.memoryStorage(),
+    limits: {
+        fileSize: 100 * 1024 * 1024,
+    },
+})
+
 // Route cho user
 app.post("/register", userController.createUser);
 app.post("/login", userController.loginUser);
@@ -24,10 +32,6 @@ app.get("/user/getData/:id", userController.getUserDataById);
 app.post("/newDiary", diaryController.insertDiary);
 app.get("/getDiaryById", diaryController.getDiaryById);
 app.post("/deleteDiary", diaryController.deleteDiary);
-
-//Router cho Diem danh
-app.post("/DiemDanh", DiemDanhController.createDiemDanh);
-app.get("/DiemDanhById", DiemDanhController.getDiemDanhById);
 
 // Router cho Emotion
 app.post("/emotion", EmotionController.createEmotion);
@@ -62,81 +66,23 @@ app.post("/Chatbot", ChatbotController.Chatbot)
 //Route cho Film
 app.get("/Film", filmController.getFilm);
 
-//Route de Update Data
-app.put('/user/update-name/:id', async (req, res) => {
-    const userId = req.params.id;
-    const {name} = req.body;
-
-    try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {name}}, {new: true}).select('-password');
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+//Route de Update Name
+app.put('/user/update-name/:id', userController.updateName);
 
 // Cập nhật trường phoneNumber của User
-app.put('/user/update-phone/:id', async (req, res) => {
-    const userId = req.params.id;
-    const {phoneNumber} = req.body;
-
-    try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {phoneNumber}}, {new: true}).select('-password');
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+app.put('/user/update-phone/:id', userController.updatePhoneNo);
 
 // Cập nhật trường DOB của User
-app.put('/user/update-dob/:id', async (req, res) => {
-    const userId = req.params.id;
-    const {DOB} = req.body;
-
-    try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {DOB}}, {new: true}).select('-password');
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+app.put('/user/update-dob/:id', userController.updateDOB);
 
 // Cập nhật trường address của User
-app.put('/user/update-address/:id', async (req, res) => {
-    const userId = req.params.id;
-    const {address} = req.body;
+app.put('/user/update-address/:id', userController.updateAddress);
 
-    try {
-        const user = await User.findByIdAndUpdate(userId, {$set: {address}}, {new: true}).select('-password');
-        res.json(user);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
-
-app.put('/userdata/update-bio/:id', async (req, res) => {
-    const userDataId = req.params.id;
-    const {bio} = req.body;
-
-    try {
-        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {bio}}, {new: true}).select('-password');
-        res.json(userData);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
+app.put('/userdata/update-bio/:id', userController.updateBio);
 
 // Cập nhật trường socialConnections của UserData
-app.put('/userdata/update-social/:id', async (req, res) => {
-    const userDataId = req.params.id;
-    const {socialConnections} = req.body.s;
+app.put('/userdata/update-social/:id', userController.updateSocialConnection);
 
-    try {
-        const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {socialConnections}}, {new: true}).select('-password');
-        res.json(userData);
-    } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-});
-
+//Router cho Upload
+app.post('/upload', multer.single('image'), imageController.Upload)
 module.exports = app

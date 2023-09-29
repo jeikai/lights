@@ -17,7 +17,6 @@ class Music extends StatefulWidget {
 class _SongScreenState extends State<Music> {
   AudioPlayer audioPlayer = AudioPlayer();
 
-
   @override
   void initState() {
     super.initState();
