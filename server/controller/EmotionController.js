@@ -1,22 +1,16 @@
-const Emotion = require("../models/Emotion")
+const Emotion = require("../models/Emotion");
 
 module.exports = {
   createEmotion: async (req, res) => {
     try {
-        const {userId, emotion} = req.body;
+      const { userId, emotion } = req.body;
 
-        console.log("here1");
-        // Tạo một bản ghi mới cho Emotion
-        const newEmotion = new Emotion({userId, emotion});
+      const newEmotion = new Emotion({ userId, emotion });
 
-        console.log("here2");
+      // Lưu bản ghi Emotion vào cơ sở dữ liệu
+      const savedEmotion = await newEmotion.save();
 
-        // Lưu bản ghi Emotion vào cơ sở dữ liệu
-        const savedEmotion = await newEmotion.save();
-
-        console.log("here3");
-
-        res.status(200).json(savedEmotion);
+      res.status(201).json(savedEmotion);
     } catch (error) {
       res.status(500).json(error);
     }
@@ -36,7 +30,7 @@ module.exports = {
   getEmotionById: async (req, res) => {
     try {
       // Truy vấn Emotion bằng ID
-      const emotion = await Emotion.findById(req.params.id);
+      const emotion = await Emotion.find({ userId: req.params.id});
 
       if (!emotion) {
         return res.status(404).json({ message: "Emotion không tồn tại" });

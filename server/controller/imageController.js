@@ -1,4 +1,4 @@
-const {Storage} = require('@google-cloud/storage');
+const { Storage } = require('@google-cloud/storage');
 const User = require("../models/User");
 const Image = require("../models/Image");
 
@@ -35,10 +35,10 @@ module.exports = {
                         // Lấy URL đầu tiên từ mảng và chuyển nó thành chuỗi
                         const publicUrl = signedUrls[0];
 
-                        const newImage = new Image({userId: userId, ImageUrl: publicUrl});
+                        const newImage = new Image({ userId: userId, ImageUrl: publicUrl });
                         await newImage.save();
 
-                        res.status(200).json({status: true, url: publicUrl});
+                        res.status(200).json({ status: true, url: publicUrl });
                     } else {
                         throw "Failed to get a valid signed URL.";
                     }
