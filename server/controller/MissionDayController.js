@@ -41,7 +41,6 @@ module.exports = {
       res.status(500).json(error);
     }
   },
-
   getMissionDayById: async (req, res) => {
     try {
       const userId = req.params.id;
