@@ -1,17 +1,16 @@
 const Test = require("../models/Test");
-
+const mongoose = require("mongoose")
 module.exports = {
   createTest: async (req, res) => {
     try {
-      const { userId, level, Question } = req.body;
-
-      // Tạo một bản ghi mới cho Test
-      const newTest = new Test({ userId, level, Question });
-
-      // Lưu bản ghi Test vào cơ sở dữ liệu
-      const savedTest = await newTest.save();
-
-      res.status(201).json(savedTest);
+        const {userId, level} = req.body;
+        console.log(userId, "haha")
+        console.log(mongoose.Types.ObjectId(userId));
+        const newTest = new Test({userId, level});
+        console.log("haha")
+        console.log(newTest);
+        const savedTest = await newTest.save();
+        res.status(201).json(savedTest);
     } catch (error) {
       res.status(500).json(error);
     }
