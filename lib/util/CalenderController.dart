@@ -31,7 +31,9 @@ class CalenderController {
       "userId": Preferences.getId(),
       "emotion": emotionToInt(emotion)
     };
-    await TaskManager.updateTask(emotion);
+    Map<String, dynamic> data3 = {
+      "userId": Preferences.getId(),
+    };
     if (!kReleaseMode) {
       print("Putting to Update User Date Data");
     }
@@ -47,6 +49,22 @@ class CalenderController {
     if (!kReleaseMode) {
       print("Data: \n $temp2");
     }
+    if (!kReleaseMode) {
+      Map<String, dynamic> data4 = {
+        "userId": Preferences.getId(),
+        "level": 1,
+      };
+      var temp3 = await Api().postData("levelDepression", data4);
+      var temp4 = await Api().postData("Test", data4);
+    }
+    if (!kReleaseMode) {
+      print("Putting to Update User Depression");
+    }
+    var temp3 = await Api().postData("updateLevelDepression", data3);
+    if (!kReleaseMode) {
+      print("Data: \n $temp3");
+    }
+    await TaskManager.updateTask();
     return;
   }
 

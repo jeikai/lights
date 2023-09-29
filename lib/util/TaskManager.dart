@@ -1,41 +1,31 @@
-import 'dart:math';
-
+import 'package:flutter/foundation.dart';
+import 'package:flutterapp/model/notification.dart';
+import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 
 class TaskManager {
-  static Future<void> updateTask(String emotion) async {
-    List<String> a;
-    switch (emotion) {
-      case "CucVui":
-        a = CUCVUI;
-      case "Vui":
-        a = VUI;
-      case "BinhThuong":
-        a = BINHTHUONG;
-      case "Buon":
-        a = BUON;
-      case "CucBuon":
-        a = CUCBUON;
-      default:
-        throw Exception("Unknown emotion for tasks: $emotion");
+  static Future<void> updateTask() async {
+    Map<String, dynamic> data3 = {
+      "userId": Preferences.getId(),
+    };
+    if (!kReleaseMode) {
+      print("Generating new Tasks");
     }
-    Random random = Random(DateTime.now().timeZoneOffset.inSeconds);
-    List<String> ret = [];
-    for (int i = 0; i < 4; i++) {
-      String task = "";
-      while (true) {
-        int index = random.nextInt(a.length);
-        task = a[index];
-        print("task: $task");
-        if (!ret.contains(task)) break;
-        print("task-already-in-ret");
-      }
-      ret.add(task);
+    var temp3 = await Api().postDataForTasks("MissionDay", data3);
+    if (!kReleaseMode) {
+      print("Data: \n $temp3");
     }
-    print("Tasks is: $ret");
-    await Preferences.setTasks(ret);
+    Preferences.setTasks(temp3!);
+    NotificationManager().addNotification(
+        NotificationContent(isRead: false, content: "Bạn có 4 task mới!"));
     return;
   }
+
+  // static List<TaskData> getTaskData() {
+  //   List<dynamic> tasks = Preferences.getTasks() ?? [];
+  //   for
+  // }
 
   static final List<String> CUCBUON = [
     "Nghe 1 bài nhạc từ kho nhạc của app",

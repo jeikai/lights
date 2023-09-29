@@ -10,7 +10,7 @@ module.exports = {
       // Lưu bản ghi Emotion vào cơ sở dữ liệu
       const savedEmotion = await newEmotion.save();
 
-      res.status(201).json(savedEmotion);
+      res.status(200).json(savedEmotion);
     } catch (error) {
       res.status(500).json(error);
     }

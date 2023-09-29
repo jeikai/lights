@@ -1,8 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/notification.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/process/notification/NotificationEvent.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../Event.dart';
 import 'NotificationProcess.dart';
@@ -39,6 +41,13 @@ class NotificationManager {
       _isLoadingFromStorage = false;
     });
     _callable = NotificationEventCallable(this);
+  }
+
+  void dispose() {
+    if (notifications.isNotEmpty) {
+      saveNotificationsToLocalStorage(_list._items);
+    }
+    //process.stop();
   }
 
   void runNotiProcess() {
@@ -91,26 +100,25 @@ class NotificationManager {
   // Saving notifications to local storage
   void saveNotificationsToLocalStorage(
       List<NotificationContent> notificationList) async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> notificationStrings = notificationList
-        .map((notification) => notification.toMap().toString())
-        .toList();
-    await prefs.setStringList('notificationList', notificationStrings);
+    List<dynamic> notificationStrings =
+        notificationList.map((notification) => notification.toMap()).toList();
+    String json = jsonEncode(notificationStrings);
+    await Preferences.setNotis(json);
   }
 
   // Loading notifications from local storage
   Future<List<NotificationContent>> loadNotificationsFromLocalStorage() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String> notificationStrings =
-        prefs.getStringList('notificationList') ?? [];
+    String? json = Preferences.getNotis();
+    print("Json: $json");
+    if (json == null) return [];
+    List<dynamic> notificationStrings = jsonDecode(json);
     List<NotificationContent> notifications = notificationStrings
-        .map((string) => NotificationContent.fromMap(string))
+        .map((noti) => NotificationContent.fromMap(noti))
         .toList();
     return notifications;
   }
 
-  void addListener(
-      void Function(NotificationEvent event) callback, Priorities priority) {
+  void addListener(void Function(NotificationEvent event) callback, Priorities priority) {
     _callable.addHandler(callback, priority);
   }
 
@@ -158,7 +166,7 @@ class ListModel<E> {
     if (removedItem != null) {
       _animatedList!.removeItem(
         index,
-        (BuildContext context, Animation<double> animation) {
+            (BuildContext context, Animation<double> animation) {
           return _removedItemBuilder(removedItem, context, animation);
         },
       );
