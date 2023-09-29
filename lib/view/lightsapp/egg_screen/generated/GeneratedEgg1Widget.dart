@@ -72,8 +72,8 @@ class _EggWidgetState extends State<EggWidget>
   }
 
   void runTimer() async {
-    await Future.delayed(Duration(seconds: 1)).then(
-        (value) => Navigator.pushNamed(context, '/GeneratedHelloscreenWidget'));
+    await Future.delayed(Duration(seconds: 1))
+        .then((value) => Navigator.pushReplacementNamed(context, '/Story'));
   }
 
   @override

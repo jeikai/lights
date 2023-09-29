@@ -22,35 +22,22 @@ class StoryDiaryWidget extends StatefulWidget {
 }
 
 class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
-  late Widget editView; //1
-  late Widget viewView; //2
-  late Widget imageAddingView; //3
-
   late final TextEditingController _titleController;
   late final TextEditingController _storyController;
 
   @override
   void initState() {
+    super.initState();
     _titleController = TextEditingController();
     _storyController = TextEditingController();
   }
 
   int state = 2;
 
-  bool isSetup = false;
-
-  void _setupWidget(BuildContext context) {
-    //if(isSetup) return;
-    _buildEditView(context);
-    _buildViewView(context);
-    _buildImageAddingView(context);
-    isSetup = true;
-  }
-
-  void _buildEditView(BuildContext context) {
+  Widget _buildEditView(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     double t = (size.width + size.height) / 2;
-    editView = Column(
+    return Column(
       key: ValueKey("SDW1"),
       children: [
         Align(
@@ -75,9 +62,11 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
           ),
         ),
         _TitleInput(
+          key: ValueKey("TitleInput"),
           controller: _titleController,
         ),
         _StoryInput(
+          key: ValueKey("StoryInput"),
           controller: _storyController,
         ),
         SizedBox(height: size.height / 10)
@@ -98,10 +87,9 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
     return ret;
   }
 
-  void _buildViewView(BuildContext context) {
+  Widget _buildViewView(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
-    double t = (size.width + size.height) / 2;
-    viewView = Column(
+    return Column(
       key: ValueKey("SDW2"),
       children: [
         FutureBuilder(
@@ -122,6 +110,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
                         children: [
                           SingleChildScrollView(
                             child: _ViewWidget(
+                              key: ValueKey("ViewWidget"),
                               title: data["userDate"]["title"] ?? "",
                               story: data["userDate"]["story"] ?? "",
                               imageData: data["userDate"]["image"],
@@ -140,10 +129,10 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
     );
   }
 
-  void _buildImageAddingView(BuildContext context) {
+  Widget _buildImageAddingView(BuildContext context) {
     Size size = MediaQuery.sizeOf(context);
     double t = (size.width + size.height) / 2;
-    imageAddingView = Column(
+    return Column(
       key: ValueKey("SDW3"),
       children: [
         Align(
@@ -172,6 +161,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
             children: [
               SingleChildScrollView(
                 child: _ImageWidget(
+                  key: ValueKey("ImageInputWidget"),
                   setFile: setFile,
                 ),
               )
@@ -189,17 +179,17 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
     });
   }
 
-  Widget getChild() {
+  Widget getChild(BuildContext context) {
     if (!kReleaseMode) {
       print("State of SDW: $state");
     }
     switch (state) {
       case 1:
-        return editView;
+        return _buildEditView(context);
       case 2:
-        return viewView;
+        return _buildViewView(context);
       case 3:
-        return imageAddingView;
+        return _buildImageAddingView(context);
       default:
         throw Exception("Unknown Story Diary State!!: $state");
     }
@@ -207,9 +197,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
 
   @override
   Widget build(BuildContext context) {
-    _setupWidget(context);
     Size size = MediaQuery.sizeOf(context);
-    double t = (size.width + size.height) / 2;
     return Dialog(
       insetPadding: EdgeInsets.zero,
       child: SingleChildScrollView(
@@ -225,7 +213,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
               ),
               AnimatedSwitcher(
                 duration: Duration(milliseconds: 700),
-                child: getChild(),
+                child: getChild(context),
               ),
               Align(
                 alignment: Alignment.bottomCenter,
@@ -235,6 +223,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
                   child: SizedBox(
                     height: size.height / 13,
                     child: _BottomRow(
+                      key: ValueKey("CalenderBottomRow"),
                       setState: setSDWState,
                       isEditing: (state == 1 || state == 3),
                       time: widget.time,
