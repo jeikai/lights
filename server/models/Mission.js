@@ -6,3 +6,5 @@ const missionSchema = new mongoose.Schema({
 });
 
 const Mission = mongoose.model('Mission', missionSchema);
+
+module.exports = Mission;

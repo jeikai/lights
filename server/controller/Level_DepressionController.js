@@ -1,14 +1,12 @@
 const Level_depression = require("../models/Level_Depression");
-
+const Emotion = require("../models/Emotion");
+const Test = require("../models/Test");
 module.exports = {
   createLevelDepression: async (req, res) => {
     try {
       const { userId, level } = req.body;
 
-      // Tạo một bản ghi mới cho Level_depression
       const newLevelDepression = new Level_depression({ userId, level });
-
-      // Lưu bản ghi Level_depression vào cơ sở dữ liệu
       const savedLevelDepression = await newLevelDepression.save();
 
       res.status(201).json(savedLevelDepression);
@@ -17,21 +15,10 @@ module.exports = {
     }
   },
 
-  getLevelDepressions: async (req, res) => {
-    try {
-      // Truy vấn tất cả các bản ghi trong Level_depression
-      const levelDepressions = await Level_depression.find();
-
-      res.status(200).json(levelDepressions);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  },
-
   getLevelDepressionById: async (req, res) => {
     try {
       // Truy vấn Level_depression bằng ID
-      const levelDepression = await Level_depression.findById(req.params.id);
+      const levelDepression = await Level_depression.find(req.params.id);
 
       if (!levelDepression) {
         return res.status(404).json({ message: "Level_depression không tồn tại" });
@@ -45,10 +32,20 @@ module.exports = {
 
   updateLevelDepression: async (req, res) => {
     try {
-      // Cập nhật Level_depression bằng ID
-      const updatedLevelDepression = await Level_depression.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body },
+      const { userId } = req.body;
+      const tests = await Test.findOne({ userId });
+      let testAverage = tests.level;
+      const emotion = await Emotion.find({ userId });
+      let emotionAverage = 0;
+      for (let i = 0; i < emotion.length; i++) {
+        emotionAverage += emotion[i].emotion / emotion.length;
+      }
+      let result = (testAverage + emotionAverage) / 2;
+      let roundedResult = Math.ceil(result);
+
+      const updatedLevelDepression = await Level_depression.findOneAndUpdate(
+        { userId: userId },
+        { $set: { level: roundedResult } },
         { new: true }
       );
 

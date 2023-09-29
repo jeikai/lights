@@ -5,7 +5,6 @@ module.exports = {
     try {
       const { userId, emotion } = req.body;
 
-      // Tạo một bản ghi mới cho Emotion
       const newEmotion = new Emotion({ userId, emotion });
 
       // Lưu bản ghi Emotion vào cơ sở dữ liệu
@@ -31,7 +30,7 @@ module.exports = {
   getEmotionById: async (req, res) => {
     try {
       // Truy vấn Emotion bằng ID
-      const emotion = await Emotion.findById(req.params.id);
+      const emotion = await Emotion.find({ userId: req.params.id});
 
       if (!emotion) {
         return res.status(404).json({ message: "Emotion không tồn tại" });
