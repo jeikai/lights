@@ -24,6 +24,7 @@ dependencies:
   fluentui_emoji_icon:
   circle_list:
   intl:
+  image_picker:
   flutter:
     sdk: "flutter"
   http: ^0.13.5

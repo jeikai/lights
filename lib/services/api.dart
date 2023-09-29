@@ -1,9 +1,43 @@
 import 'dart:convert';
 
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
   static String baseUrl = "http://192.168.1.11:5000/api/";
+
+  Future<String?> uploadImage(String path) async {
+    final Uri uri = Uri.parse(baseUrl + "upload");
+
+    try {
+      // Create a FormData object and attach the image and user ID.
+      var request = http.MultipartRequest('POST', uri)
+        ..fields['userId'] = Preferences.getId()!
+        ..files.add(await http.MultipartFile.fromPath('image', path));
+
+      var response = await request.send();
+
+      if (response.statusCode == 200) {
+        // Successfully uploaded the image, parse the response.
+        var responseBody = await response.stream.bytesToString();
+        var data = json.decode(responseBody);
+
+        if (data['status'] == true) {
+          String imageUrl = data['url'];
+          return imageUrl;
+        } else {
+          print('Có lỗi xảy ra: ${response.statusCode}');
+          return null;
+        }
+      } else {
+        print('Có lỗi xảy ra: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Lỗi: $e');
+      return null;
+    }
+  }
 
   Future<Map<String, dynamic>?> postData(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);

@@ -1,17 +1,22 @@
-const Emotion = require("../models/Emotion");
+const Emotion = require("../models/Emotion")
 
 module.exports = {
   createEmotion: async (req, res) => {
     try {
-      const { userId, emotion } = req.body;
+        const {userId, emotion} = req.body;
 
-      // Tạo một bản ghi mới cho Emotion
-      const newEmotion = new Emotion({ userId, emotion });
+        console.log("here1");
+        // Tạo một bản ghi mới cho Emotion
+        const newEmotion = new Emotion({userId, emotion});
 
-      // Lưu bản ghi Emotion vào cơ sở dữ liệu
-      const savedEmotion = await newEmotion.save();
+        console.log("here2");
 
-      res.status(201).json(savedEmotion);
+        // Lưu bản ghi Emotion vào cơ sở dữ liệu
+        const savedEmotion = await newEmotion.save();
+
+        console.log("here3");
+
+        res.status(200).json(savedEmotion);
     } catch (error) {
       res.status(500).json(error);
     }

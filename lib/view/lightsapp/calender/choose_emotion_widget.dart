@@ -4,9 +4,8 @@ import 'package:circle_list/circle_list.dart';
 import 'package:fluentui_emoji_icon/fluentui_emoji_icon.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/util/EmotionController.dart';
 import 'package:flutterapp/util/Preferences.dart';
-import 'package:flutterapp/util/TaskManager.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 
 class ChooseEmotionWidget extends StatefulWidget {
@@ -73,7 +72,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
                             if (!kReleaseMode) {
                               print("Cực buồn");
                             }
-                            updateEmotions(_time, "CucBuon").then((value) {
+                            _updateEmotions(_time, "CucBuon").then((value) {
                               if (!kReleaseMode) {
                                 print("update completed");
                               }
@@ -88,7 +87,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
                             if (!kReleaseMode) {
                               print("Buồn");
                             }
-                            updateEmotions(_time, "Buon").then((value) {
+                            _updateEmotions(_time, "Buon").then((value) {
                               if (!kReleaseMode) {
                                 print("update completed");
                               }
@@ -103,7 +102,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
                             if (!kReleaseMode) {
                               print("Bình thường");
                             }
-                            updateEmotions(_time, "BinhThuong").then((value) {
+                            _updateEmotions(_time, "BinhThuong").then((value) {
                               if (!kReleaseMode) {
                                 print("update completed");
                               }
@@ -118,7 +117,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
                             if (!kReleaseMode) {
                               print("Vui");
                             }
-                            updateEmotions(_time, "Vui").then((value) {
+                            _updateEmotions(_time, "Vui").then((value) {
                               if (!kReleaseMode) {
                                 print("update completed");
                               }
@@ -135,7 +134,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
                             if (!kReleaseMode) {
                               print("Cực vui");
                             }
-                            updateEmotions(_time, "CucVui").then((value) {
+                            _updateEmotions(_time, "CucVui").then((value) {
                               if (!kReleaseMode) {
                                 print("update completed");
                               }
@@ -162,12 +161,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
     );
   }
 
-  Future<void> updateEmotions(String date, String emotion) async {
-    Map<String, dynamic> data = {
-      "userId": Preferences.getId(),
-      "date": date,
-      "updateFields": {"emotion": emotion}
-    };
+  Future<void> _updateEmotions(String date, String emotion) async {
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -178,8 +172,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
             ),
           );
         });
-    await TaskManager.updateTask(emotion);
-    await Api().pushDataUpdateWithoutId("update-user-date-activity", data);
+    await CalenderController.updateEmotions(date, emotion);
     Navigator.pop(context);
     Navigator.pop(context);
     return;

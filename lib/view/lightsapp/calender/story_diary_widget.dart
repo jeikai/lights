@@ -1,9 +1,12 @@
+import 'dart:io';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/util/EmotionController.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:rive/rive.dart';
 
@@ -77,7 +80,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
         _StoryInput(
           controller: _storyController,
         ),
-        SizedBox(height: size.height / 13)
+        SizedBox(height: size.height / 10)
       ],
     );
   }
@@ -121,7 +124,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
                             child: _ViewWidget(
                               title: data["userDate"]["title"] ?? "",
                               story: data["userDate"]["story"] ?? "",
-                              imageData: null,
+                              imageData: data["userDate"]["image"],
                             ),
                           )
                         ],
@@ -132,7 +135,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
                   return SizedBox();
               }
             }),
-        SizedBox(height: size.height / 13)
+        SizedBox(height: size.height / 10)
       ],
     );
   }
@@ -164,7 +167,18 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
             ),
           ),
         ),
-        SizedBox(height: size.height / 13)
+        Expanded(
+          child: Stack(
+            children: [
+              SingleChildScrollView(
+                child: _ImageWidget(
+                  setFile: setFile,
+                ),
+              )
+            ],
+          ),
+        ),
+        SizedBox(height: size.height / 10)
       ],
     );
   }
@@ -217,7 +231,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
                 alignment: Alignment.bottomCenter,
                 child: Padding(
                   padding:
-                      EdgeInsets.only(bottom: 20, right: 5, left: 5, top: 5),
+                  EdgeInsets.only(bottom: 20, right: 5, left: 5, top: 5),
                   child: SizedBox(
                     height: size.height / 13,
                     child: _BottomRow(
@@ -227,7 +241,7 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
                       onSave: () => state == 1
                           ? putDataWriting(widget.time)
                           : state == 3
-                              ? print("save")
+                              ? putDataImage(widget.time)
                               : throw Exception("Save was call illegally"),
                     ),
                   ),
@@ -247,14 +261,6 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
   }
 
   Future<void> putDataWriting(DateTime time) async {
-    Map<String, dynamic> data = {
-      "userId": Preferences.getId(),
-      "date": Preferences.formatDate(time),
-      "updateFields": {
-        "title": _titleController.text,
-        "story": _storyController.text
-      }
-    };
     showDialog(
         context: context,
         builder: (BuildContext context) {
@@ -265,13 +271,46 @@ class _StoryDiaryWidgetState extends State<StoryDiaryWidget> {
             ),
           );
         });
-    await Api().pushDataUpdateWithoutId("update-user-date-activity", data);
+    await CalenderController.putDataWriting(
+        time, _titleController.text, _storyController.text);
     Navigator.pop(context);
     setSDWState(2);
     return;
   }
 
-  Future<void> putDataImage(DateTime time) async {}
+  File? file;
+
+  void setFile(File? file) {
+    this.file = file;
+  }
+
+  Future<void> putDataImage(DateTime time) async {
+    if (!kReleaseMode) {
+      print("Putting Image:");
+    }
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Dialog(
+            backgroundColor: Colors.transparent,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
+        });
+    if (file != null) {
+      if (!kReleaseMode) {
+        print("Putting Image: file != null");
+      }
+      await CalenderController.putDataImage(time, file!.path);
+      if (!kReleaseMode) {
+        print("Putting Image: complete");
+      }
+    }
+    Navigator.pop(context);
+    setSDWState(2);
+    return;
+  }
 }
 
 class _BottomRow extends StatelessWidget {
@@ -280,12 +319,11 @@ class _BottomRow extends StatelessWidget {
   final bool isEditing;
   final void Function() onSave;
 
-  const _BottomRow(
-      {super.key,
-      required this.setState,
-      required this.isEditing,
-      required this.time,
-      required this.onSave});
+  const _BottomRow({super.key,
+    required this.setState,
+    required this.isEditing,
+    required this.time,
+    required this.onSave});
 
   @override
   Widget build(BuildContext context) {
@@ -371,7 +409,7 @@ class _BottomRow extends StatelessWidget {
 }
 
 class _ViewWidget extends StatelessWidget {
-  final Uint8List? imageData;
+  final String? imageData;
   final String title;
   final String story;
 
@@ -411,7 +449,19 @@ class _ViewWidget extends StatelessWidget {
             SizedBox(
               height: 50,
             ),
-            Image.memory(imageData!),
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
+                color: Colors.black,
+                border: Border.all(color: Colors.black, width: 2),
+              ),
+              child: Center(
+                child: ClipRRect(
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  child: Image.network(imageData!),
+                ),
+              ),
+            ),
           ],
           SizedBox(
             height: 20,
@@ -422,7 +472,7 @@ class _ViewWidget extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 "Title:",
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: "DancingScript",
                     fontSize: 30,
                     fontWeight: FontWeight.bold),
@@ -433,11 +483,11 @@ class _ViewWidget extends StatelessWidget {
             height: 10,
           ),
           Container(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 border: Border.all(color: Colors.black, width: 2),
-                color: Color.fromARGB(200, 173, 193, 254)),
+                color: const Color.fromARGB(200, 173, 193, 254)),
             child: Center(
               child: Text(
                 title,
@@ -449,10 +499,10 @@ class _ViewWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
             child: Align(
               alignment: Alignment.centerLeft,
@@ -465,16 +515,17 @@ class _ViewWidget extends StatelessWidget {
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 10,
           ),
           Container(
             padding: EdgeInsets.all(30),
+            width: size.width - 40,
             constraints: BoxConstraints(minHeight: size.height / 2),
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(10)),
+                borderRadius: const BorderRadius.all(Radius.circular(10)),
                 border: Border.all(color: Colors.black, width: 2),
-                color: Color.fromARGB(200, 173, 193, 254)),
+                color: const Color.fromARGB(200, 173, 193, 254)),
             child: Text(
               story,
               style: TextStyle(
@@ -489,12 +540,107 @@ class _ViewWidget extends StatelessWidget {
   }
 }
 
-class _ImageInput extends StatelessWidget {
-  const _ImageInput({super.key});
+class _ImageWidget extends StatefulWidget {
+  final void Function(File?) setFile;
+
+  const _ImageWidget({super.key, required this.setFile});
 
   @override
+  _ImageWidgetState createState() => _ImageWidgetState();
+}
+
+class _ImageWidgetState extends State<_ImageWidget> {
+  /// Variables
+  File? imageFile;
+
+  /// Widget
+  @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    Size size = MediaQuery.sizeOf(context);
+    double t = (size.width + size.height) / 2;
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(5)),
+              color: Color.fromARGB(150, 173, 193, 254)),
+          width: size.width - 40,
+          height: size.height / 1.5,
+          child: imageFile != null
+              ? ClipRRect(
+                  borderRadius: BorderRadius.all(Radius.circular(5)),
+                  clipBehavior: Clip.hardEdge,
+                  child: Image.file(
+                    imageFile!,
+                    fit: BoxFit.contain,
+                  ),
+                )
+              : SizedBox(),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            TextButton(
+              onPressed: () {
+                _getFromGallery();
+              },
+              child: Text(
+                "PICK FROM GALLERY",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: t / 40,
+                    fontFamily: "Paytone One",
+                    fontWeight: FontWeight.w100),
+              ),
+            ),
+            TextButton(
+              onPressed: () {
+                _getFromCamera();
+              },
+              child: Text(
+                "PICK FROM CAMERA",
+                style: TextStyle(
+                    color: Colors.black,
+                    fontSize: t / 40,
+                    fontFamily: "Paytone One",
+                    fontWeight: FontWeight.w100),
+              ),
+            )
+          ],
+        )
+      ],
+    );
+  }
+
+  /// Get from gallery
+  _getFromGallery() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.gallery,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+        widget.setFile(imageFile);
+      });
+    }
+  }
+
+  /// Get from Camera
+  _getFromCamera() async {
+    XFile? pickedFile = await ImagePicker().pickImage(
+      source: ImageSource.camera,
+      maxWidth: 1800,
+      maxHeight: 1800,
+    );
+    if (pickedFile != null) {
+      setState(() {
+        imageFile = File(pickedFile.path);
+        widget.setFile(imageFile);
+      });
+    }
   }
 }
 
