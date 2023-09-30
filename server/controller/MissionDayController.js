@@ -9,26 +9,11 @@ function shuffleArray(array) {
   }
   return array;
 }
-async function deleteAllMissionDayByUserId(userId)  {
-  try {
-
-    // Xóa tất cả các bản ghi có userId giống với giá trị trong tham số yêu cầu
-    const result = await MissionDay.deleteMany({ userId });
-
-    if (result.deletedCount === 0) {
-      return res.status(404).json({ status: false });
-    }
-
-    res.status(204).json({ status: true });
-  } catch (error) {
-    res.status(500).json(error);
-  }
-}
 module.exports = {
   createMissionDay: async (req, res) => {
     try {
       const { userId } = req.body;
-
+      await  MissionDay.deleteMany({ userId })
       const Level_Depression = await Level_depression.findOne({ userId });
       const Missions = await Mission.find({emotion: Level_Depression.level});
       shuffleArray(Missions);
@@ -36,7 +21,6 @@ module.exports = {
       const missionDayRecords = [];
       for (let i = 0; i < randomMissions.length; i++) {
         const missionId = randomMissions[i]._id;
-
         // Tạo một bản ghi mới trong bảng MissionDay
         const missionDayRecord = new MissionDay({
           userId: userId,
@@ -89,20 +73,4 @@ module.exports = {
       res.status(500).json(error);
     }
   },
-  deleteAllMissionDayByUserId: async (req, res) => {
-    try {
-      const userId = req.params.id;
-  
-      // Xóa tất cả các bản ghi có userId giống với giá trị trong tham số yêu cầu
-      const result = await MissionDay.deleteMany({ userId });
-  
-      if (result.deletedCount === 0) {
-        return res.status(404).json({ status: false });
-      }
-  
-      res.status(204).json({ status: true });
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  }  
 };

@@ -78,8 +78,8 @@ class _LightsAppState extends State<_LightsApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // initialRoute: '/Music',
-        initialRoute: '/GeneratedLoginscreenWidget',
+        initialRoute: '/Form',
+        // initialRoute: '/GeneratedLoginscreenWidget',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>
@@ -107,7 +107,7 @@ class _LightsAppState extends State<_LightsApp> {
           '/Music': (context) => HomeScreenMusic(),
           '/homeMessage': (context) => mainMessage(),
           '/Calender': (context) => CalenderScreen(),
-          '/Form': (context) => FormDepression(),
+          '/Form': (context) => TableView(),
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {

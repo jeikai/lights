@@ -22,7 +22,9 @@ class FavoriteData {
     _wrappers[index].isChose = value;
   }
 
-  void sendData() async {}
+  void sendData() async {
+
+  }
 }
 
 List<String> mappingToString = [

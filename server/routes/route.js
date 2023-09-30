@@ -65,7 +65,6 @@ app.post("/updateLevelDepression", Level_DepressionController.updateLevelDepress
 app.post("/MissionDay", MissionDayController.createMissionDay); // cái này để tạo ra MissionDay mới - random 4 cái: chỉ cần truyền xuống userId
 app.get("/getMissionDayById/:id", MissionDayController.getMissionDayById); // Lấy kết ra 4 nhiệm vụ trong ngày - param là userId
 app.put("/updateMissionDayById/:id", MissionDayController.updateMissionDayById); // Dùng để xoá 1 Mission khi người dùng nhất nút hoàn thành - truyền vào missionId
-app.delete("/deleteAllMissionDayByUserId/:id", MissionDayController.deleteAllMissionDayByUserId) // Dùng để xoá toàn bộ mission khi hết ngày ( cái này để tự động chạy, check khi hết ngày) - truyền vào userId
 
 // Router cho Test
 app.post("/Test", testController.createTest); // Ghi lại kết quả của bài Test
