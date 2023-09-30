@@ -674,6 +674,7 @@ class _TitleInput extends StatelessWidget {
                   fontFamily: "Paytone One",
                   fontSize: t / 30,
                 ),
+                onTapOutside: (event) => {FocusScope.of(context).unfocus()},
                 decoration: InputDecoration(
                   hintText: "Nhập title mà bạn muốn chọn",
                   hintMaxLines: 1,
@@ -732,6 +733,7 @@ class _StoryInput extends StatelessWidget {
                 fontFamily: "Paytone One",
                 fontSize: t / 40,
               ),
+              onTapOutside: (event) => {FocusScope.of(context).unfocus()},
               decoration: InputDecoration(
                 hintText: "Hãy kể cho tôi nghe ngày hôm nay của bạn thế nào ?",
                 hintMaxLines: 2,

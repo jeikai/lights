@@ -23,7 +23,17 @@ class AvaLineChartWidget extends StatelessWidget {
         builder: (BuildContext context, BoxConstraints constraints) {
           return Container(
             padding: EdgeInsets.all(constraints.maxWidth * 0.01),
-            child: MyLineChart(emotionDatas),
+            child: FutureBuilder<List<double>>(
+              future: getDataFromApi(),
+              builder: (BuildContext context, AsyncSnapshot snapshot) {
+                if(snapshot.connectionState == ConnectionState.done) {
+                  return MyLineChart(getEmotionDatas(snapshot.data!));
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
           );
         },
       ),

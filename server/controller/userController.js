@@ -57,10 +57,10 @@ module.exports = {
       DOB: dob,
       password: cryptoJS.AES.encrypt(req.body.password, process.env.SECRET_KEY).toString(),
     });
-    console.log(newUser)
     try {
       const savedUser = await newUser.save();
-      res.status(200).json(savedUser);
+      console.log(savedUser)
+      res.status(200).json({ user: savedUser });
     } catch (error) {
       res.status(400).json(error)
     }
@@ -77,7 +77,7 @@ module.exports = {
         const de_pass = cryptoJS.AES.decrypt(user.password, process.env.SECRET_KEY);
         const depassword = de_pass.toString(cryptoJS.enc.Utf8);
         if (depassword != req.body.password) {
-          res.status(400).json({ message: false })
+          res.status(200).json({ message: false })
         } else {
           res.status(200).json({ user: user, message: true })
         }
@@ -89,16 +89,17 @@ module.exports = {
   },
   getUserDataById: async (req, res) => {
     try {
-      console.log(req.params.id);
       const userData = await UserData.findById(req.params.id);
-      if (!userData) {
+      if (userData == null) {
         let newUserData = await UserData({
           _id: req.params.id,
           bio: "Whaly's bio",
           socialConnections: [],
         });
         const savedUserData = await newUserData.save();
-        res.status(200).json({ userData: newUserData, message: true });
+        res.status(200).json({ userData: savedUserData, message: true });
+      } else {
+        res.status(200).json({ userData: userData, message: true });
       }
     } catch (error) {
       console.log(error);

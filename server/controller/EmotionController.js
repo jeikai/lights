@@ -16,17 +16,6 @@ module.exports = {
     }
   },
 
-  getEmotions: async (req, res) => {
-    try {
-      // Truy vấn tất cả các bản ghi trong Emotion
-      const emotions = await Emotion.find();
-
-      res.status(200).json(emotions);
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  },
-
   getEmotionById: async (req, res) => {
     try {
       // Truy vấn Emotion bằng ID
@@ -42,37 +31,44 @@ module.exports = {
     }
   },
 
-  updateEmotion: async (req, res) => {
+  emotionChart: async (req, res) => {
     try {
-      // Cập nhật Emotion bằng ID
-      const updatedEmotion = await Emotion.findByIdAndUpdate(
-        req.params.id,
-        { $set: req.body },
-        { new: true }
-      );
+      const userId = req.params.id;
 
-      if (!updatedEmotion) {
+      // Truy vấn tất cả các bản ghi cảm xúc của người dùng theo userId
+      const emotions = await Emotion.find({ userId });
+
+      if (!emotions) {
         return res.status(404).json({ message: "Emotion không tồn tại" });
       }
 
-      res.status(200).json(updatedEmotion);
+      // Tạo một object để lưu trữ thống kê theo tháng
+      const monthlyStats = {};
+
+      // Lặp qua tất cả các bản ghi cảm xúc và tính trung bình theo tháng
+      emotions.forEach((emotion) => {
+        const monthYear = emotion.time.toISOString().substring(0, 7); // Lấy chuỗi năm-tháng (yyyy-MM)
+        if (!monthlyStats[monthYear]) {
+          monthlyStats[monthYear] = { totalEmotion: 0, count: 0 };
+        }
+        monthlyStats[monthYear].totalEmotion += emotion.emotion;
+        monthlyStats[monthYear].count++;
+      });
+
+      // Tạo mảng kết quả chứa trung bình cảm xúc của từng tháng
+      const result = [];
+
+      // Lặp qua object thống kê và tính trung bình, sau đó thêm vào mảng kết quả
+      for (const monthYear in monthlyStats) {
+        const { totalEmotion, count } = monthlyStats[monthYear];
+        const averageEmotion = totalEmotion / count;
+        result.push(averageEmotion); // Thêm trung bình cảm xúc vào mảng kết quả
+      }
+      res.status(200).json(result);
     } catch (error) {
       res.status(500).json(error);
     }
   },
 
-  deleteEmotion: async (req, res) => {
-    try {
-      // Xóa Emotion bằng ID
-      const deletedEmotion = await Emotion.findByIdAndRemove(req.params.id);
-
-      if (!deletedEmotion) {
-        return res.status(404).json({ message: "Emotion không tồn tại" });
-      }
-
-      res.status(204).json();
-    } catch (error) {
-      res.status(500).json(error);
-    }
-  },
 };
+ 

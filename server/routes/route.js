@@ -31,7 +31,6 @@ const multer = Multer({
         fileSize: 100 * 1024 * 1024,
     },
 })
-
 // Route cho user
 app.post("/register", userController.createUser);
 app.post("/login", userController.loginUser);
@@ -47,6 +46,7 @@ app.post("/deleteDiary", diaryController.deleteDiary);
 // Router cho Emotion
 app.post("/emotion", EmotionController.createEmotion); // Điểm danh - truyền xuống userId và emotion là INT 0, 1, 2, 3 , 4
 app.get("/getEmotionById/:id", EmotionController.getEmotionById); // Get dữ liệu ra cho phần lịch - param userId
+app.get("/emotionChart/:id", EmotionController.emotionChart)
 
 //Router cho Favorite cua User
 app.post("/favoriteUser", favorite_userController.createFavoriteUser);
@@ -64,7 +64,7 @@ app.post("/updateLevelDepression", Level_DepressionController.updateLevelDepress
 //Router cho Mission trong Ngày
 app.post("/MissionDay", MissionDayController.createMissionDay); // cái này để tạo ra MissionDay mới - random 4 cái: chỉ cần truyền xuống userId
 app.get("/getMissionDayById/:id", MissionDayController.getMissionDayById); // Lấy kết ra 4 nhiệm vụ trong ngày - param là userId
-app.delete("/deleteMissionDayById/:id", MissionDayController.deleteMissionDayById); // Dùng để xoá 1 Mission khi người dùng nhất nút hoàn thành - truyền vào missionId
+app.put("/updateMissionDayById/:id", MissionDayController.updateMissionDayById); // Dùng để xoá 1 Mission khi người dùng nhất nút hoàn thành - truyền vào missionId
 app.delete("/deleteAllMissionDayByUserId/:id", MissionDayController.deleteAllMissionDayByUserId) // Dùng để xoá toàn bộ mission khi hết ngày ( cái này để tự động chạy, check khi hết ngày) - truyền vào userId
 
 // Router cho Test

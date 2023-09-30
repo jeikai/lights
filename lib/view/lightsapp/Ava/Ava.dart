@@ -79,6 +79,34 @@ class _AvaState extends State<Ava> {
               //   isConfig: isConfig,
               //   title: "danh sách bạn bè"
               // ),
+              ConfigMenuConverter(
+                  configHeight: 50,
+                  oriHeight: 0,
+                  isConfig: isConfig,
+                  color: Color.fromRGBO(225, 203, 171, 1),
+                  child: SizedBox(height: 0,),
+                  configChild: TextButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: Color.fromRGBO(196, 160, 216, 1.0),
+                      foregroundColor: Color.fromRGBO(255, 255, 255, 1.0),
+                      textStyle: TextStyle(
+                        height: 1.396000067392985,
+                        fontSize: 24.0,
+                        fontFamily: 'Paytone One',
+                        fontWeight: FontWeight.w400,
+                      ),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30.0),
+                        side: BorderSide(color: Colors.white, width: 4.0),
+                      ),
+                    ),
+                    onPressed: () async {
+                      await Preferences.setId("");
+                      await Preferences.setEmail("");
+                      Navigator.pushNamedAndRemoveUntil(context, '/GeneratedLoginscreenWidget', (Route<dynamic> route) => false);
+                    },
+                    child: Text('Đăng xuất'),
+                  ))
             ],
           ),
         ),

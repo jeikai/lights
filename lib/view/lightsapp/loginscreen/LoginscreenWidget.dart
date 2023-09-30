@@ -27,15 +27,32 @@ class _GeneratedLoginscreenWidgetState
   final _password = TextEditingController();
   bool obscure = true;
   final _formKey = GlobalKey<FormState>();
+  bool isRuntimered = false;
+
+  Future<void> runTimer(BuildContext context) async {
+    await Future.delayed(Duration(seconds: 1));
+    if(Preferences.getId() != null && Preferences.getId() != '' && Preferences.getEmail() != null && Preferences.getEmail() != '') {
+      Navigator.pushReplacementNamed(context, '/GeneratedMainScreenWidget');
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   void dispose() {
     super.dispose();
     _email.dispose();
     _password.dispose();
   }
-
   @override
   Widget build(BuildContext context) {
+    if(!isRuntimered) {
+      runTimer(context);
+      isRuntimered = true;
+    }
     var width = Setting.getWidthSize();
     var height = Setting.getHeightSize();
 
@@ -161,6 +178,7 @@ class _GeneratedLoginscreenWidgetState
                         var response = await Api().postData("login", data);
                         if (response?["message"]) {
                           ToastNoti.show("Đăng nhập thành công");
+
                           await Preferences.setId(response?["user"]["_id"]);
                           await Preferences.setUsername(
                               response?["user"]["name"]);

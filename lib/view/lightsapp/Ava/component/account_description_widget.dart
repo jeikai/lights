@@ -438,9 +438,9 @@ class AccountDescriptionDetailWidget extends StatelessWidget {
 
 Widget boxWidget(
     {required BoxConstraints constraints,
-    required Size size,
-    required double height,
-    required Widget child}) {
+      required Size size,
+      required double height,
+      required Widget child}) {
   return Container(
     height: height,
     width: constraints.maxWidth,

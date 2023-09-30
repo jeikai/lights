@@ -52,70 +52,229 @@ List<String> mappingToString = [
 
 List<Widget> mappingToWidget = [
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/cloud.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/windy.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/sun.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/cloud.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/snow.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/rain.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/colleague.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/familiar.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/family.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/friend.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/none.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/film.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/book.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/picnic.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/sport.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/cloud.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/game.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/cloud.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/delivery.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/fastfood.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/healthyfood.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
   Container(
-    color: Colors.black,
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/homemade.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
+  ),
+  Container(
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/restaurant.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
+  ),
+  Container(
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/nomeat.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
+  ),
+  Container(
+    color: Colors.transparent,
+    child: Image.network(
+      'https://storage.googleapis.com/lightskn/nosugar.png',
+      fit: BoxFit.cover,
+      width: 200, // Đặt chiều rộng của hình ảnh
+      height: 200, // Đặt chiều cao của hình ảnh
+    ),
   ),
 ];
 

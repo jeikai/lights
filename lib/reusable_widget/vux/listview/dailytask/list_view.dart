@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/normal_cell.dart';
 import 'package:flutterapp/reusable_widget/vux/listview/dailytask/proxy_view_widget.dart';
+import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:rive/rive.dart';
 
 import '../../../../model/model_data.dart';
 
 List<TaskData> tasksDefault = [
-  TaskData(taskDes: "Thien trong 10p", percent: 0.0),
-  TaskData(taskDes: "Thien trong 20p", percent: 1.0),
-  TaskData(taskDes: "Thien trong 30p", percent: 0.5),
-  TaskData(taskDes: "Thien trong 50p", percent: 0.25)
+  TaskData(taskDes: "", percent: 0.0),
+  TaskData(taskDes: "", percent: 0.0),
+  TaskData(taskDes: "", percent: 0.0),
+  TaskData(taskDes: "", percent: 0.0)
 ];
+
+List<TaskData> genTaskData(List<dynamic> map) {
+  List<TaskData> ret = [];
+
+  ret = map.map((e) {
+    return TaskData(taskDes: e["missionId"]["description"], percent: e["checkCompleted"] ? 1 : 0, missionId: e["_id"]);
+  }).toList();
+
+  return ret;
+}
 
 class DTListView extends StatefulWidget {
   static const Color dcDefault = Color.fromARGB(255, 212, 216, 234);
@@ -82,8 +94,9 @@ class _DTListViewState extends State<DTListView>
   Future<void> fetchDailyTask() async {
     RiveUtil util = RiveUtil();
     var a = Future.delayed(Duration(seconds: 5));
-    // var temp = await Api().getDataByIdForMissions("getMissionDayById", Preferences.getId()!);
-    // print("Missions Data: $temp");
+    var temp = await Api().getDataByIdForMissions("getMissionDayById", Preferences.getId()!);
+    _tasks = genTaskData(temp!);
+    print("Missions Data: $temp");
     List<Future> waitList = [a];
     for (int i = 0; i < 4; i++) {
       final file = util.getStar();

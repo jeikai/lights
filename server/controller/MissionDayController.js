@@ -9,7 +9,21 @@ function shuffleArray(array) {
   }
   return array;
 }
+async function deleteAllMissionDayByUserId(userId)  {
+  try {
 
+    // Xóa tất cả các bản ghi có userId giống với giá trị trong tham số yêu cầu
+    const result = await MissionDay.deleteMany({ userId });
+
+    if (result.deletedCount === 0) {
+      return res.status(404).json({ status: false });
+    }
+
+    res.status(204).json({ status: true });
+  } catch (error) {
+    res.status(500).json(error);
+  }
+}
 module.exports = {
   createMissionDay: async (req, res) => {
     try {
@@ -59,10 +73,12 @@ module.exports = {
       res.status(500).json(error);
     }
   },
-  deleteMissionDayById: async (req, res) => {
+  updateMissionDayById: async (req, res) => {
     try {
       // Xóa MissionDay bằng ID
-      const deletedMissionDay = await MissionDay.findByIdAndRemove(req.params.id);
+      const deletedMissionDay = await MissionDay.findByIdAndUpdate(req.params.id, 
+        { $set: { checkCompleted: true } }, { new: true }
+        );
 
       if (!deletedMissionDay) {
         return res.status(404).json({status: false});

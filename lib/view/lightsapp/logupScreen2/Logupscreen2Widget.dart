@@ -214,9 +214,23 @@ class _GeneratedLogupscreen2WidgetState
                               print(data);
                               var response =
                                   await Api().postData("register", data);
-                              print("Passed");
-                              print(response);
-                              if (response?["_id"] != null) {
+                              print(response?["user"]);
+
+                              if (response?["user"]["_id"] != null) {
+                                await Preferences.setId(
+                                    response?["user"]["_id"]);
+                                await Preferences.setUsername(
+                                    response?["user"]["name"]);
+                                await Preferences.setEmail(
+                                    response?["user"]["email"]);
+                                await Preferences.setPhoneNumber(
+                                    response?["user"]["phoneNumber"]);
+                                await Preferences.setDOB(
+                                    response?["user"]["DOB"]);
+                                await Preferences.setAddress(
+                                    response?["user"]["address"]);
+                                Preferences.setupUser(response?["user"]["_id"]);
+
                                 ToastNoti.show("Đăng ký thành công");
                                 Navigator.pushNamed(
                                   context,

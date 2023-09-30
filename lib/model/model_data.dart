@@ -13,8 +13,9 @@ class User {
 class TaskData {
   final String? taskDes;
   final double? percent;
+  final String? missionId;
 
-  TaskData({this.taskDes, this.percent});
+  TaskData({this.taskDes, this.percent, this.missionId});
 
 // static TaskData fromMap(Map<dynamic, dynamic> map) async {
 //   TaskData data;
