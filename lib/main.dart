@@ -78,8 +78,8 @@ class _LightsAppState extends State<_LightsApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        initialRoute: '/Form',
-        // initialRoute: '/GeneratedLoginscreenWidget',
+        //initialRoute: '/Form',
+        initialRoute: '/GeneratedLoginscreenWidget',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>
