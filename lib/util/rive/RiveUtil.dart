@@ -28,6 +28,7 @@ class RiveUtil {
         .load('assets/rive/background.riv')
         .then((value) => _bg = value);
     await Future.wait([a, b, c]);
+    _bgOne = BG;
   }
 
   late ByteData _whale;
@@ -51,7 +52,6 @@ class RiveUtil {
   static RiveFile? _bgOne;
 
   static RiveFile get BGONE {
-    if (_bgOne == null) _bgOne = BG;
     return _bgOne!;
   }
 }

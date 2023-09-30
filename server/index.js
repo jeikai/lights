@@ -1,11 +1,15 @@
 const express = require("express");
 const app = express();
+const cors = require('cors');
 const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const port = process.env.PORT || 5000;
-const authRouter = require("./routes/auth")
+const routers = require("./routes/route")
+const socket = require("socket.io");
+
 dotenv.config();
 app.use(express.json());
+app.use(cors());
 app.use(
   express.urlencoded({
     extended: true,
@@ -20,8 +24,31 @@ mongoose
     console.log(err);
   });
 
-app.use("/api/", authRouter)
+app.use("/api/", routers);
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}/`);
+});
+const io = socket(server, {
+  cors: {
+    origin: "*",
+    credentials: true,
+  },
+});
+//tất cả người dùng được lưu ở đây
+global.onlineUsers = new Map();
+io.on("connection", (socket) => {
+  console.log("connected")
+  global.chatSocket = socket;
+  socket.on("add-user", (userId) => {
+    onlineUsers.set(userId, socket.id);
+  });
+
+  socket.on("send-msg", (data) => {
+    const sendUserSocket = onlineUsers.get(data.to);
+    //Nếu người dùng online
+    if (sendUserSocket) {
+      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+    }
+  });
 });

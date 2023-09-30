@@ -78,12 +78,14 @@ class AnimatedWaitingPreloadMainScreenState
         curve: widget.switchInCurve,
         reverseCurve: widget.switchOutCurve));
     _buildMainScreenIfNeeded();
-    _waiting();
     super.initState();
   }
 
+  Future<void>? _waiter;
+
   Future<void> _waiting() async {
-    await Future.delayed(widget.delay);
+    if (_waiter != null) return;
+    _waiter = await Future.delayed(widget.delay);
     _startAnimation();
   }
 
@@ -120,6 +122,7 @@ class AnimatedWaitingPreloadMainScreenState
 
   @override
   Widget build(BuildContext context) {
+    _waiting();
     if (_isFinish()) {
       return _mainScreen;
     } else {

@@ -9,6 +9,7 @@ class Text_Quen extends StatelessWidget {
     return GestureDetector(
       onTap: () =>
           Navigator.pushNamed(context, '/GeneratedForgotpasswordscreen1Widget'),
+          // Navigator.pushNamed(context, '/Story'),
       child: Text(
         '''Quên mật khẩu''',
         overflow: TextOverflow.visible,

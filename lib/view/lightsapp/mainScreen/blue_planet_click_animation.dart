@@ -27,10 +27,10 @@ class _BluePlanetClickAnimationState extends State<BluePlanetClickAnimation>
 
   @override
   void initState() {
-    image = ImageManager().getUIImage(ImageManager.template)!;
+    image = ImageManager().getUIImage(ImageManager.template2)!;
     _controller = AnimationController(
       vsync: this,
-      duration: Duration(seconds: 2),
+      duration: Duration(seconds: 1, milliseconds: 500),
     );
     super.initState();
     if (widget.isReverse) {
@@ -56,7 +56,7 @@ class _BluePlanetClickAnimationState extends State<BluePlanetClickAnimation>
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     Animation<double> animation =
-        CurvedAnimation(parent: _controller, curve: Curves.easeOutCirc);
+        CurvedAnimation(parent: _controller, curve: Curves.easeIn);
     return AnimatedBuilder(
       animation: animation,
       builder: (BuildContext context, Widget? child) {

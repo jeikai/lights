@@ -16,7 +16,7 @@ module.exports = {
             res.status(201).json(savedUser);
         } catch (error) {
             res.status(500).json(error)
-        }
+        } 
     },
 
     loginUser: async (req, res) => {

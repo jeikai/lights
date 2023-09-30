@@ -22,12 +22,11 @@ class MainScreenWidget extends StatelessWidget {
         key: aniKey,
         duration: Duration(milliseconds: 500),
         mainChildBuilder: (context) => _MainScreenBodyWrapper(
-          key: aniKey2,
-          redPlanetClick: redPlanetClick,
-          bluePlanetClick: bluePlanetClick,
-          showNotiOverlay: showNotiOverlay,
-          avaClick: avaClick,
-        ),
+            key: aniKey2,
+            redPlanetClick: redPlanetClick,
+            bluePlanetClick: bluePlanetClick,
+            showNotiOverlay: showNotiOverlay,
+            avaClick: avaClick),
         cover: Container(
           color: Colors.white,
         ),
@@ -40,14 +39,15 @@ class MainScreenWidget extends StatelessWidget {
     );
   }
 
-  void avaClick() {}
+  void avaClick(BuildContext context) {
+    Navigator.pushNamed(context, "/Ava");
+  }
 
   void bluePlanetClick(BuildContext context, bool isReverse) {
     this.showOverlay(
         context,
         (context) =>
             BluePlanetClickAnimation(context, removeOverlay, isReverse));
-    /*Navigator.pushNamed(context, "/WhaleMenu");*/
   }
 
   void redPlanetClick(BuildContext context, bool isReverse) {
@@ -88,7 +88,7 @@ class _MainScreenBodyWrapper extends StatefulWidget {
   final void Function(BuildContext context, bool isReverse) redPlanetClick;
   final void Function(BuildContext context, bool isReverse) bluePlanetClick;
   final void Function(BuildContext context) showNotiOverlay;
-  final void Function() avaClick;
+  final void Function(BuildContext context) avaClick;
 
   const _MainScreenBodyWrapper(
       {required this.redPlanetClick,
@@ -121,7 +121,10 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
             icon: CircleAvatar(
               backgroundImage: AssetImage('assets/images/user_icon.png'),
             ),
-            onPressed: widget.avaClick,
+            onPressed: () => {
+              // widget.avaClick
+              Navigator.pushNamed(context, "/Ava")
+            },
           ),
           title: Text(
             'light s',

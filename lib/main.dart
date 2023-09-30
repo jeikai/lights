@@ -1,23 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
+import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
+import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
+import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen1/GeneratedForgotpasswordscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen2/GeneratedForgotpasswordscreen2Widget.dart';
+import 'package:flutterapp/view/lightsapp/Form/Form.dart';
+import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
+import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
+import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
-import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/MainScreen.dart';
-import 'package:flutterapp/view/lightsapp/storyscreen1/GeneratedStoryscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/movie/Movie.dart';
+import 'package:flutterapp/view/lightsapp/story/story_widget.dart';
+import 'package:flutterapp/view/lightsapp/story/storyscreen1/GeneratedStoryscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/whaleMenu/whale_menu.dart';
 
 import 'app_fundemantal.dart';
 import 'setting.dart';
 
-void main() {
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   MyApp(
       _LightsApp(),
       _Loading(
@@ -51,52 +59,71 @@ class _Loading extends StatelessWidget {
   }
 }
 
-class _LightsApp extends StatelessWidget {
+class _LightsApp extends StatefulWidget {
+  @override
+  State<_LightsApp> createState() => _LightsAppState();
+}
+
+class _LightsAppState extends State<_LightsApp> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     Setting.setWidthSize(size.width);
     Setting.setHeightSize(size.height);
     return SafeArea(
-        child: MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Light\'s',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Light\'s',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        //initialRoute: '/Form',
+        initialRoute: '/GeneratedLoginscreenWidget',
+        routes: {
+          '/GeneratedStartscreenWidget': (context) => EggScreen(),
+          '/GeneratedHelloscreenWidget': (context) =>
+              GeneratedHelloscreenWidget(),
+          '/GeneratedStoryscreen1Widget': (context) =>
+              GeneratedStoryscreen1Widget(),
+          '/GeneratedLoginscreenWidget': (context) =>
+              GeneratedLoginscreenWidget(),
+          '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
+          '/GeneratedLogupscreen2Widget': (context) =>
+              GeneratedLogupscreen2Widget(),
+          '/GeneratedFavoritescreenWidget': (context) => FavoriteScreenWidget(),
+          '/GeneratedForgotpasswordscreen1Widget': (context) =>
+              GeneratedForgotpasswordscreen1Widget(),
+          '/GeneratedForgotpasswordscreen2Widget': (context) =>
+              GeneratedForgotpasswordscreen2Widget(),
+          '/Story': (context) => StoryWidget(
+                key: ValueKey("StoryWidget"),
+              ),
+          '/Chatbot': (context) => Chatbot(),
+          '/Ava': (context) => Ava(),
+          '/Movie': (context) => MoviesPage(),
+          '/Music': (context) => HomeScreenMusic(),
+          '/homeMessage': (context) => mainMessage(),
+          '/Calender': (context) => CalenderScreen(),
+          '/Form': (context) => TableView(),
+        },
+        onGenerateRoute: (RouteSettings setting) {
+          switch (setting.name) {
+            case '/WhaleMenu':
+              return NoAnimationPageRoute(builder: (context) => WhaleMenu());
+            case '/GeneratedMainScreenWidget':
+              return NoAnimationPageRoute(
+                  builder: (context) => MainScreenWidget());
+            case '/GeneratedStoryscreen1Widget':
+              return NoAnimationPageRoute(
+                  builder: (context) => GeneratedStoryscreen1Widget());
+            case '/CustomMenu':
+              return NoAnimationPageRoute(builder: (context) => CustomMenu());
+            default:
+              return null;
+          }
+        },
       ),
-      initialRoute: '/GeneratedLoginscreenWidget',
-      routes: {
-        '/GeneratedStartscreenWidget': (context) => Egg_Screen(),
-        '/GeneratedHelloscreenWidget': (context) =>
-            GeneratedHelloscreenWidget(),
-        '/GeneratedStoryscreen1Widget': (context) =>
-            GeneratedStoryscreen1Widget(),
-        '/GeneratedLoginscreenWidget': (context) =>
-            GeneratedLoginscreenWidget(),
-        '/GeneratedLogupscreen1Widget': (context) => LogupScreen(),
-        '/GeneratedLogupscreen2Widget': (context) =>
-            GeneratedLogupscreen2Widget(),
-        '/GeneratedFavoritescreenWidget': (context) =>
-            GeneratedFavoritescreenWidget(),
-        '/GeneratedForgotpasswordscreen1Widget': (context) =>
-            GeneratedForgotpasswordscreen1Widget(),
-        '/GeneratedForgotpasswordscreen2Widget': (context) =>
-            GeneratedForgotpasswordscreen2Widget(),
-        '/GeneratedForgotpasswordscreen3Widget': (context) =>
-            GeneratedForgotpasswordscreen3Widget(),
-      },
-      onGenerateRoute: (RouteSettings setting) {
-        switch (setting.name) {
-          case '/WhaleMenu':
-            return NoAnimationPageRoute(builder: (context) => WhaleMenu());
-          case '/GeneratedMainScreenWidget':
-            return NoAnimationPageRoute(
-                builder: (context) => MainScreenWidget());
-          case '/CustomMenu':
-            return NoAnimationPageRoute(builder: (context) => CustomMenu());
-        }
-      },
-    ));
+    );
   }
 }
 

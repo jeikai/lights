@@ -46,9 +46,7 @@ class WhaleMenu extends StatelessWidget {
                           ImageManager().getBytes(ImageManager.wbi1)!,
                           fit: BoxFit.fill,
                         ),
-                        onClick: (context) {
-                          print("a");
-                        },
+                        onClick: (context) {},
                       ),
                       WhaleMenuBubble(
                         child: Image.memory(
@@ -56,7 +54,7 @@ class WhaleMenu extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                         onClick: (context) {
-                          print("b");
+                          Navigator.pushNamed(context, "/Chatbot");
                         },
                       ),
                       WhaleMenuBubble(
@@ -65,11 +63,15 @@ class WhaleMenu extends StatelessWidget {
                           fit: BoxFit.fill,
                         ),
                         onClick: (context) {
-                          print("c");
+                          Navigator.pushNamed(context, "/Calender");
                         },
                       )
                     ],
-                  )
+                  ),
+                  Align(
+                    alignment: Alignment.topLeft,
+                    child: BackButton(),
+                  ),
                 ],
               );
             },

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
@@ -26,6 +27,7 @@ class MyApp {
     await ConfigManager().setup();
     await RiveUtil().setup();
     await ImageManager().setup();
+    await Preferences.init();
     manager = NotificationManager();
     //print("a");
     return null;
@@ -47,7 +49,9 @@ class MyApp {
 
   void onInactive() {}
 
-  void onDetached() {}
+  void onDetached() {
+    if (manager != null) manager!.dispose();
+  }
 }
 
 class _AppFund extends StatefulWidget {
@@ -111,19 +115,18 @@ class AppLifecycleObserver extends WidgetsBindingObserver {
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    switch (state) {
-      case AppLifecycleState.paused:
-        myapp.onPaused();
-        break;
-      case AppLifecycleState.resumed:
-        myapp.onResumed();
-        break;
-      case AppLifecycleState.inactive:
-        myapp.onInactive();
-        break;
-      case AppLifecycleState.detached:
-        myapp.onDetached();
-        break;
+    if (state case AppLifecycleState.paused) {
+      myapp.onPaused();
+      // break;
+    } else if (state case AppLifecycleState.resumed) {
+      myapp.onResumed();
+      // break;
+    } else if (state case AppLifecycleState.inactive) {
+      myapp.onInactive();
+      // break;
+    } else if (state case AppLifecycleState.detached) {
+      myapp.onDetached();
+      // break;
     }
   }
 }

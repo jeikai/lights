@@ -7,3 +7,5 @@ const diarySchema = new mongoose.Schema({
 });
 
 const Diary = mongoose.model('Diary', diarySchema);
+
+module.exports = Diary;

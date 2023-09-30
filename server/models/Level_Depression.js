@@ -6,3 +6,5 @@ const levelDepressionSchema = new mongoose.Schema({
 });
 
 const Level_depression = mongoose.model('Level_depression', levelDepressionSchema);
+ 
+module.exports = Level_depression;

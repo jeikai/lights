@@ -39,14 +39,14 @@ class CustomMenuListViewCell extends StatelessWidget {
   final Color color;
   final String text;
   final Widget icon;
-  final void Function(BuildContext context) onClick;
+  final Function() onPress;
 
   const CustomMenuListViewCell(
       {super.key,
       required this.color,
       required this.text,
       required this.icon,
-      this.onClick = _default});
+      required this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +92,7 @@ class CustomMenuListViewCell extends StatelessWidget {
               height: extent * 2 / 5,
               child: Center(
                 child: _CMLVCNButton(
-                  onClick: onClick,
+                  onPress: onPress,
                 ),
               ),
             )
@@ -104,9 +104,9 @@ class CustomMenuListViewCell extends StatelessWidget {
 }
 
 class _CMLVCNButton extends StatefulWidget {
-  final void Function(BuildContext context) onClick;
+  final Function() onPress;
 
-  const _CMLVCNButton({required this.onClick});
+  const _CMLVCNButton({required this.onPress});
 
   @override
   State<_CMLVCNButton> createState() => _CMLVCNButtonState();
@@ -116,7 +116,6 @@ class _CMLVCNButtonState extends State<_CMLVCNButton>
     with SingleTickerProviderStateMixin {
   static Color color = Color.fromARGB(255, 250, 241, 255);
 
-  late final Widget child;
   late final AnimationController _clickController;
 
   late final Animation<double> _sizeAni;
@@ -130,7 +129,7 @@ class _CMLVCNButtonState extends State<_CMLVCNButton>
     _clickController.forward().then((value) {
       _clickController.reverse().then((value) async {
         isClicked = false;
-        widget.onClick(context);
+        widget.onPress(); // Sử dụng onPress trực tiếp
       });
     });
   }
@@ -161,24 +160,24 @@ class _CMLVCNButtonState extends State<_CMLVCNButton>
               scale: _sizeAni.value,
               child: LayoutBuilder(
                   builder: (BuildContext context, BoxConstraints constraints) {
-                return Container(
-                  width: constraints.maxWidth * 5 / 7,
-                  height: constraints.maxHeight / 2,
-                  decoration: BoxDecoration(
-                      color: color,
-                      borderRadius:
+                    return Container(
+                      width: constraints.maxWidth * 5 / 7,
+                      height: constraints.maxHeight / 2,
+                      decoration: BoxDecoration(
+                          color: color,
+                          borderRadius:
                           BorderRadius.all(Radius.elliptical(100, 50))),
-                  child: Center(
-                    child: Text(
-                      "CHẠM VÀO",
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontFamily: "Paytone One",
+                      child: Center(
+                        child: Text(
+                          "CHẠM VÀO",
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontFamily: "Paytone One",
+                          ),
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              }),
+                    );
+                  }),
             );
           }),
       onTap: () {

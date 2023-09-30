@@ -8,7 +8,7 @@ class Input extends StatelessWidget {
     required this.validate,
     required this.keyboardType,
     required this.onDataChanged,
-    required this.icon,
+    required this.Icon,
     required this.obscureText,
   }) : super(key: key);
   final TextEditingController textController;
@@ -16,9 +16,8 @@ class Input extends StatelessWidget {
   final String? Function(String?)? validate;
   final TextInputType keyboardType;
   final Function(String) onDataChanged;
-  final Widget? icon;
+  final Widget? Icon;
   final bool obscureText;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,7 +44,7 @@ class Input extends StatelessWidget {
             borderRadius: BorderRadius.circular(20.0),
             borderSide: BorderSide.none,
           ),
-          suffixIcon: icon,
+          suffixIcon: Icon,
           hintStyle: TextStyle(
             color: Color.fromRGBO(135, 161, 209, 1.0),
             fontSize: 20.0,
