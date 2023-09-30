@@ -50,14 +50,6 @@ class CalenderController {
       print("Data: \n $temp2");
     }
     if (!kReleaseMode) {
-      Map<String, dynamic> data4 = {
-        "userId": Preferences.getId(),
-        "level": 1,
-      };
-      var temp3 = await Api().postData("levelDepression", data4);
-      var temp4 = await Api().postData("Test", data4);
-    }
-    if (!kReleaseMode) {
       print("Putting to Update User Depression");
     }
     var temp3 = await Api().postData("updateLevelDepression", data3);

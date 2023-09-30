@@ -11,7 +11,7 @@ class GeneratedStoryscreen1Widget extends StatelessWidget {
     Size size = MediaQuery.sizeOf(context);
     return Material(
         child: GestureDetector(
-      onTap: () => Navigator.pushNamed(context, '/GeneratedMainScreenWidget'),
+      onTap: () => Navigator.pushNamed(context, '/Form'),
       child: ClipRRect(
         borderRadius: BorderRadius.zero,
         child: Container(
@@ -20,9 +20,9 @@ class GeneratedStoryscreen1Widget extends StatelessWidget {
           child: Stack(
               fit: StackFit.expand,
               alignment: Alignment.center,
-                  //overflow: Overflow.visible,
-                  children: [
-                    ClipRRect(
+              //overflow: Overflow.visible,
+              children: [
+                ClipRRect(
                   borderRadius: BorderRadius.zero,
                   child: Image.asset(
                     "assets/images/3890c3231620d942b721643b360ba38e7aa00362.png",
