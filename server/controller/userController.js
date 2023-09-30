@@ -196,10 +196,28 @@ module.exports = {
   },
   updatePassword: async (req, res) => {
     try {
-      const password = req.body.password;
-      
+      const userId = req.body.userId;
+      const newPassword = req.body.password;
+      const encryptedPassword = cryptoJS.AES.encrypt(newPassword, process.env.SECRET_KEY).toString();
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $set: { password: encryptedPassword } },
+        { new: true }
+      ).select('-password');
+
+      res.json({ status: true });
     } catch (error) {
-      res.status(500).json(error);
+      res.status(500).json({ error: error.message });
     }
-  }
+  },
+  getAllUser: async (req, res) => {
+    try {
+      const currentUserId = req.params.userId;
+      const allUsers = await User.find({ _id: { $ne: currentUserId } }).select('-password');
+
+      res.status(200).json(allUsers);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };

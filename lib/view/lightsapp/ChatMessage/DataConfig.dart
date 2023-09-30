@@ -2,25 +2,17 @@ class DataConfig {
   static List user = [
     {
       "id": 0,
-      "name": "Người 1",
+      "name": "Bác sĩ tâm lý",
       "image": "assets/images/bg_chat.png",
-      "newestMessage": "Hi there, Phúc trần"
+      "newestMessage": "Được đánh giá: 4,5 sao",
+      "path": "https://www.facebook.com/bacsitamlyonlinevietnam"
     },
     {
       "id": 1,
-      "name": "Người 2",
-      "image": "assets/images/user_icon.png",
-      "newestMessage": "Hello"
-    },
-  ];
-  static List chat = [
-    {
-      "sender": "me",
-      "message": "Hello"
-    },
-    {
-      "sender": "opponent",
-      "message": "Hello there"
+      "name": "Perg",
+      "image": "assets/images/perg.jpg",
+      "newestMessage": "Được đánh giá: 5,0 sao",
+      "path": "https://www.facebook.com/tamlyperg.vn"
     },
   ];
 }

@@ -80,7 +80,7 @@ class _ChatViewState extends State<ChatView> {
                     ava: user['image'],
                     name: user['name'],
                     newestMessage: user['newestMessage'],
-                    time: '19:00',
+                    path: user['path'],
                   );
                 }),
               ],

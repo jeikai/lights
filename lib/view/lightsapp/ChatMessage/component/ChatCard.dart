@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/view/lightsapp/ChatMessage/component/chatDetail.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ChatCard extends StatelessWidget {
   final String ava;
   final String name;
   final String newestMessage;
-  final String time;
+  final String path;
 
   ChatCard({
     required this.ava,
     required this.name,
     required this.newestMessage,
-    required this.time,
+    required this.path
   });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => ChatDetail(
-          name: name,
-          image: ava,
-        )));
+      onTap: () async {
+        final url = Uri.parse(
+            path);
+        try {
+          await launch(url.toString());
+        } catch (e) {
+          print('Error: $e');
+        }
       },
       child: ListTile(
         leading: Container(
@@ -45,7 +48,6 @@ class ChatCard extends StatelessWidget {
             fontSize: 13,
           ),
         ),
-        trailing: Text(time),
       ),
     );
   }

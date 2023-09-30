@@ -41,6 +41,7 @@ class _GeneratedForgotpasswordscreen2WidgetState
   Widget build(BuildContext context) {
     var width = Setting.getWidthSize();
     var height = Setting.getHeightSize();
+    final screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
         onWillPop: () async {
           return false;
@@ -66,6 +67,20 @@ class _GeneratedForgotpasswordscreen2WidgetState
                       width: 273.0,
                       height: 450.0,
                       child: Whale(),
+                    ),
+                    Positioned(
+                      top: 10,
+                      left: 10,
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Icon(
+                          Icons.arrow_back,
+                          color: Colors.black,
+                          size: screenWidth * 0.07,
+                        ),
+                      ),
                     ),
                     Positioned(
                       top: width * 5 / 100,
@@ -141,17 +156,17 @@ class _GeneratedForgotpasswordscreen2WidgetState
                                   "Mật khẩu nhập lại phải khớp với mật khẩu đã nhập");
                             } else {
                               Map data = {
+                                "userId": id,
                                 "password": _password.text,
                               };
-                              var response =
-                                  await Api().postData("login", data);
-                              if (response?["message"]) {
-                                ToastNoti.show("Đăng nhập thành công");
-
+                              var response = await Api()
+                                  .postData("user/updatePassword", data);
+                              if (response?["status"]) {
+                                ToastNoti.show("Cập nhập mật khẩu thành công");
                                 Navigator.pushNamed(
-                                    context, '/GeneratedMainScreenWidget');
+                                    context, '/GeneratedLoginscreenWidget');
                               } else {
-                                ToastNoti.show("Sai email hoặc mật khẩu");
+                                ToastNoti.show("Không thể cập nhập mật khẩu");
                               }
                             }
                           } else {
