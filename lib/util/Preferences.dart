@@ -115,6 +115,10 @@ class Preferences {
     await Api().pushDataUpdate("userdata/update-social", getId()!, data);
     print(res);
   }
+  static Future setForgetId(String username) async =>
+      await _preferences?.setString("forgetId", username);
+
+  static String? getForgetId() => _preferences?.getString("forgetId");
 
   // Dữ liệu cho đăng ký
   static Future setRegisUsername(String username) async =>

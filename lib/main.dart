@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
+import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen1/GeneratedForgotpasswordscreen1Widget.dart';
+import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen2/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
@@ -9,9 +11,6 @@ import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/FavoriteScreen.dart';
-import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen1widget/GeneratedForgotpasswordscreen1Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen2widget/GeneratedForgotpasswordscreen2Widget.dart';
-import 'package:flutterapp/view/lightsapp/generatedforgotpasswordscreen3widget/GeneratedForgotpasswordscreen3Widget.dart';
 import 'package:flutterapp/view/lightsapp/generatedhelloscreenwidget/GeneratedHelloscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/loginscreen/LoginscreenWidget.dart';
 import 'package:flutterapp/view/lightsapp/logupScreen1/LogupscreenWidget.dart';
@@ -96,8 +95,6 @@ class _LightsAppState extends State<_LightsApp> {
               GeneratedForgotpasswordscreen1Widget(),
           '/GeneratedForgotpasswordscreen2Widget': (context) =>
               GeneratedForgotpasswordscreen2Widget(),
-          '/GeneratedForgotpasswordscreen3Widget': (context) =>
-              GeneratedForgotpasswordscreen3Widget(),
           '/Story': (context) => StoryWidget(
                 key: ValueKey("StoryWidget"),
               ),

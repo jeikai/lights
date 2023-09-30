@@ -37,10 +37,12 @@ app.post("/login", userController.loginUser);
 app.get("/user/getInfor/:id", userController.getUser);
 app.post("/user/checkEmail", userController.checkExistedEmail);
 app.get("/user/getData/:id", userController.getUserDataById);
-
+app.post("/user/checkEmailAndPhone", userController.checkExistedEmailAndPhoneNumber);
+app.post("/user/updatePassword", userController.updatePassword);
+app.get("/user/getAllUser/:id", userController.getAllUser);
 // Route cho Diary
 app.post("/newDiary", diaryController.insertDiary);
-app.get("/getDiaryById", diaryController.getDiaryById);
+app.get("/getDiaryById", diaryController.getDiaryById); 
 app.post("/deleteDiary", diaryController.deleteDiary);
 
 // Router cho Emotion

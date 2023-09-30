@@ -172,4 +172,52 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+  checkExistedEmailAndPhoneNumber: async (req, res) => {
+    try {
+      const email = req.body.email;
+      const phoneNumber = req.body.phoneNumber;
+
+      // Kiểm tra xem email tồn tại hay không
+      const existingEmailUser = await User.findOne({ email });
+
+      // Kiểm tra xem phoneNumber tồn tại hay không
+      const existingPhoneNumberUser = await User.findOne({ phoneNumber });
+
+      if (existingEmailUser && existingPhoneNumberUser) {
+        // Cả email và phoneNumber tồn tại
+        return res.json({ status: true, user: existingEmailUser });
+      } else {
+        // Ít nhất một trong hai không tồn tại
+        return res.json({ status: false });
+      }
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+  updatePassword: async (req, res) => {
+    try {
+      const userId = req.body.userId;
+      const newPassword = req.body.password;
+      const encryptedPassword = cryptoJS.AES.encrypt(newPassword, process.env.SECRET_KEY).toString();
+      const updatedUser = await User.findByIdAndUpdate(
+        userId,
+        { $set: { password: encryptedPassword } },
+        { new: true }
+      ).select('-password');
+
+      res.json({ status: true });
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
+  getAllUser: async (req, res) => {
+    try {
+      const currentUserId = req.params.userId;
+      const allUsers = await User.find({ _id: { $ne: currentUserId } }).select('-password');
+
+      res.status(200).json(allUsers);
+    } catch (error) {
+      res.status(500).json({ error: error.message });
+    }
+  },
 };
