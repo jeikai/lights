@@ -78,6 +78,7 @@ class _DTListViewState extends State<DTListView>
         controller: _controller4Normal,
         percent: value.percent!,
         taskDes: value.taskDes!,
+        taskId: value.missionId!,
         textSize: widget.textSize,
         artboard: riveArtboard[index]!,
       )));
@@ -93,11 +94,11 @@ class _DTListViewState extends State<DTListView>
 
   Future<void> fetchDailyTask() async {
     RiveUtil util = RiveUtil();
-    var a = Future.delayed(Duration(seconds: 5));
-    var temp = await Api().getDataByIdForMissions("getMissionDayById", Preferences.getId()!);
+    var temp = await Api()
+        .getDataByIdForMissions("getMissionDayById", Preferences.getId()!);
     _tasks = genTaskData(temp!);
     print("Missions Data: $temp");
-    List<Future> waitList = [a];
+    List<Future> waitList = [];
     for (int i = 0; i < 4; i++) {
       final file = util.getStar();
       final artboard = file.mainArtboard;

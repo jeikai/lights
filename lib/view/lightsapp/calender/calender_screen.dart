@@ -62,8 +62,8 @@ class CalenderScreen extends StatelessWidget {
                               builder: (BuildContext context) {
                                 return MenuOverlay(
                                   time: selected,
-                                  isToday: compareDate(DateTime.now(),
-                                      focus) /*&& isTodayEmotionNull*/,
+                                  isToday: compareDate(DateTime.now(), focus) &&
+                                      isTodayEmotionNull,
                                 );
                               });
                           return;

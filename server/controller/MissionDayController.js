@@ -68,7 +68,7 @@ module.exports = {
         return res.status(404).json({status: false});
       }
 
-      res.status(204).json({ status: true });
+      res.status(200).json({status: true});
     } catch (error) {
       res.status(500).json(error);
     }
