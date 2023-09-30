@@ -83,18 +83,7 @@ class _GeneratedLoginscreenWidgetState
                   child: title("ĐĂNG NHẬP"),
                 ),
                 Positioned(
-                  top: (width / 100 - 0.5) * 15,
-                  child: Wrap(
-                    spacing: 29,
-                    children: [Insta(), Twitter(), Google(), Facebook()],
-                  ),
-                ),
-                Positioned(
-                  top: width * 25 / 100,
-                  child: Text_HoacVoi(),
-                ),
-                Positioned(
-                  top: width * 50 / 100,
+                  top: width * 40 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,
@@ -119,7 +108,7 @@ class _GeneratedLoginscreenWidgetState
                   ),
                 ),
                 Positioned(
-                  top: width * 82 / 100,
+                  top: width * 72 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,
@@ -133,7 +122,7 @@ class _GeneratedLoginscreenWidgetState
                   ),
                 ),
                 Positioned(
-                  top: width * 35 / 100,
+                  top: width * 25 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,
@@ -154,7 +143,7 @@ class _GeneratedLoginscreenWidgetState
                   ),
                 ),
                 Positioned(
-                  top: width * 60 / 100,
+                  top: width * 50 / 100,
                   right: null,
                   bottom: null,
                   width: 200.0,
@@ -162,7 +151,7 @@ class _GeneratedLoginscreenWidgetState
                   child: Text_Quen(),
                 ),
                 Positioned(
-                  top: width * 70 / 100,
+                  top: width * 60 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,

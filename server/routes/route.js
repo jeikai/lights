@@ -37,6 +37,7 @@ app.post("/login", userController.loginUser);
 app.get("/user/getInfor/:id", userController.getUser);
 app.post("/user/checkEmail", userController.checkExistedEmail);
 app.get("/user/getData/:id", userController.getUserDataById);
+app.post("/user/checkEmailAndPhone", userController.checkExistedEmailAndPhoneNumber)
 
 // Route cho Diary
 app.post("/newDiary", diaryController.insertDiary);

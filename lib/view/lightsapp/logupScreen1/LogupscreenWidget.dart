@@ -69,18 +69,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   child: title("ĐĂNG KÝ"),
                 ),
                 Positioned(
-                  top: (width / 100 - 0.5) * 15,
-                  child: Wrap(
-                    spacing: 29,
-                    children: [Insta(), Twitter(), Google(), Facebook()],
-                  ),
-                ),
-                Positioned(
-                  top: width * 25 / 100,
-                  child: Text_HoacVoi(),
-                ),
-                Positioned(
-                  top: width * 32 / 100,
+                  top: width * 20 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,
@@ -101,7 +90,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   ),
                 ),
                 Positioned(
-                  top: width * 44 / 100,
+                  top: width * 30 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,
@@ -122,7 +111,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   ),
                 ),
                 Positioned(
-                  top: width * 56 / 100,
+                  top: width * 40 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,
@@ -143,7 +132,7 @@ class _LogupScreenState extends State<LogupScreen> {
                   ),
                 ),
                 Positioned(
-                  top: width * 68 / 100,
+                  top: width * 50 / 100,
                   right: null,
                   bottom: null,
                   width: 326.0,

@@ -172,4 +172,34 @@ module.exports = {
       res.status(500).json({ error: error.message });
     }
   },
+  checkExistedEmailAndPhoneNumber: async (req, res) => {
+    try {
+      const email = req.body.email;
+      const phoneNumber = req.body.phoneNumber;
+
+      // Kiểm tra xem email tồn tại hay không
+      const existingEmailUser = await User.findOne({ email });
+
+      // Kiểm tra xem phoneNumber tồn tại hay không
+      const existingPhoneNumberUser = await User.findOne({ phoneNumber });
+
+      if (existingEmailUser && existingPhoneNumberUser) {
+        // Cả email và phoneNumber tồn tại
+        return res.json({ status: true, user: existingEmailUser });
+      } else {
+        // Ít nhất một trong hai không tồn tại
+        return res.json({ status: false });
+      }
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  },
+  updatePassword: async (req, res) => {
+    try {
+      const password = req.body.password;
+      
+    } catch (error) {
+      res.status(500).json(error);
+    }
+  }
 };
