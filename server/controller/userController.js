@@ -114,23 +114,34 @@ module.exports = {
       const userData = await UserData.findByIdAndUpdate(userDataId, { $set: { socialConnections } }, { new: true }).select('-password');
       res.json(userData);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({error: error.message});
     }
   },
   updateBio: async (req, res) => {
     const userDataId = req.params.id;
-    const { bio } = req.body;
+    const {bio} = req.body;
 
     try {
-      const userData = await UserData.findByIdAndUpdate(userDataId, { $set: { bio } }, { new: true }).select('-password');
+      const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {bio}}, {new: true}).select('-password');
       res.json(userData);
     } catch (error) {
-      res.status(500).json({ error: error.message });
+      res.status(500).json({error: error.message});
+    }
+  },
+  updateNoti: async (req, res) => {
+    const userDataId = req.params.id;
+    const {notifications} = req.body;
+
+    try {
+      const userData = await UserData.findByIdAndUpdate(userDataId, {$set: {notifications}}, {new: true}).select('-password');
+      res.json(userData);
+    } catch (error) {
+      res.status(500).json({error: error.message});
     }
   },
   updateAddress: async (req, res) => {
     const userId = req.params.id;
-    const { address } = req.body;
+    const {address} = req.body;
 
     try {
       const user = await User.findByIdAndUpdate(userId, { $set: { address } }, { new: true }).select('-password');

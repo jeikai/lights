@@ -1,7 +1,7 @@
-import 'dart:convert';
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/notification.dart';
+import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/process/notification/NotificationEvent.dart';
@@ -33,20 +33,10 @@ class NotificationManager {
     process = NotificationProcess(
         pollingInterval: Duration(seconds: ConfigManager().pollingInterval),
         manager: this);
-    loadNotificationsFromLocalStorage().then((value) {
-      _list = ListModel(
-        listKey: _listKey,
-        initialItems: value,
-      );
-      _isLoadingFromStorage = false;
-    });
     _callable = NotificationEventCallable(this);
   }
 
   void dispose() {
-    if (notifications.isNotEmpty) {
-      saveNotificationsToLocalStorage(_list._items);
-    }
     //process.stop();
   }
 
@@ -98,27 +88,48 @@ class NotificationManager {
   int get notificationUnreadCount => unreadNotifications.length;
 
   // Saving notifications to local storage
-  void saveNotificationsToLocalStorage(
-      List<NotificationContent> notificationList) async {
-    List<dynamic> notificationStrings =
-        notificationList.map((notification) => notification.toMap()).toList();
-    String json = jsonEncode(notificationStrings);
-    await Preferences.setNotis(json);
+  void saveNotificationsToLocalStorage() async {
+    try {
+      List<dynamic> notificationMap =
+          notifications.map((notification) => notification.toMap()).toList();
+      Map<String, dynamic> data = {"notifications": notificationMap};
+      if (!kReleaseMode) {
+        print("Put New Noti!!");
+      }
+      var temp = await Api()
+          .pushDataUpdate("user/update-noti", Preferences.getId()!, data);
+      if (!kReleaseMode) {
+        print("Data: $temp");
+      }
+    } catch (e) {
+      print(e);
+    }
   }
 
   // Loading notifications from local storage
-  Future<List<NotificationContent>> loadNotificationsFromLocalStorage() async {
-    String? json = Preferences.getNotis();
-    print("Json: $json");
-    if (json == null) return [];
-    List<dynamic> notificationStrings = jsonDecode(json);
-    List<NotificationContent> notifications = notificationStrings
-        .map((noti) => NotificationContent.fromMap(noti))
-        .toList();
-    return notifications;
+  Future<List<NotificationContent>> loadNotificationsFromLocalStorage(
+      List<dynamic>? input) async {
+    List<NotificationContent> notificationsList;
+    if (input != null) {
+      print("here1");
+      List<dynamic> notificationStrings = input;
+      notificationsList = notificationStrings
+          .map((noti) => NotificationContent.fromMap(noti))
+          .toList();
+    } else {
+      print("here2");
+      notificationsList = [];
+    }
+    _list = ListModel(
+      listKey: _listKey,
+      initialItems: notificationsList,
+    );
+    _isLoadingFromStorage = false;
+    return notificationsList;
   }
 
-  void addListener(void Function(NotificationEvent event) callback, Priorities priority) {
+  void addListener(
+      void Function(NotificationEvent event) callback, Priorities priority) {
     _callable.addHandler(callback, priority);
   }
 
