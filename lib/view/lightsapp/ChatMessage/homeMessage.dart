@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/view/lightsapp/ChatMessage/component/AddPeople.dart';
-import 'package:flutterapp/view/lightsapp/ChatMessage/component/ChatView.dart';
+import 'package:flutterapp/view/lightsapp/ChatMessage/component/Friends/AddPeople.dart';
+import 'package:flutterapp/view/lightsapp/ChatMessage/component/Doctor/ChatView.dart';
 
 class mainMessage extends StatefulWidget {
   const mainMessage({super.key});

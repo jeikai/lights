@@ -1,7 +1,7 @@
 const User = require("../models/User");
 const cryptoJS = require("crypto-js");
 const UserData = require("../models/UserData");
-
+const Level_depression = require("../models/Level_Depression")
 module.exports = {
   updateUser: async (req, res) => {
     if (req.body.password) {
@@ -212,12 +212,35 @@ module.exports = {
   },
   getAllUser: async (req, res) => {
     try {
-      const currentUserId = req.params.userId;
-      const allUsers = await User.find({ _id: { $ne: currentUserId } }).select('-password');
+      const currentUserId = req.params.id;
+      const currentUserLevelDepression = await Level_depression.findOne({
+        userId: currentUserId,
+      });
+  
+      if (!currentUserLevelDepression) {
+        return res.status(404).json({ error: "User not found in Level_depression" });
+      }
 
+      const userLevel = currentUserLevelDepression.level;
+      console.log(userLevel)
+      const users = await Level_depression.find({
+        userId: { $ne: currentUserId }, // Loại bỏ user hiện tại
+        level: { $gte: userLevel - 1, $lte: userLevel + 1 }, // Đảm bảo level nằm trong khoảng 0 - 4
+      });
+  
+      // Lọc ra các bản ghi có level hợp lệ (là một số)
+      const validUsers = users.filter((user) => !isNaN(user.level));
+  
+      // Lấy danh sách các userId từ kết quả truy vấn
+      const userIds = validUsers.map((user) => user.userId);
+  
+      // Tìm thông tin người dùng dựa trên danh sách userIds
+      const allUsers = await User.find({ _id: { $in: userIds } }).select('-password');
+  
       res.status(200).json(allUsers);
     } catch (error) {
       res.status(500).json({ error: error.message });
     }
   },
+  
 };

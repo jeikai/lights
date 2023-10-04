@@ -10,8 +10,8 @@ const MissionDayController = require("../controller/MissionDayController");
 const testController = require("../controller/testController");
 const ChatbotController = require("../controller/chatbotController");
 const filmController = require("../controller/filmController");
-const User = require("../models/User");
-const UserData = require("../models/UserData");
+const gameController = require("../controller/gameController");
+
 const {
     createUserDateActivity,
     getUserDateActivitiesByUserId,
@@ -24,6 +24,7 @@ const {
 const imageController = require("../controller/imageController");
 
 const Multer = require('multer');
+const { addMessage, getMessages } = require("../controller/messageController");
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
@@ -42,7 +43,7 @@ app.post("/user/updatePassword", userController.updatePassword);
 app.get("/user/getAllUser/:id", userController.getAllUser);
 // Route cho Diary
 app.post("/newDiary", diaryController.insertDiary);
-app.get("/getDiaryById", diaryController.getDiaryById); 
+app.get("/getDiaryById", diaryController.getDiaryById);
 app.post("/deleteDiary", diaryController.deleteDiary);
 
 // Router cho Emotion
@@ -78,6 +79,9 @@ app.post("/Chatbot", ChatbotController.Chatbot)
 //Route cho Film
 app.get("/Film", filmController.getFilm);
 
+//Route cho Game
+app.get("/Game", gameController.getGame);
+
 //Route de Update Name
 app.put('/user/update-name/:id', userController.updateName);
 
@@ -106,4 +110,7 @@ app.delete('/user-date-activity/:id', deleteUserDateActivityById);
 app.put('/update-user-date-activity', updateUserDateActivity);
 app.post('/get-or-create-user-date-activity', getUserDateActivity);
 
+//Router cho message
+app.post("/addmsg", addMessage);
+app.post("/getmsg", getMessages);
 module.exports = app

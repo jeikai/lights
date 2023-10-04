@@ -45,7 +45,6 @@ class _MoviesPageState extends State<MoviesPage> {
   Future<void> _getDataFromApi() async {
     final api = Api();
     final response = await api.getData("Film");
-    print('Type of response: ${response.runtimeType}');
     if (response != null) {
       setState(() {
         _movies = _parseMovies(response);

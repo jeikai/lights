@@ -46,7 +46,9 @@ class WhaleMenu extends StatelessWidget {
                           ImageManager().getBytes(ImageManager.wbi1)!,
                           fit: BoxFit.fill,
                         ),
-                        onClick: (context) {},
+                        onClick: (context) {
+                          Navigator.pushNamed(context, "/Game");
+                        },
                       ),
                       WhaleMenuBubble(
                         child: Image.memory(
