@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:custom_clippers/custom_clippers.dart';
 import 'package:flutter/material.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
@@ -5,10 +7,10 @@ class IbMessage extends StatefulWidget {
   const IbMessage({
     Key? key,
     required this.text,
-    required this.sender,
+    required this.isSender,
   }) : super(key: key);
   final String text;
-  final String sender;
+  final bool isSender;
 
   @override
   State<IbMessage> createState() => _IbMessageState();
@@ -17,7 +19,7 @@ class IbMessage extends StatefulWidget {
 class _IbMessageState extends State<IbMessage> {
   @override
   Widget build(BuildContext context) {
-    final isUser = widget.sender == "current_user";
+    final isUser = widget.isSender == true;
     return Column(
       crossAxisAlignment:
       isUser ? CrossAxisAlignment.end : CrossAxisAlignment.start,

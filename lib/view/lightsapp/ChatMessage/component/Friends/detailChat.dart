@@ -37,14 +37,18 @@ class _detailChatState extends State<detailChat> {
     print(socket.connected);
   }
 
-  void AddData() {
-    // for (var _messageData in DataConfig.chat) {
-    //   IbMessage message = IbMessage(
-    //       text: _messageData["message"], sender: _messageData["sender"]);
-    //   setState(() {
-    //     _message.insert(0, message);
-    //   });
-    // }
+  void AddData() async {
+    Map data = {
+      "from": Preferences.getId(),
+      "to": widget.id,
+    };
+    var response = await Api().getDataMessage("getmsg", data);
+    for (var messageData in response!) {
+      IbMessage message = IbMessage(text: messageData["message"], isSender: messageData["fromSelf"]);
+      setState(() {
+        _message.insert(0, message);
+      });
+    }
   }
 
   @override
@@ -69,7 +73,7 @@ class _detailChatState extends State<detailChat> {
     var response = await Api().postData("addmsg", data);
     if (response?["status"]) {
       IbMessage message =
-          IbMessage(text: _controller.text, sender: "current_user");
+          IbMessage(text: _controller.text, isSender: true);
       setState(() {
         _message.insert(0, message);
       });
