@@ -96,6 +96,8 @@ app.put('/user/update-address/:id', userController.updateAddress);
 
 app.put('/userdata/update-bio/:id', userController.updateBio);
 
+app.put('/user/update-noti/:id', userController.updateNoti);
+
 // Cập nhật trường socialConnections của UserData
 app.put('/userdata/update-social/:id', userController.updateSocialConnection);
 

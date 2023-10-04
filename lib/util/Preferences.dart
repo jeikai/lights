@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -15,8 +16,8 @@ class Preferences {
     Map<String, dynamic>? res = await Api().getDataById("user/getData", id);
     if (res?["message"]) {
       await Preferences.setBio(res?["userData"]["bio"]);
-      await Preferences.setSocialConnections(
-          res?["userData"]["socialConnections"]);
+      var temp = await NotificationManager()
+          .loadNotificationsFromLocalStorage(res?["userData"]["notifications"]);
     }
   }
 
