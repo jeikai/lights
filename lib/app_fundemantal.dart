@@ -41,16 +41,20 @@ class MyApp {
 
   void onPaused() {
     if (manager != null) manager!.process.stop();
+    NotificationManager().saveNotificationsToLocalStorage();
   }
 
   void onResumed() {
     if (manager != null) manager!.runNotiProcess();
   }
 
-  void onInactive() {}
+  void onInactive() {
+    NotificationManager().saveNotificationsToLocalStorage();
+  }
 
   void onDetached() {
     if (manager != null) manager!.dispose();
+    NotificationManager().saveNotificationsToLocalStorage();
   }
 }
 

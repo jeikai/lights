@@ -5,6 +5,7 @@ import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
 import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen1/GeneratedForgotpasswordscreen1Widget.dart';
 import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen2/GeneratedForgotpasswordscreen2Widget.dart';
 import 'package:flutterapp/view/lightsapp/Form/Form.dart';
+import 'package:flutterapp/view/lightsapp/Game/Game.dart';
 import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
@@ -105,6 +106,7 @@ class _LightsAppState extends State<_LightsApp> {
           '/homeMessage': (context) => mainMessage(),
           '/Calender': (context) => CalenderScreen(),
           '/Form': (context) => TableView(),
+          '/Game': (context) => GamesPage(),
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {
