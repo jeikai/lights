@@ -27,7 +27,7 @@ class _detailChatState extends State<detailChat> {
   late IO.Socket socket;
 
   void connect() {
-    socket = IO.io('http://192.168.40.189:5000', <String, dynamic>{
+    socket = IO.io('https://lights-server-2r1w.onrender.com', <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": false,
     });
