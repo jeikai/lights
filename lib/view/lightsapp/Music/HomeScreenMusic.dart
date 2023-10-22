@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/model/song_model.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/view/lightsapp/Music/component/playist_card.dart';
-import '../Music/component/widgets.dart';
+import 'package:flutterapp/view/lightsapp/Music/component/widgets.dart';
 
 class HomeScreenMusic extends StatefulWidget {
   const HomeScreenMusic({Key? key}) : super(key: key);
@@ -12,15 +12,15 @@ class HomeScreenMusic extends StatefulWidget {
 }
 
 class _HomeScreenMusicState extends State<HomeScreenMusic> {
-  List<Song> songs = [];
+  Future<List<Song>>? songsFuture;
 
   @override
   void initState() {
     super.initState();
-    getData();
+    songsFuture = getData();
   }
 
-  Future<void> getData() async {
+  Future<List<Song>> getData() async {
     final api = Api();
     final response = await api.getData("Song");
     if (response != null) {
@@ -32,14 +32,13 @@ class _HomeScreenMusicState extends State<HomeScreenMusic> {
           coverUrl: songData['coverUrl'],
         );
       }).toList();
-      setState(() {
-        songs = parse;
-      });
+      return parse;
     }
+    return [];
   }
 
   @override
-  Widget build(BuildContext contex) {
+  Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -60,8 +59,24 @@ class _HomeScreenMusicState extends State<HomeScreenMusic> {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              _TrendingMusic(songs: songs),
-              _PlaylistMusic(songs: songs),
+              FutureBuilder<List<Song>>(
+                future: songsFuture,
+                builder: (context, snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    return Center(child: CircularProgressIndicator());
+                  } else if (snapshot.hasError) {
+                    return Text('Error: ${snapshot.error}');
+                  } else {
+                    final songs = snapshot.data ?? [];
+                    return Column(
+                      children: [
+                        _TrendingMusic(songs: songs),
+                        _PlaylistMusic(songs: songs),
+                      ],
+                    );
+                  }
+                },
+              ),
             ],
           ),
         ),

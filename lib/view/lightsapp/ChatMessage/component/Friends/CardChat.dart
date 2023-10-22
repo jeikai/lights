@@ -16,6 +16,7 @@ class CardChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
+        Navigator.pop(context);
         Navigator.push(
           context,
           MaterialPageRoute(

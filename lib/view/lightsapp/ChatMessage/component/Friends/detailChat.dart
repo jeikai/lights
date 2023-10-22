@@ -3,6 +3,7 @@ import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/provider/ChatProvider.dart';
+import 'package:intl/intl.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:provider/provider.dart';
@@ -39,11 +40,38 @@ class _detailChatState extends State<detailChat> {
     });
     socket.on('msg-receive', (data) {
       IbMessage message = IbMessage(
-        text: data,
+        text: data.msg,
         isSender: false,
+        time: data.time,
       );
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
     });
+  }
+
+  String formatTime(String timeString) {
+    try {
+      // Tách chuỗi thời gian
+      final List<String> parts = timeString.split(' ');
+
+      if (parts.length < 5) {
+        return '';
+      }
+
+      // Lấy ngày, tháng, năm, giờ, phút, giây
+      final String day = parts[2];
+      final String month = parts[1];
+      final String year = parts[3];
+      final String time = parts[4];
+      final String timeZone = parts[5];
+
+      // Định dạng lại chuỗi thời gian
+      final String formattedTime = '$day $month $year $time $timeZone';
+
+      return formattedTime;
+    } catch (e) {
+      print('Error formatting time: $e');
+      return '';
+    }
   }
 
   void AddData() async {
@@ -52,9 +80,20 @@ class _detailChatState extends State<detailChat> {
       "to": widget.id,
     };
     var response = await Api().getDataMessage("getmsg", data);
+
     for (var messageData in response!) {
+      final String formattedTime = formatTime(messageData["time"]);
+      final DateTime parsedTime =
+          DateFormat('dd MMM yyyy HH:mm:ss').parse(formattedTime);
+      final String formattedMessageTime =
+          DateFormat('HH:mm:ss').format(parsedTime);
+
       IbMessage message = IbMessage(
-          text: messageData["message"], isSender: messageData["fromSelf"]);
+        text: messageData["message"],
+        isSender: messageData["fromSelf"],
+        time: formattedMessageTime,
+      );
+
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
     }
   }
@@ -80,9 +119,13 @@ class _detailChatState extends State<detailChat> {
     };
     var response = await Api().postData("addmsg", data);
     if (response?["status"]) {
-      IbMessage message = IbMessage(text: _controller.text, isSender: true);
+      DateTime now = DateTime.now();
+      String formattedTime = DateFormat('HH:mm:ss').format(now);
+      IbMessage message = IbMessage(
+          text: _controller.text, isSender: true, time: formattedTime);
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
-      socket.emit("send-msg", {"to": widget.id, "msg": _controller.text});
+      socket.emit("send-msg",
+          {"to": widget.id, "msg": _controller.text, "time": formattedTime});
     } else {
       ToastNoti.show("Gửi tin nhắn không thành công");
     }
@@ -117,7 +160,7 @@ class _detailChatState extends State<detailChat> {
                 ),
                 border: InputBorder.none,
                 contentPadding:
-                EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               ),
               style: TextStyle(
                 color: Color.fromRGBO(90, 106, 176, 1),
@@ -195,7 +238,6 @@ class _detailChatState extends State<detailChat> {
         child: SafeArea(
           child: Column(
             children: [
-              // Điều chỉnh khả năng co giãn của widget bên trong
               Flexible(
                 child: Consumer<ChatProvider>(
                   builder: (_, provider, __) {

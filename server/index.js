@@ -48,7 +48,10 @@ io.on("connection", (socket) => {
     const sendUserSocket = onlineUsers.get(data.to);
     //Nếu người dùng online
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-receive", data.msg);
+      socket.to(sendUserSocket).emit("msg-receive", {
+        "msg": data.msg,
+        "time": data.time
+      });
     }
   });
 });

@@ -15,7 +15,7 @@ class _mainMessageState extends State<mainMessage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: currentPage == 0 ? ChatView() : AddPeople(),
+      body: currentPage == 1 ? ChatView() : AddPeople(),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 0),
         child: BottomNavigationBar(
@@ -31,17 +31,17 @@ class _mainMessageState extends State<mainMessage> {
           items: [
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.chat,
+                Icons.people,
                 color: currentPage == 0 ? Colors.white : Colors.grey,
               ),
-              label: 'chat',
+              label: 'people',
             ),
             BottomNavigationBarItem(
               icon: Icon(
-                Icons.people,
+                Icons.chat,
                 color: currentPage == 1 ? Colors.white : Colors.grey,
               ),
-              label: 'people',
+              label: 'chat',
             ),
           ],
         ),
