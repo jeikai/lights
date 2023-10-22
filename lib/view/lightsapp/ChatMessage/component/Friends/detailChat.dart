@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
+import 'package:flutterapp/provider/ChatProvider.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
-
+import 'package:provider/provider.dart';
 import 'ibMessage.dart';
 
 class detailChat extends StatefulWidget {
@@ -22,19 +23,27 @@ class detailChat extends StatefulWidget {
 
 class _detailChatState extends State<detailChat> {
   final TextEditingController _controller = TextEditingController();
-  final List<IbMessage> _message = [];
-  final _formKey = GlobalKey<FormState>();
   late IO.Socket socket;
 
   void connect() {
     socket = IO.io('https://lights-server-2r1w.onrender.com', <String, dynamic>{
       "transports": ["websocket"],
-      "autoConnect": false,
+      "autoConnect": true,
     });
     socket.connect();
-    socket.emit("add-user", Preferences.getId());
     socket.onConnect((data) => print("Connected"));
-    print(socket.connected);
+    socket.emit("add-user", Preferences.getId());
+    socket.on('connect', (_) {
+      print("Connected");
+      socket.emit("add-user", Preferences.getId());
+    });
+    socket.on('msg-receive', (data) {
+      IbMessage message = IbMessage(
+        text: data,
+        isSender: false,
+      );
+      Provider.of<ChatProvider>(context, listen: false).addMessage(message);
+    });
   }
 
   void AddData() async {
@@ -44,10 +53,9 @@ class _detailChatState extends State<detailChat> {
     };
     var response = await Api().getDataMessage("getmsg", data);
     for (var messageData in response!) {
-      IbMessage message = IbMessage(text: messageData["message"], isSender: messageData["fromSelf"]);
-      setState(() {
-        _message.insert(0, message);
-      });
+      IbMessage message = IbMessage(
+          text: messageData["message"], isSender: messageData["fromSelf"]);
+      Provider.of<ChatProvider>(context, listen: false).addMessage(message);
     }
   }
 
@@ -72,12 +80,8 @@ class _detailChatState extends State<detailChat> {
     };
     var response = await Api().postData("addmsg", data);
     if (response?["status"]) {
-      IbMessage message =
-          IbMessage(text: _controller.text, isSender: true);
-      setState(() {
-        _message.insert(0, message);
-      });
-
+      IbMessage message = IbMessage(text: _controller.text, isSender: true);
+      Provider.of<ChatProvider>(context, listen: false).addMessage(message);
       socket.emit("send-msg", {"to": widget.id, "msg": _controller.text});
     } else {
       ToastNoti.show("Gửi tin nhắn không thành công");
@@ -94,35 +98,32 @@ class _detailChatState extends State<detailChat> {
               color: Color.fromRGBO(248, 240, 253, 1),
               borderRadius: BorderRadius.circular(30.0),
             ),
-            child: Form(
-              key: _formKey,
-              child: TextFormField(
-                controller: _controller,
-                onFieldSubmitted: (value) => _sendMessage(),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    ToastNoti.show("Bạn chưa nhập gì");
-                  }
-                },
-                onTapOutside: (event) => {FocusScope.of(context).unfocus()},
-                decoration: InputDecoration(
-                  hintText: "Nhập tin nhắn",
-                  hintStyle: TextStyle(
-                    color: Color.fromRGBO(90, 106, 176, 1),
-                    fontSize: 20.0,
-                    fontFamily: 'Paytone One',
-                    fontWeight: FontWeight.w300,
-                  ),
-                  border: InputBorder.none,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                ),
-                style: TextStyle(
+            child: TextFormField(
+              controller: _controller,
+              onFieldSubmitted: (value) => _sendMessage(),
+              validator: (value) {
+                if (value!.isEmpty) {
+                  ToastNoti.show("Bạn chưa nhập gì");
+                }
+              },
+              onTapOutside: (event) => {FocusScope.of(context).unfocus()},
+              decoration: InputDecoration(
+                hintText: "Nhập tin nhắn",
+                hintStyle: TextStyle(
                   color: Color.fromRGBO(90, 106, 176, 1),
                   fontSize: 20.0,
                   fontFamily: 'Paytone One',
                   fontWeight: FontWeight.w300,
                 ),
+                border: InputBorder.none,
+                contentPadding:
+                EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+              ),
+              style: TextStyle(
+                color: Color.fromRGBO(90, 106, 176, 1),
+                fontSize: 20.0,
+                fontFamily: 'Paytone One',
+                fontWeight: FontWeight.w300,
               ),
             ),
           ),
@@ -133,11 +134,7 @@ class _detailChatState extends State<detailChat> {
             color: Color.fromRGBO(185, 188, 223, 1),
           ),
           onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-              _sendMessage();
-            } else {
-              print("Không hợp lệ");
-            }
+            _sendMessage();
           },
         ),
       ],
@@ -155,11 +152,12 @@ class _detailChatState extends State<detailChat> {
               height: 36,
               width: 36,
               decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  image: DecorationImage(
-                    fit: BoxFit.cover,
-                    image: AssetImage(widget.image),
-                  )),
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  fit: BoxFit.cover,
+                  image: AssetImage(widget.image),
+                ),
+              ),
             ),
             const SizedBox(
               width: 10,
@@ -199,16 +197,24 @@ class _detailChatState extends State<detailChat> {
             children: [
               // Điều chỉnh khả năng co giãn của widget bên trong
               Flexible(
-                child: ListView.builder(
-                  reverse: true,
-                  padding:
-                      EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 80),
-                  itemBuilder: (context, index) {
-                    return _message[index];
+                child: Consumer<ChatProvider>(
+                  builder: (_, provider, __) {
+                    return ListView.builder(
+                      reverse: true,
+                      padding: EdgeInsets.only(
+                        top: 20,
+                        left: 20,
+                        right: 20,
+                        bottom: 80,
+                      ),
+                      itemBuilder: (context, index) {
+                        return provider.messages[index];
+                      },
+                      itemCount: provider.messages.length,
+                    );
                   },
-                  itemCount: _message.length,
                 ),
-              ),
+              ), // End Flexible
               const Divider(
                 height: 1.0,
               ),
@@ -218,7 +224,7 @@ class _detailChatState extends State<detailChat> {
                 ),
                 child: InputText(),
               ),
-            ],
+            ], // End Column children
           ),
         ),
       ),

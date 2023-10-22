@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/provider/ChatProvider.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/component/Friends/detailChat.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 class CardChat extends StatelessWidget {
   final String id;
@@ -10,15 +11,24 @@ class CardChat extends StatelessWidget {
     required this.id,
     required this.name,
   });
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () async {
-        Navigator.push(context, MaterialPageRoute(builder: (_) => detailChat(
-          name: name,
-          id: id,
-          image: 'assets/images/bg_chat.png',
-        )));
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (_) => ChangeNotifierProvider(
+              create: (context) => ChatProvider(),
+              child: detailChat(
+                name: name,
+                id: id,
+                image: 'assets/images/bg_chat.png',
+              ),
+            ),
+          ),
+        );
       },
       child: ListTile(
         leading: Container(

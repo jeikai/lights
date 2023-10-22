@@ -41,16 +41,14 @@ io.on("connection", (socket) => {
   console.log("connected")
   global.chatSocket = socket;
   socket.on("add-user", (userId) => {
-    console.log(userId);
     onlineUsers.set(userId, socket.id);
   });
 
   socket.on("send-msg", (data) => {
     const sendUserSocket = onlineUsers.get(data.to);
-    console.log(data);
     //Nếu người dùng online
     if (sendUserSocket) {
-      socket.to(sendUserSocket).emit("msg-recieve", data.msg);
+      socket.to(sendUserSocket).emit("msg-receive", data.msg);
     }
   });
 });
