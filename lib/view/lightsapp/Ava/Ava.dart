@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/Ava/component/account_description_widget.dart';
 import 'package:flutterapp/view/lightsapp/Ava/component/account_detail_widget.dart';
 import 'package:flutterapp/view/lightsapp/Ava/component/ava_line_chart_widget.dart';
 import 'package:flutterapp/view/lightsapp/Ava/component/config_menu_converter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Ava extends StatefulWidget {
   const Ava({Key? key});
@@ -101,8 +103,9 @@ class _AvaState extends State<Ava> {
                       ),
                     ),
                     onPressed: () async {
-                      await Preferences.setId("");
-                      await Preferences.setEmail("");
+                      SharedPreferences preferences = await SharedPreferences.getInstance();
+                      await preferences.clear();
+                      ToastNoti.show("Đăng xuất thành công");
                       Navigator.pushNamedAndRemoveUntil(context, '/GeneratedLoginscreenWidget', (Route<dynamic> route) => false);
                     },
                     child: Text('Đăng xuất'),

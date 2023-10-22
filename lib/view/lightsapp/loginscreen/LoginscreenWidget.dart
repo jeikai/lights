@@ -162,7 +162,6 @@ class _GeneratedLoginscreenWidgetState
                         };
                         var response = await Api().postData("login", data);
                         if (response?["message"]) {
-                          ToastNoti.show("Đăng nhập thành công");
 
                           await Preferences.setId(response?["user"]["_id"]);
                           await Preferences.setUsername(
@@ -175,6 +174,7 @@ class _GeneratedLoginscreenWidgetState
                           await Preferences.setAddress(
                               response?["user"]["address"]);
                           await Preferences.setupUser(response?["user"]["_id"]);
+                          ToastNoti.show("Đăng nhập thành công");
                           Navigator.pushNamed(
                               context, '/GeneratedMainScreenWidget');
                         } else {

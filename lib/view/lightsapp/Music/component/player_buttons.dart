@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
-
 class PlayerButtons extends StatelessWidget {
   const PlayerButtons({
     Key? key,
@@ -18,8 +17,7 @@ class PlayerButtons extends StatelessWidget {
           stream: audioPlayer.sequenceStateStream,
           builder: (context, index) {
             return IconButton(
-              onPressed:
-              audioPlayer.hasPrevious ? audioPlayer.seekToPrevious : null,
+              onPressed: audioPlayer.hasPrevious ? audioPlayer.seekToPrevious : null,
               iconSize: 45,
               icon: const Icon(
                 Icons.skip_previous,
@@ -34,7 +32,6 @@ class PlayerButtons extends StatelessWidget {
             if (snapshot.hasData) {
               final playerState = snapshot.data;
               final processingState = playerState!.processingState;
-
               if (processingState == ProcessingState.loading ||
                   processingState == ProcessingState.buffering) {
                 return Container(
@@ -68,10 +65,13 @@ class PlayerButtons extends StatelessWidget {
                     color: Colors.white,
                   ),
                   iconSize: 75.0,
-                  onPressed: () => audioPlayer.seek(
-                    Duration.zero,
-                    index: audioPlayer.effectiveIndices!.first,
-                  ),
+                  onPressed: () {
+                    // Chuyển sang bài hát tiếp theo khi đã hoàn thành
+                    audioPlayer.seek(
+                      Duration.zero,
+                      index: audioPlayer.effectiveIndices!.first,
+                    );
+                  },
                 );
               }
             } else {

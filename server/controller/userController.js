@@ -224,6 +224,7 @@ module.exports = {
   getAllUser: async (req, res) => {
     try {
       const currentUserId = req.params.id;
+      console.log(currentUserId)
       const currentUserLevelDepression = await Level_depression.findOne({
         userId: currentUserId,
       });

@@ -16,11 +16,11 @@ class Music extends StatefulWidget {
 
 class _SongScreenState extends State<Music> {
   AudioPlayer audioPlayer = AudioPlayer();
-
   @override
   void initState() {
     super.initState();
-    // audioPlayer.setAsset('assets/audio/' + widget.song.url);
+    print(widget.song);
+    // Set up the audio source
     audioPlayer.setAudioSource(
       ConcatenatingAudioSource(
         children: [
@@ -30,6 +30,8 @@ class _SongScreenState extends State<Music> {
         ],
       ),
     );
+    // Autoplay when initialized
+    audioPlayer.play();
   }
 
   @override

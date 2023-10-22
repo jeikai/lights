@@ -1,14 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/song_model.dart';
+import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/view/lightsapp/Music/component/playist_card.dart';
 import '../Music/component/widgets.dart';
 
-class HomeScreenMusic extends StatelessWidget {
+class HomeScreenMusic extends StatefulWidget {
   const HomeScreenMusic({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    List<Song> songs = Song.songs;
+  State<HomeScreenMusic> createState() => _HomeScreenMusicState();
+}
+
+class _HomeScreenMusicState extends State<HomeScreenMusic> {
+  List<Song> songs = [];
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  Future<void> getData() async {
+    final api = Api();
+    final response = await api.getData("Song");
+    if (response != null) {
+      List<Song> parse = response.map((songData) {
+        return Song(
+          title: songData['title'],
+          description: songData['description'],
+          url: songData['url'],
+          coverUrl: songData['coverUrl'],
+        );
+      }).toList();
+      setState(() {
+        songs = parse;
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext contex) {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(

@@ -25,6 +25,7 @@ const imageController = require("../controller/imageController");
 
 const Multer = require('multer');
 const { addMessage, getMessages } = require("../controller/messageController");
+const songController = require("../controller/songController");
 
 const multer = Multer({
     storage: Multer.memoryStorage(),
@@ -78,6 +79,9 @@ app.post("/Chatbot", ChatbotController.Chatbot)
 
 //Route cho Film
 app.get("/Film", filmController.getFilm);
+
+//Route cho Song
+app.get("/Song", songController.getSong);
 
 //Route cho Game
 app.get("/Game", gameController.getGame);

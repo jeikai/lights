@@ -4,7 +4,8 @@ import 'package:flutterapp/util/Preferences.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
+  // static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
+  static String baseUrl = "http://192.168.40.222:5000/api/";
 
   Future<String?> uploadImage(String path) async {
     final Uri uri = Uri.parse(baseUrl + "upload");

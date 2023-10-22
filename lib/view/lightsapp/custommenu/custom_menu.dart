@@ -20,7 +20,6 @@ class CustomMenu extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     double gap = size.width * 0.075;
     double padding = size.width * 0.1;
-    double iconSize = size.width * 0.07; // Kích thước của biểu tượng
 
     return WillPopScope(
       child: Material(
@@ -31,14 +30,20 @@ class CustomMenu extends StatelessWidget {
               clipBehavior: Clip.hardEdge,
               alignment: Alignment.center,
               children: [
-                RiveAnimation.direct(
-                  bg,
-                  artboard: 'bg2',
-                  fit: BoxFit.fitHeight,
+                Container(
+                  width: size.width,
+                  height: size.height,
+                  child: RiveAnimation.direct(
+                    bg,
+                    artboard: 'bg2',
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
                 Padding(
-                  padding: EdgeInsets.only(
-                      left: padding, right: padding, top: gap, bottom: gap),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: padding,
+                    vertical: gap,
+                  ),
                   child: CustomMenuListview(
                     children: [
                       CustomMenuListViewCell(
@@ -47,7 +52,7 @@ class CustomMenu extends StatelessWidget {
                         icon: SizedBox(),
                         onPress: () {
                           Navigator.pushNamed(context, '/Music');
-                        }, // Add the path parameter
+                        },
                       ),
                       CustomMenuListViewCell(
                         color: Color.fromARGB(255, 172, 193, 254),
@@ -55,7 +60,7 @@ class CustomMenu extends StatelessWidget {
                         icon: SizedBox(),
                         onPress: () {
                           Navigator.pushNamed(context, '/Movie');
-                        }, // Add the path parameter
+                        },
                       ),
                     ],
                     gap: gap,
@@ -63,11 +68,9 @@ class CustomMenu extends StatelessWidget {
                 ),
                 Positioned(
                   top: size.height * 0.02,
-                  // Vị trí dựa trên kích thước màn hình
                   left: size.width * 0.02,
-                  // Vị trí dựa trên kích thước màn hình
                   child: BackButton(),
-                ), // Thêm InkWell cho nút "Quay lại"
+                ),
               ],
             );
           },
