@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
@@ -44,7 +46,12 @@ class _TableViewState extends State<TableView> {
       "Sức khỏe tụt giảm nghiêm trọng",
     ]);
   }
-
+  String getRandomPicture() {
+    List<String> pictureList = ["ava1.jpg", "ava2.jpg", "ava3.jpg", "ava4.jpg", "ava5.jpg", "ava6.jpg"];
+    final Random random = Random();
+    final int randomIndex = random.nextInt(pictureList.length);
+    return pictureList[randomIndex];
+  }
   bool check() {
     for (String b in rowHeaders) {
       if (selected[b] == null) return false;
@@ -185,6 +192,7 @@ class _TableViewState extends State<TableView> {
                 if (!kReleaseMode) {
                   print("Posting User Depression Level:");
                 }
+                await Preferences.setAva(getRandomPicture());
                 var temp = await Api().postData("levelDepression", data);
                 if (!kReleaseMode) {
                   print("Data: $temp");

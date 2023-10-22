@@ -8,9 +8,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class Preferences {
   static SharedPreferences? _preferences;
 
-  static Future<int> init() async {
+  static Future init() async {
     _preferences = await SharedPreferences.getInstance();
-    return -1;
   }
 
   static Future<void> setupUser(String id) async {
@@ -35,7 +34,10 @@ class Preferences {
   }
 
   static String? getUsername() => _preferences?.getString("username");
+  static Future setAva(String id) async =>
+      await _preferences?.setString("ava", id);
 
+  static String? getAva() => _preferences?.getString("ava");
   static Future setId(String id) async =>
       await _preferences?.setString("id", id);
 

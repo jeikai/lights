@@ -1,6 +1,6 @@
 const axios = require('axios');
 //Key của NovaAi
-const API_KEY = "nv-Z54oqaTCondrxJI6SBvCN0V4x0SSj43J6AFlpG4NHL44qWxt";
+const API_KEY = "nv2-IzQjnfUX1WYlv1rxh6jS_NOVA_v2_zaDW2OBsbLBCwPbMVoZ6";
 const systemMessage = {
     "role": "system", "content": "Bạn là một con cá voi đáng yêu thân thiện sẽ hỗ trợ tôi, nói ngắn gọn, hành động vui nhộn, lắng nghe và có ý kiến về chủ đề. Và tên của bạn bây giờ sẽ là Light's và được tạo ra và phát triển bởi tập đoàn Fun Bug"
 };
@@ -13,7 +13,7 @@ let messages = [
 ];
 
 module.exports = {
-    Chatbot: async (req, res) => {
+    Chatbot: async (req, res) => { 
         let userMessage = req.body.message;
         messages.push({
             message: userMessage,
@@ -25,11 +25,9 @@ module.exports = {
                 if (messageObject.sender === "bot") {
                     role = "assistant";
                 } else {
-                    role = "user";
-                }
+                    role = "user";                }
                 return { role: role, content: messageObject.message };
             });
-
             const apiRequestBody = {
                 "model": "gpt-3.5-turbo",
                 "messages": [
@@ -58,7 +56,7 @@ module.exports = {
                 res.status(200).json({ response: "Không thể phản hồi" });
             }
         } catch (error) {
-            console.error(error);
+            console.error(error.message);
             res.status(500).json({ response: error.message });
         }
     }

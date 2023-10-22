@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/Preferences.dart';
 
 class Avatar extends StatelessWidget {
   final double? size;
   final String? avatar;
+
   const Avatar({Key? key, this.size, this.avatar}) : super(key: key);
 
   @override
@@ -17,24 +19,24 @@ class Avatar extends StatelessWidget {
         height: c,
         width: c,
         child: CircleAvatar(
-          radius: r,
-          backgroundColor: Colors.black,
-          child: CircleAvatar(
-            radius: r * 0.95,
-            backgroundColor: Color.fromARGB(255, 228, 225, 243),
+            radius: r,
+            backgroundColor: Colors.black,
             child: CircleAvatar(
-              radius: r * 0.75,
-              backgroundColor: Colors.black,
+              radius: r * 0.95,
+              backgroundColor: Color.fromARGB(255, 228, 225, 243),
               child: CircleAvatar(
+                radius: r * 0.75,
+                backgroundColor: Colors.black,
+                child: CircleAvatar(
                   radius: r * 0.7,
                   backgroundColor: avatar == null
                       ? Color.fromARGB(255, 135, 161, 201)
                       : null,
-                  backgroundImage:
-                      avatar == null ? null : NetworkImage(avatar!)),
-            ),
-          ),
-        ),
+                  backgroundImage: AssetImage(
+                      'assets/images/ava/' + (Preferences.getAva() ?? '')),
+                ),
+              ),
+            )),
       );
     });
   }

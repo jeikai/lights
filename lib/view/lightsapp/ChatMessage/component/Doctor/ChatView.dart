@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/DataConfig.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/component/Doctor/ChatCard.dart';
 
@@ -42,11 +43,11 @@ class _ChatViewState extends State<ChatView> {
                     Container(
                       height: 40,
                       width: 40,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/user_icon.png'))),
+                              image: AssetImage('assets/images/ava/' + (Preferences.getAva() ?? '')))),
                     ),
                     const SizedBox(width: 20),
                     Text(

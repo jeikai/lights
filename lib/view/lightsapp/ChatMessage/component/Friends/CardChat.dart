@@ -6,10 +6,11 @@ import 'package:provider/provider.dart';
 class CardChat extends StatelessWidget {
   final String id;
   final String name;
-
+  final String ava;
   CardChat({
     required this.id,
     required this.name,
+    required this.ava
   });
 
   @override
@@ -25,7 +26,7 @@ class CardChat extends StatelessWidget {
               child: detailChat(
                 name: name,
                 id: id,
-                image: 'assets/images/bg_chat.png',
+                image: 'assets/images/ava/' + ava,
               ),
             ),
           ),
@@ -39,7 +40,7 @@ class CardChat extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('assets/images/bg_chat.png'),
+              image: AssetImage('assets/images/ava/' + ava),
             ),
           ),
         ),

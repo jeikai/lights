@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
@@ -36,7 +38,12 @@ class _GeneratedLoginscreenWidgetState
       print("There is no local login data");
     }
   }
-
+  String getRandomPicture() {
+    List<String> pictureList = ["ava1.jpg", "ava2.jpg", "ava3.jpg", "ava4.jpg", "ava5.jpg", "ava6.jpg"];
+    final Random random = Random();
+    final int randomIndex = random.nextInt(pictureList.length);
+    return pictureList[randomIndex];
+  }
   @override
   void initState() {
     super.initState();
@@ -198,6 +205,7 @@ class _GeneratedLoginscreenWidgetState
                               response?["user"]["address"]);
                           print("setupUser");
                           await Preferences.setupUser(response?["user"]["_id"]);
+                          await Preferences.setAva(getRandomPicture());
                           ToastNoti.show("Đăng nhập thành công");
                           Navigator.pop(context);
                           Navigator.pushNamed(

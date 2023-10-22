@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
-import 'package:flutterapp/view/lightsapp/ChatMessage/DataConfig.dart';
+import 'dart:math';
 import 'package:flutterapp/view/lightsapp/ChatMessage/component/Friends/CardChat.dart';
 
 class AddPeople extends StatefulWidget {
@@ -18,6 +18,12 @@ class _AddPeopleState extends State<AddPeople> {
     return response ?? [];
   }
 
+  String getRandomPicture() {
+    List<String> pictureList = ["ava1.jpg", "ava2.jpg", "ava3.jpg", "ava4.jpg", "ava5.jpg", "ava6.jpg"];
+    final Random random = Random();
+    final int randomIndex = random.nextInt(pictureList.length);
+    return pictureList[randomIndex];
+  }
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -50,11 +56,11 @@ class _AddPeopleState extends State<AddPeople> {
                     Container(
                       height: 40,
                       width: 40,
-                      decoration: const BoxDecoration(
+                      decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/images/user_icon.png'),
+                          image: AssetImage('assets/images/ava/' + (Preferences.getAva() ?? '')),
                         ),
                       ),
                     ),
@@ -86,6 +92,7 @@ class _AddPeopleState extends State<AddPeople> {
                             return CardChat(
                               id: userData["_id"],
                               name: userData['name'],
+                              ava: getRandomPicture(),
                             );
                           }),
                         ),

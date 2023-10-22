@@ -19,25 +19,28 @@ class detailChat extends StatefulWidget {
       : super(key: key);
 
   @override
-  State<detailChat> createState() => _detailChatState();
+  State<detailChat> createState() => _DetailChatState();
 }
 
-class _detailChatState extends State<detailChat> {
+class _DetailChatState extends State<detailChat> {
   final TextEditingController _controller = TextEditingController();
   late IO.Socket socket;
 
-  void connect() {
+  bool _isLoading = true;
+
+  Future<void> connect() async {
     socket = IO.io('https://lights-server-2r1w.onrender.com', <String, dynamic>{
       "transports": ["websocket"],
       "autoConnect": true,
     });
+
     socket.connect();
-    socket.onConnect((data) => print("Connected"));
-    socket.emit("add-user", Preferences.getId());
-    socket.on('connect', (_) {
+
+    socket.onConnect((data) {
       print("Connected");
       socket.emit("add-user", Preferences.getId());
     });
+
     socket.on('msg-receive', (data) {
       IbMessage message = IbMessage(
         text: data.msg,
@@ -45,6 +48,10 @@ class _detailChatState extends State<detailChat> {
         time: data.time,
       );
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
+    });
+
+    setState(() {
+      _isLoading = false;
     });
   }
 
@@ -74,7 +81,7 @@ class _detailChatState extends State<detailChat> {
     }
   }
 
-  void AddData() async {
+  void addData() async {
     Map data = {
       "from": Preferences.getId(),
       "to": widget.id,
@@ -102,7 +109,7 @@ class _detailChatState extends State<detailChat> {
   void initState() {
     super.initState();
     connect();
-    AddData();
+    addData();
   }
 
   @override
@@ -132,7 +139,7 @@ class _detailChatState extends State<detailChat> {
     _controller.clear();
   }
 
-  Widget InputText() {
+  Widget inputText() {
     return Row(
       children: [
         Expanded(
@@ -149,7 +156,9 @@ class _detailChatState extends State<detailChat> {
                   ToastNoti.show("Bạn chưa nhập gì");
                 }
               },
-              onTapOutside: (event) => {FocusScope.of(context).unfocus()},
+              onTapOutside: (event) {
+                FocusScope.of(context).unfocus();
+              },
               decoration: InputDecoration(
                 hintText: "Nhập tin nhắn",
                 hintStyle: TextStyle(
@@ -186,90 +195,98 @@ class _detailChatState extends State<detailChat> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFFE5C6E7),
-        title: Row(
-          children: [
-            Container(
-              height: 36,
-              width: 36,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(widget.image),
-                ),
-              ),
-            ),
-            const SizedBox(
-              width: 10,
-            ),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+    return WillPopScope(
+        onWillPop: () async {
+          Navigator.popAndPushNamed(context,
+              '/homeMessage'); // Điều hướng quay lại màn hình /homeMessage
+          return false; // Chặn việc đóng màn hình
+        },
+        child: Scaffold(
+          appBar: AppBar(
+            backgroundColor: Color(0xFFE5C6E7),
+            title: Row(
               children: [
-                Text(
-                  widget.name,
-                  style: TextStyle(color: Colors.black, fontSize: 16),
+                Container(
+                  height: 36,
+                  width: 36,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: AssetImage(widget.image),
+                    ),
+                  ),
                 ),
                 const SizedBox(
-                  height: 5,
+                  width: 10,
                 ),
-                const Text(
-                  'Light\'s',
-                  style: TextStyle(
-                    fontFamily: 'Mistrully',
-                    fontSize: 12,
-                    color: Color.fromARGB(255, 195, 160, 212),
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.name,
+                      style: TextStyle(color: Colors.black, fontSize: 16),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    const Text(
+                      'Light\'s',
+                      style: TextStyle(
+                        fontFamily: 'Mistrully',
+                        fontSize: 12,
+                        color: Color.fromARGB(255, 195, 160, 212),
+                      ),
+                    )
+                  ],
                 )
               ],
-            )
-          ],
-        ),
-      ),
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/bg_chat.png'),
-            fit: BoxFit.cover,
+            ),
           ),
-        ),
-        child: SafeArea(
-          child: Column(
-            children: [
-              Flexible(
-                child: Consumer<ChatProvider>(
-                  builder: (_, provider, __) {
-                    return ListView.builder(
-                      reverse: true,
-                      padding: EdgeInsets.only(
-                        top: 20,
-                        left: 20,
-                        right: 20,
-                        bottom: 80,
-                      ),
-                      itemBuilder: (context, index) {
-                        return provider.messages[index];
-                      },
-                      itemCount: provider.messages.length,
-                    );
-                  },
+          body: _isLoading
+              ? Center(child: CircularProgressIndicator())
+              : Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/bg_chat.png'),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                  child: SafeArea(
+                    child: Column(
+                      children: [
+                        Flexible(
+                          child: Consumer<ChatProvider>(
+                            builder: (_, provider, __) {
+                              return ListView.builder(
+                                reverse: true,
+                                padding: EdgeInsets.only(
+                                  top: 20,
+                                  left: 20,
+                                  right: 20,
+                                  bottom: 80,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return provider.messages[index];
+                                },
+                                itemCount: provider.messages.length,
+                              );
+                            },
+                          ),
+                        ),
+                        const Divider(
+                          height: 1.0,
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: context.cardColor,
+                          ),
+                          child: inputText(),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ), // End Flexible
-              const Divider(
-                height: 1.0,
-              ),
-              Container(
-                decoration: BoxDecoration(
-                  color: context.cardColor,
-                ),
-                child: InputText(),
-              ),
-            ], // End Column children
-          ),
-        ),
-      ),
-    );
+        ));
   }
 }

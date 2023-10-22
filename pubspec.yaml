@@ -66,6 +66,7 @@ flutter:
     - "assets/images/movie/"
     - "assets/images/music/"
     - "assets/images/game/"
+    - "assets/images/ava/"
   fonts:
     - family: "Paytone One"
       fonts:
