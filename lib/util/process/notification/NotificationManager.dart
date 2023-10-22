@@ -15,7 +15,7 @@ class NotificationManager {
   late NotificationEventCallable _callable;
 
   static NotificationManager? _instance;
-  late final ListModel<NotificationContent> _list;
+  late ListModel<NotificationContent> _list;
 
   factory NotificationManager() {
     if (_instance == null) {
@@ -88,19 +88,15 @@ class NotificationManager {
   int get notificationUnreadCount => unreadNotifications.length;
 
   // Saving notifications to local storage
-  void saveNotificationsToLocalStorage() async {
+  Future<void> saveNotificationsToLocalStorage() async {
     try {
       List<dynamic> notificationMap =
           notifications.map((notification) => notification.toMap()).toList();
       Map<String, dynamic> data = {"notifications": notificationMap};
-      if (!kReleaseMode) {
-        print("Put New Noti!!");
-      }
+      print("Put New Noti!!");
       var temp = await Api()
           .pushDataUpdate("user/update-noti", Preferences.getId()!, data);
-      if (!kReleaseMode) {
-        print("Data: $temp");
-      }
+      print("Data: $temp");
     } catch (e) {
       print(e);
     }

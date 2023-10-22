@@ -62,6 +62,7 @@ class _TableViewState extends State<TableView> {
   }
 
   Widget build(BuildContext context) {
+    Size size = MediaQuery.sizeOf(context);
     return new Scaffold(
         body: new OrientationBuilder(builder: (context, orientation) {
       return Stack(
@@ -70,76 +71,76 @@ class _TableViewState extends State<TableView> {
             decoration: BoxDecoration(color: Colors.white),
             child: Center(
                 child: SingleChildScrollView(
-              scrollDirection: orientation ==
-                      Orientation
-                          .portrait //Handle Scroll when Orientation is changed
-                  ? Axis.horizontal
-                  : Axis.vertical,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  new Container(
-                    padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
-                    alignment: FractionalOffset.center,
+                  scrollDirection: Axis.horizontal,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        //headers
+                      children: <Widget>[
                         new Container(
-                          margin: EdgeInsets.all(0.0),
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                  color: Color.fromRGBO(168, 195, 230, 1),
-                                  width: 5),
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: new Row(
-                              children: [
-                            new Container(
-                              alignment: FractionalOffset.center,
-                              width: 200.0,
-                              height: 80.0,
-                              margin: EdgeInsets.all(0.0),
-                              padding: const EdgeInsets.only(
-                                  top: 5.0, bottom: 5.0, right: 3.0, left: 3.0),
-                              child: Text(
-                                //Leave an empty text in Row(0) and Column (0)
-                                "",
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontFamily: "Paytone One",
-                                    fontWeight: FontWeight.w100),
-                                textAlign: TextAlign.center,
-                              ),
-                            )
-                          ]..addAll(columnHeaders
-                                  .map((header) => new Container(
+                          padding: EdgeInsets.only(top: 20.0, bottom: 10.0),
+                          alignment: FractionalOffset.center,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //headers
+                              new Container(
+                                margin: EdgeInsets.all(0.0),
+                                decoration: BoxDecoration(
+                                    border: Border.all(
+                                        color: Color.fromRGBO(168, 195, 230, 1),
+                                        width: 5),
+                                    borderRadius:
+                                    BorderRadius.all(Radius.circular(20))),
+                                child: new Row(
+                                    children: [
+                                      new Container(
                                         alignment: FractionalOffset.center,
-                                        width: 120.0,
+                                        width: 200.0,
                                         height: 80.0,
                                         margin: EdgeInsets.all(0.0),
                                         padding: const EdgeInsets.only(
-                                            top: 5.0,
-                                            bottom: 5.0,
-                                            right: 3.0,
-                                            left: 3.0),
-                                        child: new Text(
-                                          header,
+                                            top: 5.0, bottom: 5.0, right: 3.0, left: 3.0),
+                                        child: Text(
+                                          //Leave an empty text in Row(0) and Column (0)
+                                          "",
                                           style: TextStyle(
                                               color: Colors.black,
                                               fontFamily: "Paytone One",
                                               fontWeight: FontWeight.w100),
                                           textAlign: TextAlign.center,
                                         ),
-                                      ))
-                                  .toList())),
-                        ),
-                      ],
+                                      )
+                                    ]..addAll(columnHeaders
+                                        .map((header) => new Container(
+                                      alignment: FractionalOffset.center,
+                                      width: 120.0,
+                                      height: 80.0,
+                                      margin: EdgeInsets.all(0.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 5.0,
+                                          bottom: 5.0,
+                                          right: 3.0,
+                                          left: 3.0),
+                                      child: new Text(
+                                        header,
+                                        style: TextStyle(
+                                            color: Colors.black,
+                                            fontFamily: "Paytone One",
+                                            fontWeight: FontWeight.w100),
+                                        textAlign: TextAlign.center,
+                                      ),
+                                    ))
+                                        .toList())),
+                              ),
+                            ],
+                          ),
+                        )
+                      ]..addAll(createRows()), //Create Rows
                     ),
-                  )
-                ]..addAll(createRows()), //Create Rows
-              ),
-            )),
+                  ),
+                )
+            ),
           ),
           Align(
             alignment: Alignment.bottomRight,
