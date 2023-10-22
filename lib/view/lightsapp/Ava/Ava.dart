@@ -85,7 +85,7 @@ class _AvaState extends State<Ava> {
                   configHeight: 50,
                   oriHeight: 0,
                   isConfig: isConfig,
-                  color: Color.fromRGBO(225, 203, 171, 1),
+                  color: Colors.transparent,
                   child: SizedBox(height: 0,),
                   configChild: TextButton(
                     style: TextButton.styleFrom(
@@ -109,7 +109,16 @@ class _AvaState extends State<Ava> {
                       Navigator.pushNamedAndRemoveUntil(context, '/GeneratedLoginscreenWidget', (Route<dynamic> route) => false);
                     },
                     child: Text('Đăng xuất'),
-                  ))
+                  )
+              ),
+              ConfigMenuConverter(
+                  configHeight: 50,
+                  oriHeight: 0,
+                  isConfig: isConfig,
+                  color: Colors.transparent,
+                  child: SizedBox(height: 0,),
+                  configChild: SizedBox(height: gap,)
+              )
             ],
           ),
         ),

@@ -25,10 +25,15 @@ class _GeneratedLoginscreenWidgetState
   bool isRuntimered = false;
 
   Future<void> runTimer(BuildContext context) async {
+    print('Run checking local login data:');
     await Future.delayed(Duration(seconds: 1));
     if(Preferences.getId() != null && Preferences.getId() != '' && Preferences.getEmail() != null && Preferences.getEmail() != '') {
+      print('There are local login data found!');
       await Preferences.setupUser(Preferences.getId()!);
+      print('Successfully setup user!');
       Navigator.pushReplacementNamed(context, '/GeneratedMainScreenWidget');
+    } else {
+      print("There is no local login data");
     }
   }
 
@@ -155,6 +160,20 @@ class _GeneratedLoginscreenWidgetState
                   child: Button(
                     text: 'Đăng nhập',
                     onPress: () async {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return WillPopScope(
+                                child: Dialog(
+                                  backgroundColor: Colors.transparent,
+                                  child: Container(
+                                    child: Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  ),
+                                ),
+                                onWillPop: () async => false);
+                          });
                       if (_formKey.currentState!.validate()) {
                         Map data = {
                           "email": _email.text,
@@ -162,25 +181,33 @@ class _GeneratedLoginscreenWidgetState
                         };
                         var response = await Api().postData("login", data);
                         if (response?["message"]) {
-
                           await Preferences.setId(response?["user"]["_id"]);
+                          print("setUN");
                           await Preferences.setUsername(
                               response?["user"]["name"]);
+                          print("setEmail");
                           await Preferences.setEmail(
                               response?["user"]["email"]);
+                          print("setPN");
                           await Preferences.setPhoneNumber(
                               response?["user"]["phoneNumber"]);
+                          print("setDOB");
                           await Preferences.setDOB(response?["user"]["DOB"]);
+                          print("setAddress");
                           await Preferences.setAddress(
                               response?["user"]["address"]);
+                          print("setupUser");
                           await Preferences.setupUser(response?["user"]["_id"]);
                           ToastNoti.show("Đăng nhập thành công");
+                          Navigator.pop(context);
                           Navigator.pushNamed(
                               context, '/GeneratedMainScreenWidget');
                         } else {
+                          Navigator.pop(context);
                           ToastNoti.show("Sai email hoặc mật khẩu");
                         }
                       } else {
+                        Navigator.pop(context);
                         ToastNoti.show("Có lỗi");
                       }
                     },
