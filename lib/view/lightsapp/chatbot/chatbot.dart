@@ -35,7 +35,7 @@ class _ChatbotState extends State<Chatbot> {
       "message": _controller.text,
     };
     _controller.clear();
-    var response = await Api().postData("chatbot", request);
+    var response = await Api().postData("Chatbot", request);
     insertNewData(response!["response"]);
   }
 

@@ -28,30 +28,26 @@ class _DetailChatState extends State<detailChat> {
 
   bool _isLoading = true;
 
-  Future<void> connect() async {
-    socket = IO.io('https://lights-server-2r1w.onrender.com', <String, dynamic>{
-      "transports": ["websocket"],
-      "autoConnect": true,
-    });
+  connect() {
+    // socket = IO.io('http://192.168.40.222:5000', <String, dynamic>{
+    //   "transports": ["websocket"],
+    //   "autoConnect": true,
+    // });
 
-    socket.connect();
+    // socket.connect();
+    socket.onConnect((data) => print('Connection established'));
+//     socket.onConnect((data) {
+//       print("Connected");
+//       socket.emit("add-user", Preferences.getId());
+//     });
 
-    socket.onConnect((data) {
-      print("Connected");
-      socket.emit("add-user", Preferences.getId());
-    });
-
-    socket.on('msg-receive', (data) {
+    socket.on('message', (data) {
       IbMessage message = IbMessage(
         text: data.msg,
         isSender: false,
         time: data.time,
       );
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
-    });
-
-    setState(() {
-      _isLoading = false;
     });
   }
 
@@ -92,8 +88,9 @@ class _DetailChatState extends State<detailChat> {
       final String formattedTime = formatTime(messageData["time"]);
       final DateTime parsedTime =
           DateFormat('dd MMM yyyy HH:mm:ss').parse(formattedTime);
+      final DateTime adjustedTime = parsedTime.add(Duration(hours: 7));
       final String formattedMessageTime =
-          DateFormat('HH:mm:ss').format(parsedTime);
+          DateFormat('dd MMM yyyy HH:mm:ss').format(adjustedTime);
 
       IbMessage message = IbMessage(
         text: messageData["message"],
@@ -108,12 +105,21 @@ class _DetailChatState extends State<detailChat> {
   @override
   void initState() {
     super.initState();
+    socket = IO.io(
+      'http://192.168.40.222:5000',
+      IO.OptionBuilder().setTransports(['websocket']).setQuery(
+          {'userId': Preferences.getId()}).build(),
+    );
     connect();
     addData();
+    setState(() {
+      _isLoading = false;
+    });
   }
 
   @override
   void dispose() {
+    _controller.dispose();
     super.dispose();
   }
 
@@ -127,12 +133,14 @@ class _DetailChatState extends State<detailChat> {
     var response = await Api().postData("addmsg", data);
     if (response?["status"]) {
       DateTime now = DateTime.now();
-      String formattedTime = DateFormat('HH:mm:ss').format(now);
+      String formattedTime = DateFormat('dd MMM yyyy HH:mm:ss').format(now);
       IbMessage message = IbMessage(
           text: _controller.text, isSender: true, time: formattedTime);
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
-      socket.emit("send-msg",
-          {"to": widget.id, "msg": _controller.text, "time": formattedTime});
+//       socket.emit("send-msg",
+//           {"to": widget.id, "msg": _controller.text, "time": formattedTime});
+      socket.emit(
+          "message", {"msg": _controller.text.trim(), "time": formattedTime});
     } else {
       ToastNoti.show("Gửi tin nhắn không thành công");
     }
