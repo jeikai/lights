@@ -28,26 +28,36 @@ class _DetailChatState extends State<detailChat> {
 
   bool _isLoading = true;
 
-  connect() {
-    // socket = IO.io('http://192.168.40.222:5000', <String, dynamic>{
-    //   "transports": ["websocket"],
-    //   "autoConnect": true,
-    // });
+  Future<void> connect() async {
+    socket = IO.io('https://lights-server-2r1w.onrender.com', <String, dynamic>{
+      "transports": ["websocket"],
+      "autoConnect": true,
+    });
 
-    // socket.connect();
-    socket.onConnect((data) => print('Connection established'));
-//     socket.onConnect((data) {
-//       print("Connected");
-//       socket.emit("add-user", Preferences.getId());
-//     });
+    socket.connect();
 
-    socket.on('message', (data) {
-      IbMessage message = IbMessage(
-        text: data.msg,
-        isSender: false,
-        time: data.time,
-      );
-      Provider.of<ChatProvider>(context, listen: false).addMessage(message);
+    socket.onConnect((data) {
+      print("Connected");
+      socket.emit("add-user", Preferences.getId());
+    });
+    socket.onConnectError((data) => print('Connect Error: $data'));
+    socket.onDisconnect((data) => print('Socket.IO server disconnected'));
+    socket.on('msg-receive', (data) {
+      if (data != null && data.containsKey('msg')) {
+        IbMessage message = IbMessage(
+          text: data['msg'],
+          isSender: false,
+          time: data['time'],
+        );
+        Provider.of<ChatProvider>(context, listen: false).addMessage(message);
+      } else {
+        // Xử lý dữ liệu không hợp lệ hoặc trường hợp khác
+        print('Received invalid data from the server.');
+      }
+    });
+
+    setState(() {
+      _isLoading = false;
     });
   }
 
@@ -87,10 +97,10 @@ class _DetailChatState extends State<detailChat> {
     for (var messageData in response!) {
       final String formattedTime = formatTime(messageData["time"]);
       final DateTime parsedTime =
-          DateFormat('dd MMM yyyy HH:mm:ss').parse(formattedTime);
+      DateFormat('dd MMM yyyy HH:mm:ss').parse(formattedTime);
       final DateTime adjustedTime = parsedTime.add(Duration(hours: 7));
       final String formattedMessageTime =
-          DateFormat('dd MMM yyyy HH:mm:ss').format(adjustedTime);
+      DateFormat('dd MMM yyyy HH:mm:ss').format(adjustedTime);
 
       IbMessage message = IbMessage(
         text: messageData["message"],
@@ -105,21 +115,12 @@ class _DetailChatState extends State<detailChat> {
   @override
   void initState() {
     super.initState();
-    socket = IO.io(
-      'http://192.168.40.222:5000',
-      IO.OptionBuilder().setTransports(['websocket']).setQuery(
-          {'userId': Preferences.getId()}).build(),
-    );
     connect();
     addData();
-    setState(() {
-      _isLoading = false;
-    });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
     super.dispose();
   }
 
@@ -137,10 +138,8 @@ class _DetailChatState extends State<detailChat> {
       IbMessage message = IbMessage(
           text: _controller.text, isSender: true, time: formattedTime);
       Provider.of<ChatProvider>(context, listen: false).addMessage(message);
-//       socket.emit("send-msg",
-//           {"to": widget.id, "msg": _controller.text, "time": formattedTime});
-      socket.emit(
-          "message", {"msg": _controller.text.trim(), "time": formattedTime});
+      socket.emit("send-msg",
+          {"to": widget.id, "msg": _controller.text, "time": formattedTime});
     } else {
       ToastNoti.show("Gửi tin nhắn không thành công");
     }
@@ -177,7 +176,7 @@ class _DetailChatState extends State<detailChat> {
                 ),
                 border: InputBorder.none,
                 contentPadding:
-                    EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
               ),
               style: TextStyle(
                 color: Color.fromRGBO(90, 106, 176, 1),
@@ -254,47 +253,47 @@ class _DetailChatState extends State<detailChat> {
           body: _isLoading
               ? Center(child: CircularProgressIndicator())
               : Container(
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                      image: AssetImage('assets/images/bg_chat.png'),
-                      fit: BoxFit.cover,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/bg_chat.png'),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Flexible(
+                    child: Consumer<ChatProvider>(
+                      builder: (_, provider, __) {
+                        return ListView.builder(
+                          reverse: true,
+                          padding: EdgeInsets.only(
+                            top: 20,
+                            left: 20,
+                            right: 20,
+                            bottom: 80,
+                          ),
+                          itemBuilder: (context, index) {
+                            return provider.messages[index];
+                          },
+                          itemCount: provider.messages.length,
+                        );
+                      },
                     ),
                   ),
-                  child: SafeArea(
-                    child: Column(
-                      children: [
-                        Flexible(
-                          child: Consumer<ChatProvider>(
-                            builder: (_, provider, __) {
-                              return ListView.builder(
-                                reverse: true,
-                                padding: EdgeInsets.only(
-                                  top: 20,
-                                  left: 20,
-                                  right: 20,
-                                  bottom: 80,
-                                ),
-                                itemBuilder: (context, index) {
-                                  return provider.messages[index];
-                                },
-                                itemCount: provider.messages.length,
-                              );
-                            },
-                          ),
-                        ),
-                        const Divider(
-                          height: 1.0,
-                        ),
-                        Container(
-                          decoration: BoxDecoration(
-                            color: context.cardColor,
-                          ),
-                          child: inputText(),
-                        ),
-                      ],
-                    ),
+                  const Divider(
+                    height: 1.0,
                   ),
-                ),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: context.cardColor,
+                    ),
+                    child: inputText(),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ));
   }
 }
