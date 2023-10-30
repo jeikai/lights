@@ -6,3 +6,5 @@ build
 /.vscode/
 /flutter-icons-2a72082a/
 /.dart_tool/
+/android/
+/ios/
