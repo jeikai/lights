@@ -19,13 +19,18 @@ class ResultScreen extends StatelessWidget {
           color: Colors.black87,
         ),
         centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 250, 241, 255),
         title: Text(
-          "QR Scanner",
+          'light s',
+          overflow: TextOverflow.visible,
+          textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.black87,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1),
+            height: 1.6,
+            fontSize: 30.0,
+            fontFamily: 'Mistrully',
+            fontWeight: FontWeight.w400,
+            color: Color.fromARGB(255, 195, 160, 212),
+          ),
         ),
       ),
       body: Container(
@@ -36,7 +41,7 @@ class ResultScreen extends StatelessWidget {
           children: [
             QrImageView(data: code, size: 150, version: QrVersions.auto),
             const Text(
-              "Scanned Sucessfully",
+              "QR Light's",
               style: TextStyle(
                   color: Colors.black87,
                   fontSize: 16,

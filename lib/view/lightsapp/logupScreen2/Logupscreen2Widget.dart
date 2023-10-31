@@ -190,7 +190,7 @@ class _GeneratedLogupscreen2WidgetState
                               ToastNoti.show(
                                   "Mật khẩu nhập lại phải khớp với mật khẩu đã nhập");
                             } else if (!isValidDOB(_DOB.text)) {
-                              ToastNoti.show("Ngày sinh không hợp lệ");
+                              ToastNoti.show("Ngày sinh không hợp lệ. Ví dụ: 01/01/2000");
                             } else {
                               Map data = {
                                 "email": email,
@@ -203,9 +203,11 @@ class _GeneratedLogupscreen2WidgetState
                               print(data);
                               var response =
                                   await Api().postData("register", data);
-                              print(response?["user"]);
-
-                              if (response?["user"]["_id"] != null) {
+                              Map data2 = {
+                                "userId": response?["user"]["_id"]
+                              };
+                              var response2 = await Api().postData("regisCard", data2);
+                              if (response?["user"]["_id"] != null && response2?["message"] == 'Success') {
                                 await Preferences.setId(
                                     response?["user"]["_id"]);
                                 await Preferences.setUsername(

@@ -28,7 +28,7 @@ class _GeneratedLoginscreenWidgetState
 
   Future<void> runTimer(BuildContext context) async {
     print('Run checking local login data:');
-    await Future.delayed(Duration(seconds: 1));
+    // await Future.delayed(Duration(seconds: 1));
     if(Preferences.getId() != null && Preferences.getId() != '' && Preferences.getEmail() != null && Preferences.getEmail() != '') {
       print('There are local login data found!');
       await Preferences.setupUser(Preferences.getId()!);
