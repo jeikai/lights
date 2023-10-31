@@ -9,6 +9,7 @@ import 'package:flutterapp/view/lightsapp/Game/Game.dart';
 import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
 import 'package:flutterapp/view/lightsapp/Scan/ScanQr.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
+import 'package:flutterapp/view/lightsapp/cardMenu/CardMenu.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
 import 'package:flutterapp/view/lightsapp/egg_screen/egg_screen.dart';
@@ -79,8 +80,8 @@ class _LightsAppState extends State<_LightsApp> {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        //initialRoute: '/Form',
-        initialRoute: '/GeneratedLoginscreenWidget',
+        initialRoute: '/Card',
+        // initialRoute: '/GeneratedLoginscreenWidget',
         routes: {
           '/GeneratedStartscreenWidget': (context) => EggScreen(),
           '/GeneratedHelloscreenWidget': (context) =>
@@ -109,6 +110,7 @@ class _LightsAppState extends State<_LightsApp> {
           '/Form': (context) => TableView(),
           '/Game': (context) => GamesPage(),
           '/scanQr': (context) => ScanQr(),
+          '/Card': (context) => CardMenu(),
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {

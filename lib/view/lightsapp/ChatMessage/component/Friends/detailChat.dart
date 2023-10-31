@@ -162,6 +162,7 @@ class _DetailChatState extends State<detailChat> {
                 if (value!.isEmpty) {
                   ToastNoti.show("Bạn chưa nhập gì");
                 }
+                return null;
               },
               onTapOutside: (event) {
                 FocusScope.of(context).unfocus();

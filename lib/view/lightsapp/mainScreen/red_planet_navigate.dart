@@ -37,7 +37,7 @@ class _RedPlanetNavigateState extends State<RedPlanetNavigate> {
 }
 
 class _RedPlanetWrapper extends StatelessWidget {
-  const _RedPlanetWrapper({super.key});
+  const _RedPlanetWrapper();
 
   @override
   Widget build(BuildContext context) {

@@ -146,8 +146,7 @@ class _AnimatedCoverWrapper extends StatefulWidget {
   final AnimationController controller;
 
   const _AnimatedCoverWrapper(
-      {super.key,
-      required this.animation,
+      {required this.animation,
       required this.transitionBuilder,
       required this.controller,
       this.cover});

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/Scan/resultScreen.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';

@@ -41,15 +41,15 @@ class NormalCell extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
         builder: (BuildContext context, BoxConstraints constraints) {
-          double l_w = constraints.maxWidth * 0.7;
-          double r_w = constraints.maxWidth * 0.3;
+          double lW = constraints.maxWidth * 0.7;
+          double rW = constraints.maxWidth * 0.3;
           return ValueListenableBuilder(
             valueListenable: valueNotifier,
             builder: (BuildContext context, double value, Widget? widget) {
               return Row(
                 children: [
                   SizedBox(
-                    width: l_w,
+                    width: lW,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
@@ -63,7 +63,7 @@ class NormalCell extends StatelessWidget {
                             textAlign: TextAlign.left,
                             textDirection: TextDirection.ltr,
                           ),
-                          width: l_w * 0.8,
+                          width: lW * 0.8,
                         ),
                         AnimatedBuilder(
                             animation: lineAnimation,
@@ -71,16 +71,16 @@ class NormalCell extends StatelessWidget {
                               return ProgressBar(
                                 value: valueNotifier.value * lineAnimation.value,
                                 height: pbThickness,
-                                width: l_w * 0.8,
+                                width: lW * 0.8,
                               );
                             })
                       ],
                     ),
                   ),
                   SizedBox(
-                      width: r_w,
+                      width: rW,
                       child: Padding(
-                        padding: EdgeInsets.all(r_w * 0.15),
+                        padding: EdgeInsets.all(rW * 0.15),
                         child: GestureDetector(
                       onTap: () async {
                         if (percent == 1) return;

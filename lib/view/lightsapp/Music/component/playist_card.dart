@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/song_model.dart';
 import 'package:flutterapp/view/lightsapp/Music/Music.dart';
-import 'package:get/get.dart';
 
 class PlaylistCard extends StatelessWidget {
   const PlaylistCard({

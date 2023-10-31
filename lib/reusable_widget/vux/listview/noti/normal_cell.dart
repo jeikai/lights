@@ -163,32 +163,32 @@ class InnerNormalCell extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double w = this._w * 0.9;
-    double w_l = w / 6;
-    double w_r = w / 6 * 3.9;
+    double wL = w / 6;
+    double wR = w / 6 * 3.9;
     return Container(
-      constraints: BoxConstraints(minHeight: w_l),
+      constraints: BoxConstraints(minHeight: wL),
       decoration: BoxDecoration(
         color: Color.fromARGB(255, 250, 241, 255),
-        borderRadius: BorderRadius.circular(w_l / 4),
+        borderRadius: BorderRadius.circular(wL / 4),
         border: Border.all(),
       ),
       child: Row(
         children: [
           Container(
-            width: w_l,
-            height: w_l,
+            width: wL,
+            height: wL,
             child: Center(
               child: Avatar(
-                size: w_l / 2,
+                size: wL / 2,
               ),
             ),
           ),
           SizedBox(
-            width: w_r,
+            width: wR,
             height: height,
             child: Center(
               child: Padding(
-                padding: EdgeInsets.only(top: w_l / 10, bottom: w_l / 10),
+                padding: EdgeInsets.only(top: wL / 10, bottom: wL / 10),
                 child: Text(
                   noti.content,
                   style: style,
@@ -199,7 +199,7 @@ class InnerNormalCell extends StatelessWidget {
           Builder(builder: (context2) {
             return isClickable
                 ? SizedBox(
-                    width: w_l,
+                    width: wL,
                     child: Center(
                       child: ElevatedButton(
                         onPressed: () {
@@ -214,7 +214,7 @@ class InnerNormalCell extends StatelessWidget {
                     ),
                   )
                 : SizedBox(
-                    width: w_l,
+                    width: wL,
                   );
           })
         ],
