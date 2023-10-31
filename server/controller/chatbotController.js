@@ -13,7 +13,7 @@ let messages = [
 ];
 
 module.exports = {
-    Chatbot: async (req, res) => { 
+    Chatbot: async (req, res) => {
         let userMessage = req.body.message;
         messages.push({
             message: userMessage,
@@ -25,9 +25,11 @@ module.exports = {
                 if (messageObject.sender === "bot") {
                     role = "assistant";
                 } else {
-                    role = "user";                }
+                    role = "user";
+                }
                 return { role: role, content: messageObject.message };
             });
+
             const apiRequestBody = {
                 "model": "gpt-3.5-turbo",
                 "messages": [
@@ -56,7 +58,7 @@ module.exports = {
                 res.status(200).json({ response: "Không thể phản hồi" });
             }
         } catch (error) {
-            console.error(error.message);
+            console.error(error);
             res.status(500).json({ response: error.message });
         }
     }
