@@ -7,6 +7,7 @@ import 'package:flutterapp/view/lightsapp/ForgetPasswordScreen2/GeneratedForgotp
 import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/Game/Game.dart';
 import 'package:flutterapp/view/lightsapp/Music/HomeScreenMusic.dart';
+import 'package:flutterapp/view/lightsapp/Scan/ScanQr.dart';
 import 'package:flutterapp/view/lightsapp/calender/calender_screen.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/chatbot.dart';
 import 'package:flutterapp/view/lightsapp/custommenu/custom_menu.dart';
@@ -107,6 +108,7 @@ class _LightsAppState extends State<_LightsApp> {
           '/Calender': (context) => CalenderScreen(),
           '/Form': (context) => TableView(),
           '/Game': (context) => GamesPage(),
+          '/scanQr': (context) => ScanQr(),
         },
         onGenerateRoute: (RouteSettings setting) {
           switch (setting.name) {

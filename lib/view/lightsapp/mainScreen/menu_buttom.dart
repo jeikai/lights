@@ -60,6 +60,15 @@ class MenuButtom extends StatelessWidget {
           },
           icon: MyFlutterIcon.list_alt,
         ),
+        SizedBox(width: 16),
+        Template(
+          width: 50,
+          height: 50,
+          onPress: () {
+                Navigator.pushNamed(context, "/scanQr");
+          },
+          icon: Icons.qr_code_scanner,
+        ),
       ],
     );
   }

@@ -4,6 +4,7 @@ publish_to: "none"
 version: "1.0.0+1"
 dependencies:
   provider: ^6.0.5
+  mobile_scanner: ^3.5.1
   fluttertoast: ^8.2.2
   url_launcher: ^6.1.14
   velocity_x: ^3.6.0
@@ -33,6 +34,8 @@ dependencies:
   get: ^4.6.5
   just_audio: ^0.9.28
   rxdart: ^0.27.5
+  qr_flutter: ^4.1.0
+  qr_scanner_overlay: ^0.0.2
 dev_dependencies: 
   flutter_test: 
     sdk: "flutter"
