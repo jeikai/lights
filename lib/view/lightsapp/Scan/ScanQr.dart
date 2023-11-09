@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/reusable_widget/toast.dart';
+import 'package:flutterapp/services/api.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/Scan/resultScreen.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
@@ -15,28 +18,49 @@ class ScanQr extends StatefulWidget {
 class _ScanQrState extends State<ScanQr> {
   bool inScanCompleted = false;
   bool isFlashOn = false;
+  MobileScannerController controller = MobileScannerController();
   void closeScreen() {
     inScanCompleted = false;
+  }
+
+  bool isCodeValid(String code) {
+    final RegExp regex =
+        RegExp(r'^https://lights-server-2r1w.onrender.com/api/scanCard/\d+$');
+    return regex.hasMatch(code);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: bgColor,
-      drawer: const Drawer(),
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.flash_on,color: Colors.grey,))
+          IconButton(
+              onPressed: () {
+                setState(() {
+                  isFlashOn = !isFlashOn;
+                });
+                controller.toggleTorch();
+              },
+              icon: Icon(
+                Icons.flash_on,
+                color: isFlashOn ? Colors.blue : Colors.grey,
+              ))
         ],
         iconTheme: const IconThemeData(color: Colors.black87),
         centerTitle: true,
+        backgroundColor: Color.fromARGB(255, 250, 241, 255),
         title: Text(
-          "QR Scanner",
+          'light s',
+          overflow: TextOverflow.visible,
+          textAlign: TextAlign.center,
           style: TextStyle(
-              color: Colors.black87,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 1),
+            height: 1.6,
+            fontSize: 30.0,
+            fontFamily: 'Mistrully',
+            fontWeight: FontWeight.w400,
+            color: Color.fromARGB(255, 195, 160, 212),
+          ),
         ),
       ),
       body: Container(
@@ -73,18 +97,30 @@ class _ScanQrState extends State<ScanQr> {
                 flex: 4,
                 child: Stack(children: [
                   MobileScanner(
-                    onDetect: (barcode) {
+                    controller: controller,
+                    onDetect: (barcode) async {
                       if (!inScanCompleted) {
                         inScanCompleted = true;
                         String code = barcode.raw[0]['url']['url'] ?? '---';
-                        if (code != '---') {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ResultScreen(
-                                        closeScreen: closeScreen,
-                                        code: code,
-                                      )));
+                        if (isCodeValid(code)) {
+                          Map data = {"userId": Preferences.getId()};
+                          var response = await Api().scanQR(code, data);
+                          print(response);
+                          if (response?["message"] == "Success") {
+                            ToastNoti.show("Quét QR thành công");
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => ResultScreen(
+                            //               closeScreen: closeScreen,
+                            //               code: code,
+                            //             )));
+                          } else {
+                            ToastNoti.show("Quét QR không thành công");
+                          }
+                        } else {
+                          inScanCompleted = false;
+                          ToastNoti.show("Mã QR không hợp lệ");
                         }
                       }
                     },

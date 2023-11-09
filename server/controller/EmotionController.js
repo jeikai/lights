@@ -62,7 +62,8 @@ module.exports = {
       for (const monthYear in monthlyStats) {
         const { totalEmotion, count } = monthlyStats[monthYear];
         const averageEmotion = totalEmotion / count;
-        result.push(averageEmotion); // Thêm trung bình cảm xúc vào mảng kết quả
+        const roundedAverageEmotion = Math.round(averageEmotion); // Làm tròn kết quả
+        result.push(roundedAverageEmotion); // Thêm trung bình cảm xúc đã được làm tròn vào mảng kết quả
       }
       res.status(200).json(result);
     } catch (error) {
