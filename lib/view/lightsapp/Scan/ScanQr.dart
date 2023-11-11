@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/reusable_widget/toast.dart';
+import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/Scan/resultScreen.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
@@ -19,6 +21,12 @@ class _ScanQrState extends State<ScanQr> {
   MobileScannerController controller = MobileScannerController();
   void closeScreen() {
     inScanCompleted = false;
+  }
+
+  bool isCodeValid(String code) {
+    final RegExp regex =
+        RegExp(r'^https://lights-server-2r1w.onrender.com/api/scanCard/\d+$');
+    return regex.hasMatch(code);
   }
 
   @override
@@ -91,21 +99,29 @@ class _ScanQrState extends State<ScanQr> {
                   MobileScanner(
                     controller: controller,
                     onDetect: (barcode) async {
-                      print(barcode.raw[0]);
                       if (!inScanCompleted) {
                         inScanCompleted = true;
                         String code = barcode.raw[0]['url']['url'] ?? '---';
-                        Map data = {
-                          "userId": Preferences.getId()
-                        };
-                        // var response = await Api().
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ResultScreen(
-                                      closeScreen: closeScreen,
-                                      code: code,
-                                    )));
+                        if (isCodeValid(code)) {
+                          Map data = {"userId": Preferences.getId()};
+                          var response = await Api().scanQR(code, data);
+                          print(response);
+                          if (response?["message"] == "Success") {
+                            ToastNoti.show("Quét QR thành công");
+                            // Navigator.push(
+                            //     context,
+                            //     MaterialPageRoute(
+                            //         builder: (context) => ResultScreen(
+                            //               closeScreen: closeScreen,
+                            //               code: code,
+                            //             )));
+                          } else {
+                            ToastNoti.show("Quét QR không thành công");
+                          }
+                        } else {
+                          inScanCompleted = false;
+                          ToastNoti.show("Mã QR không hợp lệ");
+                        }
                       }
                     },
                   ),

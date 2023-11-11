@@ -29,7 +29,10 @@ class _GeneratedLoginscreenWidgetState
   Future<void> runTimer(BuildContext context) async {
     print('Run checking local login data:');
     // await Future.delayed(Duration(seconds: 1));
-    if(Preferences.getId() != null && Preferences.getId() != '' && Preferences.getEmail() != null && Preferences.getEmail() != '') {
+    if (Preferences.getId() != null &&
+        Preferences.getId() != '' &&
+        Preferences.getEmail() != null &&
+        Preferences.getEmail() != '') {
       print('There are local login data found!');
       await Preferences.setupUser(Preferences.getId()!);
       print('Successfully setup user!');
@@ -38,12 +41,21 @@ class _GeneratedLoginscreenWidgetState
       print("There is no local login data");
     }
   }
+
   String getRandomPicture() {
-    List<String> pictureList = ["ava1.jpg", "ava2.jpg", "ava3.jpg", "ava4.jpg", "ava5.jpg", "ava6.jpg"];
+    List<String> pictureList = [
+      "ava1.jpg",
+      "ava2.jpg",
+      "ava3.jpg",
+      "ava4.jpg",
+      "ava5.jpg",
+      "ava6.jpg"
+    ];
     final Random random = Random();
     final int randomIndex = random.nextInt(pictureList.length);
     return pictureList[randomIndex];
   }
+
   @override
   void initState() {
     super.initState();
@@ -55,9 +67,10 @@ class _GeneratedLoginscreenWidgetState
     _email.dispose();
     _password.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-    if(!isRuntimered) {
+    if (!isRuntimered) {
       runTimer(context);
       isRuntimered = true;
     }

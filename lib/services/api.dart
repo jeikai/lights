@@ -3,7 +3,7 @@ import 'package:flutterapp/util/Preferences.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "http://192.168.40.222:5000/api/";
+  static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
 
   Future<String?> uploadImage(String path) async {
     final Uri uri = Uri.parse(baseUrl + "upload");
@@ -52,6 +52,28 @@ class Api {
         return jsonResponse;
       } else {
         print('Có lỗi xảy ra: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Lỗi: $e');
+      return null;
+    }
+  }
+
+  Future<Map<String, dynamic>?> scanQR(String path, Map data) async {
+    final Uri uri = Uri.parse(path);
+    try {
+      String jsonData = jsonEncode(data);
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      final http.Response response =
+      await http.put(uri, headers: headers, body: jsonData);
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        return jsonResponse;
+      } else {
+        print('Có lỗi xảy ra: ${response.body}');
         return null;
       }
     } catch (e) {
