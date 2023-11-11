@@ -305,7 +305,10 @@ class Api {
   }
   Future<List<Cardd>> getCards() async {
     List<dynamic> data = (await getDataById("getUserCard", Preferences.getId()!))!["userCards"]!;
-    var res = data.map((e) => Cardd.map(e)).toList();
+    List<Cardd> res = [];
+    for(int i = 0; i < data.length; i++) {
+      res.add(Cardd.map(data[i]));
+    }
     return res;
   }
 

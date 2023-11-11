@@ -36,7 +36,7 @@ module.exports = {
             );
 
             if (updatedMissionCard) {
-                res.status(200).json({ message: 'Success' });
+                res.status(200).json({ message: 'Success'});
             } else {
                 res.status(404).json({ message: 'Error' });
             }

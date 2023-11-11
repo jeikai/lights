@@ -193,8 +193,7 @@ class _CardMenuState extends State<CardMenu> {
       // ];
       return cards;
     }catch(e){
-      print(e);
-      return null;
+      throw e;
     }
   }
 
@@ -302,17 +301,33 @@ class CarddWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        if(!card.isScanned) return;
         Navigator.push(context, MaterialPageRoute(builder: (context) => CardDetail(card: card)));
       },
       child: Container(
         child: Stack(
+          alignment: Alignment.center,
           children: [
             Image.memory(
               ImageManager().getBytes(ImageManager.card)!,
               //make image gray if is not scanned
               color: card.isScanned ? null : Colors.grey,
               colorBlendMode: BlendMode.saturation,
-            )
+            ),
+            if(card.isCompleted)
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  borderRadius: BorderRadius.all(Radius.circular(100))
+                ),
+                child: Icon(
+                  Icons.check,
+                  color: Colors.white,
+                  size: 50,
+                )
+              )
           ],
         ),
       ),

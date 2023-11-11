@@ -5,7 +5,7 @@ class Cardd {
   String userI;
   String cardId;
   String description;
-  int isCompleted;
+  int _isCompleted;
   int _isScanned;
   String answer;
 
@@ -15,13 +15,13 @@ class Cardd {
         this.userI = "",
        this.cardId = "",
       required this.description,
-      required this.isCompleted,
+      required int isCompleted,
       required int isScanned,
-      required this.answer}): _isScanned = isScanned;
+      required this.answer}): _isScanned = isScanned, _isCompleted = isCompleted;
 
   //make an isScanned getter that returns a bool
   bool get isScanned => _isScanned == 1;
-
+  bool get isCompleted => _isCompleted == 1;
 
   @override
   String toString() {
@@ -31,11 +31,11 @@ class Cardd {
   static Cardd map(Map data) {
     return Cardd(
       id: data['_id'],
-      userI: data['user_id'],
-      cardId: data['card_id'],
+      userI: data['userId'],
+      cardId: data['cardId'],
       description: data['description'],
-      isCompleted: data['is_completed'],
-      isScanned: data['is_scanned'],
+      isCompleted: data['isCompleted'],
+      isScanned: data['isScanned'],
       answer: data['answer'],
     );
   }
