@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
@@ -280,6 +281,7 @@ class CardTable extends StatelessWidget {
           ),
         ),
         Expanded(child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
             child: Padding(
               padding: const EdgeInsets.all(8),
               child: Table(
@@ -298,197 +300,190 @@ class CarddWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Stack(
-        children: [
-          Image.memory(
-            ImageManager().getBytes(ImageManager.card)!,
-            //make image gray if is not scanned
-            color: card.isScanned ? null : Colors.grey,
-            colorBlendMode: BlendMode.saturation,
-          )
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CardDetail(card: card)));
+      },
+      child: Container(
+        child: Stack(
+          children: [
+            Image.memory(
+              ImageManager().getBytes(ImageManager.card)!,
+              //make image gray if is not scanned
+              color: card.isScanned ? null : Colors.grey,
+              colorBlendMode: BlendMode.saturation,
+            )
+          ],
+        ),
       ),
     );
   }
 }
 
 //a Card detail widget with a text field to edit the answer at the bottom and a text to display the description on top, a back button and a tick button in the middle, with a dedicated Theme of random Pastels color
-class CardDetail extends StatelessWidget {
+class CardDetail extends StatefulWidget {
   final Cardd card;
   const CardDetail({super.key, required this.card});
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(
-            card.description,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          Text(
-            card.answer,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.check,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          )
-        ],
-      ),
-    );
-  }
+  State<CardDetail> createState() => _CardDetailState();
 }
 
-//a Card edit widget with a text field to edit the description at the top and a text field to edit the answer at the bottom, a back button and a tick button in the middle, with a dedicated Theme of random Pastels color
-class CardEdit extends StatelessWidget {
-  final Cardd card;
-  const CardEdit({super.key, required this.card});
+class _CardDetailState extends State<CardDetail> {
+  get card => widget.card;
+
+  var a;
+  var focus = FocusNode(canRequestFocus: true);
+  late final TextEditingController controller;
+  ValueNotifier<bool> isFocus = ValueNotifier(false);
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Text(
-            card.description,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          Text(
-            card.answer,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
-          Row(
-            children: [
-              IconButton(
-                icon: Icon(
-                  Icons.arrow_back_rounded,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              IconButton(
-                icon: Icon(
-                  Icons.check,
-                  color: Theme.of(context).colorScheme.secondary,
-                ),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          )
-        ],
-      ),
-    );
+  void initState() {
+    super.initState();
+    a = getRandomPastelColor();
+    controller = TextEditingController(text: card.answer);
   }
-}
 
-class CardAdd extends StatelessWidget {
-  final Cardd card;
-
-  const CardAdd({super.key, required this.card});
-  
-  
-  Color generateRandomColor(Color? mix) {
-    Random random = new Random();
+  (Color, Color, Color) getRandomPastelColor() {
+    Random random = new Random(DateTime.now().microsecond);
     int red = random.nextInt(256);
     int green = random.nextInt(256);
     int blue = random.nextInt(256);
-
-    // mix the color
-    if (mix != null) {
-      red = ((red + mix.red) / 2) as int;
-      green = ((green + mix.green) / 2) as int;
-      blue = ((blue + mix.blue) / 2) as int;
-    }
-
-    Color color = new Color.fromARGB(255, red, green, blue);
-    return color;
+    Color color = new Color.fromARGB(255, (red + 255) ~/ 2, (green + 255) ~/ 2, (blue + 255) ~/ 2);
+    Color roloc = new Color.fromARGB(255, red ~/2, green ~/2, blue ~/2);
+    Color locro = new Color.fromARGB(255, (red + 255*3) ~/4, (green + 255*3) ~/4, (blue + 255*3) ~/4);
+    return (color, roloc, locro);
   }
 
   @override
   Widget build(BuildContext context) {
-
-    //generate random pastel color
-    Color color = generateRandomColor(null);
-
-    return Scaffold(
-      //apply generated color as theme
-
-        appBar: AppBar(
-          title: Text('Edit Card'),
-        ),
-
-        body: Padding(
-          padding: const EdgeInsets.all(16.0),
-
-          child: Column(
-            children: [
-
-              //description text field
-              TextField(
-                decoration: InputDecoration(labelText: 'Description'),
-                onChanged: (value) => card.description = value,
+    var size = MediaQuery.of(context).size;
+    //a TextStyle with align center and text size fit it parent bounds and center vertically
+    TextStyle textStyle = TextStyle(
+        fontSize: size.width / 15,
+        fontWeight: FontWeight.bold,
+        fontFamily: "DFVNDoris",
+        color: Color.fromARGB(255, 16,52,80)
+    );
+    Widget child = Container(
+      //make the Container fit parent
+      width: size.width,
+      height: size.height,
+      decoration: BoxDecoration(
+        color: a.$1,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.only(top: size.height / 8),
+            child: Text(
+              "Question",
+              style: TextStyle(
+                  fontSize: 50,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "SuperComic",
+                  color: a.$2
               ),
-
-              SizedBox(height: 24),
-
-              //buttons row
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-
-                  //back button
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Back')
-                  ),
-
-                  //tick button
-                  ElevatedButton(
-                      onPressed: () {},
-                      child: Text('Tick')
-                  )
-
-                ],
-              ),
-
-              SizedBox(height: 24),
-
-              //answer text field
-              TextField(
-                decoration: InputDecoration(labelText: 'Answer'),
-                onChanged: (value) => card.answer = value,
-              )
-
-            ],
+            ),
           ),
-        )
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: size.height / 16, vertical: size.width / 8),
+            height: size.height / 8,
+            child: Center(
+              child: Text(
+                  card.description,
+                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                      fontSize: size.width / 15,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "DFVNDoris",
+                      color: Color.fromARGB(255, 16,52,80)
+                  )
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: size.height / 25),
+            child: //a tick button
+            GestureDetector(
+              onTap: () {
+                //Api().updateCard(card.id, controller.text, card.isScanned, 1);
+                //Navigator.push(context, MaterialPageRoute(builder: (context) => FormScreen()));
+                print("Clicked");
+              },
+              child: Container(
+                width: size.width / 8,
+                height: size.width / 8,
+                decoration: BoxDecoration(
+                    color: a.$2,
+                    borderRadius: BorderRadius.all(Radius.circular(100)),
+                    border: Border.all(color: a.$2, width: 3)
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: size.width / 10,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            //a text field to edit the answer without underline
+            child: Container(
+              margin: EdgeInsets.symmetric(horizontal: size.width / 16, vertical: size.width / 14),
+              padding: EdgeInsets.symmetric(horizontal: size.width / 16, vertical: size.width /25),
+              decoration: BoxDecoration(
+                  color: a.$3,
+                  borderRadius: BorderRadius.all(Radius.circular(20)),
+                  border: Border.all(color: a.$2, width: 3)
+              ),
+              child: SingleChildScrollView(
+                child: TextField(
+                  key: Key("textfield"),
+                  focusNode: focus,
+                  controller: controller,
+                  decoration: InputDecoration(
+                    hintText: 'Điền ở đây...',
+                    hintStyle: TextStyle(
+                        fontSize: size.width / 25,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: "Paytone One",
+                        color: Color.fromARGB(255, 16,52,80)
+                    ),
+                    border: InputBorder.none,
+                  ),
+                  maxLines: null,
+                  minLines: 12,
+                  style: TextStyle(
+                      fontSize: size.width / 25,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: "Paytone One",
+                      color: Color.fromARGB(255, 16,52,80)
+                  ),),
+                ),
+              ),
+            ),
+        ],
+      ),
+    );
+    return Material(
+      child: Stack(
+        children: [
+          child,
+          Align(
+              alignment: Alignment.topLeft,
+              child: Padding(
+                padding: EdgeInsets.all(10),
+                child: BackButton(),
+              )
+          )
+        ],
+      ),
     );
   }
 }
+
 
 
 
