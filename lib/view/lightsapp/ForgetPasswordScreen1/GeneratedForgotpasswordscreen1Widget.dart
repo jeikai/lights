@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/helpers/transform/transform.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
@@ -90,7 +89,9 @@ class _GeneratedForgotpasswordscreen1WidgetState extends State<GeneratedForgotpa
                     textController: _phoneNo,
                     placeholder: "Số điện thoại của bạn",
                     keyboardType: TextInputType.phone,
-                    validate: (_email) {},
+                    validate: (_email) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -111,7 +112,9 @@ class _GeneratedForgotpasswordscreen1WidgetState extends State<GeneratedForgotpa
                     textController: _email,
                     placeholder: "Email của bạn",
                     keyboardType: TextInputType.emailAddress,
-                    validate: (_email) {},
+                    validate: (_email) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(

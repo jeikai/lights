@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
@@ -12,7 +8,6 @@ import 'package:flutterapp/reusable_widget/whale.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/util/Preferences.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
 import 'package:intl/intl.dart';
 
 class GeneratedLogupscreen2Widget extends StatefulWidget {
@@ -108,7 +103,9 @@ class _GeneratedLogupscreen2WidgetState
                       textController: _DOB,
                       placeholder: "Ngày sinh DD/MM/YYYY",
                       keyboardType: TextInputType.datetime,
-                      validate: (_DOB) {},
+                      validate: (_DOB) {
+                        return null;
+                      },
                       obscureText: false,
                       onDataChanged: (value) => {},
                       Icon: IconButton(
@@ -129,7 +126,9 @@ class _GeneratedLogupscreen2WidgetState
                       textController: _password,
                       placeholder: "Mật khẩu của bạn",
                       keyboardType: TextInputType.text,
-                      validate: (_password) {},
+                      validate: (_password) {
+                        return null;
+                      },
                       obscureText: obscure,
                       onDataChanged: (value) => {},
                       Icon: IconButton(
@@ -155,7 +154,9 @@ class _GeneratedLogupscreen2WidgetState
                       textController: _repass,
                       placeholder: "Nhập lại mật khẩu của bạn",
                       keyboardType: TextInputType.text,
-                      validate: (_repass) {},
+                      validate: (_repass) {
+                        return null;
+                      },
                       obscureText: re_obscure,
                       onDataChanged: (value) => {},
                       Icon: IconButton(

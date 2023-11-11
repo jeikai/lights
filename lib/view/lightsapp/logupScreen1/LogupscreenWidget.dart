@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp/reusable_widget/Button_Navigate.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:flutterapp/reusable_widget/whale.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Instagram.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
-import 'package:flutterapp/view/lightsapp/loginscreen/component/Text_HoacVoi.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Facebook.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Google.dart';
-import 'package:flutterapp/reusable_widget/Logo_Brand/Twitter.dart';
 import 'package:flutterapp/setting.dart';
 
 class LogupScreen extends StatefulWidget {
@@ -78,7 +72,9 @@ class _LogupScreenState extends State<LogupScreen> {
                     textController: _name,
                     placeholder: "Tên của bạn",
                     keyboardType: TextInputType.name,
-                    validate: (_name) {},
+                    validate: (_name) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -99,7 +95,9 @@ class _LogupScreenState extends State<LogupScreen> {
                     textController: _phoneNumber,
                     placeholder: "Số điện thoại của bạn",
                     keyboardType: TextInputType.phone,
-                    validate: (_phoneNumber) {},
+                    validate: (_phoneNumber) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -120,7 +118,9 @@ class _LogupScreenState extends State<LogupScreen> {
                     textController: _email,
                     placeholder: "Email của bạn",
                     keyboardType: TextInputType.emailAddress,
-                    validate: (_email) {},
+                    validate: (_email) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -141,7 +141,9 @@ class _LogupScreenState extends State<LogupScreen> {
                     textController: _address,
                     placeholder: "Địa chỉ của bạn",
                     keyboardType: TextInputType.streetAddress,
-                    validate: (_address) {},
+                    validate: (_address) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(

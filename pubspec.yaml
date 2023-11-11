@@ -27,6 +27,7 @@ dependencies:
   circle_list:
   intl:
   image_picker:
+  flutter_keyboard_visibility:
   flutter:
     sdk: "flutter"
   http: ^0.13.5
@@ -69,6 +70,7 @@ flutter:
     - "assets/images/music/"
     - "assets/images/game/"
     - "assets/images/ava/"
+    - "fonts/DFVNBoris.otf"
   fonts:
     - family: "Paytone One"
       fonts:
@@ -83,6 +85,16 @@ flutter:
     - family: "Mistrully"
       fonts:
         - asset: "fonts/Mistrully.ttf"
+          style: "normal"
+          weight: 400
+    - family: "SuperComic"
+      fonts:
+        - asset: "fonts/SuperComic.ttf"
+          style: "normal"
+          weight: 400
+    - family: "DFVNDoris"
+      fonts:
+        - asset: "fonts/DFVNBoris.otf"
           style: "normal"
           weight: 400
     - family: "MyFlutterApp"

@@ -183,7 +183,7 @@ class _EmotionButton extends StatelessWidget {
   final void Function() onPress;
   final Widget child;
 
-  const _EmotionButton({super.key, required this.onPress, required this.child});
+  const _EmotionButton({required this.onPress, required this.child});
 
   @override
   Widget build(BuildContext context) {

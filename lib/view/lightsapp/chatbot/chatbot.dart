@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:velocity_x/velocity_x.dart';
 import 'chatmessage.dart';
-import 'package:flutter/services.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/view/lightsapp/chatbot/threedots.dart';
 
@@ -69,6 +68,7 @@ class _ChatbotState extends State<Chatbot> {
                   if (value!.isEmpty) {
                     ToastNoti.show("Vui lòng nhập gì đó");
                   }
+                  return null;
                 },
                 onTapOutside: (event) => {FocusScope.of(context).unfocus()},
                 decoration: InputDecoration(

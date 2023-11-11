@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-TextButton Button_Navigate(String text, context, String navigate_to) {
+TextButton Button_Navigate(String text, context, String navigateTo) {
   return TextButton(
     style: TextButton.styleFrom(
       backgroundColor: Color.fromRGBO(196, 160, 216, 1.0),
@@ -17,7 +17,7 @@ TextButton Button_Navigate(String text, context, String navigate_to) {
       ),
     ),
     onPressed: () {
-      Navigator.pushNamed(context, navigate_to);
+      Navigator.pushNamed(context, navigateTo);
     },
     child: Text(text),
   );

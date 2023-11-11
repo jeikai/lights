@@ -96,7 +96,9 @@ class _GeneratedForgotpasswordscreen2WidgetState
                         textController: _password,
                         placeholder: "Mật khẩu của bạn",
                         keyboardType: TextInputType.text,
-                        validate: (_password) {},
+                        validate: (_password) {
+                          return null;
+                        },
                         obscureText: obscure,
                         onDataChanged: (value) => {},
                         Icon: IconButton(
@@ -122,7 +124,9 @@ class _GeneratedForgotpasswordscreen2WidgetState
                         textController: _repass,
                         placeholder: "Nhập lại mật khẩu của bạn",
                         keyboardType: TextInputType.text,
-                        validate: (_repass) {},
+                        validate: (_repass) {
+                          return null;
+                        },
                         obscureText: re_obscure,
                         onDataChanged: (value) => {},
                         Icon: IconButton(

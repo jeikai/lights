@@ -28,12 +28,12 @@ class ProxyViewWidget extends StatelessWidget {
           highlightColor: Colors.white12,
           child: LayoutBuilder(
               builder: (BuildContext context, BoxConstraints constraints) {
-            double l_w = constraints.maxWidth * 0.75;
-            double r_w = constraints.maxWidth * 0.25;
+            double lW = constraints.maxWidth * 0.75;
+            double rW = constraints.maxWidth * 0.25;
             return Row(
               children: [
                 SizedBox(
-                  width: l_w,
+                  width: lW,
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
@@ -42,26 +42,26 @@ class ProxyViewWidget extends StatelessWidget {
                             color: ProgressBar.color2,
                             borderRadius: BorderRadius.circular(50)),
                         height: textSize + 10,
-                        width: l_w * 0.8,
+                        width: lW * 0.8,
                       ),
                       ProgressBar(
                         value: 0.0,
                         height: pbThickness,
-                        width: l_w * 0.8,
+                        width: lW * 0.8,
                       )
                     ],
                   ),
                 ),
                 SizedBox(
-                  width: r_w,
+                  width: rW,
                   child: Padding(
                     padding: EdgeInsets.only(
-                        right: r_w * 0.15, top: r_w * 0.15, bottom: r_w * 0.15),
+                        right: rW * 0.15, top: rW * 0.15, bottom: rW * 0.15),
                     child: DecoratedBox(
                       decoration: BoxDecoration(
                           color: ProgressBar.color2,
                           borderRadius:
-                              BorderRadius.circular(r_w * 0.4 * 0.25)),
+                              BorderRadius.circular(rW * 0.4 * 0.25)),
                     ),
                   ),
                 )

@@ -62,6 +62,14 @@ class CustomMenu extends StatelessWidget {
                           Navigator.pushNamed(context, '/Movie');
                         },
                       ),
+                      CustomMenuListViewCell(
+                        color: Color.fromARGB(255, 160,145,231),
+                        text: "MỤC BỘ SƯU TẬP",
+                        icon: SizedBox(),
+                        onPress: () {
+                          Navigator.pushNamed(context, '/Card');
+                        },
+                      ),
                     ],
                     gap: gap,
                   ),

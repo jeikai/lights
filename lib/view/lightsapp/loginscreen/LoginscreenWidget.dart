@@ -130,7 +130,9 @@ class _GeneratedLoginscreenWidgetState
                     textController: _password,
                     placeholder: "Mật khẩu của bạn",
                     keyboardType: TextInputType.emailAddress,
-                    validate: (_password) {},
+                    validate: (_password) {
+                      return null;
+                    },
                     obscureText: obscure,
                     onDataChanged: (value) => {},
                     Icon: IconButton(
@@ -169,7 +171,9 @@ class _GeneratedLoginscreenWidgetState
                     textController: _email,
                     placeholder: "Email của bạn",
                     keyboardType: TextInputType.emailAddress,
-                    validate: (_email) {},
+                    validate: (_email) {
+                      return null;
+                    },
                     obscureText: false,
                     onDataChanged: (value) => {},
                     Icon: IconButton(

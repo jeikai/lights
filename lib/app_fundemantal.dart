@@ -49,12 +49,10 @@ class MyApp {
   }
 
   void onInactive() {
-    NotificationManager().saveNotificationsToLocalStorage();
   }
 
   void onDetached() {
     if (manager != null) manager!.dispose();
-    NotificationManager().saveNotificationsToLocalStorage();
   }
 }
 
