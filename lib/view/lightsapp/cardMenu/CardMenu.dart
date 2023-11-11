@@ -24,173 +24,173 @@ class _CardMenuState extends State<CardMenu> {
 
   Future<List<Cardd>?> fetchCards() async {
     try{
-
-      //List<Cardd> cards = (await Api().getDataUsersById("getUserCard", Preferences.getId()!))!.map<Cardd>((_element) => Cardd.map(_element)).toList();
-
-      List<Cardd> cards = [
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-         isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 1,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-          description: "This is a card",
-          isCompleted: 0,
-          isScanned: 0,
-          answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 1,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 1,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        ),
-        Cardd(
-            description: "This is a card",
-            isCompleted: 0,
-            isScanned: 0,
-            answer: "This is an answer"
-        )
-      ];
+      print("Fetching cards");
+      List<Cardd> cards = await Api().getCards();
+      print("Cards fetched: $cards");
+      // List<Cardd> cards = [
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //    isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 1,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //     description: "This is a card",
+      //     isCompleted: 0,
+      //     isScanned: 0,
+      //     answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 1,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 1,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   ),
+      //   Cardd(
+      //       description: "This is a card",
+      //       isCompleted: 0,
+      //       isScanned: 0,
+      //       answer: "This is an answer"
+      //   )
+      // ];
       return cards;
     }catch(e){
       print(e);
@@ -208,7 +208,7 @@ class _CardMenuState extends State<CardMenu> {
               RiveUtil.BGONE,
               fit: BoxFit.fill,
             ),
-            FutureBuilder(future: fetchCards(), builder: (context, snapshot){
+            FutureBuilder(future: fetchCards() , builder: (context, snapshot){
               if(snapshot.hasData){
                 return CardTable(list: snapshot.data as List<Cardd>);
               }else{
@@ -405,9 +405,26 @@ class _CardDetailState extends State<CardDetail> {
             padding: EdgeInsets.symmetric(vertical: size.height / 25),
             child: //a tick button
             GestureDetector(
-              onTap: () {
-                //Api().updateCard(card.id, controller.text, card.isScanned, 1);
-                //Navigator.push(context, MaterialPageRoute(builder: (context) => FormScreen()));
+              onTap: () async {
+                print("Submit");
+                showDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return WillPopScope(
+                          child: Dialog(
+                            backgroundColor: Colors.transparent,
+                            child: Container(
+                              child: Center(
+                                child: CircularProgressIndicator(),
+                              ),
+                            ),
+                          ),
+                          onWillPop: () async => false);
+                    });
+                String answer = (await Api().updateCard(card.id, controller.text))!["message"];
+                print("Answer: $answer");
+                Navigator.pop(context);
+                Navigator.pop(context);
                 print("Clicked");
               },
               child: Container(

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutterapp/util/Preferences.dart';
+import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
@@ -301,5 +302,18 @@ class Api {
       print('Lỗi: $e');
       return null;
     }
+  }
+  Future<List<Cardd>> getCards() async {
+    List<dynamic> data = (await getDataById("getUserCard", Preferences.getId()!))!["userCards"]!;
+    var res = data.map((e) => Cardd.map(e)).toList();
+    return res;
+  }
+
+  Future<Map<String, dynamic>?> updateCard(id, String text,) async {
+    Map<String, dynamic> data = {
+      "id": id,
+      "answer": text
+    };
+    return await pushDataUpdate("updateCard", id, data);
   }
 }
