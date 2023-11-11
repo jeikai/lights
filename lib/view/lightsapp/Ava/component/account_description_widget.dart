@@ -3,6 +3,7 @@ import 'package:flutter_social_button/flutter_social_button.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/URLAnalyzer.dart';
 import 'package:flutterapp/view/lightsapp/Ava/component/config_menu_converter.dart';
+import 'package:intl/intl.dart';
 
 class AccountDescriptionWidget extends StatelessWidget {
   final double padding;
@@ -405,7 +406,7 @@ class AccountDescriptionDetailWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     contactWidget(
-                        size, Icons.date_range, Preferences.getDOB()!),
+                        size, Icons.date_range, Preferences.formatDate(DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(Preferences.getDOB()!))),
                     contactWidget(size, Icons.mail, Preferences.getEmail()!),
                     contactWidget(
                         size, Icons.phone, Preferences.getPhoneNumber()!),
@@ -472,12 +473,12 @@ Widget contactWidget(Size size, IconData icon, String text) {
             width: 10,
           ),
           SizedBox(
-            width: constraints.maxWidth * 0.8,
+            width: constraints.maxWidth * 0.7,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Text(
                 text,
-                style: TextStyle(fontSize: 16.0, fontFamily: "Paytone One"),
+                style: TextStyle(fontSize: 14.0, fontFamily: "Paytone One"),
               ),
             ),
           )
