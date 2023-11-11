@@ -234,8 +234,8 @@ class _GeneratedLoginscreenWidgetState
                           Preferences.setAddress(
                               response?["user"]["address"]);
                           print("setupUser");
-                          await Preferences.setupUser(response?["user"]["_id"]);
                           Preferences.setAva(getRandomPicture());
+                          await Preferences.setupUser(response?["user"]["_id"]);
                           ToastNoti.show("Đăng nhập thành công");
                           Navigator.pop(context);
                           Navigator.pushNamed(
