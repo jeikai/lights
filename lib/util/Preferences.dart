@@ -15,9 +15,11 @@ class Preferences {
   static Future<void> setupUser(String id) async {
     Map<String, dynamic>? res = await Api().getDataById("user/getData", id);
     if (res?["message"]) {
-      await Preferences.setBio(res?["userData"]["bio"]);
-      var temp = await NotificationManager()
+       Preferences.setBio(res?["userData"]["bio"]);
+       print("pass 1");
+      var temp =  NotificationManager()
           .loadNotificationsFromLocalStorage(res?["userData"]["notifications"]);
+       print("pass 2");
     }
   }
 

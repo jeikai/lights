@@ -28,19 +28,36 @@ class _GeneratedLoginscreenWidgetState
 
   Future<void> runTimer(BuildContext context) async {
     print('Run checking local login data:');
-    // await Future.delayed(Duration(seconds: 1));
     if (Preferences.getId() != null &&
         Preferences.getId() != '' &&
         Preferences.getEmail() != null &&
         Preferences.getEmail() != '') {
+      await Future.delayed(Duration(milliseconds: 100));
       print('There are local login data found!');
+      showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return WillPopScope(
+                child: Dialog(
+                  backgroundColor: Colors.transparent,
+                  child: Container(
+                    child: Center(
+                      child: CircularProgressIndicator(),
+                    ),
+                  ),
+                ),
+                onWillPop: () async => false);
+          });
       await Preferences.setupUser(Preferences.getId()!);
+      Navigator.pop(context);
       print('Successfully setup user!');
       Navigator.pushReplacementNamed(context, '/GeneratedMainScreenWidget');
     } else {
       print("There is no local login data");
     }
+
   }
+
 
   String getRandomPicture() {
     List<String> pictureList = [
@@ -205,24 +222,24 @@ class _GeneratedLoginscreenWidgetState
                         };
                         var response = await Api().postData("login", data);
                         if (response?["message"]) {
-                          await Preferences.setId(response?["user"]["_id"]);
+                          Preferences.setId(response?["user"]["_id"]);
                           print("setUN");
-                          await Preferences.setUsername(
+                          Preferences.setUsername(
                               response?["user"]["name"]);
                           print("setEmail");
-                          await Preferences.setEmail(
+                          Preferences.setEmail(
                               response?["user"]["email"]);
                           print("setPN");
-                          await Preferences.setPhoneNumber(
+                          Preferences.setPhoneNumber(
                               response?["user"]["phoneNumber"]);
                           print("setDOB");
-                          await Preferences.setDOB(response?["user"]["DOB"]);
+                          Preferences.setDOB(response?["user"]["DOB"]);
                           print("setAddress");
-                          await Preferences.setAddress(
+                          Preferences.setAddress(
                               response?["user"]["address"]);
                           print("setupUser");
                           await Preferences.setupUser(response?["user"]["_id"]);
-                          await Preferences.setAva(getRandomPicture());
+                          Preferences.setAva(getRandomPicture());
                           ToastNoti.show("Đăng nhập thành công");
                           Navigator.pop(context);
                           Navigator.pushNamed(
