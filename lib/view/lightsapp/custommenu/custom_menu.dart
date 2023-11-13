@@ -75,8 +75,8 @@ class CustomMenu extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: size.height * 0.02,
-                  left: size.width * 0.02,
+                  top: size.height * 0.0001,
+                  left: size.width * 0.0001,
                   child: BackButton(),
                 ),
               ],

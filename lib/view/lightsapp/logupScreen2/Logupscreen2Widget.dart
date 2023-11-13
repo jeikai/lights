@@ -181,6 +181,20 @@ class _GeneratedLogupscreen2WidgetState
                     child: Button(
                       text: "Tiếp theo",
                       onPress: () async {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return WillPopScope(
+                                  child: Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ),
+                                  ),
+                                  onWillPop: () async => false);
+                            });
                         try {
                           if (_formKey.currentState!.validate()) {
                             if (_DOB.text.isEmpty ||
@@ -191,7 +205,8 @@ class _GeneratedLogupscreen2WidgetState
                               ToastNoti.show(
                                   "Mật khẩu nhập lại phải khớp với mật khẩu đã nhập");
                             } else if (!isValidDOB(_DOB.text)) {
-                              ToastNoti.show("Ngày sinh không hợp lệ. Ví dụ: 01/01/2000");
+                              ToastNoti.show(
+                                  "Ngày sinh không hợp lệ. Ví dụ: 01/01/2000");
                             } else {
                               Map data = {
                                 "email": email,
@@ -204,11 +219,11 @@ class _GeneratedLogupscreen2WidgetState
                               print(data);
                               var response =
                                   await Api().postData("register", data);
-                              Map data2 = {
-                                "userId": response?["user"]["_id"]
-                              };
-                              var response2 = await Api().postData("regisCard", data2);
-                              if (response?["user"]["_id"] != null && response2?["message"] == 'Success') {
+                              Map data2 = {"userId": response?["user"]["_id"]};
+                              var response2 =
+                                  await Api().postData("regisCard", data2);
+                              if (response?["user"]["_id"] != null &&
+                                  response2?["message"] == 'Success') {
                                 await Preferences.setId(
                                     response?["user"]["_id"]);
                                 await Preferences.setUsername(
@@ -222,8 +237,8 @@ class _GeneratedLogupscreen2WidgetState
                                 await Preferences.setAddress(
                                     response?["user"]["address"]);
                                 Preferences.setupUser(response?["user"]["_id"]);
-
                                 ToastNoti.show("Đăng ký thành công");
+                                Navigator.pop(context);
                                 Navigator.pushNamed(
                                   context,
                                   '/GeneratedFavoritescreenWidget',

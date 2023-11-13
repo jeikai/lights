@@ -163,6 +163,20 @@ class _LogupScreenState extends State<LogupScreen> {
                   child: Button(
                       text: "Tiếp theo",
                       onPress: () async {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return WillPopScope(
+                                  child: Dialog(
+                                    backgroundColor: Colors.transparent,
+                                    child: Container(
+                                      child: Center(
+                                        child: CircularProgressIndicator(),
+                                      ),
+                                    ),
+                                  ),
+                                  onWillPop: () async => false);
+                            });
                         if (_formKey.currentState!.validate()) {
                           if (_name.text.isEmpty) {
                             ToastNoti.show("Tên của bạn không được để trống");
@@ -187,6 +201,7 @@ class _LogupScreenState extends State<LogupScreen> {
                                   _phoneNumber.text);
                               await Preferences.setRegisEmail(_email.text);
                               await Preferences.setRegisAddress(_address.text);
+                              Navigator.pop(context);
                               Navigator.pushNamed(
                                   context, '/GeneratedLogupscreen2Widget');
                             }

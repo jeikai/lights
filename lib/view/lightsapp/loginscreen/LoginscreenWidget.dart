@@ -245,11 +245,9 @@ class _GeneratedLoginscreenWidgetState
                           Navigator.pushNamed(
                               context, '/GeneratedMainScreenWidget');
                         } else {
-                          Navigator.pop(context);
                           ToastNoti.show("Sai email hoặc mật khẩu");
                         }
                       } else {
-                        Navigator.pop(context);
                         ToastNoti.show("Có lỗi");
                       }
                     },

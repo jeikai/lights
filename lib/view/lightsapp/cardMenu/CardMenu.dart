@@ -10,9 +10,6 @@ import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:rive/rive.dart';
 
-
-
-
 class CardMenu extends StatefulWidget {
   const CardMenu({super.key});
 
@@ -21,12 +18,12 @@ class CardMenu extends StatefulWidget {
 }
 
 class _CardMenuState extends State<CardMenu> {
-
   Future<List<Cardd>?> fetchCards() async {
-    try{
+    try {
       print("Fetching cards");
       List<Cardd> cards = await Api().getCards();
       print("Cards fetched: $cards");
+      print(Preferences.getId());
       // List<Cardd> cards = [
       //   Cardd(
       //     description: "This is a card",
@@ -192,7 +189,7 @@ class _CardMenuState extends State<CardMenu> {
       //   )
       // ];
       return cards;
-    }catch(e){
+    } catch (e) {
       throw e;
     }
   }
@@ -200,17 +197,17 @@ class _CardMenuState extends State<CardMenu> {
   @override
   Widget build(BuildContext context) {
     return Material(
-      child: Stack(
-          alignment: Alignment.center,
-          children: [
-            RiveAnimation.direct(
-              RiveUtil.BGONE,
-              fit: BoxFit.fill,
-            ),
-            FutureBuilder(future: fetchCards() , builder: (context, snapshot){
-              if(snapshot.hasData){
+      child: Stack(alignment: Alignment.center, children: [
+        RiveAnimation.direct(
+          RiveUtil.BGONE,
+          fit: BoxFit.fill,
+        ),
+        FutureBuilder(
+            future: fetchCards(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
                 return CardTable(list: snapshot.data as List<Cardd>);
-              }else{
+              } else {
                 return WillPopScope(
                     child: Dialog(
                       backgroundColor: Colors.transparent,
@@ -220,33 +217,32 @@ class _CardMenuState extends State<CardMenu> {
                         ),
                       ),
                     ),
-                    onWillPop: () async => false
-                );
+                    onWillPop: () async => false);
               }
             })
-          ]
-      ),
+      ]),
     );
   }
 }
 
 class CardTable extends StatelessWidget {
   final List<Cardd> list;
+
   const CardTable({super.key, required this.list});
 
   List<TableRow> buidTable() {
     List<TableRow> list = [];
-    for(int i = 0; i < this.list.length; i++) {
+    for (int i = 0; i < this.list.length; i++) {
       List<Widget> row = [];
-      for(; i < this.list.length && row.length < 3; i++) {
-        row.add(Padding(padding: EdgeInsets.all(8), child: CarddWidget(card: this.list[i])));
+      for (; i < this.list.length && row.length < 3; i++) {
+        row.add(Padding(
+            padding: EdgeInsets.all(8),
+            child: CarddWidget(card: this.list[i])));
       }
-      if(row.length < 3) {
-        for(; row.length < 3; row.add(Container())) {}
+      if (row.length < 3) {
+        for (; row.length < 3; row.add(Container())) {}
       }
-      list.add(TableRow(
-        children: row
-      ));
+      list.add(TableRow(children: row));
     }
     return list;
   }
@@ -258,36 +254,45 @@ class CardTable extends StatelessWidget {
     //a Column with 2 child, first is a text to display the title, second is a Table with 3 column and a dynamic number of row, each row is a CarddWidget
     return Column(
       children: [
+        InkWell(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Container(
+            alignment: Alignment.centerLeft,
+            child: Icon(
+              Icons.arrow_back,
+              color: Colors.white,
+              size: size.height * 0.05,
+            ),
+          ),
+        ),
         Container(
           width: size.width / 2,
           //decoration with a round-edge border
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black, width: 1),
-            borderRadius: BorderRadius.all(Radius.elliptical(100, 50)),
-            color: Color.fromARGB(255, 250,241,255)
-          ),
+              border: Border.all(color: Colors.black, width: 1),
+              borderRadius: BorderRadius.all(Radius.elliptical(100, 50)),
+              color: Color.fromARGB(255, 250, 241, 255)),
           padding: EdgeInsets.all(8),
           margin: EdgeInsets.only(top: 16, bottom: 16, left: 16, right: 16),
-          child: Text(
-            'BỘ SƯU TẬP',
-            style: TextStyle(
-              fontSize: a/30,
-              fontWeight: FontWeight.bold,
-              fontFamily: "Paytone One",
-              color: Colors.black
-            ),
-            textAlign: TextAlign.center
-          ),
+          child: Text('BỘ SƯU TẬP',
+              style: TextStyle(
+                  fontSize: a / 30,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: "Paytone One",
+                  color: Colors.black),
+              textAlign: TextAlign.center),
         ),
-        Expanded(child: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Table(
-                children: buidTable(),
-              ),
-            )
-        ))
+        Expanded(
+            child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                child: Padding(
+                  padding: const EdgeInsets.all(8),
+                  child: Table(
+                    children: buidTable(),
+                  ),
+                )))
       ],
     );
   }
@@ -295,14 +300,16 @@ class CardTable extends StatelessWidget {
 
 class CarddWidget extends StatelessWidget {
   final Cardd card;
+
   const CarddWidget({super.key, required this.card});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if(!card.isScanned) return;
-        Navigator.push(context, MaterialPageRoute(builder: (context) => CardDetail(card: card)));
+        if (!card.isScanned) return;
+        Navigator.push(context,
+            MaterialPageRoute(builder: (context) => CardDetail(card: card)));
       },
       child: Container(
         child: Stack(
@@ -314,20 +321,18 @@ class CarddWidget extends StatelessWidget {
               color: card.isScanned ? null : Colors.grey,
               colorBlendMode: BlendMode.saturation,
             ),
-            if(card.isCompleted)
+            if (card.isCompleted)
               Container(
-                width: 50,
-                height: 50,
-                decoration: BoxDecoration(
-                  color: Colors.black.withOpacity(0.5),
-                  borderRadius: BorderRadius.all(Radius.circular(100))
-                ),
-                child: Icon(
-                  Icons.check,
-                  color: Colors.white,
-                  size: 50,
-                )
-              )
+                  width: 50,
+                  height: 50,
+                  decoration: BoxDecoration(
+                      color: Colors.black.withOpacity(0.5),
+                      borderRadius: BorderRadius.all(Radius.circular(100))),
+                  child: Icon(
+                    Icons.check,
+                    color: Colors.white,
+                    size: 50,
+                  ))
           ],
         ),
       ),
@@ -338,6 +343,7 @@ class CarddWidget extends StatelessWidget {
 //a Card detail widget with a text field to edit the answer at the bottom and a text to display the description on top, a back button and a tick button in the middle, with a dedicated Theme of random Pastels color
 class CardDetail extends StatefulWidget {
   final Cardd card;
+
   const CardDetail({super.key, required this.card});
 
   @override
@@ -364,9 +370,11 @@ class _CardDetailState extends State<CardDetail> {
     int red = random.nextInt(256);
     int green = random.nextInt(256);
     int blue = random.nextInt(256);
-    Color color = new Color.fromARGB(255, (red + 255) ~/ 2, (green + 255) ~/ 2, (blue + 255) ~/ 2);
-    Color roloc = new Color.fromARGB(255, red ~/2, green ~/2, blue ~/2);
-    Color locro = new Color.fromARGB(255, (red + 255*3) ~/4, (green + 255*3) ~/4, (blue + 255*3) ~/4);
+    Color color = new Color.fromARGB(
+        255, (red + 255) ~/ 2, (green + 255) ~/ 2, (blue + 255) ~/ 2);
+    Color roloc = new Color.fromARGB(255, red ~/ 2, green ~/ 2, blue ~/ 2);
+    Color locro = new Color.fromARGB(255, (red + 255 * 3) ~/ 4,
+        (green + 255 * 3) ~/ 4, (blue + 255 * 3) ~/ 4);
     return (color, roloc, locro);
   }
 
@@ -378,8 +386,7 @@ class _CardDetailState extends State<CardDetail> {
         fontSize: size.width / 15,
         fontWeight: FontWeight.bold,
         fontFamily: "DFVNDoris",
-        color: Color.fromARGB(255, 16,52,80)
-    );
+        color: Color.fromARGB(255, 16, 52, 80));
     Widget child = Container(
       //make the Container fit parent
       width: size.width,
@@ -397,29 +404,26 @@ class _CardDetailState extends State<CardDetail> {
                   fontSize: 50,
                   fontWeight: FontWeight.bold,
                   fontFamily: "SuperComic",
-                  color: a.$2
-              ),
+                  color: a.$2),
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(horizontal: size.height / 16, vertical: size.width / 8),
+            margin: EdgeInsets.symmetric(
+                horizontal: size.height / 16, vertical: size.width / 8),
             height: size.height / 8,
             child: Center(
-              child: Text(
-                  card.description,
+              child: Text(card.description,
                   style: Theme.of(context).textTheme.bodyText1!.copyWith(
                       fontSize: size.width / 15,
                       fontWeight: FontWeight.bold,
                       fontFamily: "DFVNDoris",
-                      color: Color.fromARGB(255, 16,52,80)
-                  )
-              ),
+                      color: Color.fromARGB(255, 16, 52, 80))),
             ),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: size.height / 25),
             child: //a tick button
-            GestureDetector(
+                GestureDetector(
               onTap: () async {
                 print("Submit");
                 showDialog(
@@ -436,7 +440,8 @@ class _CardDetailState extends State<CardDetail> {
                           ),
                           onWillPop: () async => false);
                     });
-                String answer = (await Api().updateCard(card.id, controller.text))!["message"];
+                String answer = (await Api()
+                    .updateCard(card.id, controller.text))!["message"];
                 print("Answer: $answer");
                 Navigator.pop(context);
                 Navigator.pop(context);
@@ -448,8 +453,7 @@ class _CardDetailState extends State<CardDetail> {
                 decoration: BoxDecoration(
                     color: a.$2,
                     borderRadius: BorderRadius.all(Radius.circular(100)),
-                    border: Border.all(color: a.$2, width: 3)
-                ),
+                    border: Border.all(color: a.$2, width: 3)),
                 child: Center(
                   child: Icon(
                     Icons.check,
@@ -463,26 +467,27 @@ class _CardDetailState extends State<CardDetail> {
           Expanded(
             //a text field to edit the answer without underline
             child: Container(
-              margin: EdgeInsets.symmetric(horizontal: size.width / 16, vertical: size.width / 14),
-              padding: EdgeInsets.symmetric(horizontal: size.width / 16, vertical: size.width /25),
+              margin: EdgeInsets.symmetric(
+                  horizontal: size.width / 16, vertical: size.width / 14),
+              padding: EdgeInsets.symmetric(
+                  horizontal: size.width / 16, vertical: size.width / 25),
               decoration: BoxDecoration(
                   color: a.$3,
                   borderRadius: BorderRadius.all(Radius.circular(20)),
-                  border: Border.all(color: a.$2, width: 3)
-              ),
+                  border: Border.all(color: a.$2, width: 3)),
               child: SingleChildScrollView(
                 child: TextField(
                   key: Key("textfield"),
                   focusNode: focus,
                   controller: controller,
+                  onTapOutside: (event) => {FocusScope.of(context).unfocus()},
                   decoration: InputDecoration(
                     hintText: 'Điền ở đây...',
                     hintStyle: TextStyle(
                         fontSize: size.width / 25,
                         fontWeight: FontWeight.bold,
                         fontFamily: "Paytone One",
-                        color: Color.fromARGB(255, 16,52,80)
-                    ),
+                        color: Color.fromARGB(255, 16, 52, 80)),
                     border: InputBorder.none,
                   ),
                   maxLines: null,
@@ -491,11 +496,11 @@ class _CardDetailState extends State<CardDetail> {
                       fontSize: size.width / 25,
                       fontWeight: FontWeight.bold,
                       fontFamily: "Paytone One",
-                      color: Color.fromARGB(255, 16,52,80)
-                  ),),
+                      color: Color.fromARGB(255, 16, 52, 80)),
                 ),
               ),
             ),
+          ),
         ],
       ),
     );
@@ -508,14 +513,9 @@ class _CardDetailState extends State<CardDetail> {
               child: Padding(
                 padding: EdgeInsets.all(10),
                 child: BackButton(),
-              )
-          )
+              ))
         ],
       ),
     );
   }
 }
-
-
-
-
