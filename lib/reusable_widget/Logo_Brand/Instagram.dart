@@ -24,7 +24,7 @@ class Insta extends StatelessWidget {
               bottom: null,
               width: 60.0,
               height: 60.0,
-              child: Circle_Insta(),
+              child: CircleInsta(),
             ),
             Positioned(
               left: 0.0,

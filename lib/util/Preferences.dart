@@ -17,8 +17,8 @@ class Preferences {
     if (res?["message"]) {
        Preferences.setBio(res?["userData"]["bio"]);
        print("pass 1");
-      var temp =  NotificationManager()
-          .loadNotificationsFromLocalStorage(res?["userData"]["notifications"]);
+       NotificationManager()
+           .loadNotificationsFromLocalStorage(res?["userData"]["notifications"]);
        print("pass 2");
     }
   }
@@ -35,11 +35,11 @@ class Preferences {
     print(res);
   }
 
-  static String? getUsername() => _preferences?.getString("username");
+  static String getUsername() => _preferences?.getString("username") ?? "";
   static Future setAva(String id) async =>
       await _preferences?.setString("ava", id);
 
-  static String? getAva() => _preferences?.getString("ava");
+  static String getAva() => _preferences?.getString("ava") ?? "";
   static Future setId(String id) async =>
       await _preferences?.setString("id", id);
 
@@ -66,7 +66,7 @@ class Preferences {
     print(res);
   }
 
-  static String? getPhoneNumber() => _preferences?.getString("phoneNumber");
+  static String getPhoneNumber() => _preferences?.getString("phoneNumber") ?? "";
 
   static Future setDOB(String id) async =>
       await _preferences?.setString("DOB", id);
@@ -79,7 +79,7 @@ class Preferences {
     print(res);
   }
 
-  static String? getDOB() => _preferences?.getString("DOB");
+  static String getDOB() => _preferences?.getString("DOB") ?? "";
 
   static Future setAddress(String id) async =>
       await _preferences?.setString("address", id);
@@ -92,9 +92,9 @@ class Preferences {
     print(res);
   }
 
-  static String? getAddress() => _preferences?.getString("address");
+  static String getAddress() => _preferences?.getString("address") ?? "";
 
-  static String? get bio => _preferences?.getString("bio");
+  static String get bio => _preferences?.getString("bio") ?? "";
 
   static Future<bool>? setBio(String bio) =>
       _preferences?.setString("bio", bio);
@@ -124,29 +124,29 @@ class Preferences {
   static Future setForgetId(String username) async =>
       await _preferences?.setString("forgetId", username);
 
-  static String? getForgetId() => _preferences?.getString("forgetId");
+  static String getForgetId() => _preferences?.getString("forgetId") ?? "";
 
   // Dữ liệu cho đăng ký
   static Future setRegisUsername(String username) async =>
       await _preferences?.setString("regisUsername", username);
 
-  static String? getRegisUsername() => _preferences?.getString("regisUsername");
+  static String getRegisUsername() => _preferences?.getString("regisUsername") ?? "";
 
   static Future setRegisPhonenumber(String username) async =>
       await _preferences?.setString("regisPhonenumber", username);
 
-  static String? getRegisPhonenumber() =>
-      _preferences?.getString("regisPhonenumber");
+  static String getRegisPhonenumber() =>
+      _preferences?.getString("regisPhonenumber") ?? "";
 
   static Future setRegisEmail(String username) async =>
       await _preferences?.setString("regisEmail", username);
 
-  static String? getRegisEmail() => _preferences?.getString("regisEmail");
+  static String getRegisEmail() => _preferences?.getString("regisEmail") ?? "";
 
   static Future setRegisAddress(String username) async =>
       await _preferences?.setString("regisAddress", username);
 
-  static String? getRegisAddress() => _preferences?.getString("regisAddress");
+  static String getRegisAddress() => _preferences?.getString("regisAddress") ?? "";
 
   static List<dynamic>? getTasks() {
     return jsonDecode(_preferences!.getString("tasks")!);

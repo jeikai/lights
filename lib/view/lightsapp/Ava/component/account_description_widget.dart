@@ -30,7 +30,7 @@ class AccountDescriptionWidget extends StatelessWidget {
         child: Align(
           alignment: Alignment.topCenter,
           child: Text(
-            Preferences.bio!,
+            Preferences.bio,
             style: TextStyle(fontSize: 16.0, fontFamily: "Paytone One"),
           ),
         ),
@@ -53,7 +53,7 @@ class _AccountDescriptionConfigWidgetState
     //TODO: change bio
     //Write here
     TextEditingController textController = TextEditingController();
-    textController.text = Preferences.bio!;
+    textController.text = Preferences.bio;
     await showDialog(
       context: context,
       builder: (context) {
@@ -93,7 +93,7 @@ class _AccountDescriptionConfigWidgetState
     //TODO: change dob
     //Write here
     TextEditingController textController = TextEditingController();
-    textController.text = Preferences.getDOB()!;
+    textController.text = Preferences.getDOB();
     await showDialog(
       context: context,
       builder: (context) {
@@ -173,7 +173,7 @@ class _AccountDescriptionConfigWidgetState
     //TODO: change phone
     //Write here
     TextEditingController textController = TextEditingController();
-    textController.text = Preferences.getPhoneNumber()!;
+    textController.text = Preferences.getPhoneNumber();
     await showDialog(
       context: context,
       builder: (context) {
@@ -213,7 +213,7 @@ class _AccountDescriptionConfigWidgetState
     //TODO: change address
     //Write here
     TextEditingController textController = TextEditingController();
-    textController.text = Preferences.getAddress()!;
+    textController.text = Preferences.getAddress();
     await showDialog(
       context: context,
       builder: (context) {
@@ -282,7 +282,7 @@ class _AccountDescriptionConfigWidgetState
                             left: 10, right: 10, bottom: 10, top: 4),
                         child: SingleChildScrollView(
                           child: Text(
-                            Preferences.bio!,
+                            Preferences.bio,
                             style: TextStyle(
                                 fontSize: 16.0, fontFamily: "Paytone One"),
                           ),
@@ -319,7 +319,7 @@ class _AccountDescriptionConfigWidgetState
                           SizedBox(
                             height: constraints.maxHeight / 4,
                             child: contactEditWidget(size, Icons.date_range,
-                                Preferences.getDOB()!, editDOBButton),
+                                Preferences.getDOB(), editDOBButton),
                           ),
                           SizedBox(
                             height: constraints.maxHeight / 4,
@@ -329,12 +329,12 @@ class _AccountDescriptionConfigWidgetState
                           SizedBox(
                             height: constraints.maxHeight / 4,
                             child: contactEditWidget(size, Icons.phone,
-                                Preferences.getPhoneNumber()!, editPhoneButton),
+                                Preferences.getPhoneNumber(), editPhoneButton),
                           ),
                           SizedBox(
                             height: constraints.maxHeight / 4,
                             child: contactEditWidget(size, Icons.home,
-                                Preferences.getAddress()!, editAddressButton),
+                                Preferences.getAddress(), editAddressButton),
                           )
                         ],
                       );
@@ -393,7 +393,7 @@ class AccountDescriptionDetailWidget extends StatelessWidget {
                 size: size,
                 height: constraints.maxHeight * 0.165,
                 child: Text(
-                  Preferences.bio!,
+                  Preferences.bio,
                   style: TextStyle(fontSize: 16.0, fontFamily: "Paytone One"),
                 ),
               ),
@@ -406,11 +406,11 @@ class AccountDescriptionDetailWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     contactWidget(
-                        size, Icons.date_range, Preferences.formatDate(DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(Preferences.getDOB()!))),
+                        size, Icons.date_range, Preferences.formatDate(DateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'").parse(Preferences.getDOB()))),
                     contactWidget(size, Icons.mail, Preferences.getEmail()!),
                     contactWidget(
-                        size, Icons.phone, Preferences.getPhoneNumber()!),
-                    contactWidget(size, Icons.home, Preferences.getAddress()!)
+                        size, Icons.phone, Preferences.getPhoneNumber()),
+                    contactWidget(size, Icons.home, Preferences.getAddress())
                   ],
                 ),
               ),

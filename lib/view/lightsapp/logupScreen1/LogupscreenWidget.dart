@@ -77,7 +77,7 @@ class _LogupScreenState extends State<LogupScreen> {
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _name.clear();
                       },
@@ -100,7 +100,7 @@ class _LogupScreenState extends State<LogupScreen> {
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _phoneNumber.clear();
                       },
@@ -123,7 +123,7 @@ class _LogupScreenState extends State<LogupScreen> {
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _email.clear();
                       },
@@ -146,7 +146,7 @@ class _LogupScreenState extends State<LogupScreen> {
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _address.clear();
                       },

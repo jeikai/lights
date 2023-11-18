@@ -69,7 +69,6 @@ class _TableViewState extends State<TableView> {
   }
 
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
     return new Scaffold(
         body: new OrientationBuilder(builder: (context, orientation) {
       return Stack(

@@ -2,9 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/toast.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
-import 'package:flutterapp/view/lightsapp/Scan/resultScreen.dart';
-import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
-import 'package:flutterapp/view/lightsapp/cardMenu/CardMenu.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:qr_scanner_overlay/qr_scanner_overlay.dart';
 

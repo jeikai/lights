@@ -27,6 +27,7 @@ class _ChooseEmotionWidgetState extends State<ChooseEmotionWidget>
 
   @override
   void initState() {
+    super.initState();
     _controller =
         AnimationController(vsync: this, duration: Duration(seconds: 1));
 

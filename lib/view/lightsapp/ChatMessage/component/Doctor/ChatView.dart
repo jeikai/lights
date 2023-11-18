@@ -47,7 +47,7 @@ class _ChatViewState extends State<ChatView> {
                           shape: BoxShape.circle,
                           image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage('assets/images/ava/' + (Preferences.getAva() ?? '')))),
+                              image: AssetImage('assets/images/ava/' + (Preferences.getAva())))),
                     ),
                     const SizedBox(width: 20),
                     Text(

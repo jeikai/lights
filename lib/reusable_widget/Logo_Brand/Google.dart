@@ -24,7 +24,7 @@ class Google extends StatelessWidget {
               bottom: null,
               width: 60.0,
               height: 60.0,
-              child: Circle_Google(),
+              child: CircleGoogle(),
             ),
             Positioned(
               left: 0.0,

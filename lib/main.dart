@@ -105,7 +105,7 @@ class _LightsAppState extends State<_LightsApp> {
           '/Ava': (context) => Ava(),
           '/Movie': (context) => MoviesPage(),
           '/Music': (context) => HomeScreenMusic(),
-          '/homeMessage': (context) => mainMessage(),
+          '/homeMessage': (context) => MainMessage(),
           '/Calender': (context) => CalenderScreen(),
           '/Form': (context) => TableView(),
           '/Game': (context) => GamesPage(),

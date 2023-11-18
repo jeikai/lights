@@ -1,12 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutterapp/services/api.dart';
-import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
-import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:rive/rive.dart';
 
@@ -374,12 +371,6 @@ class _CardDetailState extends State<CardDetail> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     //a TextStyle with align center and text size fit it parent bounds and center vertically
-    TextStyle textStyle = TextStyle(
-        fontSize: size.width / 15,
-        fontWeight: FontWeight.bold,
-        fontFamily: "DFVNDoris",
-        color: Color.fromARGB(255, 16,52,80)
-    );
     Widget child = Container(
       //make the Container fit parent
       width: size.width,
@@ -407,7 +398,7 @@ class _CardDetailState extends State<CardDetail> {
             child: Center(
               child: Text(
                   card.description,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: size.width / 15,
                       fontWeight: FontWeight.bold,
                       fontFamily: "DFVNDoris",

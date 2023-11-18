@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/component/Friends/AddPeople.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/component/Doctor/ChatView.dart';
 
-class mainMessage extends StatefulWidget {
-  const mainMessage({super.key});
+class MainMessage extends StatefulWidget {
+  const MainMessage({super.key});
 
   @override
-  State<mainMessage> createState() => _mainMessageState();
+  State<MainMessage> createState() => _MainMessageState();
 }
 
-class _mainMessageState extends State<mainMessage> {
+class _MainMessageState extends State<MainMessage> {
   int currentPage = 0;
 
   @override

@@ -86,6 +86,7 @@ class MovieDetail extends StatelessWidget {
                             final url = Uri.parse(
                                 movie.path);
                             try {
+                              // ignore: deprecated_member_use
                               await launch(url.toString());
                             } catch (e) {
                               print('Error: $e');

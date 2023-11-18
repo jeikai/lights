@@ -21,13 +21,13 @@ class _GeneratedForgotpasswordscreen2WidgetState
   final _password = TextEditingController();
   final _repass = TextEditingController();
   bool obscure = true;
-  bool re_obscure = true;
+  bool reObscure = true;
   String id = "";
 
   @override
   void initState() {
     super.initState();
-    id = Preferences.getForgetId()!;
+    id = Preferences.getForgetId();
   }
 
   @override
@@ -40,7 +40,6 @@ class _GeneratedForgotpasswordscreen2WidgetState
   @override
   Widget build(BuildContext context) {
     var width = Setting.getWidthSize();
-    var height = Setting.getHeightSize();
     final screenWidth = MediaQuery.of(context).size.width;
     return WillPopScope(
         onWillPop: () async {
@@ -101,7 +100,7 @@ class _GeneratedForgotpasswordscreen2WidgetState
                         },
                         obscureText: obscure,
                         onDataChanged: (value) => {},
-                        Icon: IconButton(
+                        icon: IconButton(
                           onPressed: () {
                             setState(() {
                               obscure =
@@ -127,13 +126,13 @@ class _GeneratedForgotpasswordscreen2WidgetState
                         validate: (_repass) {
                           return null;
                         },
-                        obscureText: re_obscure,
+                        obscureText: reObscure,
                         onDataChanged: (value) => {},
-                        Icon: IconButton(
+                        icon: IconButton(
                           onPressed: () {
                             setState(() {
-                              re_obscure =
-                                  !re_obscure; // Toggle the password visibility
+                              reObscure =
+                                  !reObscure; // Toggle the password visibility
                             });
                           },
                           icon: Icon(
