@@ -223,7 +223,6 @@ class _GeneratedLoginscreenWidgetState
                         var response = await Api().postData("login", data);
                         if (response?["message"]) {
                           Preferences.setId(response?["user"]["_id"]);
-                          print("setUN");
                           Preferences.setUsername(
                               response?["user"]["name"]);
                           print("setEmail");
