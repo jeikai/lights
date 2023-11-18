@@ -6,13 +6,13 @@ import '../../../../util/process/notification/NotificationManager.dart';
 import 'normal_cell.dart';
 
 class NotificationListView extends StatefulWidget {
-  const NotificationListView({Key? key}) : super(key: key);
+  NotificationListView() : super(key: NotificationManager().listViewKey);
 
   @override
-  _NotificationListViewState createState() => _NotificationListViewState();
+  NotificationListViewState createState() => NotificationListViewState();
 }
 
-class _NotificationListViewState extends State<NotificationListView>
+class NotificationListViewState extends State<NotificationListView>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late NotificationManager _manager;
@@ -29,6 +29,10 @@ class _NotificationListViewState extends State<NotificationListView>
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  void update() {
+    setState(() {});
   }
 
   @override

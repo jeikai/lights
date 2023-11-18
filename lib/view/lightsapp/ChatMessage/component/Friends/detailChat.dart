@@ -9,20 +9,20 @@ import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:provider/provider.dart';
 import 'ibMessage.dart';
 
-class detailChat extends StatefulWidget {
+class DetailChat extends StatefulWidget {
   final String id;
   final String name;
   final String image;
 
-  const detailChat(
+  const DetailChat(
       {Key? key, required this.id, required this.name, required this.image})
       : super(key: key);
 
   @override
-  State<detailChat> createState() => _DetailChatState();
+  State<DetailChat> createState() => _DetailChatState();
 }
 
-class _DetailChatState extends State<detailChat> {
+class _DetailChatState extends State<DetailChat> {
   final TextEditingController _controller = TextEditingController();
   late IO.Socket socket;
 

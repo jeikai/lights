@@ -54,7 +54,7 @@ class _RPCustomPainter extends CustomPainter {
     paintImage(
         canvas: canvas,
         rect: Rect.fromPoints(Offset.zero, Offset(size.width, size.height)),
-        image: ImageManager().getUIImage(ImageManager.blue_planet)!);
+        image: ImageManager().getUIImage(ImageManager.bluePlanet)!);
   }
 
   @override

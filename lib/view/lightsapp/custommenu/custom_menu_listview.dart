@@ -31,10 +31,6 @@ class _CustomMenuListviewState extends State<CustomMenuListview> {
   }
 }
 
-void _default(context) {
-  print("a");
-}
-
 class CustomMenuListViewCell extends StatelessWidget {
   final Color color;
   final String text;

@@ -21,6 +21,7 @@ class ChatCard extends StatelessWidget {
         final url = Uri.parse(
             path);
         try {
+          // ignore: deprecated_member_use
           await launch(url.toString());
         } catch (e) {
           print('Error: $e');

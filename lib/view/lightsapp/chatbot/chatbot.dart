@@ -14,7 +14,7 @@ class Chatbot extends StatefulWidget {
 
 class _ChatbotState extends State<Chatbot> {
   final TextEditingController _controller = TextEditingController();
-  final List<chatmessage> _message = [];
+  final List<ChatMessage> _message = [];
   final _formKey = GlobalKey<FormState>();
   bool _isTyping = false;
 
@@ -25,7 +25,7 @@ class _ChatbotState extends State<Chatbot> {
 
   void _sendMessage() async {
     if (_controller.text.isEmpty) return;
-    chatmessage message = chatmessage(text: _controller.text, sender: "user");
+    ChatMessage message = ChatMessage(text: _controller.text, sender: "user");
     setState(() {
       _message.insert(0, message);
       _isTyping = true;
@@ -39,18 +39,18 @@ class _ChatbotState extends State<Chatbot> {
   }
 
   void insertNewData(String response, {bool isImage = false}) {
-    chatmessage Message = chatmessage(
+    ChatMessage message = ChatMessage(
       text: response,
       sender: "bot",
       isImage: isImage,
     );
     setState(() {
       _isTyping = false;
-      _message.insert(0, Message);
+      _message.insert(0, message);
     });
   }
 
-  Widget InputText() {
+  Widget inputText() {
     return Row(
       children: [
         Expanded(
@@ -183,7 +183,7 @@ class _ChatbotState extends State<Chatbot> {
                 decoration: BoxDecoration(
                   color: context.cardColor,
                 ),
-                child: InputText(),
+                child: inputText(),
               ),
             ],
           ),
