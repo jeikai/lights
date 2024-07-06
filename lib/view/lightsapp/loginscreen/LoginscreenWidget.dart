@@ -58,7 +58,6 @@ class _GeneratedLoginscreenWidgetState
 
   }
 
-
   String getRandomPicture() {
     List<String> pictureList = [
       "ava1.jpg",

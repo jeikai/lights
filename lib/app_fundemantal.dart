@@ -14,6 +14,10 @@ class MyApp {
 
   static NotificationManager? manager;
 
+  bool _prerunFinished = false;
+
+  bool get isFinished => _prerunFinished;
+
   MyApp(Widget main, Widget mainloading) {
     WidgetsFlutterBinding.ensureInitialized()
         .addObserver(AppLifecycleObserver(this));
@@ -38,6 +42,7 @@ class MyApp {
     print("Preferences init finished");
     manager = NotificationManager();
     print("NotificationManager init finished");
+    _prerunFinished = true;
   }
 
   void onPreRunFinish() {
@@ -123,6 +128,7 @@ class _AppFundState extends State<_AppFund> {
           loading =
           true; // Switch to the child content after prerun is finished
         });
+        if(widget.myapp.isFinished) return;
         ToastNoti.show("Gặp lỗi khi khởi động");
         throw error;
       });

@@ -17,7 +17,7 @@ dependencies:
   visibility_detector:
   chat_bubbles:
   flutter_svg:
-  flutter_gif:
+  flutter_gif: 
   custom_clippers:
   fl_chart: ^0.63.0
   flutter_social_button:

@@ -7,7 +7,7 @@ class ChatMessage extends StatelessWidget {
     required this.text,
     required this.sender,
     this.isImage = false,
-  }) : super(key: key);
+  }) : super(key: key); 
 
   final String text;
   final String sender;
