@@ -55,9 +55,7 @@ class _GeneratedLoginscreenWidgetState
     } else {
       print("There is no local login data");
     }
-
   }
-
 
   String getRandomPicture() {
     List<String> pictureList = [
@@ -224,19 +222,16 @@ class _GeneratedLoginscreenWidgetState
                         if (response?["message"]) {
                           Preferences.setId(response?["user"]["_id"]);
                           print("setUN");
-                          Preferences.setUsername(
-                              response?["user"]["name"]);
+                          Preferences.setUsername(response?["user"]["name"]);
                           print("setEmail");
-                          Preferences.setEmail(
-                              response?["user"]["email"]);
+                          Preferences.setEmail(response?["user"]["email"]);
                           print("setPN");
                           Preferences.setPhoneNumber(
                               response?["user"]["phoneNumber"]);
                           print("setDOB");
                           Preferences.setDOB(response?["user"]["DOB"]);
                           print("setAddress");
-                          Preferences.setAddress(
-                              response?["user"]["address"]);
+                          Preferences.setAddress(response?["user"]["address"]);
                           print("setupUser");
                           Preferences.setAva(getRandomPicture());
                           await Preferences.setupUser(response?["user"]["_id"]);
