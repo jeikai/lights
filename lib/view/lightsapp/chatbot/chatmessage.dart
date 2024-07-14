@@ -1,13 +1,13 @@
 import 'package:custom_clippers/custom_clippers.dart';
 import "package:flutter/material.dart";
 
-class chatmessage extends StatelessWidget {
-  const chatmessage({
+class ChatMessage extends StatelessWidget {
+  const ChatMessage({
     Key? key,
     required this.text,
     required this.sender,
     this.isImage = false,
-  }) : super(key: key);
+  }) : super(key: key); 
 
   final String text;
   final String sender;

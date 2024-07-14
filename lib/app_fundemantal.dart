@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
 import 'package:flutterapp/util/Preferences.dart';
@@ -5,10 +7,16 @@ import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 
+import 'reusable_widget/toast.dart';
+
 class MyApp {
   BoolWarpper isPreRunFinished = BoolWarpper(false);
 
   static NotificationManager? manager;
+
+  bool _prerunFinished = false;
+
+  bool get isFinished => _prerunFinished;
 
   MyApp(Widget main, Widget mainloading) {
     WidgetsFlutterBinding.ensureInitialized()
@@ -23,14 +31,18 @@ class MyApp {
   }
 
   //Method chạy trước khi App được chạy
-  Future<Object?> preRun() async {
+  Future<void> preRun() async {
     await ConfigManager().setup();
+    print("ConfigManager setup finished");
     await RiveUtil().setup();
+    print("RiveUtil setup finished");
     await ImageManager().setup();
+    print("ImageManager setup finished");
     await Preferences.init();
+    print("Preferences init finished");
     manager = NotificationManager();
-    //print("a");
-    return null;
+    print("NotificationManager init finished");
+    _prerunFinished = true;
   }
 
   void onPreRunFinish() {
@@ -70,11 +82,15 @@ class _AppFund extends StatefulWidget {
 }
 
 class _AppFundState extends State<_AppFund> {
-  bool _showLoading = true;
+  get _showLoading => widget.prerun.isFalse();
+  set loading(bool b) {
+    widget.prerun.b = b;
+  }
 
   @override
   Widget build(BuildContext context) {
     return AnimatedSwitcher(
+      key: Key("LoadingSwitcher"),
       switchInCurve: Curves.easeInExpo,
       switchOutCurve: Curves.easeOutBack,
       duration: Duration(milliseconds: 1000),
@@ -99,12 +115,22 @@ class _AppFundState extends State<_AppFund> {
     if (widget.prerun.isFalse()) {
       widget.myapp.preRun().then((o) {
         widget.myapp.onPreRunFinish();
-        //print("prerun finished");
+        print("prerun finished");
         widget.prerun.setTrue();
         setState(() {
-          _showLoading =
-              false; // Switch to the child content after prerun is finished
+          loading =
+              true; // Switch to the child content after prerun is finished
         });
+      }).timeout(Duration(seconds: 10), onTimeout: () {
+        throw TimeoutException("PreRun timeout");
+      }).catchError((error){
+        setState(() {
+          loading =
+          true; // Switch to the child content after prerun is finished
+        });
+        if(widget.myapp.isFinished) return;
+        ToastNoti.show("Gặp lỗi khi khởi động");
+        throw error;
       });
     }
   }

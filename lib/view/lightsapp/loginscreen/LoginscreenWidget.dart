@@ -90,7 +90,6 @@ class _GeneratedLoginscreenWidgetState
       isRuntimered = true;
     }
     var width = Setting.getWidthSize();
-    var height = Setting.getHeightSize();
 
     return Material(
       child: ClipRRect(
@@ -133,7 +132,7 @@ class _GeneratedLoginscreenWidgetState
                     },
                     obscureText: obscure,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         setState(() {
                           obscure = !obscure; // Toggle the password visibility
@@ -174,7 +173,7 @@ class _GeneratedLoginscreenWidgetState
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _email.clear();
                       },
@@ -188,7 +187,7 @@ class _GeneratedLoginscreenWidgetState
                   bottom: null,
                   width: 200.0,
                   height: 33.0,
-                  child: Text_Quen(),
+                  child: TextQuen(),
                 ),
                 Positioned(
                   top: width * 60 / 100,
@@ -254,5 +253,69 @@ class _GeneratedLoginscreenWidgetState
         ),
       ),
     );
+  }
+
+  void onPress() async {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return WillPopScope(
+              child: Dialog(
+                backgroundColor: Colors.transparent,
+                child: Container(
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              ),
+              onWillPop: () async => false);
+        });
+    if (_formKey.currentState!.validate()) {
+      Map data = {
+        "email": _email.text,
+        "password": _password.text,
+      };
+      var response = await Api().postData("login", data);
+      if (response?["message"]) {
+        Future.wait(getSetupTask(response)).then((value) {
+          ToastNoti.show ("Đăng nhập thành công");
+          Navigator.pop(context);
+          Navigator.pushNamed(
+              context, '/GeneratedMainScreenWidget');
+        }).timeout(Duration(seconds: 5), onTimeout: () {
+          ToastNoti.show("Có lỗi");
+          Navigator.pop(context);
+        }).catchError((error) {
+          throw error;
+        });
+        Preferences.setupUser(response?["user"]["_id"]);
+      } else {
+        Navigator.pop(context);
+        ToastNoti.show("Sai email hoặc mật khẩu");
+      }
+    } else {
+      Navigator.pop(context);
+      ToastNoti.show("Có lỗi");
+    }
+  }
+
+  List<Future<dynamic>> getSetupTask(dynamic response) {
+    var a = Preferences.setId(response?["user"]["_id"]);
+    print("setUN");
+    var b = Preferences.setUsername(response?["user"]["name"]);
+    print("setEmail");
+    var c = Preferences.setEmail(
+        response?["user"]["email"]);
+    print("setPN");
+    var d = Preferences.setPhoneNumber(
+        response?["user"]["phoneNumber"]);
+    print("setDOB");
+    var e = Preferences.setDOB(response?["user"]["DOB"]);
+    print("setAddress");
+    var f = Preferences.setAddress(
+        response?["user"]["address"]);
+    print("setupUser");
+    var g = Preferences.setAva(getRandomPicture());
+    return [a, b, c, d, e, f, g];
   }
 }

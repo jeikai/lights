@@ -32,7 +32,7 @@ class _HomeScreenMusicState extends State<HomeScreenMusic> {
           coverUrl: songData['coverUrl'],
         );
       }).toList();
-      return parse;
+      return parse; 
     }
     return [];
   }

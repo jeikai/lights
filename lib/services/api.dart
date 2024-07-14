@@ -56,7 +56,7 @@ class Api {
         print('Có lỗi xảy ra: ${response.statusCode}');
         return null;
       }
-    } catch (e) {
+    } catch (e) { 
       print('Lỗi: $e');
       return null;
     }

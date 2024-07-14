@@ -2,7 +2,6 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutterapp/services/api.dart';
-import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
@@ -21,7 +20,6 @@ class _CardMenuState extends State<CardMenu> {
       print("Fetching cards");
       List<Cardd> cards = await Api().getCards();
       print("Cards fetched: $cards");
-      print(Preferences.getId());
       // List<Cardd> cards = [
       //   Cardd(
       //     description: "This is a card",
@@ -410,8 +408,9 @@ class _CardDetailState extends State<CardDetail> {
                 horizontal: size.height / 16, vertical: size.width / 8),
             height: size.height / 8,
             child: Center(
-              child: Text(card.description,
-                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+              child: Text(
+                  card.description,
+                  style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                       fontSize: size.width / 15,
                       fontWeight: FontWeight.bold,
                       fontFamily: "DFVNDoris",

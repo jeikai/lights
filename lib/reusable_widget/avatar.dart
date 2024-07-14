@@ -33,7 +33,7 @@ class Avatar extends StatelessWidget {
                       ? Color.fromARGB(255, 135, 161, 201)
                       : null,
                   backgroundImage: AssetImage(
-                      'assets/images/ava/' + (Preferences.getAva() ?? '')),
+                      'assets/images/ava/' + (Preferences.getAva())),
                 ),
               ),
             )),

@@ -36,7 +36,6 @@ class _GeneratedForgotpasswordscreen1WidgetState extends State<GeneratedForgotpa
   @override
   Widget build(BuildContext context) {
     var width = Setting.getWidthSize();
-    var height = Setting.getHeightSize();
     final screenWidth = MediaQuery.of(context).size.width;
 
     return Material(
@@ -94,7 +93,7 @@ class _GeneratedForgotpasswordscreen1WidgetState extends State<GeneratedForgotpa
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _phoneNo.clear();
                       },
@@ -117,7 +116,7 @@ class _GeneratedForgotpasswordscreen1WidgetState extends State<GeneratedForgotpa
                     },
                     obscureText: false,
                     onDataChanged: (value) => {},
-                    Icon: IconButton(
+                    icon: IconButton(
                       onPressed: () {
                         _email.clear();
                       },

@@ -60,7 +60,7 @@ class _AddPeopleState extends State<AddPeople> {
                         shape: BoxShape.circle,
                         image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage('assets/images/ava/' + (Preferences.getAva() ?? '')),
+                          image: AssetImage('assets/images/ava/' + (Preferences.getAva() )),
                         ),
                       ),
                     ),

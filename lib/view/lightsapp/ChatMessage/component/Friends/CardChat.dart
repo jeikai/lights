@@ -23,7 +23,7 @@ class CardChat extends StatelessWidget {
           MaterialPageRoute(
             builder: (_) => ChangeNotifierProvider(
               create: (context) => ChatProvider(),
-              child: detailChat(
+              child: DetailChat(
                 name: name,
                 id: id,
                 image: 'assets/images/ava/' + ava,

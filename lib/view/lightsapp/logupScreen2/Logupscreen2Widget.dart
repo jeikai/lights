@@ -18,13 +18,13 @@ class GeneratedLogupscreen2Widget extends StatefulWidget {
 
 class _GeneratedLogupscreen2WidgetState
     extends State<GeneratedLogupscreen2Widget> {
-  final _DOB = TextEditingController();
+  final _dob = TextEditingController();
   final _password = TextEditingController();
   final _repass = TextEditingController();
   bool obscure = true;
   final _formKey = GlobalKey<FormState>();
 
-  bool re_obscure = true;
+  bool reObscure = true;
   String name = "";
   String email = "";
   String phoneNumber = "";
@@ -53,16 +53,15 @@ class _GeneratedLogupscreen2WidgetState
   @override
   void initState() {
     super.initState();
-    name = Preferences.getRegisUsername()!;
-    email = Preferences.getRegisEmail()!;
-    phoneNumber = Preferences.getRegisPhonenumber()!;
-    address = Preferences.getRegisAddress()!;
+    name = Preferences.getRegisUsername();
+    email = Preferences.getRegisEmail();
+    phoneNumber = Preferences.getRegisPhonenumber();
+    address = Preferences.getRegisAddress();
   }
 
   @override
   Widget build(BuildContext context) {
     var width = Setting.getWidthSize();
-    var height = Setting.getHeightSize();
     return WillPopScope(
       onWillPop: () async {
         return false;
@@ -100,17 +99,17 @@ class _GeneratedLogupscreen2WidgetState
                     width: 326.0,
                     height: 71.0,
                     child: Input(
-                      textController: _DOB,
+                      textController: _dob,
                       placeholder: "Ngày sinh DD/MM/YYYY",
                       keyboardType: TextInputType.datetime,
-                      validate: (_DOB) {
+                      validate: (_dob) {
                         return null;
                       },
                       obscureText: false,
                       onDataChanged: (value) => {},
-                      Icon: IconButton(
+                      icon: IconButton(
                         onPressed: () {
-                          _DOB.clear();
+                          _dob.clear();
                         },
                         icon: const Icon(Icons.clear),
                       ),
@@ -131,7 +130,7 @@ class _GeneratedLogupscreen2WidgetState
                       },
                       obscureText: obscure,
                       onDataChanged: (value) => {},
-                      Icon: IconButton(
+                      icon: IconButton(
                         onPressed: () {
                           setState(() {
                             obscure =
@@ -157,13 +156,13 @@ class _GeneratedLogupscreen2WidgetState
                       validate: (_repass) {
                         return null;
                       },
-                      obscureText: re_obscure,
+                      obscureText: reObscure,
                       onDataChanged: (value) => {},
-                      Icon: IconButton(
+                      icon: IconButton(
                         onPressed: () {
                           setState(() {
-                            re_obscure =
-                                !re_obscure; // Toggle the password visibility
+                            reObscure =
+                                !reObscure; // Toggle the password visibility
                           });
                         },
                         icon: Icon(
@@ -197,23 +196,22 @@ class _GeneratedLogupscreen2WidgetState
                             });
                         try {
                           if (_formKey.currentState!.validate()) {
-                            if (_DOB.text.isEmpty ||
+                            if (_dob.text.isEmpty ||
                                 _password.text.isEmpty ||
                                 _repass.text.isEmpty) {
                               ToastNoti.show("Không được để trống");
                             } else if (_password.text != _repass.text) {
                               ToastNoti.show(
                                   "Mật khẩu nhập lại phải khớp với mật khẩu đã nhập");
-                            } else if (!isValidDOB(_DOB.text)) {
-                              ToastNoti.show(
-                                  "Ngày sinh không hợp lệ. Ví dụ: 01/01/2000");
+                            } else if (!isValidDOB(_dob.text)) {
+                              ToastNoti.show("Ngày sinh không hợp lệ. Ví dụ: 01/01/2000");
                             } else {
                               Map data = {
                                 "email": email,
                                 "name": name,
                                 "password": _password.text,
                                 "phoneNumber": phoneNumber,
-                                "DOB": _DOB.text,
+                                "DOB": _dob.text,
                                 "address": address
                               };
                               print(data);

@@ -193,7 +193,6 @@ class COGWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.sizeOf(context);
     return ValueListenableBuilder(
       valueListenable: isFinish,
       builder: (BuildContext context, bool value, Widget? child) {

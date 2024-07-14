@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/notification.dart';
+import 'package:flutterapp/reusable_widget/vux/listview/noti/notification_list_view.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/ConfigManager.dart';
 import 'package:flutterapp/util/Preferences.dart';
@@ -14,7 +15,13 @@ class NotificationManager {
   late NotificationEventCallable _callable;
 
   static NotificationManager? _instance;
-  late ListModel<NotificationContent> _list;
+  ListModel<NotificationContent>? _list;
+
+  late GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
+  late GlobalKey<NotificationListViewState> _listViewKey = GlobalKey<NotificationListViewState>();
+
+  GlobalKey<AnimatedListState> get listKey => _listKey;
+  GlobalKey<NotificationListViewState> get listViewKey => _listViewKey;
 
   factory NotificationManager() {
     if (_instance == null) {
@@ -23,10 +30,6 @@ class NotificationManager {
     }
     return _instance!;
   }
-
-  late GlobalKey<AnimatedListState> _listKey = GlobalKey<AnimatedListState>();
-
-  GlobalKey<AnimatedListState> get listKey => _listKey;
 
   NotificationManager._internal() {
     process = NotificationProcess(
@@ -52,12 +55,14 @@ class NotificationManager {
   }
 
   void addNotiWithoutEvent(NotificationContent notificationContent) {
-    _list.insertTop(notificationContent);
+    if(_list == null) return;
+    _list!.insertTop(notificationContent);
   }
 
   void removeNotification(NotificationContent notificationContent) {
-    int index = _list.indexOf(notificationContent);
-    _list.removeAt(index);
+    if(_list == null) return;
+    int index = _list!.indexOf(notificationContent);
+    _list!.removeAt(index);
   }
 
   List<NotificationContent> get unreadNotifications {
@@ -70,7 +75,7 @@ class NotificationManager {
   }
 
   List<NotificationContent> get notifications {
-    return _isLoadingFromStorage ? [] : _list._items;
+    return _isLoadingFromStorage || _list == null ? [] : _list!._items;
   }
 
   void markNotificationAsRead(NotificationContent notificationContent) {
@@ -79,7 +84,8 @@ class NotificationManager {
   }
 
   void clearAllNotifications() {
-    _list.clear();
+    if(_list == null) return;
+    _list!.clear();
   }
 
   int get notificationCount => notifications.length;
@@ -104,15 +110,15 @@ class NotificationManager {
   // Loading notifications from local storage
   Future<List<NotificationContent>> loadNotificationsFromLocalStorage(
       List<dynamic>? input) async {
+    print("Load Noti!!");
     List<NotificationContent> notificationsList;
     if (input != null) {
-      print("here1");
       List<dynamic> notificationStrings = input;
       notificationsList = notificationStrings
           .map((noti) => NotificationContent.fromMap(noti))
           .toList();
+      print("Noti: $notificationsList");
     } else {
-      print("here2");
       notificationsList = [];
     }
     _list = ListModel(
@@ -120,7 +126,21 @@ class NotificationManager {
       initialItems: notificationsList,
     );
     _isLoadingFromStorage = false;
+    reloadNotiListIfNeeded();
     return notificationsList;
+  }
+
+  void reloadNotiListIfNeeded() {
+    //get the Widget with the key
+    final key = listViewKey;
+    if (key.currentWidget != null) {
+      //get the State from the key
+      final keyState = key.currentState;
+      if (keyState != null) {
+        //access the method in the State
+        keyState.update();
+      }
+    }
   }
 
   void addListener(
@@ -133,7 +153,8 @@ class NotificationManager {
   }
 
   set removedItemBuilder(RemovedItemBuilder<NotificationContent> builder) {
-    _list.removedItemBuilder = builder;
+    if(_list == null) return;
+    _list!.removedItemBuilder = builder;
   }
 
   NotificationEventCallable get eventCallable => _callable;

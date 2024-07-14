@@ -26,7 +26,7 @@ class GamesPage extends StatefulWidget {
 class _GamesPageState extends State<GamesPage> {
   CarouselController _carouselController = CarouselController();
   int _current = 0;
-  List<Game> _Games = [];
+  List<Game> _games = [];
   String _currentImage = 'assets/images/game/dapchuot.png';
 
   @override
@@ -41,28 +41,28 @@ class _GamesPageState extends State<GamesPage> {
     print('Type of response: ${response.runtimeType}');
     if (response != null) {
       setState(() {
-        _Games = _parseGames(response);
-        print(_Games);
-        if (_Games.isNotEmpty) {
-          _currentImage = 'assets/images/game/' + _Games[0].image;
+        _games = _parseGames(response);
+        print(_games);
+        if (_games.isNotEmpty) {
+          _currentImage = 'assets/images/game/' + _games[0].image;
         }
       });
     }
   }
 
   List<Game> _parseGames(List<dynamic> jsonData) {
-    final List<Game> Games = [];
+    final List<Game> games = [];
 
-    for (final GameData in jsonData) {
+    for (final gameData in jsonData) {
       final Game game = Game(
-          title: GameData['title'],
-          image: GameData['image'],
-          genre: GameData['genre'],
-          path: GameData['path']
+          title: gameData['title'],
+          image: gameData['image'],
+          genre: gameData['genre'],
+          path: gameData['path']
       );
-      Games.add(game);
+      games.add(game);
     }
-    return Games;
+    return games;
   }
 
   @override
@@ -131,19 +131,20 @@ class _GamesPageState extends State<GamesPage> {
                     setState(() {
                       _current = index;
                       // Cập nhật hình ảnh hiện tại khi chuyển trang
-                      _currentImage = 'assets/images/game/' + _Games[_current].image;
+                      _currentImage = 'assets/images/game/' + _games[_current].image;
                     });
                   },
                 ),
                 carouselController: _carouselController,
-                items: _Games.map((Game) {
+                items: _games.map((game) {
                   return Builder(
                     builder: (BuildContext context) {
                       return GestureDetector(
                         onTap: () async {
                           final url = Uri.parse(
-                              Game.path);
+                              game.path);
                           try {
+                            // ignore: deprecated_member_use
                             await launch(url.toString());
                           } catch (e) {
                             print('Error: $e');
@@ -167,13 +168,13 @@ class _GamesPageState extends State<GamesPage> {
                                     borderRadius: BorderRadius.circular(20),
                                   ),
                                   child: Image(
-                                    image: AssetImage('assets/images/game/' + Game.image),
+                                    image: AssetImage('assets/images/game/' + game.image),
                                     fit: BoxFit.cover,
                                   ),
                                 ),
                                 SizedBox(height: 20),
                                 Text(
-                                  Game.title,
+                                  game.title,
                                   style: TextStyle(
                                     fontSize: 16.0,
                                     fontWeight: FontWeight.bold,
@@ -182,7 +183,7 @@ class _GamesPageState extends State<GamesPage> {
                                 SizedBox(height: 20),
                                 Container(
                                   child: Text(
-                                    Game.genre,
+                                    game.genre,
                                     style: TextStyle(
                                       fontSize: 14.0,
                                       color: Colors.grey.shade600,
@@ -193,7 +194,7 @@ class _GamesPageState extends State<GamesPage> {
                                 SizedBox(height: 20),
                                 AnimatedOpacity(
                                   duration: Duration(milliseconds: 500),
-                                  opacity: _current == _Games.indexOf(Game)
+                                  opacity: _current == _games.indexOf(game)
                                       ? 1.0
                                       : 0.0,
                                   child: Container(

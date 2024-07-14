@@ -27,6 +27,7 @@ class TaskManager {
   //   for
   // }
 
+  // ignore: non_constant_identifier_names
   static final List<String> CUCBUON = [
     "Nghe 1 bài nhạc từ kho nhạc của app",
     "Ngồi thiền 30p",
@@ -44,6 +45,7 @@ class TaskManager {
     "Chụp 3 bức ảnh",
     //"Viết nhật ký ( thời gian sau nv xuất hiện mỗi ngày)",
   ];
+  // ignore: non_constant_identifier_names
   static final List<String> BUON = [
     "Nghe 1 bài nhạc từ kho nhạc của app",
     "Ngồi thiền 30p",
@@ -62,6 +64,7 @@ class TaskManager {
     //"Viết nhật ký ( thời gian sau nv xuất hiện mỗi ngày)",
     "Chơi 1 game trong kho game của app",
   ];
+  // ignore: non_constant_identifier_names
   static final List<String> BINHTHUONG = [
     "Nghe 1 bài nhạc từ kho nhạc của app",
     "Tập thể dục 30p",
@@ -79,6 +82,7 @@ class TaskManager {
     "Chơi 1 game trong kho game của app",
     //"Viết nhật ký ( thời gian sau nv xuất hiện mỗi ngày",
   ];
+  // ignore: non_constant_identifier_names
   static final List<String> VUI = [
     "Nghe 1 bài nhạc từ kho nhạc của app",
     "Tập thể dục 30p",
@@ -98,6 +102,7 @@ class TaskManager {
     "Chụp 3 tấm hình",
     //"Viết nhật ký ( thời gian sau nv xuất hiện mỗi ngày)",
   ];
+  // ignore: non_constant_identifier_names
   static final List<String> CUCVUI = [
     "Nghe 1 bài nhạc từ kho nhạc của app",
     "Tập thể dục 30p",

@@ -5,7 +5,7 @@ class ThreeDots extends StatefulWidget {
 
   @override
   ThreeDotsState createState() => ThreeDotsState();
-}
+} 
 
 class ThreeDotsState extends State<ThreeDots>
     with SingleTickerProviderStateMixin {

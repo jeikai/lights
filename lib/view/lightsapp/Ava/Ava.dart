@@ -21,7 +21,7 @@ class _AvaState extends State<Ava> {
   @override
   void initState() {
     super.initState();
-    username = Preferences.getUsername()!;
+    username = Preferences.getUsername();
   }
 
   @override
