@@ -1,12 +1,10 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/image/ImageManager.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
-import 'package:flutterapp/view/lightsapp/Form/Form.dart';
 import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:rive/rive.dart';
 
@@ -413,7 +411,7 @@ class _CardDetailState extends State<CardDetail> {
             height: size.height / 8,
             child: Center(
               child: Text(card.description,
-                  style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       fontSize: size.width / 15,
                       fontWeight: FontWeight.bold,
                       fontFamily: "DFVNDoris",

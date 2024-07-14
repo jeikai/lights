@@ -58,7 +58,7 @@ class _Loading extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ); 
   }
 }
 
