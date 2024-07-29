@@ -4,8 +4,9 @@ import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  // static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
-  static String baseUrl = "http://192.168.31.194:5000/api/";
+  static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
+
+  // static String baseUrl = "http://192.168.31.194:5000/api/";
 
   Future<String?> uploadImage(String path) async {
     final Uri uri = Uri.parse(baseUrl + "upload");
@@ -56,7 +57,7 @@ class Api {
         print('Có lỗi xảy ra: ${response.statusCode}');
         return null;
       }
-    } catch (e) { 
+    } catch (e) {
       print('Lỗi: $e');
       return null;
     }
@@ -70,7 +71,7 @@ class Api {
         'Content-Type': 'application/json',
       };
       final http.Response response =
-      await http.put(uri, headers: headers, body: jsonData);
+          await http.put(uri, headers: headers, body: jsonData);
       if (response.statusCode == 200 || response.statusCode == 201) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse;
@@ -83,6 +84,7 @@ class Api {
       return null;
     }
   }
+
   Future<List<dynamic>?> getDataMessage(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);
     try {
@@ -91,7 +93,7 @@ class Api {
         'Content-Type': 'application/json',
       };
       final http.Response response =
-      await http.post(uri, headers: headers, body: jsonData);
+          await http.post(uri, headers: headers, body: jsonData);
       if (response.statusCode == 200 || response.statusCode == 201) {
         List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse;
@@ -104,6 +106,7 @@ class Api {
       return null;
     }
   }
+
   Future<List<dynamic>?> postDataForTasks(String path, Map data) async {
     final Uri uri = Uri.parse(baseUrl + path);
     try {
@@ -148,6 +151,7 @@ class Api {
       return null;
     }
   }
+
   Future<List<dynamic>?> getDataUsersById(String path, String id) async {
     final Uri uri = Uri.parse(baseUrl + path + "/" + id);
     try {
@@ -170,6 +174,7 @@ class Api {
       return null;
     }
   }
+
   Future<Map<String, dynamic>?> putDataById(String path, String id) async {
     final Uri uri = Uri.parse(baseUrl + path + "/" + id);
     try {
@@ -304,20 +309,22 @@ class Api {
       return null;
     }
   }
+
   Future<List<Cardd>> getCards() async {
-    List<dynamic> data = (await getDataById("getUserCard", Preferences.getId()!))!["userCards"]!;
+    List<dynamic> data =
+        (await getDataById("getUserCard", Preferences.getId()!))!["userCards"]!;
     List<Cardd> res = [];
-    for(int i = 0; i < data.length; i++) {
+    for (int i = 0; i < data.length; i++) {
       res.add(Cardd.map(data[i]));
     }
     return res;
   }
 
-  Future<Map<String, dynamic>?> updateCard(id, String text,) async {
-    Map<String, dynamic> data = {
-      "id": id,
-      "answer": text
-    };
+  Future<Map<String, dynamic>?> updateCard(
+    id,
+    String text,
+  ) async {
+    Map<String, dynamic> data = {"id": id, "answer": text};
     return await pushDataUpdate("updateCard", id, data);
   }
 
@@ -327,7 +334,8 @@ class Api {
       Map<String, String> headers = {
         'Content-Type': 'application/json',
       };
-      final response = await http.post(uri, headers: headers, body: jsonEncode({"name": name}));
+      final response = await http.post(uri,
+          headers: headers, body: jsonEncode({"name": name}));
       if (response.statusCode == 200 || response.statusCode == 201) {
         List jsonResponse = jsonDecode(response.body);
         return jsonResponse;
@@ -347,7 +355,9 @@ class Api {
       Map<String, String> headers = {
         'Content-Type': 'application/json',
       };
-      await http.post(uri, headers: headers, body: jsonEncode({"userId": userId, "friendId": friendId}));
+      await http.post(uri,
+          headers: headers,
+          body: jsonEncode({"userId": userId, "friendId": friendId}));
     } catch (e) {
       print('Error: $e');
     }
