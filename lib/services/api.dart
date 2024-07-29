@@ -5,7 +5,7 @@ import 'package:http/http.dart' as http;
 
 class Api {
   // static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
-  static String baseUrl = "http://192.168.40.222:5000/api/";
+  static String baseUrl = "http://192.168.31.194:5000/api/";
 
   Future<String?> uploadImage(String path) async {
     final Uri uri = Uri.parse(baseUrl + "upload");
@@ -319,5 +319,37 @@ class Api {
       "answer": text
     };
     return await pushDataUpdate("updateCard", id, data);
+  }
+
+  Future<List?> searchByName(String name) async {
+    final Uri uri = Uri.parse(baseUrl + "searchByName");
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      final response = await http.post(uri, headers: headers, body: jsonEncode({"name": name}));
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        List jsonResponse = jsonDecode(response.body);
+        return jsonResponse;
+      } else {
+        print('Error: ${response.statusCode}');
+        return null;
+      }
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
+  Future<void> addFriend(String userId, String friendId) async {
+    final Uri uri = Uri.parse(baseUrl + "addFriend");
+    try {
+      Map<String, String> headers = {
+        'Content-Type': 'application/json',
+      };
+      await http.post(uri, headers: headers, body: jsonEncode({"userId": userId, "friendId": friendId}));
+    } catch (e) {
+      print('Error: $e');
+    }
   }
 }
