@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 
 import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/util/process/notification/NotificationManager.dart';
@@ -170,4 +171,9 @@ class Preferences {
   static String formatDate(DateTime time) {
     return DateFormat('yyyy-MM-dd').format(time);
   }
+
+  static Future setBgMusic(bool isMute) async =>
+      await _preferences?.setBool("bgMusic", isMute);
+
+  static bool? getBgMusic() => _preferences?.getBool("bgMusic") ?? true;
 }

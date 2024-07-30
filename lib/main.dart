@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/MusicBackground.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/util/rive/RiveUtil.dart';
 import 'package:flutterapp/view/lightsapp/Ava/Ava.dart';
 import 'package:flutterapp/view/lightsapp/ChatMessage/homeMessage.dart';
@@ -29,6 +31,8 @@ import 'setting.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Preferences.init();
+  await MusicManager.init();
   MyApp(
       _LightsApp(),
       _Loading(
@@ -58,7 +62,7 @@ class _Loading extends StatelessWidget {
           ),
         ),
       ),
-    ); 
+    );
   }
 }
 
@@ -68,6 +72,13 @@ class _LightsApp extends StatefulWidget {
 }
 
 class _LightsAppState extends State<_LightsApp> {
+  @override
+  void dispose() {
+    MusicManager.dispose();
+    MusicManager.setMusicEnabled(false);
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

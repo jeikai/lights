@@ -5,6 +5,7 @@ import 'package:flutterapp/view/lightsapp/mainScreen/main_screen_body.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/red_planet_click_animation.dart';
 
 import '../../../reusable_widget/vux/listview/noti/notification_menu.dart';
+import '../../../util/MusicBackground.dart';
 import 'blue_planet_click_animation.dart';
 import 'menu_buttom.dart';
 
@@ -110,7 +111,7 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
     fontWeight: FontWeight.w400,
     color: Color.fromARGB(255, 195, 160, 212),
   );
-
+  bool isMusicEnabled = MusicManager.isMusicEnabled();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -120,7 +121,8 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
           automaticallyImplyLeading: false,
           leading: IconButton(
             icon: CircleAvatar(
-              backgroundImage: AssetImage('assets/images/ava/' + (Preferences.getAva())),
+              backgroundImage:
+                  AssetImage('assets/images/ava/' + (Preferences.getAva())),
             ),
             onPressed: () => {
               // widget.avaClick
@@ -133,6 +135,20 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
             textAlign: TextAlign.center,
             style: style,
           ),
+          actions: [
+            IconButton(
+              icon: Icon(
+                isMusicEnabled ? Icons.music_note : Icons.music_off,
+                color: Color.fromRGBO(195, 160, 212, 1),
+              ),
+              onPressed: () async {
+                setState(() {
+                  isMusicEnabled = !isMusicEnabled;
+                });
+                await MusicManager.setMusicEnabled(isMusicEnabled);
+              },
+            ),
+          ],
         ),
         body: MainScreenBody(
           redPlanetClick: widget.redPlanetClick,

@@ -4,9 +4,9 @@ import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
+  // static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
 
-  // static String baseUrl = "http://192.168.31.194:5000/api/";
+  static String baseUrl = "http://192.168.31.194:5000/api/";
 
   Future<String?> uploadImage(String path) async {
     final Uri uri = Uri.parse(baseUrl + "upload");

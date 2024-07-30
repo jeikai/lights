@@ -37,6 +37,7 @@ dependencies:
   rxdart: ^0.27.5
   qr_flutter: ^4.1.0
   qr_scanner_overlay: ^0.0.2
+  audioplayers: ^5.2.1
 dev_dependencies: 
   flutter_test: 
     sdk: "flutter"
