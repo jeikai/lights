@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/MusicBackground.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:rxdart/rxdart.dart' as rxdart;
 
@@ -36,6 +37,7 @@ class _SongScreenState extends State<Music> {
   @override
   void dispose() {
     audioPlayer.dispose();
+    MusicManager.turnOnMusic();
     super.dispose();
   }
 

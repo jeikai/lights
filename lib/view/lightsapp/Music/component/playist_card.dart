@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutterapp/model/song_model.dart';
+import 'package:flutterapp/util/MusicBackground.dart';
 import 'package:flutterapp/view/lightsapp/Music/Music.dart';
 
 class PlaylistCard extends StatelessWidget {
@@ -14,6 +15,7 @@ class PlaylistCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
+        MusicManager.turnOffMusic();
         Navigator.push(
           context,
           MaterialPageRoute(
