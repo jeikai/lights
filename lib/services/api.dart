@@ -4,7 +4,7 @@ import 'package:flutterapp/view/lightsapp/cardMenu/Card.dart';
 import 'package:http/http.dart' as http;
 
 class Api {
-  static String baseUrl = "https://lights-server-2r1w.onrender.com/api/";
+  static String baseUrl = "http://168.138.183.178:3000/api/";
 
   // static String baseUrl = "http://192.168.31.194:5000/api/";
 
