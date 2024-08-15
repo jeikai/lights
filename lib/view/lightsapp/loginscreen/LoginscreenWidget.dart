@@ -55,7 +55,6 @@ class _GeneratedLoginscreenWidgetState
     } else {
       print("There is no local login data");
     }
-
   }
 
   String getRandomPicture() {

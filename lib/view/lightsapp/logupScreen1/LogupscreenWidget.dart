@@ -180,30 +180,40 @@ class _LogupScreenState extends State<LogupScreen> {
                         if (_formKey.currentState!.validate()) {
                           if (_name.text.isEmpty) {
                             ToastNoti.show("Tên của bạn không được để trống");
+                            Navigator.pop(context);
                           } else if (_phoneNumber.text.isEmpty ||
                               _phoneNumber.text.length != 10) {
                             ToastNoti.show("Số điện thoại không hợp lệ");
+                            Navigator.pop(context);
                           } else if (_email.text.isEmpty ||
                               !_email.text.contains("@")) {
                             ToastNoti.show("Email không hợp lệ");
+                            Navigator.pop(context);
                           } else if (_address.text.isEmpty) {
                             ToastNoti.show("Địa chỉ không hợp lệ");
+                            Navigator.pop(context);
                           } else {
                             Map data = {"email": _email.text};
-                            var checkEmail =
-                                await Api().postData("user/checkEmail", data);
-                            print(checkEmail);
-                            if (checkEmail?["exists"] == true) {
-                              ToastNoti.show("Email này đã tồn tại");
-                            } else {
-                              await Preferences.setRegisUsername(_name.text);
-                              await Preferences.setRegisPhonenumber(
-                                  _phoneNumber.text);
-                              await Preferences.setRegisEmail(_email.text);
-                              await Preferences.setRegisAddress(_address.text);
+                            try {
+                              var checkEmail = await Api().postData("user/checkEmail", data);
+                              print(checkEmail);
+                              if (checkEmail?["exists"] == true) {
+                                ToastNoti.show("Email này đã tồn tại");
+                                Navigator.pop(context);
+                              } else {
+                                await Preferences.setRegisUsername(_name.text);
+                                await Preferences.setRegisPhonenumber(
+                                    _phoneNumber.text);
+                                await Preferences.setRegisEmail(_email.text);
+                                await Preferences.setRegisAddress(_address.text);
+                                Navigator.pop(context);
+                                Navigator.pushNamed(
+                                    context, '/GeneratedLogupscreen2Widget');
+                              }
+                            }
+                            catch(e){
                               Navigator.pop(context);
-                              Navigator.pushNamed(
-                                  context, '/GeneratedLogupscreen2Widget');
+                              print(e);
                             }
                           }
                         }
