@@ -222,18 +222,14 @@ class _GeneratedLogupscreen2WidgetState
                                   await Api().postData("regisCard", data2);
                               if (response?["user"]["_id"] != null &&
                                   response2?["message"] == 'Success') {
-                                await Preferences.setId(
-                                    response?["user"]["_id"]);
-                                await Preferences.setUsername(
-                                    response?["user"]["name"]);
-                                await Preferences.setEmail(
-                                    response?["user"]["email"]);
-                                await Preferences.setPhoneNumber(
-                                    response?["user"]["phoneNumber"]);
-                                await Preferences.setDOB(
-                                    response?["user"]["DOB"]);
-                                await Preferences.setAddress(
-                                    response?["user"]["address"]);
+                                logupUser = LogupUser(
+                                  id: response?["user"]["_id"],
+                                  name: response?["user"]["name"],
+                                  email: response?["user"]["email"],
+                                  phoneNumber: response?["user"]["phoneNumber"],
+                                  DOB: response?["user"]["DOB"],
+                                  address: response?["user"]["address"]
+                                );
                                 Preferences.setupUser(response?["user"]["_id"]);
                                 ToastNoti.show("Đăng ký thành công");
                                 Navigator.pop(context);
@@ -260,4 +256,22 @@ class _GeneratedLogupscreen2WidgetState
       ),
     );
   }
+}
+
+LogupUser? logupUser = null;
+
+class LogupUser {
+  String id;
+  String email;
+  String name;
+  String phoneNumber;
+  String DOB;
+  String address;
+
+  LogupUser({required this.id,
+    required this.email,
+    required this.name,
+    required this.phoneNumber,
+    required this.DOB,
+    required this.address});
 }

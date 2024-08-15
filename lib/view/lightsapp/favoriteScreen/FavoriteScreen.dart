@@ -1,9 +1,13 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutterapp/reusable_widget/Quote_text.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
 import 'package:flutterapp/reusable_widget/background.dart';
 import 'package:flutterapp/reusable_widget/icons/my_flutter_app_icons.dart';
+import 'package:flutterapp/util/Preferences.dart';
 import 'package:flutterapp/view/lightsapp/favoriteScreen/favorite_change_widget.dart';
+import 'package:flutterapp/view/lightsapp/logupScreen2/Logupscreen2Widget.dart';
 
 import '../../../util/FavoriteDatas.dart';
 
@@ -176,8 +180,21 @@ class _Button extends StatelessWidget {
         });
   }
 
-  void onPressedNavigate(context) {
+  void onPressedNavigate(context) async {
     data.sendData();
+
+    Preferences.setId(
+        logupUser!.id);
+    await Preferences.setUsername(
+        logupUser!.name);
+    await Preferences.setEmail(
+        logupUser!.email);
+    await Preferences.setPhoneNumber(
+        logupUser!.phoneNumber);
+    await Preferences.setDOB(
+        logupUser!.DOB);
+    await Preferences.setAddress(
+        logupUser!.address);
     Navigator.pushNamed(context, '/GeneratedStartscreenWidget');
   }
 

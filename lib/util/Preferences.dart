@@ -23,7 +23,7 @@ class Preferences {
        print("pass 2");
     }
   }
-
+ 
   // Lưu dữ liệu người dùng
   static Future setUsername(String username) async =>
       await _preferences?.setString("username", username);

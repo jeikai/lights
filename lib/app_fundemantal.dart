@@ -122,6 +122,12 @@ class _AppFundState extends State<_AppFund> {
               true; // Switch to the child content after prerun is finished
         });
       }).timeout(Duration(seconds: 10), onTimeout: () {
+        setState(() {
+          loading =
+          true; // Switch to the child content after prerun is finished
+        });
+        if(widget.myapp.isFinished) return;
+        ToastNoti.show("Gặp lỗi khi khởi động");
         throw TimeoutException("PreRun timeout");
       }).catchError((error){
         setState(() {
