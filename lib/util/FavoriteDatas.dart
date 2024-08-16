@@ -56,7 +56,7 @@ List<Widget> mappingToWidget = [
   Container(
     color: Colors.transparent,
     child: Image.network(
-      'https://storage.googleapis.com/lightskn/cloud.png',
+      'https://res.cloudinary.com/dycsfcnso/image/upload/v1723397823/lights/images/favorite/cloud_co3mxc.png',
       fit: BoxFit.cover,
       width: 200, // Đặt chiều rộng của hình ảnh
       height: 200, // Đặt chiều cao của hình ảnh
@@ -83,7 +83,7 @@ List<Widget> mappingToWidget = [
   Container(
     color: Colors.transparent,
     child: Image.network(
-      'https://storage.googleapis.com/lightskn/cloud.png',
+      'https://res.cloudinary.com/dycsfcnso/image/upload/v1723397823/lights/images/favorite/cloud_co3mxc.png',
       fit: BoxFit.cover,
       width: 200, // Đặt chiều rộng của hình ảnh
       height: 200, // Đặt chiều cao của hình ảnh
@@ -209,7 +209,7 @@ List<Widget> mappingToWidget = [
   Container(
     color: Colors.transparent,
     child: Image.network(
-      'https://storage.googleapis.com/lightskn/cloud.png',
+      'https://res.cloudinary.com/dycsfcnso/image/upload/v1723397823/lights/images/favorite/cloud_co3mxc.png',
       fit: BoxFit.cover,
       width: 200, // Đặt chiều rộng của hình ảnh
       height: 200, // Đặt chiều cao của hình ảnh

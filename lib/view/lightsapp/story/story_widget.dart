@@ -22,7 +22,7 @@ class _StoryWidgetState extends State<StoryWidget> {
     super.initState();
     skipped = ValueNotifier(false);
     _controller = VideoPlayerController.networkUrl(
-        Uri.parse('https://storage.googleapis.com/lightskn/story.mp4'))
+        Uri.parse('https://res.cloudinary.com/dycsfcnso/video/upload/v1723770518/lights/video/5735518357069_hngetf.mp4'))
       ..initialize().then((_) {
         // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
         setState(() {
