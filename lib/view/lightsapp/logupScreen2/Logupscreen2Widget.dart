@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutterapp/reusable_widget/Button_Post.dart';
 import 'package:flutterapp/reusable_widget/Input.dart';
 import 'package:flutterapp/reusable_widget/Title_dark.dart';
@@ -9,6 +10,25 @@ import 'package:flutterapp/services/api.dart';
 import 'package:flutterapp/setting.dart';
 import 'package:flutterapp/util/Preferences.dart';
 import 'package:intl/intl.dart';
+
+class DateInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue,
+      TextEditingValue newValue,
+      ) {
+    final text = newValue.text;
+    if (text.length == 2 || text.length == 5) {
+      if (oldValue.text.length < newValue.text.length) {
+        return TextEditingValue(
+          text: '$text/',
+          selection: TextSelection.collapsed(offset: text.length + 1),
+        );
+      }
+    }
+    return newValue;
+  }
+}
 
 class GeneratedLogupscreen2Widget extends StatefulWidget {
   @override
@@ -105,6 +125,7 @@ class _GeneratedLogupscreen2WidgetState
                       validate: (_dob) {
                         return null;
                       },
+                      inputFormatters: [DateInputFormatter()],
                       obscureText: false,
                       onDataChanged: (value) => {},
                       icon: IconButton(

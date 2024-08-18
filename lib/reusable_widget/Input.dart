@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Input extends StatelessWidget {
   const Input({
@@ -10,7 +11,9 @@ class Input extends StatelessWidget {
     required this.onDataChanged,
     required this.icon,
     required this.obscureText,
+    this.inputFormatters = const [],
   }) : super(key: key);
+
   final TextEditingController textController;
   final String placeholder;
   final String? Function(String?)? validate;
@@ -18,6 +21,8 @@ class Input extends StatelessWidget {
   final Function(String) onDataChanged;
   final Widget? icon;
   final bool obscureText;
+  final List<TextInputFormatter> inputFormatters;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -28,6 +33,7 @@ class Input extends StatelessWidget {
           fontFamily: 'Paytone One',
           fontWeight: FontWeight.w400,
         ),
+        inputFormatters: inputFormatters,
         keyboardType: keyboardType,
         onTapOutside: (event) => {FocusScope.of(context).unfocus()},
         controller: textController,
