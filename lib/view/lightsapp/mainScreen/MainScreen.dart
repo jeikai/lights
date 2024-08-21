@@ -122,7 +122,7 @@ class MainScreenBodyWrapperState extends State<_MainScreenBodyWrapper> {
           leading: IconButton(
             icon: CircleAvatar(
               backgroundImage:
-                  AssetImage('assets/images/ava/' + (Preferences.getAva())),
+                  AssetImage('assets/images/ava/' + (Preferences.getAva() == null ? Preferences.getAva() : 'ava1.jpg')),
             ),
             onPressed: () => {
               // widget.avaClick
