@@ -218,7 +218,9 @@ class _GeneratedLoginscreenWidgetState
                           "password": _password.text,
                         };
                         var response = await Api().postData("login", data);
-                        if (response?["message"]) {
+                        Navigator.pop(context);
+                        print(response);
+                        if (response != null && response["message"] == true) {
                           Preferences.setId(response?["user"]["_id"]);
                           print("setUN");
                           Preferences.setUsername(response?["user"]["name"]);
@@ -278,10 +280,9 @@ class _GeneratedLoginscreenWidgetState
       var response = await Api().postData("login", data);
       if (response?["message"]) {
         Future.wait(getSetupTask(response)).then((value) {
-          ToastNoti.show ("Đăng nhập thành công");
+          ToastNoti.show("Đăng nhập thành công");
           Navigator.pop(context);
-          Navigator.pushNamed(
-              context, '/GeneratedMainScreenWidget');
+          Navigator.pushNamed(context, '/GeneratedMainScreenWidget');
         }).timeout(Duration(seconds: 5), onTimeout: () {
           ToastNoti.show("Có lỗi");
           Navigator.pop(context);
@@ -304,16 +305,13 @@ class _GeneratedLoginscreenWidgetState
     print("setUN");
     var b = Preferences.setUsername(response?["user"]["name"]);
     print("setEmail");
-    var c = Preferences.setEmail(
-        response?["user"]["email"]);
+    var c = Preferences.setEmail(response?["user"]["email"]);
     print("setPN");
-    var d = Preferences.setPhoneNumber(
-        response?["user"]["phoneNumber"]);
+    var d = Preferences.setPhoneNumber(response?["user"]["phoneNumber"]);
     print("setDOB");
     var e = Preferences.setDOB(response?["user"]["DOB"]);
     print("setAddress");
-    var f = Preferences.setAddress(
-        response?["user"]["address"]);
+    var f = Preferences.setAddress(response?["user"]["address"]);
     print("setupUser");
     var g = Preferences.setAva(getRandomPicture());
     return [a, b, c, d, e, f, g];

@@ -119,6 +119,7 @@ class Api {
         List<dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse;
       } else {
+        print(response);
         print('Có lỗi xảy ra: ${response.statusCode}');
         return null;
       }
