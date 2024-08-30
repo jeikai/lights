@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutterapp/util/TutorialHighlighterWidget.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/blue_planet_navigate.dart';
 import 'package:flutterapp/view/lightsapp/mainScreen/red_planet_navigate.dart';
 
@@ -30,15 +31,33 @@ class MainScreenBody extends StatelessWidget {
         fit: StackFit.expand,
         children: [
           Positioned(
-            child: BluePlanetNavigate(
-              onClick: onClick2,
+            child: TutorialHighlighterWidget(
+              child: BluePlanetNavigate(
+                onClick: onClick2,
+              ),
+              showCondition: () => first,
+              positionX: 200,
+              positionY: 180,
+              height: 70,
+              width: 200,
+              tutorialKey: "blue_planet",
+              tutorialText: "Click here to see the blue planet",
             ),
             top: -50,
             right: -100,
           ),
           Positioned(
-            child: RedPlanetNavigate(
-              onClick: onClick1,
+            child: TutorialHighlighterWidget(
+              child: RedPlanetNavigate(
+                onClick: onClick1,
+              ),
+              showCondition: () => first,
+              positionX: 50,
+              positionY: 700,
+              height: 70,
+              width: 200,
+              tutorialKey: "red_planet",
+              tutorialText: "Click here to see the red planet",
             ),
             bottom: -30,
             left: -100,
@@ -54,3 +73,5 @@ class MainScreenBody extends StatelessWidget {
     );
   }
 }
+
+bool first = true;
