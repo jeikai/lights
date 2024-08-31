@@ -26,7 +26,7 @@ class CardChat extends StatelessWidget {
               child: DetailChat(
                 name: name,
                 id: id,
-                image: 'assets/images/ava/' + ava,
+                image: 'assets/images/ava/' + (ava == null ? ava : 'ava1.jpg'),
               ),
             ),
           ),
@@ -40,7 +40,7 @@ class CardChat extends StatelessWidget {
             shape: BoxShape.circle,
             image: DecorationImage(
               fit: BoxFit.cover,
-              image: AssetImage('assets/images/ava/' + ava),
+              image: AssetImage('assets/images/ava/' + (ava == null ? ava : 'ava1.jpg')),
             ),
           ),
         ),

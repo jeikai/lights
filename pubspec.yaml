@@ -1,7 +1,11 @@
 description: "A new Flutter application."
 name: "flutterapp"
 publish_to: "none"
+<<<<<<< HEAD
 version: "5.0.0+5"
+=======
+version: "3.0.0+3"
+>>>>>>> origin/home_tutorial
 dependencies:
   provider: ^6.0.5
   mobile_scanner: ^3.5.1
@@ -64,14 +68,71 @@ environment:
   sdk: ">3.0.0"
 flutter:
   assets:
-    - "assets/images/"
-    - "assets/rive/"
-    - "assets/config.yml"
-    - "assets/images/movie/"
-    - "assets/images/music/"
-    - "assets/images/game/"
-    - "assets/images/ava/"
-    - "fonts/DFVNBoris.otf"
+    - assets/images/
+    - assets/rive/
+    - assets/config.yml
+    - assets/images/movie/
+    - assets/images/music/
+    - assets/images/game/
+    - assets/images/ava/
+    - fonts/DFVNBoris.otf
+    - lib/util/
+    - lib/util/rive/
+    - lib/util/image/
+    - lib/util/process/
+    - lib/util/process/notification/
+    - lib/util/navigator/
+    - lib/
+    - lib/view/
+    - lib/view/lightsapp/
+    - lib/view/lightsapp/Ava/
+    - lib/view/lightsapp/Ava/component/
+    - lib/view/lightsapp/Form/
+    - lib/view/lightsapp/Game/
+    - lib/view/lightsapp/Scan/
+    - lib/view/lightsapp/movie/
+    - lib/view/lightsapp/Music/
+    - lib/view/lightsapp/Music/component/
+    - lib/view/lightsapp/story/
+    - lib/view/lightsapp/story/storyscreen1/
+    - lib/view/lightsapp/story/storyscreen1/generated/
+    - lib/view/lightsapp/chatbot/
+    - lib/view/lightsapp/calender/
+    - lib/view/lightsapp/cardMenu/
+    - lib/view/lightsapp/whaleMenu/
+    - lib/view/lightsapp/custommenu/
+    - lib/view/lightsapp/egg_screen/
+    - lib/view/lightsapp/egg_screen/generated/
+    - lib/view/lightsapp/mainScreen/
+    - lib/view/lightsapp/ChatMessage/
+    - lib/view/lightsapp/ChatMessage/component/
+    - lib/view/lightsapp/ChatMessage/component/Doctor/
+    - lib/view/lightsapp/ChatMessage/component/Friends/
+    - lib/view/lightsapp/loginscreen/
+    - lib/view/lightsapp/loginscreen/component/
+    - lib/view/lightsapp/logupScreen1/
+    - lib/view/lightsapp/logupScreen2/
+    - lib/view/lightsapp/favoriteScreen/
+    - lib/view/lightsapp/ForgetPasswordScreen1/
+    - lib/view/lightsapp/ForgetPasswordScreen2/
+    - lib/view/lightsapp/generatedhelloscreenwidget/
+    - lib/view/lightsapp/generatedhelloscreenwidget/generated/
+    - lib/model/
+    - lib/helpers/
+    - lib/helpers/svg/
+    - lib/helpers/mask/
+    - lib/helpers/image/
+    - lib/helpers/transform/
+    - lib/provider/
+    - lib/services/
+    - lib/reusable_widget/
+    - lib/reusable_widget/vux/
+    - lib/reusable_widget/vux/buttom/
+    - lib/reusable_widget/vux/listview/
+    - lib/reusable_widget/vux/listview/noti/
+    - lib/reusable_widget/vux/listview/dailytask/
+    - lib/reusable_widget/icons/
+    - lib/reusable_widget/Logo_Brand/
   fonts:
     - family: "Paytone One"
       fonts:
