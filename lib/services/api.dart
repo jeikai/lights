@@ -45,10 +45,11 @@ class Api {
     try {
       String jsonData = jsonEncode(data);
       Map<String, String> headers = {
-        'Content-Type': 'application/json',
+        'Content-Type': 'application/json; charset=UTF-8',
       };
       final http.Response response =
           await http.post(uri, headers: headers, body: jsonData);
+      print('Response body: ${response.body}');
       if (response.statusCode == 200 || response.statusCode == 201) {
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
         return jsonResponse;

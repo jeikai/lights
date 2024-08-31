@@ -219,7 +219,7 @@ class _GeneratedLoginscreenWidgetState
                         };
                         var response = await Api().postData("login", data);
                         Navigator.pop(context);
-                        print(response);
+                        print(response?["message"]);
                         if (response != null && response["message"] == true) {
                           Preferences.setId(response?["user"]["_id"]);
                           print("setUN");
